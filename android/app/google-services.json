@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1027002047166",
+    "project_id": "software-engineering-pro-e850e",
+    "storage_bucket": "software-engineering-pro-e850e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027002047166:android:5ba71e2ecd8505925a9cef",
+        "android_client_info": {
+          "package_name": "com.example.software_engineering_project_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtStlLwIR8r6vbfQNGG5EvmMYGIbYWmuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
