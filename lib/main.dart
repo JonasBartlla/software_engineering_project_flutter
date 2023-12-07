@@ -20,10 +20,14 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('CheckIT'),
           centerTitle: true,
+          backgroundColor: Colors.deepOrange[500]
         ),
         body: const Center(
           child: Text('Shababs botten'),
         )
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Text('+'),
       ),
     );
   }
