@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
               // Will shows on top of all items, it can be a logo or a Title text
               title: Image.asset('assets/todo.png'),
               // Will show on bottom of SideMenu when displayMode was SideMenuDisplayMode.open
-              footer: Text('demo'),
+              footer: const Text('demo'),
               // Notify when display mode changed
               onDisplayModeChanged: (mode) {
                 print(mode);
@@ -64,12 +64,12 @@ class Home extends StatelessWidget {
                 controller: pageController,
                 children: [
                   Container(
-                    child: Center(
+                    child: const Center(
                       child: Text('Dashboard'),
                     ),
                   ),
                   Container(
-                    child: Center(
+                    child: const Center(
                       child: Text('Settings'),
                     ),
                   ),
@@ -145,7 +145,7 @@ class Home extends StatelessWidget {
         // ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          child: Text('+'),
+          child: const Text('+'),
           backgroundColor: Colors.deepOrange[500],
       ),
     );
@@ -157,22 +157,22 @@ List<SideMenuItem> items = [
     title: 'Dashboard',
     onTap:(index, sideMenuController) {
     },
-    icon: Icon(Icons.home),
-    badgeContent: Text(
+    icon: const Icon(Icons.home),
+    badgeContent: const Text(
       '3',
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
     ),
   ),
   SideMenuItem(
     title: 'Settings',
     onTap: (index, sideMenuController) {
     },
-    icon: Icon(Icons.settings),
+    icon: const Icon(Icons.settings),
   ),
   SideMenuItem(
     title: 'Exit',
     onTap: (index, sideMenuController) {},
-    icon: Icon(Icons.exit_to_app),
+    icon: const Icon(Icons.exit_to_app),
   ),
 ];
 
