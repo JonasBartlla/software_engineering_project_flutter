@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
               // Page controller to manage a PageView
               controller: sideMenu,
               // Will shows on top of all items, it can be a logo or a Title text
-              title: Image.asset('assets/todo.png'),
+              title: Image.asset('assets/todo.jpg'),
               // Will show on bottom of SideMenu when displayMode was SideMenuDisplayMode.open
               footer: const Text('demo'),
               // Notify when display mode changed
@@ -160,7 +160,7 @@ List<SideMenuItem> items = [
     icon: const Icon(Icons.home),
     badgeContent: const Text(
       '3',
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.white),
     ),
   ),
   SideMenuItem(
