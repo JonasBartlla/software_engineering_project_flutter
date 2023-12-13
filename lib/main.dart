@@ -11,7 +11,15 @@ void main() async {
   ));
 }
 
-class DennisHome extends StatelessWidget {
+class DennisHome extends StatefulWidget {
+  @override
+  State<DennisHome> createState() => _DennisHomeState();
+}
+
+class _DennisHomeState extends State<DennisHome> {
+
+  int ninjaLevel = 0;
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -27,8 +35,16 @@ class DennisHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/ninja.jpg'),),
+            Center(
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/ninja.jpg'),
+                radius: 40.0,
+              ),
+            ),
+            Divider(
+              height: 60.0,
+              color: Colors.grey[800],
+            ),
             Text('Name',
               style: TextStyle(
                 color: Colors.grey,
@@ -52,7 +68,7 @@ class DennisHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.0),
-            Text('8',
+            Text('$ninjaLevel',
               style: TextStyle(
                 color: Colors.amberAccent[200],
                 letterSpacing: 2.0,
@@ -80,6 +96,17 @@ class DennisHome extends StatelessWidget {
           ]
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Colors.grey[800],
+        onPressed: () {
+          setState(() {
+            ninjaLevel += 1;
+          });
+        },
+      ),
     );
   }
 }
+
+
