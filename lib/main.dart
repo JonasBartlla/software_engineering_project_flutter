@@ -16,24 +16,10 @@ void main() async {
   ));
 }
 
-  PageController pageController = PageController();
-  SideMenuController sideMenu = SideMenuController();
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
-
-
-  // @override
-  // void initState() {
-  //   // Connect SideMenuController and PageController together
-  //   sideMenu.addListener((index) {
-  //     pageController.jumpToPage(index);
-  //   });
-  //   super.initState();
-  // }
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,136 +29,56 @@ class Home extends StatelessWidget {
           backgroundColor: Colors.deepOrange[500],
         ),
         body: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            SideMenu(
-              // Page controller to manage a PageView
-              controller: sideMenu,
-              // Will shows on top of all items, it can be a logo or a Title text
-              title: Image.asset('assets/todo.jpg'),
-              // Will show on bottom of SideMenu when displayMode was SideMenuDisplayMode.open
-              footer: const Text('demo'),
-              // Notify when display mode changed
-              onDisplayModeChanged: (mode) {
-                print(mode);
-              },
-              // List of SideMenuItem to show them on SideMenu
-              items: items,
-            ),
+            // Container(
+            //   height: 100,
+            //   child: Text("Here could be a side menu"),
+            // ),
             Expanded(
-              child: PageView(
-                controller: pageController,
-                children: [
+              flex: 1,
+              child: Column(   
+                mainAxisAlignment: MainAxisAlignment.start,   
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:<Widget>[
                   Container(
-                    child: const Center(
-                      child: Text('Dashboard'),
+                    color: Colors.green,
+                    width: 100,
+                    height: 100,
+                    child: Center(
+                      child: Text('first Entry',                      
+                      ),
                     ),
                   ),
-                  Container(
-                    child: const Center(
-                      child: Text('Settings'),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.yellow,
+                      child: Text('second Entry',
+                      ),
                     ),
                   ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.red,
+                      child: Text('third Entry',
+                      ),
+                    ),
+                  )
                 ],
               ),
-            ),
-            const Text('Welcome to the homepage',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepOrange,
-                fontFamily: 'RubikBubbles',
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                log('Yes sir');
-              },
-              icon: const Icon(Icons.plus_one),
-              label: const Text('Add a new list'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
-                      return Colors.amber;
-                    }else if (states.contains(MaterialState.hovered)){
-                      return Colors.cyan;
-                    }
-                    return null; // Use the component's default.
-                  },
-                ),
-              ),
-            ),
-            const Image(
-            image: AssetImage('assets/todo.jpg'),
-            fit: BoxFit.fill,
-            ),
+            )
           ],
         ),
-        
-        
-        //Center(
-          // child: Text('Welcome to the homepage',
-          //   style: TextStyle(
-          //     fontSize: 20.0,
-          //     fontWeight: FontWeight.bold,
-          //     color: Colors.deepOrange,
-          //     fontFamily: 'RubikBubbles',
-          //   ),
-          // child: Image(
-          //   image: AssetImage('assets/todo.jpg'),
-          //   fit: BoxFit.fill,
-          // ),
-          // child: ElevatedButton.icon(
-        //     onPressed: () {
-        //       log('Yes sir');
-        //     },
-        //     icon: const Icon(Icons.plus_one),
-        //     label: const Text('Add a new list'),
-        //     style: ButtonStyle(
-        //       backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-        //         (Set<MaterialState> states) {
-        //           if (states.contains(MaterialState.pressed)) {
-        //             return Colors.amber;
-        //           }else if (states.contains(MaterialState.hovered)){
-        //             return Colors.cyan;
-        //           }
-        //           return null; // Use the component's default.
-        //         },
-        //       ),
-        //     ),
-        //   ),
-        // ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: const Text('+'),
           backgroundColor: Colors.deepOrange[500],
-      ),
+        )
     );
   }
 }
 
-List<SideMenuItem> items = [
-  SideMenuItem(
-    title: 'Dashboard',
-    onTap:(index, sideMenuController) {
-    },
-    icon: const Icon(Icons.home),
-    badgeContent: const Text(
-      '3',
-      style: TextStyle(color: Colors.white),
-    ),
-  ),
-  SideMenuItem(
-    title: 'Settings',
-    onTap: (index, sideMenuController) {
-    },
-    icon: const Icon(Icons.settings),
-  ),
-  SideMenuItem(
-    title: 'Exit',
-    onTap: (index, sideMenuController) {},
-    icon: const Icon(Icons.exit_to_app),
-  ),
-];
 
