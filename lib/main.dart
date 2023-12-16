@@ -3,9 +3,10 @@ import 'dart:html';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:software_engineering_project_flutter/Task.dart';
-import 'package:software_engineering_project_flutter/firebase_options.dart';
 
+import 'package:software_engineering_project_flutter/firebase_options.dart';
+import 'task.dart';
+import 'newTask.dart';
 
 
 
@@ -52,7 +53,13 @@ class _HomeState extends State<Home> {
         ),
         body: Column(
           children: tasks.map((task) {
-              return NewTask(task);
+              return NewTask(task,
+                (){
+                  setState(() {
+                    tasks.remove(task);
+                  });
+                }
+              );
               // return Container(
               //   height: task.height,
               //   decoration: BoxDecoration(
@@ -68,40 +75,6 @@ class _HomeState extends State<Home> {
               // );
             }).toList(),
         ),
-    );
-  }
-}
-
-class NewTask extends StatelessWidget {
-
-  final Task task;
-  // ignore: use_key_in_widget_constructors
-  NewTask(this.task){
-    
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-      child: Column(
-        children: <Widget>[
-          Text(task.name,
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.grey,
-
-            ),
-          ),
-          SizedBox(height: 6.0,),
-          Text(task.name,
-            style: TextStyle(
-              fontSize: 14.0,
-              color: Colors.blue
-            ),
-          )
-        ]
-      ),
     );
   }
 }
