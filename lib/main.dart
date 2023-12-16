@@ -4,7 +4,7 @@ import 'dart:html';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
-import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'task.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -17,66 +17,50 @@ void main() async {
 }
 
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  List<Task> tasks = [
+    Task('Washing', Color.fromARGB(255, 255, 0, 0), 50.0),
+    Task('Going for a Walk', Color.fromARGB(255, 0, 255, 0), 60.0),
+    Task('Sheesh', Color.fromARGB(255, 204, 255, 18), 70.0)
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('CheckIT'),
-          centerTitle: true,
-          backgroundColor: Colors.deepOrange[500],
+          backgroundColor: Colors.green,
+          title: Text('CheckIT',
+            style: TextStyle(
+              color: Colors.white
+            ),
+          ),
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            // Container(
-            //   height: 100,
-            //   child: Text("Here could be a side menu"),
-            // ),
-            Expanded(
-              flex: 1,
-              child: Column(   
-                mainAxisAlignment: MainAxisAlignment.start,   
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:<Widget>[
-                  Container(
-                    color: Colors.green,
-                    width: 100,
-                    height: 100,
-                    child: Center(
-                      child: Text('first Entry',                      
-                      ),
-                    ),
+        body: Column(
+          children: tasks.map((task) {
+              return Container(
+                height: task.height,
+                decoration: BoxDecoration(
+                  color: task.color,
+                  border: Border(
+                    bottom: BorderSide(
+                      style: BorderStyle.solid
+                    )
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.yellow,
-                      child: Text('second Entry',
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.red,
-                      child: Text('third Entry',
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                ),
+                child: Center(
+                  child: Text(task.name,) ),
+              );
+            }).toList(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Text('+'),
-          backgroundColor: Colors.deepOrange[500],
-        )
     );
   }
 }
