@@ -6,6 +6,7 @@ class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  
   //create user obj based on firebaseUSer
 
   CustomUser _userFromFirebaseUser(UserCredential userCredential){
@@ -40,16 +41,29 @@ class AuthService{
      return null;
   }
 
+  Stream<User?> get user {
+    return _auth.authStateChanges();
+  
+  }
+
   //annonyme Anmeldung
   Future signInAnonym() async {
     try{
-      UserCredential user  = await _auth.signInAnonymously();
-      return _userFromFirebaseUser(user);
+      UserCredential userCredential  = await _auth.signInAnonymously();
+      return userCredential.user;
     } catch(e){
       print(e.toString());
       return null;
     }
   }
 
-
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+  
 }
