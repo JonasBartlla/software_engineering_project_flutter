@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/services/auth.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key,this.toggleView});
+class Register extends StatefulWidget {
+  const Register({super.key,this.toggleView});
 
   final Function? toggleView;
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
 
-  final AuthService _auth = AuthService();
+  AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+
   // text field state
 
   String email = '';
   String password = '';
   String error = '';
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  return Scaffold(
       backgroundColor: Colors.brown,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 83, 51, 40),
         elevation: 0.0,
-        title: Text('Sign in'),
+        title: Text('Sign up'),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
-          key: _formKey,
+          key: _formKey, //Assoziation des GlobalKeys mit der Form um Validierungen auf die Form anwenden zu können
           child: Column(
             children: <Widget>[
               SizedBox(height: 20.0),
@@ -68,15 +70,16 @@ class _SignInState extends State<SignIn> {
               TextButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()){ //Checks if all Validations are passed, falls überall null zurück geliefert wird wird true returnt => ist valid
-                    dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if (result == null){
                       setState(() {
-                        error = 'YOU SHALL NOT PASS';
+                        error = 'please supply a valid email';
                       });
                     }
                   }
+
                 },
-                child: Text('Sign in',
+                child: Text('Sign up',
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -88,7 +91,7 @@ class _SignInState extends State<SignIn> {
                   //Navigator.pushReplacementNamed(context, routeName)
                 }, 
                 icon: Icon(Icons.person), 
-                label: Text('Sign Up')
+                label: Text('Sign In')
               ),
               SizedBox(height: 12.0),
               Text(error,

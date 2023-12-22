@@ -19,28 +19,7 @@ class AuthService{
     }
   }
 
-  // Methode zum Anlegen eines neuen Benutzer mit Email und Passwort
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async{
-     try{
-      UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      return credential.user;
-     } catch (e){
-      print('Some error occured');
-     }
-     return null;
-  }
-
-  // Methode zum Anmelden eines Benutzers durch EIngabe der EMail und des Passworts
-  Future<User?> signImWithEmailAndPassword(String email, String password) async{
-     try{
-      UserCredential credential = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return credential.user;
-     } catch (e){
-      print('Some error occured');
-     }
-     return null;
-  }
-
+  // liefert einen Stream um über die Veränderung des Authentifizierungsstatuses zu informieren
   Stream<User?> get user {
     return _auth.authStateChanges();
   
@@ -57,6 +36,32 @@ class AuthService{
     }
   }
 
+
+  // register with email & password
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try{
+      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //Sign in with email and password
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try{
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  // Methode zum ausloggen
   Future signOut() async {
     try{
       return await _auth.signOut();
