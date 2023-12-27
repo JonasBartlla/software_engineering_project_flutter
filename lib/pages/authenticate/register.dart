@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/services/auth.dart';
+import 'package:software_engineering_project_flutter/shared/constants.dart';
+import 'package:software_engineering_project_flutter/shared/loading.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key,this.toggleView});
@@ -14,7 +16,7 @@ class _RegisterState extends State<Register> {
 
   AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-
+  bool loading = false;
   // text field state
 
   String email = '';
@@ -24,7 +26,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
+  return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 83, 51, 40),
@@ -39,6 +41,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) {
                   if (val!.isEmpty){ // return null if valid
                     return "Enter an email";
@@ -54,6 +57,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: (val) {
                   if (val!.length < 6){
                     return "Geben sie ein passwort mit mindestens 6 Zeichen an";
@@ -70,10 +74,14 @@ class _RegisterState extends State<Register> {
               TextButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()){ //Checks if all Validations are passed, falls überall null zurück geliefert wird wird true returnt => ist valid
+                    setState(() {
+                      loading = true;
+                    });
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if (result == null){
                       setState(() {
                         error = 'please supply a valid email';
+                        loading = false;
                       });
                     }
                   }
