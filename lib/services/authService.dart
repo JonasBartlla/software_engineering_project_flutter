@@ -27,18 +27,6 @@ class AuthService{
   
   }
 
-  //annonyme Anmeldung
-  Future signInAnonym() async {
-    try{
-      UserCredential userCredential  = await _auth.signInAnonymously();
-      return userCredential.user;
-    } catch(e){
-      print(e.toString());
-      return null;
-    }
-  }
-
-
   // register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
     try{
