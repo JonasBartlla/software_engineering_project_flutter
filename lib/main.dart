@@ -9,10 +9,10 @@ import 'package:software_engineering_project_flutter/pages/toDo/create_todo.dart
 import 'package:software_engineering_project_flutter/pages/toDo/home.dart';
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp(
-   // options: DefaultFirebaseOptions.currentPlatform,
-  //);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MaterialApp(
     initialRoute: '/home',
     routes: {

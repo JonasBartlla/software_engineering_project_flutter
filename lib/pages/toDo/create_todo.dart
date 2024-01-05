@@ -1,4 +1,4 @@
-import 'package:firebase_core_web/firebase_core_web_interop.dart';
+//import 'package:firebase_core_web/firebase_core_web_interop.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/buttonstyle.dart';
 import 'package:software_engineering_project_flutter/shared/textinputdecoration.dart';
@@ -41,18 +41,22 @@ class _CreateToDoState extends State<CreateToDo> {
 
   @override
   Widget build(BuildContext context) {
-    
-  
-    
-
-    return Material(
-      color: Colors.grey[850],
-      child: Form(
+      return Scaffold(
+      backgroundColor: Colors.grey[850],
+      appBar: AppBar(
+        title: const Text(
+          'To-Do erstellen',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+      ),
+      body: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            const Text('To-Do erstellen'),
-            const SizedBox(height: 20,),
+            SizedBox(height: 20,),
             //Bezeichnung eingeben
             TextFormField(
               initialValue: "",
@@ -149,7 +153,7 @@ class _CreateToDoState extends State<CreateToDo> {
               style: buttonStyleDecoration,
               child: const Text('Erstellen'),
               onPressed: (){
-                Navigator.pushNamed(context, '/home');
+                Navigator.pop(context);
               },
             ),
           ],
