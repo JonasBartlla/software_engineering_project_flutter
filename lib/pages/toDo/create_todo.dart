@@ -1,3 +1,4 @@
+import 'package:firebase_core_web/firebase_core_web_interop.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/buttonstyle.dart';
 import 'package:software_engineering_project_flutter/shared/textinputdecoration.dart';
@@ -40,8 +41,12 @@ class _CreateToDoState extends State<CreateToDo> {
 
   @override
   Widget build(BuildContext context) {
+    
+  
+    
+
     return Material(
-      color: Colors.grey[800],
+      color: Colors.grey[850],
       child: Form(
         key: _formKey,
         child: Column(
@@ -139,10 +144,13 @@ class _CreateToDoState extends State<CreateToDo> {
               ],
             ),
             const SizedBox(height: 20,),
+            //Erstellen Button
             ElevatedButton(
               style: buttonStyleDecoration,
               child: const Text('Erstellen'),
-              onPressed: (){},
+              onPressed: (){
+                Navigator.pushNamed(context, '/home');
+              },
             ),
           ],
         ),

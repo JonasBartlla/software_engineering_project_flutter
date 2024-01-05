@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/textfields.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/register.dart';
+import 'package:software_engineering_project_flutter/pages/authentification/authenticate.dart';
 
 
-class SignIn extends StatelessWidget {
-  SignIn({super.key});
+class SignIn extends StatefulWidget {
+  
+  final Function toggleView;
+  const SignIn({super.key, required this.toggleView});
 
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   //controller
   final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
 
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +133,7 @@ class SignIn extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context)=> Registration()));
+                    widget.toggleView();
                     },
                   child: const Text(
                     'Hier registrieren',
