@@ -4,11 +4,13 @@ import 'package:software_engineering_project_flutter/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/sign_in.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/register.dart';
+import 'package:software_engineering_project_flutter/pages/toDo/create_todo.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/signIn',
+  initialRoute: '/createTodo',
   routes: {
     '/signIn': (context) =>  SignIn(),
     '/registration': (context) => Registration(),
+    '/createTodo': (context) => CreateToDo(),
   },
 ));
