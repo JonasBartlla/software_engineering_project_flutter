@@ -34,7 +34,6 @@ class _SignInState extends State<SignIn> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-
             child: Form(
               key: _formKey,
               child: Column(
