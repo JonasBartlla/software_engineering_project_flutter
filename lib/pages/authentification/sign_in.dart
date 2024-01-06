@@ -135,7 +135,8 @@ class _SignInState extends State<SignIn> {
                       },
                       obscureText: true,
                     ),
-                  ),                
+                  ), 
+                  SizedBox(height: 15.0),               
                   //log in Button
                   TextButton(
                     onPressed: () async {
@@ -173,60 +174,52 @@ class _SignInState extends State<SignIn> {
                         fontSize: 15,
                       ),
                     ),
-                  ),
+                ),
 
-                  // TextButton.icon(
-                  //   onPressed: (){
-                  //     widget.toggleView!();
-                  //     //Navigator.pushReplacementNamed(context, routeName)
-                  //   }, 
-                  //   icon: Icon(Icons.person), 
-                  //   label: Text('Sign Up')
-                  // )
-
-
-
-
-
-              
-                  const SizedBox(height: 15),
-              
-                  // //Registrierung
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children:[
-                  // const Text(
-                  //   'Du hast noch keinen Account?',
-                  //   style: TextStyle(
-                  //     color: Colors.white,
-                  //     ),
-                  // ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context)=> Registration()));
-                  //     },
-                  //   child: const Text(
-                  //     'Hier registrieren',
-                  //     style: TextStyle(
-                  //     color: Colors.green,
-                  //     fontWeight: FontWeight.bold,
-                  //     decoration: TextDecoration.underline,
-                  //   ),
-                  //   ))]
-                  // ),
-              
-                    const SizedBox(height: 7),
-              
-                    //Passwort vergessen
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                    'Passwort vergessen?',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                      ],
+            
+                //Registrierung
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    const Text(
+                      'Du hast noch keinen Account?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        ),
                     ),
+                    TextButton(
+                      onPressed: () {
+                        widget.toggleView!();
+                      },
+                      child: const Text(
+                        'Hier registrieren',
+                        style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        ),
+                      )
+                    )
+                  ]
+                ),
+                const SizedBox(height: 7),           
+                //Passwort vergessen
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Passwort vergessen?',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Text(error,
+                  style: TextStyle(
+                    color: Colors.red, 
+                    fontSize: 14.0,
+                  ),
+                ),
                 ],
               ),
           ),
