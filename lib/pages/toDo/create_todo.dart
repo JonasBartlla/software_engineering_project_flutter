@@ -22,6 +22,7 @@ class CreateTodo extends StatelessWidget {
             icon: Icon(
               Icons.person_2_outlined,
               color: Colors.grey[700],
+              size: 35.0,
             ),
           ),
         backgroundColor: Colors.green[400],
@@ -66,7 +67,7 @@ class CreateTodo extends StatelessWidget {
     children: <Widget>[
 
       //Icon in der Ecke
-      const Icon(Icons.add, color: Colors.white,),
+      const Icon(Icons.add, color: Colors.white, size: 30.0,),
       const SizedBox(height: 10),
 
       //Description Textfield
