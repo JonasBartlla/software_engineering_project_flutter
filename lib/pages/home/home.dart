@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:software_engineering_project_flutter/models/task.dart';
+import 'package:software_engineering_project_flutter/models/appUser.dart';
 import 'package:software_engineering_project_flutter/pages/home/user_list.dart';
 import 'package:software_engineering_project_flutter/services/auth.dart';
 import 'package:software_engineering_project_flutter/services/database.dart';
@@ -14,7 +14,7 @@ final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context){
-    return StreamProvider<List<Task>?>.value(
+    return StreamProvider<List<appUser>?>.value(
       value: DatabaseService().users, 
       initialData: null,
       child: Scaffold(
@@ -37,6 +37,16 @@ final AuthService _auth = AuthService();
                 onPressed: () async {
                   await _auth.signOut(); //sorgt dafür dass der Stream den Wert null liefert, somit wird wieder die HomePage angezeigt
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: TextButton(
+                onPressed: (){}, 
+                child: Icon(Icons.add,
+                  color: Colors.black,
+                )
+                   
               ),
             )
           ],

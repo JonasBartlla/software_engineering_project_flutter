@@ -1,5 +1,6 @@
 import "package:cloud_firestore/cloud_firestore.dart";
-import "package:software_engineering_project_flutter/models/task.dart";
+import "package:firebase_auth/firebase_auth.dart";
+import 'package:software_engineering_project_flutter/models/appUser.dart';
 
 class DatabaseService{
   //collection reference
@@ -7,32 +8,43 @@ class DatabaseService{
   final String? uid;
   DatabaseService({this.uid});
 
-  final CollectionReference checkCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference listCollection =  FirebaseFirestore.instance.collection('lists');
+  final CollectionReference taskCollection =  FirebaseFirestore.instance.collection('lists');
 
 
-  Future updateUserDate(String name, String hobby, int age) async {
-    return await checkCollection.doc(uid).set(
+  Future updateUserDate(String displayName, String? email) async {
+    return await userCollection.doc(uid).set(
       {
-        'name': name,
-        'hobby': hobby,
-        'age': age,
+        'displayName': displayName,
+        'email': email,
       }
     );
   }
 
-  // task list from Snapshot
-  List<Task> _taskListFromSnapshot(QuerySnapshot snapshot){
+  // task appUser from Snapshot
+  List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
-      return Task(
-        name: doc.get('name') ?? '' , // if value is null return empty string
-        hobby: doc.get('hobby') ?? '', 
-        age: doc.get('age') ?? 0);
+      return appUser(
+        displayName: doc.get('displayName') ?? '' , // if value is null return empty string
+        email: doc.get('email') ?? '', 
+      );
     }).toList();
   }
 
+  //add Task 
+  Future createNewTask(String bezeichnung, String notiz, String zugehoerigeListe, String prioritaet, String wiederholung, DateTime faelligkeitsdatum) {
+    return taskCollection.add(
+      {
+        'bezeichnung'[0] = bezeichnung,
+      }
+    );
+  }
+
+
   // get user Stream
-  Stream<List<Task>> get users {
-    return checkCollection.snapshots().map(_taskListFromSnapshot);
+  Stream<List<appUser>> get users {
+    return userCollection.snapshots().map(_taskListFromSnapshot);
   }
 
 

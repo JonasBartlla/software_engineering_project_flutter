@@ -1,9 +1,12 @@
 class Task{
-  final String? name;
-  final String? hobby;
-  final int? age;
 
-  Task({this.name, this.hobby,this.age});
+  String bezeichnung;
+  String? notiz;
+  String? zugehoerigeListe;
+  String prioritaet;
+  String? wiederholung;
+  DateTime faelligkeitsdatum;
 
-  
+  Task({required this.bezeichnung, this.notiz, this.zugehoerigeListe, required this.prioritaet, this.wiederholung, required this.faelligkeitsdatum});
+
 }
