@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
-const buttonStyleDecoration = ButtonStyle(
-  backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(101, 167, 101, 1)),
-  enableFeedback: true
+var buttonStyleDecoration = ButtonStyle(
+  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+    (Set<MaterialState> states) {
+    if(states.contains(MaterialState.pressed)){
+      return Colors.grey;
+    } else{
+      return const Color.fromRGBO(101, 167, 101, 1);
+    }
+  }),
+  enableFeedback: false,
+  
 );
