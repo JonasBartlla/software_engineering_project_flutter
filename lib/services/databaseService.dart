@@ -7,15 +7,15 @@ class DatabaseService{
   final String? uid;
   DatabaseService({this.uid});
 
-  final CollectionReference checkCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference listCollection =  FirebaseFirestore.instance.collection('lists');
+  final CollectionReference taskCollection =  FirebaseFirestore.instance.collection('tasks');
 
-
-  Future updateUserDate(String name, String hobby, int age) async {
-    return await checkCollection.doc(uid).set(
+  Future updateUserDate(String displayName, String? email) async {
+    return await userCollection.doc(uid).set(
       {
-        'name': name,
-        'hobby': hobby,
-        'age': age,
+        'displayName': displayName,
+        'email': email,
       }
     );
   }

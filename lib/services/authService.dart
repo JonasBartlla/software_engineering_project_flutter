@@ -34,7 +34,7 @@ class AuthService{
       User? user = result.user;
 
       //create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserDate('new User', 'sport', 40);
+      await DatabaseService(uid: user!.uid).updateUserDate(user.uid, user.email);
       print('created record');
       
       return user;
