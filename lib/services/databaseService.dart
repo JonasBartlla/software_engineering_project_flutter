@@ -32,7 +32,7 @@ class DatabaseService{
 
   // get user Stream
   Stream<List<appUser>> get users {
-    return checkCollection.snapshots().map(_taskListFromSnapshot);
+    return userCollection.snapshots().map(_taskListFromSnapshot);
   }
 
 
