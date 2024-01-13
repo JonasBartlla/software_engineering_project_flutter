@@ -35,51 +35,28 @@ class DatabaseService{
     }).toList();
   }
 
-  //add Task 
-  // Future addTask(String bezeichnung, String notiz, String kategorie, DateTime selectedDate, TimeOfDay uhrzeit, String priority, String listId) async {
-  //   return await userCollection.doc(uid).collection('lists').doc(listId).collection("");
-
-
-
-  //   // FirebaseAuth auth = FirebaseAuth.instance;
-  //   // final User? user = await auth.currentUser;
-  //   // String uid = user!.uid;
-  //   // //var time = DateTime.now();
-  //   // await FirebaseFirestore.instance.collection('tasks')
-  //   // .doc(uid)
-  //   // //.collection('mytasks')
-  //   // //.doc(time.toString())
-  //   // .set({
-  //   //   'bezeichnung': bezeichnung,
-  //   //   'notiz': notiz,
-  //   //   'kategorie': kategorie,
-  //   //   'datum': selectedDate.toString(),
-  //   //   'uhrzeit': uhrzeit.toString(),
-  //   //   'priorität': priority
-  //   //   });
-  // }
-
   //add List
-  Future addList(String bezeichnung, IconData icon, List<String> lists) async {
+  Future addList(String bezeichnung, IconData icon) async {
     return await userCollection.doc(uid).collection('lists').add({
       'bezeichnung': bezeichnung,
-      'multipleLists': lists,
-      'icon': icon.codePoint
+      'icon': icon.codePoint,
+      'taskCounter': 0
     });
      //IconData(iconCodePointFromDataBase, fontFamily: 'MaterialIcons')
-    // return await taskCollection.add({
-    //   'bezeichnung': bezeichnung,
-    //   'fk_user': uid 
-    // });
-
   }
 
   
 
   //add Task
-  // Future addTask(String bezeichnung, String notiz, String kategorie, DateTime selectedDate, TimeOfDay uhrzeit, String priority, String listId) async {
-  //   return await 
-  // }
+  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, String listId) async {
+    return await userCollection.doc(uid).collection('lists').doc(listId).collection('tasks').add({
+      'bezeichnung': bezeichnung,
+      'notiz': notiz,
+      'datum': selectedDate.toString(),
+      'uhrzeit': uhrzeit.toString(),
+      'priorität': priority
+    }); 
+   }
 
   // get user Stream
   // Stream<List<appUser>> get users {

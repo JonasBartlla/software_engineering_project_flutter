@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:software_engineering_project_flutter/services/database.dart';
 import 'package:software_engineering_project_flutter/shared/functions.dart';
+import 'package:provider/provider.dart';
 
 class CreateToDo extends StatefulWidget {
   const CreateToDo({super.key});
@@ -16,6 +17,8 @@ class CreateToDo extends StatefulWidget {
 
 class _CreateToDoState extends State<CreateToDo> {
 
+
+  
   final _formKey = GlobalKey<FormState>();
 
   String bezeichnung = '';
@@ -26,10 +29,14 @@ class _CreateToDoState extends State<CreateToDo> {
   TimeOfDay uhrzeit = TimeOfDay.now();
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   
-  String _currentPriority = '';
+  String prioritaet = '';
 
   @override
   Widget build(BuildContext context) {
+
+      final User? user = Provider.of<User?>(context);
+      final DatabaseService _database = DatabaseService(uid: user?.uid);
+
       return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
@@ -96,7 +103,7 @@ class _CreateToDoState extends State<CreateToDo> {
                   );
                 }).toList(),
                 onChanged: (value) => setState(() {
-                  _currentPriority = value!;
+                  prioritaet = value!;
                 }),
               ),
               const SizedBox(height: 20,),
@@ -118,8 +125,9 @@ class _CreateToDoState extends State<CreateToDo> {
                   ElevatedButton(
                     style: buttonStyleDecoration,
                     onPressed: () async {
-                      setState(() async {
-                        selectedDate = await selectDate(context, selectedDate);
+                      DateTime? picked = await selectDate(context, selectedDate);
+                      setState(() {
+                        selectedDate = picked;
                       });
                     }, 
                     child: Text(DateFormat('dd.MM.yyyy').format(selectedDate!)),
@@ -161,7 +169,7 @@ class _CreateToDoState extends State<CreateToDo> {
                 style: buttonStyleDecoration,
                 child: const Text('Erstellen'),
                 onPressed: (){
-                  addTask(bezeichnung, notiz, kategorie, selectedDate, uhrzeit,_currentPriority,);
+                  _database.addTask(bezeichnung, notiz, selectedDate!, uhrzeit, prioritaet, kategorie);
                   Navigator.pop(context);
                 },
               ),

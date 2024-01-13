@@ -6,6 +6,7 @@ import 'package:software_engineering_project_flutter/pages/home/user_list.dart';
 import 'package:software_engineering_project_flutter/services/auth.dart';
 import 'package:software_engineering_project_flutter/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 
 class Home extends StatelessWidget{
@@ -45,21 +46,32 @@ final AuthService _auth = AuthService();
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: TextButton(
-                onPressed: (){
-                  _database.addList("test List", Icons.abc);
-                }, 
-                child: Icon(Icons.add,
-                  color: Colors.black,
-                )
-                   
-              ),
+            TextButton(
+              style: buttonStyleDecoration,
+              onPressed: (){
+                //_database.addList("test List neu", Icons.abc);
+                DateTime date = DateTime.now();
+                TimeOfDay time = TimeOfDay.now();
+                _database.addTask("Test Task", "Kacken gehen", date,  time, 'Mittel', 'Haushalt');
+                print('pressed');
+              }, 
+              child: Icon(Icons.add,
+                color: Colors.black,
+              )
+                 
             )
           ],
         ),
-        body: UserList(),
+        body: Column(
+          children: [
+            TextButton(
+              onPressed: () async {
+                await Navigator.pushNamed(context, '/create');
+              },
+              child: Text('Erstellen'),
+            ),
+          ],
+        ),
       );
   }
 
