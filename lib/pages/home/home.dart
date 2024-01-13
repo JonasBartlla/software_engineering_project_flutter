@@ -12,12 +12,18 @@ class Home extends StatelessWidget{
 
 final AuthService _auth = AuthService();
 
+
+
   @override
   Widget build(BuildContext context){
-    return StreamProvider<List<appUser>?>.value(
-      value: DatabaseService().users, 
-      initialData: null,
-      child: Scaffold(
+
+    final User? user = Provider.of<User?>(context);
+    final DatabaseService _database = DatabaseService(uid: user?.uid);
+    // return StreamProvider<List<appUser>?>.value(
+    //   value: DatabaseService().users, 
+    //   initialData: null,
+      // child: 
+      return Scaffold(
         backgroundColor: Colors.green,
         appBar: AppBar(
           title: Text('Check IT'),
@@ -42,7 +48,9 @@ final AuthService _auth = AuthService();
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: TextButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  _database.addList("test List", Icons.abc);
+                }, 
                 child: Icon(Icons.add,
                   color: Colors.black,
                 )
@@ -52,8 +60,7 @@ final AuthService _auth = AuthService();
           ],
         ),
         body: UserList(),
-      ),
-    );
+      );
   }
 
 }
