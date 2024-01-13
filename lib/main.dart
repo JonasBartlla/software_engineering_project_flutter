@@ -14,7 +14,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MaterialApp(
-    initialRoute: '/home',
+    initialRoute: '/createTodo',
     routes: {
       //'/signIn': (context) =>  SignIn(),
       //'/registration': (context) => Registration(),

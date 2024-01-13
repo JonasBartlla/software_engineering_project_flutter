@@ -65,7 +65,7 @@ class _CreateToDoState extends State<CreateToDo> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
-      backgroundColor: Colors.grey[850],
+      backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
         title: const Text(
           'To-Do erstellen',
@@ -84,6 +84,9 @@ class _CreateToDoState extends State<CreateToDo> {
               SizedBox(height: 20,),
               //Bezeichnung eingeben
               TextFormField(
+                style: const TextStyle(
+                  color: Colors.white
+                ),
                 initialValue: "",
                 decoration: textInputDecoration.copyWith(hintText: 'Bezeichnung'),
                 onChanged: (value) => setState(() {
@@ -95,10 +98,15 @@ class _CreateToDoState extends State<CreateToDo> {
               DropdownButtonFormField<String>(
                 decoration: textInputDecoration.copyWith(hintText: 'Kategorie'),
                 value: 'Haushalt',
+                icon: Icon(Icons.arrow_drop_down_rounded, size: 30,),
+                dropdownColor: Color.fromRGBO(63, 63, 63, 1),
                 items: categories.map((category){
                   return DropdownMenuItem(
                     value: category,
-                    child: Text(category),
+                    child: Text(category,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),),
                   );
                 }).toList(),
                 onChanged: (value) => setState(() {
@@ -109,11 +117,16 @@ class _CreateToDoState extends State<CreateToDo> {
               //dropdown Priorität
               DropdownButtonFormField<String>(
                 decoration: textInputDecoration.copyWith(hintText: 'Priorität'),
+                dropdownColor: Color.fromRGBO(63, 63, 63, 1),
+                icon: Icon(Icons.arrow_drop_down_rounded, size: 30,),
                 value: 'Mittel',
                 items: priorities.map((priority){
                   return DropdownMenuItem(
                     value: priority,
-                    child: Text(priority),
+                    child: Text(priority,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),),
                   );
                 }).toList(),
                 onChanged: (value) => setState(() {
