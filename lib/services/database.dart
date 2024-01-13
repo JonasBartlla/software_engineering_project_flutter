@@ -49,6 +49,12 @@ class DatabaseService{
 
   //add Task
   Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, String listId) async {
+    print(bezeichnung);
+    print(notiz);
+    print(selectedDate);
+    print(uhrzeit);
+    print(priority);
+    print(listId);
     return await userCollection.doc(uid).collection('lists').doc(listId).collection('tasks').add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,

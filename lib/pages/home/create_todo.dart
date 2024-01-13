@@ -169,7 +169,7 @@ class _CreateToDoState extends State<CreateToDo> {
                 style: buttonStyleDecoration,
                 child: const Text('Erstellen'),
                 onPressed: (){
-                  _database.addTask(bezeichnung, notiz, selectedDate!, uhrzeit, prioritaet, kategorie);
+                  _database.addTask(bezeichnung, notiz, selectedDate!, uhrzeit, prioritaet, "kategorie");
                   Navigator.pop(context);
                 },
               ),
