@@ -5,7 +5,7 @@ import 'package:software_engineering_project_flutter/models/appUser.dart';
 
 class DatabaseService{
   //collection reference
-
+  
   final String? uid;
   DatabaseService({this.uid});
 
@@ -25,6 +25,11 @@ class DatabaseService{
     );
   }
 
+
+  // Future testListReferences() async {
+  //   return await addList(bezeichnung, icon)
+  // }
+
   // task appUser from Snapshot
   List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
@@ -37,10 +42,13 @@ class DatabaseService{
 
   //add List
   Future addList(String bezeichnung, IconData icon) async {
+    List<DocumentReference> taskList = [userCollection.doc(uid).collection('lists').doc('kategorie').collection('tasks').doc('XLf5hhX023CxDYsSOEdu'),userCollection.doc(uid).collection('lists').doc('kategorie').collection('tasks').doc('sLt8vpdfDMkHmVfKA6L3')];
+
     return await userCollection.doc(uid).collection('lists').add({
       'bezeichnung': bezeichnung,
       'icon': icon.codePoint,
-      'taskCounter': 0
+      'taskCounter': taskList.length,
+      'taskRefrences': taskList
     });
      //IconData(iconCodePointFromDataBase, fontFamily: 'MaterialIcons')
   }
@@ -58,7 +66,7 @@ class DatabaseService{
     return await userCollection.doc(uid).collection('lists').doc(listId).collection('tasks').add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
-      'datum': selectedDate.toString(),
+      'wiedervorlagedatum': Timestamp.fromDate(selectedDate),
       'uhrzeit': uhrzeit.toString(),
       'priorität': priority
     }); 
@@ -69,5 +77,7 @@ class DatabaseService{
   //   return userCollection.snapshots().map(_taskListFromSnapshot);
   // }
 
-
+  void test(){
+    print(Timestamp.fromDate(DateTime.now()));
+  }
 }
