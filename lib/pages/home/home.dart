@@ -49,10 +49,11 @@ final AuthService _auth = AuthService();
             TextButton(
               style: buttonStyleDecoration,
               onPressed: (){
-                //_database.addList("test List neu", Icons.abc);
+                _database.test();
+                // _database.addList("test List neu", Icons.abc);
                 DateTime date = DateTime.now();
                 TimeOfDay time = TimeOfDay.now();
-                _database.addTask("Test Task", "Kacken gehen", date,  time, 'Mittel', 'Haushalt');
+                //_database.addTask("Test Task", "Kacken gehen", date,  time, 'Mittel', 'Haushalt');
                 print('pressed');
               }, 
               child: Icon(Icons.add,
