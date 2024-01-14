@@ -49,7 +49,7 @@ final AuthService _auth = AuthService();
             TextButton(
               style: buttonStyleDecoration,
               onPressed: (){
-                _database.test();
+                _database.deleteTask(_database.taskCollection.doc('hI7a9dF6CVyOphNDPGz8'));
                 // _database.addList("test List neu", Icons.abc);
                 DateTime date = DateTime.now();
                 TimeOfDay time = TimeOfDay.now();

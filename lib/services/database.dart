@@ -56,14 +56,14 @@ class DatabaseService{
   }
   //deleting List
   Future deleteList(DocumentReference list) async {
-    await list.delete();
-    return await updateTaskListReferences(task: null,lists: list as List<DocumentReference>);
+    return await list.delete();
+    //return await updateTaskListReferences(task: null,lists: list as List<DocumentReference>);
   }
 
   //add Task
-  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, List<DocumentReference> lists) async {
+  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, List<DocumentReference>? lists) async {
     //adding the Task
-    DocumentReference task = await taskCollection.add({
+    return await taskCollection.add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
@@ -71,23 +71,23 @@ class DatabaseService{
       'priorität': priority
     }); 
     //adding references
-    return await updateTaskListReferences(task: task,lists: lists);
+    //return await updateTaskListReferences(task: task,lists: lists);
   }
   //editingTask
-  Future editTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, DocumentReference taskId, List<DocumentReference> lists) async {
-    await taskId.set({
+  Future editTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, DocumentReference taskId, List<DocumentReference>? lists) async {
+    return await taskId.set({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
       'uhrzeit': uhrzeit.toString(),
       'priorität': priority
     }); 
-    return await updateTaskListReferences(task: taskId, lists: lists);
+    //return await updateTaskListReferences(task: taskId, lists: lists);
   }
 
   Future deleteTask(DocumentReference task) async{
-    await task.delete();
-    return await updateTaskListReferences(task: task, lists: null);
+    return await task.delete();
+    //return await updateTaskListReferences(task: task, lists: null);
   }
 
   int updateTaskListReferences({DocumentReference? task, List<DocumentReference>? lists}){
