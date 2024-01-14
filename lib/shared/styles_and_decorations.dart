@@ -16,7 +16,7 @@ var buttonStyleDecoration = ButtonStyle(
 var textInputDecoration = InputDecoration(
                   fillColor: const Color.fromRGBO(63, 63, 63, 1),
                   filled: true,
-                  hoverColor: Colors.white,
+                  hoverColor: Color.fromARGB(255, 68, 68, 68),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10)
                   ),

@@ -59,7 +59,6 @@ final AuthService _auth = AuthService();
               child: Icon(Icons.add,
                 color: Colors.black,
               )
-                 
             )
           ],
         ),

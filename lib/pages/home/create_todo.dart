@@ -21,15 +21,19 @@ class _CreateToDoState extends State<CreateToDo> {
   
   final _formKey = GlobalKey<FormState>();
 
+  //Felder eines ToDos
   String bezeichnung = '';
   String notiz = '';
-  String kategorie = '';
-  List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
+  String kategorie = 'Keine Kategorie';
+  String prioritaet = '';
   DateTime? selectedDate = DateTime.now();
   TimeOfDay uhrzeit = TimeOfDay.now();
+
+  //Listen für die Dropdowns
+  List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   
-  String prioritaet = '';
+  
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +65,7 @@ class _CreateToDoState extends State<CreateToDo> {
                   color: Colors.white
                 ),
                 initialValue: "",
+                validator: (value) => value!.isEmpty ? 'Bitte eine Bezeichnung eingeben' : null,
                 decoration: textInputDecoration.copyWith(hintText: 'Bezeichnung'),
                 onChanged: (value) => setState(() {
                   bezeichnung = value;
@@ -70,7 +75,7 @@ class _CreateToDoState extends State<CreateToDo> {
               //dropdown Kategorie
               DropdownButtonFormField<String>(
                 decoration: textInputDecoration.copyWith(hintText: 'Kategorie'),
-                value: 'Haushalt',
+                //value: 'Haushalt',
                 icon: const Icon(Icons.arrow_drop_down_rounded, size: 30,),
                 dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
                 items: categories.map((category){
@@ -92,7 +97,7 @@ class _CreateToDoState extends State<CreateToDo> {
                 decoration: textInputDecoration.copyWith(hintText: 'Priorität'),
                 dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
                 icon: const Icon(Icons.arrow_drop_down_rounded, size: 30,),
-                value: 'Mittel',
+                //value: 'Mittel',
                 items: priorities.map((priority){
                   return DropdownMenuItem(
                     value: priority,
@@ -129,7 +134,7 @@ class _CreateToDoState extends State<CreateToDo> {
                       setState(() {
                         selectedDate = picked;
                       });
-                    }, 
+                    },
                     child: Text(DateFormat('dd.MM.yyyy').format(selectedDate!)),
                   ),
               ]),
@@ -142,7 +147,7 @@ class _CreateToDoState extends State<CreateToDo> {
                   const SizedBox(width: 10,),
                   ElevatedButton(
                     style: buttonStyleDecoration,
-                    child: Text('${uhrzeit.hour}:${uhrzeit.minute}'),
+                    child: Text('${uhrzeit.hour.toString().padLeft(2, '0')}:${uhrzeit.minute.toString().padLeft(2, '0')}'),
                     onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
                       final TimeOfDay? timeOfDay = await showTimePicker(
                         context: context,
@@ -164,14 +169,33 @@ class _CreateToDoState extends State<CreateToDo> {
                 ],
               ),
               const SizedBox(height: 20,),
-              //Erstellen Button
-              ElevatedButton(
-                style: buttonStyleDecoration,
-                child: const Text('Erstellen'),
-                onPressed: (){
-                  _database.addTask(bezeichnung, notiz, selectedDate!, uhrzeit, prioritaet, "kategorie");
-                  Navigator.pop(context);
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Abbrechen Button
+                  TextButton.icon(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    }, 
+                    label: const Text('Abbrechen', style: TextStyle(color: Color.fromARGB(159, 214, 214, 214),),),
+                    icon: const Icon(Icons.close,color: Color.fromARGB(159, 214, 214, 214),),
+                    style: TextButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
+                    ),
+                  ),
+                  const SizedBox(width: 30,),
+                  //Erstellen Button
+                  ElevatedButton(
+                    style: buttonStyleDecoration,
+                    child: const Text('Erstellen'),
+                    onPressed: (){
+                      if(_formKey.currentState!.validate()){
+                        //_database.addTask(bezeichnung, notiz, selectedDate!, uhrzeit, prioritaet, "kategorie");
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
+                ],
               ),
             ],
           ),
