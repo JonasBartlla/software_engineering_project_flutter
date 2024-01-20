@@ -14,8 +14,17 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('CheckIt')),
+        title: Text(
+          'Meine Listen',
+          style: standardAppBarTextDecoration,
+        ),
+        centerTitle: true,
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+        leading: IconButton(
+          onPressed: () {}, 
+          icon: const Icon(Icons.person_outline_rounded),
+          iconSize: 35,
+          ),
       ),
       body: Center(
         child: Column(
