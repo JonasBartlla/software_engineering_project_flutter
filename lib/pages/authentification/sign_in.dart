@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/textfields.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/register.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/authenticate.dart';
+import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -28,7 +29,6 @@ class _SignInState extends State<SignIn> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 10),
                 //logo
                 const Text('CheckIT', textAlign: TextAlign.left, style: TextStyle(
                   color: Color.fromRGBO(101, 167, 101, 1),
@@ -61,17 +61,12 @@ class _SignInState extends State<SignIn> {
                   height: 1
                 ),),
             
-                const SizedBox(height: 70),
+                const SizedBox(height: 50),
             
                 //Email Adresse
-                const Text('E-Mail Adresse', textAlign: TextAlign.left, style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  fontFamily: 'Comfortaa',
-                  fontSize: 16,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.normal,
-                  height: 1
-                ),),
+                Text('E-Mail Adresse', textAlign: TextAlign.left, 
+                style: standardTextDecoration,
+                ),
                 const SizedBox(height: 2),
                 
                 MyTextFields(
@@ -82,14 +77,9 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 20),
             
                 //Passwort eingabe
-                const Text('Passwort', textAlign: TextAlign.left, style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  fontFamily: 'Comfortaa',
-                  fontSize: 16,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.normal,
-                  height: 1
-                ),),
+                Text('Passwort', textAlign: TextAlign.left, 
+                style: standardTextDecoration,
+                ),
                  const SizedBox(height: 2),
 
                 MyTextFields(
@@ -113,7 +103,7 @@ class _SignInState extends State<SignIn> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 20,
                       ),
                     ),
                   ),

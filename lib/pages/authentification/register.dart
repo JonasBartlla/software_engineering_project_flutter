@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/textfields.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/sign_in.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/authenticate.dart';
@@ -28,7 +29,6 @@ class _RegistrationState extends State<Registration> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 10),
                 //logo
                 const Text('CheckIT', textAlign: TextAlign.left, style: TextStyle(
                   color: Color.fromRGBO(101, 167, 101, 1),
@@ -61,17 +61,12 @@ class _RegistrationState extends State<Registration> {
                   height: 1
                 ),),
             
-                const SizedBox(height: 70),
+                const SizedBox(height: 50),
             
                 //Email Adresse
-                const Text('E-Mail Adresse', textAlign: TextAlign.left, style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  fontFamily: 'Comfortaa',
-                  fontSize: 16,
-                  letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
-                  fontWeight: FontWeight.normal,
-                  height: 1
-                ),),
+                Text('E-Mail Adresse', textAlign: TextAlign.left, 
+                style: standardTextDecoration
+                ),
                 const SizedBox(height: 2),
             
                 MyTextFields(
@@ -82,14 +77,9 @@ class _RegistrationState extends State<Registration> {
                 const SizedBox(height: 20),
             
                 //Passwort eingabe
-                const Text('Passwort', textAlign: TextAlign.left, style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  fontFamily: 'Comfortaa',
-                  fontSize: 16,
-                  letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
-                  fontWeight: FontWeight.normal,
-                  height: 1
-                ),),
+                Text('Passwort', textAlign: TextAlign.left, 
+                style: standardTextDecoration
+                ),
                  const SizedBox(height: 2),
             
                 MyTextFields(
@@ -100,14 +90,9 @@ class _RegistrationState extends State<Registration> {
                  const SizedBox(height: 20),
             
                 //Passwort erneut eingeben
-                const Text('Passwort wiederholen', textAlign: TextAlign.left, style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  fontFamily: 'Comfortaa',
-                  fontSize: 16,
-                  letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
-                  fontWeight: FontWeight.normal,
-                  height: 1
-                ),),
+                Text('Passwort wiederholen', textAlign: TextAlign.left, 
+                style: standardTextDecoration
+                ),
                  const SizedBox(height: 2),
             
                  MyTextFields(
@@ -131,7 +116,7 @@ class _RegistrationState extends State<Registration> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 20,
                       ),
                     ),
                   ),
