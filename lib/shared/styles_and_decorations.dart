@@ -32,3 +32,30 @@ var textInputDecoration = InputDecoration(
                     color: Color.fromARGB(159, 214, 214, 214)
                   )
                 );
+
+var standardTextDecoration = const TextStyle(
+                  color: Color.fromRGBO(255, 255, 255, 1),
+                  fontFamily: 'Comfortaa',
+                  fontSize: 16,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.normal,
+                  height: 1
+);
+
+var standardHeadlineDecoration = const TextStyle(
+                  color: Color.fromRGBO(255, 255, 255, 1),
+                  fontFamily: 'Comfortaa',
+                  fontSize: 20,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.bold,
+                  height: 1
+);
+
+var standardAppBarTextDecoration = const TextStyle(
+                  color: Color.fromRGBO(255, 255, 255, 1),
+                  fontFamily: 'Comfortaa',
+                  fontSize: 30,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.bold,
+                  height: 1
+);

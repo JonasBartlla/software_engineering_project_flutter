@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
-//import 'package:software_engineering_project_flutter/pages/toDo/create_todo.dart';
+import 'package:software_engineering_project_flutter/pages/toDo/create_todo.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,9 +22,14 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
+            //nur zum Test meiner Variablen
+            Text(
+                'Chippi Chippi Chappa Chappa',
+                style: standardTextDecoration,
+            ),
+             Text(
               'Homescreen',
-              style: TextStyle(color: Colors.white),
+              style: standardHeadlineDecoration,
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(

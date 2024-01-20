@@ -66,11 +66,10 @@ class _CreateToDoState extends State<CreateToDo> {
       return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'To-Do erstellen',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          textAlign: TextAlign.center,
+          style: standardAppBarTextDecoration,
         ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
       ),
