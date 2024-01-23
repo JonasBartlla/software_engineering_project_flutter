@@ -137,7 +137,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 style: buttonStyleDecoration,
                                 )                                
                               ),                            
-                        SizedBox(width: 258,
+                        SizedBox(width: 260,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
@@ -175,7 +175,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 style: buttonStyleDecoration,
                                 )                                
                               ),
-                        SizedBox(width: 258,
+                        SizedBox(width: 260,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
