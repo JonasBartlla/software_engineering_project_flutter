@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 
 var buttonStyleDecoration = ButtonStyle(
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    )
+  ),
+  backgroundColor: MaterialStateColor.resolveWith((states) => Color(0xFF616161)),
+  elevation: MaterialStateProperty.all(8),
+  shadowColor: MaterialStateProperty.all(Color(0xFF212121))
+);
+
+var buttonStyleDecorationcolorchange = ButtonStyle(
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    )
+  ),
   backgroundColor: MaterialStateProperty.resolveWith<Color>(
     (Set<MaterialState> states) {
     if(states.contains(MaterialState.pressed)){
@@ -10,26 +26,28 @@ var buttonStyleDecoration = ButtonStyle(
     }
   }),
   enableFeedback: false,
-  
+  elevation: MaterialStateProperty.all(8),
+  shadowColor: MaterialStateProperty.all(Color(0xFF212121))
 );
 
 var textInputDecoration = InputDecoration(
-                  fillColor: const Color.fromRGBO(63, 63, 63, 1),
+                  fillColor: Colors.grey[700],
                   filled: true,
                   hoverColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color.fromRGBO(63, 63, 63, 1), width: 2),
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color.fromRGBO(101, 167, 101, 1), width: 2),
-                    borderRadius: BorderRadius.circular(10)
-                  ),
                   hintStyle: const TextStyle(
-                    color: Color.fromARGB(159, 214, 214, 214)
+                    color: Color.fromARGB(159, 214, 214, 214),
+                    fontFamily: 'Comfortaa',                   
+                  )
+                );
+
+var textInputDecorationbez = InputDecoration(
+                  fillColor: Colors.grey[700],
+                  filled: true,
+                  
+                  hoverColor: Colors.white,
+                  hintStyle: const TextStyle(
+                    color: Color.fromARGB(159, 214, 214, 214) ,
+                    fontFamily: 'Comfortaa'                   
                   )
                 );
 

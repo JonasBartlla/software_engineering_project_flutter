@@ -73,131 +73,238 @@ class _CreateToDoState extends State<CreateToDo> {
         )),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 20,),
-              //Bezeichnung eingeben
-              TextFormField(
-                style: const TextStyle(
-                  color: Colors.white
-                ),
-                initialValue: "",
-                decoration: textInputDecoration.copyWith(hintText: 'Bezeichnung'),
-                onChanged: (value) => setState(() {
-                  bezeichnung = value;
-                }),
-              ),
-              const SizedBox(height: 20),
-              //dropdown Kategorie
-              DropdownButtonFormField<String>(
-                decoration: textInputDecoration.copyWith(hintText: 'Kategorie'),
-                value: 'Haushalt',
-                icon: Icon(Icons.arrow_drop_down_rounded, size: 30,),
-                dropdownColor: Color.fromRGBO(63, 63, 63, 1),
-                items: categories.map((category){
-                  return DropdownMenuItem(
-                    value: category,
-                    child: Text(category,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),),
-                  );
-                }).toList(),
-                onChanged: (value) => setState(() {
-                  kategorie = value!;
-                }),
-              ),
-              const SizedBox(height: 20,),
-              //dropdown Priorität
-              DropdownButtonFormField<String>(
-                decoration: textInputDecoration.copyWith(hintText: 'Priorität'),
-                dropdownColor: Color.fromRGBO(63, 63, 63, 1),
-                icon: Icon(Icons.arrow_drop_down_rounded, size: 30,),
-                value: 'Mittel',
-                items: priorities.map((priority){
-                  return DropdownMenuItem(
-                    value: priority,
-                    child: Text(priority,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),),
-                  );
-                }).toList(),
-                onChanged: (value) => setState(() {
-                  _currentPriority = value!;
-                }),
-              ),
-              const SizedBox(height: 20,),
-              //Notiz
-              TextFormField(
-                initialValue: "",
-                decoration: textInputDecoration.copyWith(hintText: 'Notiz'),
-                onChanged: (value) => setState(() {
-                  notiz = value;
-                }),
-              ),
-              const SizedBox(height: 20),
-              //Datum-Picker
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Datum: '),
-                  const SizedBox(width: 10,),
-                  ElevatedButton(
-                    style: buttonStyleDecoration,
-                    onPressed: () => _selectDate(context), 
-                    child: Text(DateFormat('dd.MM.yyyy').format(selectedDate)),
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  Center(
+                  child: Container(
+                     width: 324,
+                     height: 650,
+                     decoration: const BoxDecoration(
+                     borderRadius : BorderRadius.only(
+                     topLeft: Radius.circular(10),
+                     topRight: Radius.circular(10),
+                     bottomLeft: Radius.circular(10),
+                     bottomRight: Radius.circular(10),
+                      ),
+                    color : Color.fromRGBO(63, 63, 63, 1),
+                     ),
+                     child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const SizedBox(
+                            child: Icon(Icons.add, color: Colors.white, size: 40.0,),
+                            ),
+                            const SizedBox(width: 2),
+                            PhysicalModel(
+                              color: const Color.fromRGBO(63, 63, 63, 1),
+                              elevation: 8,
+                              shadowColor: const Color(0xFF212121),
+                              child: SizedBox(  height: 45, width: 275,          
+                                //Bezeichnung eingeben
+                                child: TextFormField(
+                                style: const TextStyle(
+                                 color: Colors.white
+                                ),
+                                initialValue: "",
+                                decoration: textInputDecorationbez.copyWith(hintText: 'Bezeichnung'),
+                                onChanged: (value) => setState(() {
+                                bezeichnung = value;
+                               }),
+                              ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        //dropdown Kategorie
+                        Row(
+                          children: <Widget>[
+                              SizedBox(width: 50, height: 48,
+                              child: IconButton(
+                                onPressed: () {}, 
+                                icon: const Icon(Icons.list_alt_rounded, color: Colors.white,),
+                                style: buttonStyleDecoration,
+                                )                                
+                              ),                            
+                        SizedBox(width: 268,
+                  child: PhysicalModel(
+                    color: const Color.fromRGBO(63, 63, 63, 1),
+                    elevation: 8,
+                    shadowColor: const Color(0xFF212121),
+                    child: DropdownButtonFormField<String>(
+                      decoration: textInputDecoration.copyWith(hintText: 'Kategorie'),
+                      value: 'Haushalt',
+                      icon: const Icon(Icons.arrow_drop_down_rounded, size: 30, color: Colors.white,),
+                      dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
+                      items: categories.map((category){
+                        return DropdownMenuItem(
+                          value: category,
+                          child: Text(category,
+                          style: const TextStyle(
+                            color: Color.fromARGB(159, 214, 214, 214),
+                          ),),
+                        );
+                      }).toList(),
+                      onChanged: (value) => setState(() {
+                        kategorie = value!;
+                      }),
+                    ),
                   ),
-              ]),
-              const SizedBox(height: 20,),
-              //Uhrzeit-Picker
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Uhrzeit: '),
-                  const SizedBox(width: 10,),
-                  ElevatedButton(
-                    style: buttonStyleDecoration,
-                    child: Text('${uhrzeit.hour}:${uhrzeit.minute}'),
-                    onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
-                      final TimeOfDay? timeOfDay = await showTimePicker(
-                        context: context,
-                        initialTime: uhrzeit,
-                        builder: (BuildContext context, Widget? child){
-                          return MediaQuery(data: MediaQuery.of(context).copyWith(
-                            alwaysUse24HourFormat: true), 
-                            child: child!
-                            );
-                        }
-                      );
-                      if(timeOfDay != null){
-                        setState(() {
-                          uhrzeit = timeOfDay;
-                        });
-                      }
+                        ),
+                      ]),
+                  const SizedBox(height: 20,),
+                  //dropdown Priorität
+                  Row(
+                          children: <Widget>[
+                            SizedBox(width: 50, height: 48,
+                              child: IconButton(
+                                onPressed: () {}, 
+                                icon: const Icon(Icons.arrow_upward, color: Colors.white,),
+                                style: buttonStyleDecoration,
+                                )                                
+                              ),
+                        SizedBox(width: 268,
+                  child: PhysicalModel(
+                    color: const Color.fromRGBO(63, 63, 63, 1),
+                    elevation: 8,
+                    shadowColor: const Color(0xFF212121),
+                    child: DropdownButtonFormField<String>(
+                      decoration: textInputDecoration.copyWith(hintText: 'Priorität'),
+                      dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
+                      icon: const Icon(Icons.arrow_drop_down_rounded, size: 30, color: Colors.white,),
+                      elevation: 8,
+                      value: 'Mittel',
+                      items: priorities.map((priority){
+                        return DropdownMenuItem(
+                          value: priority,
+                          child: Text(priority,
+                          style: const TextStyle(
+                            color: Color.fromARGB(159, 214, 214, 214),
+                          ),),
+                        );
+                      }).toList(),
+                      onChanged: (value) => setState(() {
+                        _currentPriority = value!;
+                      }),
+                    ),
+                  ),
+                        ),
+                      ]),
+                  const SizedBox(height: 20,),
+                  //Datum-Picker
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                     SizedBox(width: 315,
+                      child: TextButton.icon(
+                        style: buttonStyleDecoration,
+                        onPressed: () => _selectDate(context), 
+                        icon: const Icon(Icons.calendar_month_outlined, color: Colors.white,),
+                        label: const Text('Fälligkeitsdatum', style: TextStyle(color: Color.fromARGB(159, 214, 214, 214)), textAlign: TextAlign.left,
+                      ))),
+                  ]),
+                  const SizedBox(height: 20,),
+                  //Uhrzeit-Picker
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(width: 315,
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.watch_later_outlined, color: Colors.white),
+                        style: buttonStyleDecoration,
+                        label:  const Text('Uhrzeit', style: TextStyle(color: Color.fromARGB(159, 214, 214, 214)), textAlign: TextAlign.left,),
+                        onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
+                          final TimeOfDay? timeOfDay = await showTimePicker(
+                            context: context,
+                            initialTime: uhrzeit,
+                            builder: (BuildContext context, Widget? child){
+                              return MediaQuery(data: MediaQuery.of(context).copyWith(
+                                alwaysUse24HourFormat: true), 
+                                child: child!
+                                );
+                            }
+                          );
+                          if(timeOfDay != null){
+                            setState(() {
+                              uhrzeit = timeOfDay;
+                            });
+                          }
+                        },
+                      ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
+                  //Notiz
+                  Row(
+                    children: <Widget>[
+                      const SizedBox(width: 5),
+                      PhysicalModel(
+                        color: const Color.fromRGBO(63, 63, 63, 1),
+                        elevation: 8,
+                        shadowColor: const Color(0xFF212121),
+                        child: SizedBox(width: 315, height: 200,
+                                          child: TextFormField(
+                                            maxLines: null,
+                                            expands: true,
+                                            textAlign: TextAlign.start,
+                                            initialValue: "",
+                                            decoration: textInputDecoration.copyWith(hintText: 'Notiz'),
+                                            onChanged: (value) => setState(() {
+                        notiz = value;
+                                            }),
+                                          ),
+                        ),
+                      ),
+                      ]),
+                      const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        //Abbrechen Button
+                      child: TextButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        }, 
+                        child: const Text('Abbrechen',
+                         style: TextStyle(color: Colors.white,),),
+                      ),
+                      ),
+                      const SizedBox(width: 30,),
+                      SizedBox(
+                  //Erstellen Button
+                  child: ElevatedButton(
+                    style: buttonStyleDecorationcolorchange,
+                    child: const Text('Erstellen'),
+                    onPressed: (){
+                      addtasktofirebase();
+                      Navigator.pop(context);
                     },
+                  ),
+                      ),
+                    ],
+                  ),
+                      ],
+                  ),
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20,),
-              //Erstellen Button
-              ElevatedButton(
-                style: buttonStyleDecoration,
-                child: const Text('Erstellen'),
-                onPressed: (){
-                  addtasktofirebase();
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),
-      bottomNavigationBar: Navbar(),
     );
   }
 }

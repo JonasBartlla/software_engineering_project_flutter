@@ -10,19 +10,11 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
-  int index = 0;
-  final screens = [
-    Home(),
-    CreateToDo(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
-        selectedIndex: index,
-        onDestinationSelected: (index) =>
-            setState(() => this.index = index),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.list_rounded), 
