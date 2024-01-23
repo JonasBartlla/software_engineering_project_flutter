@@ -129,14 +129,15 @@ class _CreateToDoState extends State<CreateToDo> {
                         //dropdown Kategorie
                         Row(
                           children: <Widget>[
-                              SizedBox(width: 50, height: 48,
+                            SizedBox(width: 5),
+                              SizedBox(width: 55, height: 48,
                               child: IconButton(
                                 onPressed: () {}, 
                                 icon: const Icon(Icons.list_alt_rounded, color: Colors.white,),
                                 style: buttonStyleDecoration,
                                 )                                
                               ),                            
-                        SizedBox(width: 268,
+                        SizedBox(width: 258,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
@@ -166,14 +167,15 @@ class _CreateToDoState extends State<CreateToDo> {
                   //dropdown Priorität
                   Row(
                           children: <Widget>[
-                            SizedBox(width: 50, height: 48,
+                            SizedBox(width: 5), 
+                            SizedBox(width: 55, height: 48,
                               child: IconButton(
                                 onPressed: () {}, 
                                 icon: const Icon(Icons.arrow_upward, color: Colors.white,),
                                 style: buttonStyleDecoration,
                                 )                                
                               ),
-                        SizedBox(width: 268,
+                        SizedBox(width: 258,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
