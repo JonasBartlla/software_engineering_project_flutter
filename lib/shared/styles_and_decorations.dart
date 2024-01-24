@@ -6,9 +6,9 @@ var buttonStyleDecoration = ButtonStyle(
       borderRadius: BorderRadius.circular(5),
     )
   ),
-  backgroundColor: MaterialStateColor.resolveWith((states) => Color(0xFF616161)),
+  backgroundColor: MaterialStateColor.resolveWith((states) => const Color(0xFF616161)),
   elevation: MaterialStateProperty.all(8),
-  shadowColor: MaterialStateProperty.all(Color(0xFF212121))
+  shadowColor: MaterialStateProperty.all(const Color(0xFF212121))
 );
 
 var buttonStyleDecorationcolorchange = ButtonStyle(
@@ -27,7 +27,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
   }),
   enableFeedback: false,
   elevation: MaterialStateProperty.all(8),
-  shadowColor: MaterialStateProperty.all(Color(0xFF212121))
+  shadowColor: MaterialStateProperty.all(const Color(0xFF212121))
 );
 
 var textInputDecoration = InputDecoration(
@@ -40,12 +40,19 @@ var textInputDecoration = InputDecoration(
                   )
                 );
 
-var textInputDecorationbez = InputDecoration(
-                  fillColor: Colors.grey[700],
-                  filled: true,
-                  
+var textInputDecorationbez = const InputDecoration(
+                  fillColor: Color.fromRGBO(63, 63, 63, 1),
+                  filled: false,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white,
+                    width: 3
+                    )
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                   ),
                   hoverColor: Colors.white,
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: Color.fromARGB(159, 214, 214, 214) ,
                     fontFamily: 'Comfortaa'                   
                   )

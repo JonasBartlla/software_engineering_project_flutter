@@ -110,18 +110,18 @@ class _CreateToDoState extends State<CreateToDo> {
                               elevation: 8,
                               shadowColor: const Color(0xFF212121),
                               child: SizedBox(  height: 45, width: 275,          
-                                //Bezeichnung eingeben
-                                child: TextFormField(
-                                style: const TextStyle(
-                                 color: Colors.white
+                                  //Bezeichnung eingeben
+                                  child: TextFormField(
+                                  style: const TextStyle(
+                                   color: Colors.white
+                                  ),
+                                  initialValue: "",
+                                  decoration: textInputDecorationbez.copyWith(hintText: 'Bezeichnung'),
+                                  onChanged: (value) => setState(() {
+                                  bezeichnung = value;
+                                 }),
                                 ),
-                                initialValue: "",
-                                decoration: textInputDecorationbez.copyWith(hintText: 'Bezeichnung'),
-                                onChanged: (value) => setState(() {
-                                bezeichnung = value;
-                               }),
-                              ),
-                              ),
+                                ),
                             ),
                           ],
                         ),
@@ -129,7 +129,7 @@ class _CreateToDoState extends State<CreateToDo> {
                         //dropdown Kategorie
                         Row(
                           children: <Widget>[
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                               SizedBox(width: 55, height: 48,
                               child: IconButton(
                                 onPressed: () {}, 
@@ -145,7 +145,7 @@ class _CreateToDoState extends State<CreateToDo> {
                     child: DropdownButtonFormField<String>(
                       decoration: textInputDecoration.copyWith(hintText: 'Kategorie'),
                       value: 'Haushalt',
-                      icon: const Icon(Icons.arrow_drop_down_rounded, size: 30, color: Colors.white,),
+                      icon: const Icon(Icons.keyboard_arrow_down, size: 30, color: Colors.white,),
                       dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
                       items: categories.map((category){
                         return DropdownMenuItem(
@@ -167,23 +167,23 @@ class _CreateToDoState extends State<CreateToDo> {
                   //dropdown Priorität
                   Row(
                           children: <Widget>[
-                            SizedBox(width: 5), 
+                            const SizedBox(width: 5),
                             SizedBox(width: 55, height: 48,
                               child: IconButton(
                                 onPressed: () {}, 
                                 icon: const Icon(Icons.arrow_upward, color: Colors.white,),
                                 style: buttonStyleDecoration,
                                 )                                
-                              ),
+                              ),                             
                         SizedBox(width: 260,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
                     shadowColor: const Color(0xFF212121),
-                    child: DropdownButtonFormField<String>(
+                    child: DropdownButtonFormField<String>(                      
                       decoration: textInputDecoration.copyWith(hintText: 'Priorität'),
                       dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
-                      icon: const Icon(Icons.arrow_drop_down_rounded, size: 30, color: Colors.white,),
+                      icon: const Icon(Icons.keyboard_arrow_down, size: 30, color: Colors.white,),
                       elevation: 8,
                       value: 'Mittel',
                       items: priorities.map((priority){
@@ -212,8 +212,14 @@ class _CreateToDoState extends State<CreateToDo> {
                         style: buttonStyleDecoration,
                         onPressed: () => _selectDate(context), 
                         icon: const Icon(Icons.calendar_month_outlined, color: Colors.white,),
-                        label: const Text('Fälligkeitsdatum', style: TextStyle(color: Color.fromARGB(159, 214, 214, 214)), textAlign: TextAlign.left,
-                      ))),
+                        label: const Align(alignment: Alignment.centerLeft, child: Text(
+                          'Fälligkeitsdatum',
+                          style: TextStyle(
+                            color: Color.fromARGB(159, 214, 214, 214)
+                          ),
+                        ),
+                        ),
+                        )),
                   ]),
                   const SizedBox(height: 20,),
                   //Uhrzeit-Picker
@@ -224,7 +230,12 @@ class _CreateToDoState extends State<CreateToDo> {
                       child: TextButton.icon(
                         icon: const Icon(Icons.watch_later_outlined, color: Colors.white),
                         style: buttonStyleDecoration,
-                        label:  const Text('Uhrzeit', style: TextStyle(color: Color.fromARGB(159, 214, 214, 214)), textAlign: TextAlign.left,),
+                        label:  const Align(alignment: Alignment.centerLeft, child: Text(
+                          'Uhrzeit',
+                          style: TextStyle(
+                            color: Color.fromARGB(159, 214, 214, 214)
+                          ),
+                        ),),
                         onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
                           final TimeOfDay? timeOfDay = await showTimePicker(
                             context: context,
@@ -255,7 +266,7 @@ class _CreateToDoState extends State<CreateToDo> {
                         color: const Color.fromRGBO(63, 63, 63, 1),
                         elevation: 8,
                         shadowColor: const Color(0xFF212121),
-                        child: SizedBox(width: 315, height: 200,
+                        child: SizedBox(width: 315, height: 230,
                                           child: TextFormField(
                                             maxLines: null,
                                             expands: true,
