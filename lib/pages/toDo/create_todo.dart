@@ -84,7 +84,7 @@ class _CreateToDoState extends State<CreateToDo> {
                   const SizedBox(height: 10),
                   Center(
                   child: Container(
-                     width: 324,
+                     width: 360,
                      height: 650,
                      decoration: const BoxDecoration(
                      borderRadius : BorderRadius.only(
@@ -109,7 +109,7 @@ class _CreateToDoState extends State<CreateToDo> {
                               color: const Color.fromRGBO(63, 63, 63, 1),
                               elevation: 8,
                               shadowColor: const Color(0xFF212121),
-                              child: SizedBox(  height: 45, width: 275,          
+                              child: SizedBox(  height: 45, width: 300,          
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                   style: const TextStyle(
@@ -137,7 +137,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 style: buttonStyleDecoration,
                                 )                                
                               ),                            
-                        SizedBox(width: 260,
+                        SizedBox(width: 284,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
@@ -175,7 +175,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 style: buttonStyleDecoration,
                                 )                                
                               ),                             
-                        SizedBox(width: 260,
+                        SizedBox(width: 284,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
@@ -205,9 +205,10 @@ class _CreateToDoState extends State<CreateToDo> {
                   const SizedBox(height: 20,),
                   //Datum-Picker
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                     SizedBox(width: 315,
+                      SizedBox(width: 5),
+                     SizedBox(width: 340,
                       child: TextButton.icon(
                         style: buttonStyleDecoration,
                         onPressed: () => _selectDate(context), 
@@ -224,9 +225,10 @@ class _CreateToDoState extends State<CreateToDo> {
                   const SizedBox(height: 20,),
                   //Uhrzeit-Picker
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(width: 315,
+                      SizedBox(width: 5),
+                      SizedBox(width: 340,
                       child: TextButton.icon(
                         icon: const Icon(Icons.watch_later_outlined, color: Colors.white),
                         style: buttonStyleDecoration,
@@ -266,7 +268,7 @@ class _CreateToDoState extends State<CreateToDo> {
                         color: const Color.fromRGBO(63, 63, 63, 1),
                         elevation: 8,
                         shadowColor: const Color(0xFF212121),
-                        child: SizedBox(width: 315, height: 230,
+                        child: SizedBox(width: 340, height: 230,
                                           child: TextFormField(
                                             maxLines: null,
                                             expands: true,
