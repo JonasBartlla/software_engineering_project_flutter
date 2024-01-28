@@ -2,6 +2,7 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import 'package:software_engineering_project_flutter/models/appUser.dart';
+import "package:software_engineering_project_flutter/models/list.dart";
 
 class DatabaseService{
   //collection reference
@@ -113,6 +114,25 @@ class DatabaseService{
     print(Timestamp.fromDate(DateTime.now()));
   }
 
+  //get Stream of Lists
+  // Stream<List<TaskList>> get lists {
+  //   // return listCollection.snapshots().map(taskListFromSnapshot);
+  //   // retulistCollection.snapshots().toList();
+  // }
+
+ 
+
+  //TaskList from Snapshot
+  List<TaskList> taskListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((list) {
+      return TaskList(
+        name: list.get('bezeichnung'), 
+        icon: IconData(list.get('icon'), fontFamily: 'MaterialIcons'), 
+        taskCounter: list.get('taskCounter'), 
+        listReference: list.reference
+      );
+    }).toList();
+  }
     // task appUser from Snapshot
   // List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){
   //   return snapshot.docs.map((doc) {
