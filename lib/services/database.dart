@@ -62,13 +62,14 @@ class DatabaseService{
   }
 
   //add Task
-  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, List<DocumentReference> lists) async {
+
+  Future addTask(String bezeichnung, String notiz, DateTime? selectedDate, String priority, List<DocumentReference>? lists) async {
     //adding the Task
     DocumentReference task = await taskCollection.add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
+      'datum': selectedDate,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
-      'uhrzeit': uhrzeit.toString(),
       'priorität': priority
     }); 
     //adding references
