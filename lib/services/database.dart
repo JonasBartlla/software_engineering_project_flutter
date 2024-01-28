@@ -62,9 +62,9 @@ class DatabaseService{
   }
 
   //add Task
-  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, List<DocumentReference>? lists) async {
+  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, List<DocumentReference> lists) async {
     //adding the Task
-    return await taskCollection.add({
+    DocumentReference task = await taskCollection.add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
@@ -72,7 +72,7 @@ class DatabaseService{
       'priorität': priority
     }); 
     //adding references
-    //return await updateTaskListReferences(task: task,lists: lists);
+    return await updateTaskListReferences(task: task,lists: lists);
   }
   //editingTask
   Future editTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, DocumentReference taskId, List<DocumentReference>? lists) async {
@@ -91,9 +91,11 @@ class DatabaseService{
     //return await updateTaskListReferences(task: task, lists: null);
   }
 
-  int updateTaskListReferences({DocumentReference? task, List<DocumentReference>? lists}){
+  Future updateTaskListReferences({DocumentReference? task, List<DocumentReference>? lists}) async {
     if (task == null){
       print('Task is null');
+      // QuerySnapshot<DocumentReference> existingReferences = await referenceCollection.where('userReference', isEqualTo: task).get();
+      // List<DocumentReference> existingRef = existingReferences.docs.map((doc) => doc.data()).toList();
       //remove all references where the list appears
     } else if(lists == null){
       print('List is null');
@@ -115,23 +117,22 @@ class DatabaseService{
   }
 
   //get Stream of Lists
-  // Stream<List<TaskList>> get lists {
-  //   // return listCollection.snapshots().map(taskListFromSnapshot);
-  //   // retulistCollection.snapshots().toList();
-  // }
+  Stream<List<TaskList>>? get lists {
+    return listCollection.snapshots().map(_taskListFromSnapshot);
+  }
 
  
 
   //TaskList from Snapshot
-  List<TaskList> taskListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((list) {
+  List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
       return TaskList(
-        name: list.get('bezeichnung'), 
-        icon: IconData(list.get('icon'), fontFamily: 'MaterialIcons'), 
-        taskCounter: list.get('taskCounter'), 
-        listReference: list.reference
-      );
-    }).toList();
+        bezeichnung: doc.get('bezeichnung'),
+        icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
+        taskCounter: doc.get('taskCounter') ?? 0,
+        listReference: doc.reference);
+    }
+    ).toList();
   }
     // task appUser from Snapshot
   // List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){
