@@ -26,15 +26,14 @@ class _CreateToDoState extends State<CreateToDo> {
   String notiz = '';
   String kategorie = 'Keine Kategorie';
   String prioritaet = '';
-  DateTime? selectedDate = DateTime.now();
-  TimeOfDay uhrzeit = TimeOfDay.now();
+  DateTime? dateAndTime; //= DateTime.now();
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
+  List<DocumentReference> lists= [];
   
   
-
   @override
   Widget build(BuildContext context) {
 
@@ -65,7 +64,14 @@ class _CreateToDoState extends State<CreateToDo> {
                   color: Colors.white
                 ),
                 initialValue: "",
-                validator: (value) => value!.isEmpty ? 'Bitte eine Bezeichnung eingeben' : null,
+                validator: (value) {
+                  if (value!.isEmpty){
+                    return 'Bitte eine Bezeichnung eingeben';
+                  }
+                  else if (value!.length > 35){
+                    return 'Bezeichnung darf nicht länger als 35 Zeichen sein';
+                  }
+                },
                 decoration: textInputDecoration.copyWith(hintText: 'Bezeichnung'),
                 onChanged: (value) => setState(() {
                   bezeichnung = value;
@@ -115,6 +121,7 @@ class _CreateToDoState extends State<CreateToDo> {
               //Notiz
               TextFormField(
                 initialValue: "",
+                validator: (value) => value!.length > 300 ? 'Notiz darf nicht länger als 300 Zeichen sein' : null,
                 decoration: textInputDecoration.copyWith(hintText: 'Notiz'),
                 onChanged: (value) => setState(() {
                   notiz = value;
@@ -130,44 +137,48 @@ class _CreateToDoState extends State<CreateToDo> {
                   ElevatedButton(
                     style: buttonStyleDecoration,
                     onPressed: () async {
-                      DateTime? picked = await selectDate(context, selectedDate);
-                      setState(() {
-                        selectedDate = picked;
-                      });
+                      DateTime? pickedDate = await showDateTimePicker(context: context);
+                      //if (pickedDate != null){
+                        setState(() {
+                          dateAndTime = pickedDate;
+                        });
+                      //}
                     },
-                    child: Text(DateFormat('dd.MM.yyyy').format(selectedDate!)),
+                    child: dateAndTime == null ? 
+                      const Text('Datum eingeben') : 
+                      Text('${DateFormat('dd.MM.yyyy').format(dateAndTime!)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
                   ),
               ]),
               const SizedBox(height: 20,),
-              //Uhrzeit-Picker
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Uhrzeit: '),
-                  const SizedBox(width: 10,),
-                  ElevatedButton(
-                    style: buttonStyleDecoration,
-                    child: Text('${uhrzeit.hour.toString().padLeft(2, '0')}:${uhrzeit.minute.toString().padLeft(2, '0')}'),
-                    onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
-                      final TimeOfDay? timeOfDay = await showTimePicker(
-                        context: context,
-                        initialTime: uhrzeit,
-                        builder: (BuildContext context, Widget? child){
-                          return MediaQuery(data: MediaQuery.of(context).copyWith(
-                            alwaysUse24HourFormat: true), 
-                            child: child!
-                            );
-                        }
-                      );
-                      if(timeOfDay != null){
-                        setState(() {
-                          uhrzeit = timeOfDay;
-                        });
-                      }
-                    },
-                  ),
-                ],
-              ),
+              //Uhrzeit-Picker [maybe irrelevant]
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     const Text('Uhrzeit: '),
+              //     const SizedBox(width: 10,),
+              //     ElevatedButton(
+              //       style: buttonStyleDecoration,
+              //       child: Text('${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
+              //       onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
+              //         final TimeOfDay? timeOfDay = await showTimePicker(
+              //           context: context,
+              //           initialTime: TimeOfDay.fromDateTime(dateAndTime!),
+              //           builder: (BuildContext context, Widget? child){
+              //             return MediaQuery(data: MediaQuery.of(context).copyWith(
+              //               alwaysUse24HourFormat: true), 
+              //               child: child!
+              //               );
+              //           }
+              //         );
+              //         if(timeOfDay != null){
+              //           setState(() {
+              //             //dateAndTime = DateTime(dateAndTime!.year, dateAndTime!.month, dateAndTime!.day, timeOfDay.hour, timeOfDay.minute);
+              //           });
+              //         }
+              //       },
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -190,11 +201,13 @@ class _CreateToDoState extends State<CreateToDo> {
                     child: const Text('Erstellen'),
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
-                        //_database.addTask(bezeichnung, notiz, selectedDate!, uhrzeit, prioritaet, "kategorie");
+                        _database.addTask(bezeichnung, notiz, dateAndTime, prioritaet, lists);
                         Navigator.pop(context);
                       }
                     },
                   ),
+                  const SizedBox(height: 20,),
+                  Text(dateAndTime.toString(), style: TextStyle(color: Colors.white),)
                 ],
               ),
             ],
