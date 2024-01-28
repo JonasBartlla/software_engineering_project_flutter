@@ -109,7 +109,7 @@ class _CreateToDoState extends State<CreateToDo> {
                               color: const Color.fromRGBO(63, 63, 63, 1),
                               elevation: 8,
                               shadowColor: const Color(0xFF212121),
-                              child: SizedBox(  height: 45, width: 300,          
+                              child: SizedBox(  height: 45, width: 303,          
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                   style: const TextStyle(
@@ -129,15 +129,11 @@ class _CreateToDoState extends State<CreateToDo> {
                         //dropdown Kategorie
                         Row(
                           children: <Widget>[
-                            const SizedBox(width: 5),
-                              SizedBox(width: 55, height: 48,
-                              child: IconButton(
-                                onPressed: () {}, 
-                                icon: const Icon(Icons.list_alt_rounded, color: Colors.white,),
-                                style: buttonStyleDecoration,
-                                )                                
-                              ),                            
-                        SizedBox(width: 284,
+                            const SizedBox(
+                            child: Icon(Icons.list_alt_rounded, color: Colors.white, size: 40.0,),
+                            ),  
+                            const SizedBox(width: 2),                          
+                        SizedBox(width: 303,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
@@ -167,15 +163,11 @@ class _CreateToDoState extends State<CreateToDo> {
                   //dropdown Priorität
                   Row(
                           children: <Widget>[
-                            const SizedBox(width: 5),
-                            SizedBox(width: 55, height: 48,
-                              child: IconButton(
-                                onPressed: () {}, 
-                                icon: const Icon(Icons.arrow_upward, color: Colors.white,),
-                                style: buttonStyleDecoration,
-                                )                                
-                              ),                             
-                        SizedBox(width: 284,
+                            const SizedBox(
+                            child: Icon(Icons.arrow_upward, color: Colors.white, size: 40.0,),
+                            ),
+                            const SizedBox(width: 2),                            
+                        SizedBox(width: 303,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
                     elevation: 8,
