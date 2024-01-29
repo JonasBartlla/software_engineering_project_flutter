@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:software_engineering_project_flutter/wrapper.dart';
-import 'package:software_engineering_project_flutter/pages/toDo/home.dart';
-import 'package:software_engineering_project_flutter/pages/authentification/sign_in.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
+
+import 'package:software_engineering_project_flutter/pages/home/create_todo.dart';
+import 'package:software_engineering_project_flutter/pages/wrapper.dart';
+import 'package:software_engineering_project_flutter/pages/home/home.dart';
+import 'package:software_engineering_project_flutter/pages/authenticate/sign_in.dart';
+import 'package:software_engineering_project_flutter/services/auth.dart';
+
 
 
 void main() async {
@@ -23,13 +26,15 @@ class CheckIT extends StatelessWidget{
       initialData: null, //https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html
       value: AuthService().user,
       child: MaterialApp(
-        home: Wrapper(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Wrapper(),
+          '/create':(context) => const CreateToDo()
+        },
+        //home: Wrapper(),
+
     
       ),
     );
   }
 }
-
-
-// Class? also eine Klasse mit einem ? dahinter bedeutet, dass diese Variable entweder einen gültiger Wert der Klasse besitzen kann oder das Wert der Variable null sein kann
-// ohne das ? wäre null kein gültiger Wert für die Variable
