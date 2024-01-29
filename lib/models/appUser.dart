@@ -1,9 +1,9 @@
 class appUser{
-  final String? name;
-  final String? hobby;
-  final int? age;
+  final String? displayName;
+  final String? email;
+  
 
-  appUser({this.name, this.hobby,this.age});
+  appUser({this.displayName, this.email});
 
   
 }

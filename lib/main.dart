@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:software_engineering_project_flutter/pages/home/create_todo.dart';
 import 'package:software_engineering_project_flutter/wrapper.dart';
-import 'package:software_engineering_project_flutter/pages/toDo/home.dart';
+import 'package:software_engineering_project_flutter/pages/home/home.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/sign_in.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 
@@ -23,7 +24,12 @@ class CheckIT extends StatelessWidget{
       initialData: null, //https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html
       value: AuthService().user,
       child: MaterialApp(
-        home: Wrapper(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Wrapper(),
+          '/create':(context) => const CreateToDo()
+        },
+        //home: Wrapper(),
     
       ),
     );
