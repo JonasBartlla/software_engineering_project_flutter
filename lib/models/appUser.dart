@@ -1,4 +1,5 @@
 class appUser{
+
   final String? displayName;
   final String? email;
   
