@@ -17,6 +17,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
       borderRadius: BorderRadius.circular(5),
     )
   ),
+
   backgroundColor: MaterialStateProperty.resolveWith<Color>(
     (Set<MaterialState> states) {
     if(states.contains(MaterialState.pressed)){
@@ -84,3 +85,4 @@ var standardAppBarTextDecoration = const TextStyle(
                   fontWeight: FontWeight.bold,
                   height: 1
 );
+

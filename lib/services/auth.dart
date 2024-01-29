@@ -1,8 +1,7 @@
 import 'dart:html';
-import 'package:software_engineering_project_flutter/models/appUser.dart';
-import 'package:software_engineering_project_flutter/models/customUser.dart';
+import 'package:software_engineering_project_flutter/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database.dart';
 
 class AuthService{
 
@@ -26,6 +25,18 @@ class AuthService{
     return _auth.authStateChanges();
   
   }
+
+  //annonyme Anmeldung
+  Future signInAnonym() async {
+    try{
+      UserCredential userCredential  = await _auth.signInAnonymously();
+      return userCredential.user;
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+
 
   // register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
