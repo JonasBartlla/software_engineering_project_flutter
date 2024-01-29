@@ -129,10 +129,11 @@ class _CreateToDoState extends State<CreateToDo> {
                         //dropdown Kategorie
                         Row(
                           children: <Widget>[
+                            const SizedBox(width: 6),
                             const SizedBox(
-                            child: Icon(Icons.list_alt_rounded, color: Colors.white, size: 40.0,),
+                            child: Icon(Icons.list_alt_rounded, color: Colors.white, size: 30.0,),
                             ),  
-                            const SizedBox(width: 2),                          
+                            const SizedBox(width: 5),                          
                         SizedBox(width: 303,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
@@ -163,10 +164,11 @@ class _CreateToDoState extends State<CreateToDo> {
                   //dropdown Priorität
                   Row(
                           children: <Widget>[
+                            const SizedBox(width: 6),
                             const SizedBox(
-                            child: Icon(Icons.arrow_upward, color: Colors.white, size: 40.0,),
+                            child: Icon(Icons.arrow_upward, color: Colors.white, size: 30.0,),
                             ),
-                            const SizedBox(width: 2),                            
+                            const SizedBox(width: 5),                            
                         SizedBox(width: 303,
                   child: PhysicalModel(
                     color: const Color.fromRGBO(63, 63, 63, 1),
@@ -199,58 +201,24 @@ class _CreateToDoState extends State<CreateToDo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 5),
-                     SizedBox(width: 340,
-                      child: TextButton.icon(
+                      const SizedBox(width: 6),
+                            const SizedBox(
+                            child: Icon(Icons.calendar_month_outlined, color: Colors.white, size: 30.0,),
+                            ),
+                      const SizedBox(width: 5),
+                     SizedBox(width: 303,
+                      child: TextButton(
                         style: buttonStyleDecoration,
-                        onPressed: () => _selectDate(context), 
-                        icon: const Icon(Icons.calendar_month_outlined, color: Colors.white,),
-                        label: const Align(alignment: Alignment.centerLeft, child: Text(
-                          'Fälligkeitsdatum',
+                        onPressed: () => _selectDate(context),
+                        child: const Text(
+                          'Datum/Uhrzeit',
+                          textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Color.fromARGB(159, 214, 214, 214)
                           ),
-                        ),
                         ),
                         )),
                   ]),
-                  const SizedBox(height: 20,),
-                  //Uhrzeit-Picker
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(width: 5),
-                      SizedBox(width: 340,
-                      child: TextButton.icon(
-                        icon: const Icon(Icons.watch_later_outlined, color: Colors.white),
-                        style: buttonStyleDecoration,
-                        label:  const Align(alignment: Alignment.centerLeft, child: Text(
-                          'Uhrzeit',
-                          style: TextStyle(
-                            color: Color.fromARGB(159, 214, 214, 214)
-                          ),
-                        ),),
-                        onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
-                          final TimeOfDay? timeOfDay = await showTimePicker(
-                            context: context,
-                            initialTime: uhrzeit,
-                            builder: (BuildContext context, Widget? child){
-                              return MediaQuery(data: MediaQuery.of(context).copyWith(
-                                alwaysUse24HourFormat: true), 
-                                child: child!
-                                );
-                            }
-                          );
-                          if(timeOfDay != null){
-                            setState(() {
-                              uhrzeit = timeOfDay;
-                            });
-                          }
-                        },
-                      ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 20,),
                   //Notiz
                   Row(
@@ -260,7 +228,7 @@ class _CreateToDoState extends State<CreateToDo> {
                         color: const Color.fromRGBO(63, 63, 63, 1),
                         elevation: 8,
                         shadowColor: const Color(0xFF212121),
-                        child: SizedBox(width: 340, height: 230,
+                        child: SizedBox(width: 340, height: 300,
                                           child: TextFormField(
                                             maxLines: null,
                                             expands: true,
