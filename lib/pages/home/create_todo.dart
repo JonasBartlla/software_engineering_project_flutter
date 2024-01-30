@@ -16,201 +16,311 @@ class CreateToDo extends StatefulWidget {
 }
 
 class _CreateToDoState extends State<CreateToDo> {
-
-
-  
   final _formKey = GlobalKey<FormState>();
 
   //Felder eines ToDos
-  String bezeichnung = '';
-  String notiz = '';
-  String kategorie = 'Keine Kategorie';
-  String prioritaet = '';
-  DateTime? dateAndTime; //= DateTime.now();
+  String title = '';
+  String note = '';
+  String list = '';
+  String priority = '';
+  DateTime? dateAndTime;
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
-  List<DocumentReference> lists= [];
-  
-  
+  List<DocumentReference> lists = [];
+
   @override
   Widget build(BuildContext context) {
+    final User? user = Provider.of<User?>(context);
+    final DatabaseService _database = DatabaseService(uid: user?.uid);
 
-      final User? user = Provider.of<User?>(context);
-      final DatabaseService _database = DatabaseService(uid: user?.uid);
-
-      return Scaffold(
+    return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
-        title: const Text(
+        title: Center(
+            child: Text(
           'To-Do erstellen',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
+          style: standardAppBarTextDecoration,
+        )),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 20,),
-              //Bezeichnung eingeben
-              TextFormField(
-                style: const TextStyle(
-                  color: Colors.white
-                ),
-                initialValue: "",
-                validator: (value) {
-                  if (value!.isEmpty){
-                    return 'Bitte eine Bezeichnung eingeben';
-                  }
-                  else if (value!.length > 35){
-                    return 'Bezeichnung darf nicht länger als 35 Zeichen sein';
-                  }
-                },
-                decoration: textInputDecoration.copyWith(hintText: 'Bezeichnung'),
-                onChanged: (value) => setState(() {
-                  bezeichnung = value;
-                }),
-              ),
-              const SizedBox(height: 20),
-              //dropdown Kategorie
-              DropdownButtonFormField<String>(
-                decoration: textInputDecoration.copyWith(hintText: 'Kategorie'),
-                //value: 'Haushalt',
-                icon: const Icon(Icons.arrow_drop_down_rounded, size: 30,),
-                dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
-                items: categories.map((category){
-                  return DropdownMenuItem(
-                    value: category,
-                    child: Text(category,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),),
-                  );
-                }).toList(),
-                onChanged: (value) => setState(() {
-                  kategorie = value!;
-                }),
-              ),
-              const SizedBox(height: 20,),
-              //dropdown Priorität
-              DropdownButtonFormField<String>(
-                decoration: textInputDecoration.copyWith(hintText: 'Priorität'),
-                dropdownColor: const Color.fromRGBO(63, 63, 63, 1),
-                icon: const Icon(Icons.arrow_drop_down_rounded, size: 30,),
-                //value: 'Mittel',
-                items: priorities.map((priority){
-                  return DropdownMenuItem(
-                    value: priority,
-                    child: Text(priority,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),),
-                  );
-                }).toList(),
-                onChanged: (value) => setState(() {
-                  prioritaet = value!;
-                }),
-              ),
-              const SizedBox(height: 20,),
-              //Notiz
-              TextFormField(
-                initialValue: "",
-                validator: (value) => value!.length > 300 ? 'Notiz darf nicht länger als 300 Zeichen sein' : null,
-                decoration: textInputDecoration.copyWith(hintText: 'Notiz'),
-                onChanged: (value) => setState(() {
-                  notiz = value;
-                }),
-              ),
-              const SizedBox(height: 20),
-              //Datum-Picker
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Datum: '),
-                  const SizedBox(width: 10,),
-                  ElevatedButton(
-                    style: buttonStyleDecoration,
-                    onPressed: () async {
-                      DateTime? pickedDate = await showDateTimePicker(context: context);
-                      //if (pickedDate != null){
-                        setState(() {
-                          dateAndTime = pickedDate;
-                        });
-                      //}
-                    },
-                    child: dateAndTime == null ? 
-                      const Text('Datum eingeben') : 
-                      Text('${DateFormat('dd.MM.yyyy').format(dateAndTime!)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
-                  ),
-              ]),
-              const SizedBox(height: 20,),
-              //Uhrzeit-Picker [maybe irrelevant]
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     const Text('Uhrzeit: '),
-              //     const SizedBox(width: 10,),
-              //     ElevatedButton(
-              //       style: buttonStyleDecoration,
-              //       child: Text('${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
-              //       onPressed: () async { //man kann das hier auch als Funktion in einer seperaten Datei machen
-              //         final TimeOfDay? timeOfDay = await showTimePicker(
-              //           context: context,
-              //           initialTime: TimeOfDay.fromDateTime(dateAndTime!),
-              //           builder: (BuildContext context, Widget? child){
-              //             return MediaQuery(data: MediaQuery.of(context).copyWith(
-              //               alwaysUse24HourFormat: true), 
-              //               child: child!
-              //               );
-              //           }
-              //         );
-              //         if(timeOfDay != null){
-              //           setState(() {
-              //             //dateAndTime = DateTime(dateAndTime!.year, dateAndTime!.month, dateAndTime!.day, timeOfDay.hour, timeOfDay.minute);
-              //           });
-              //         }
-              //       },
-              //     ),
-              //   ],
-              // ),
-              const SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //Abbrechen Button
-                  TextButton.icon(
-                    onPressed: (){
-                      Navigator.pop(context);
-                    }, 
-                    label: const Text('Abbrechen', style: TextStyle(color: Color.fromARGB(159, 214, 214, 214),),),
-                    icon: const Icon(Icons.close,color: Color.fromARGB(159, 214, 214, 214),),
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Container(
+                      width: 360,
+                      height: 650,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        color: Color.fromRGBO(63, 63, 63, 1),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              const SizedBox(
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 40.0,
+                                ),
+                              ),
+                              const SizedBox(width: 2),
+                              PhysicalModel(
+                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                //elevation: 8,
+                                shadowColor: const Color(0xFF212121),
+                                child: SizedBox(
+                                  height: 45, width: 303,
+                                  //Bezeichnung eingeben
+                                  child: TextFormField(
+                                    style: const TextStyle(color: Colors.white),
+                                    initialValue: "",
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Bitte eine Bezeichnung eingeben';
+                                      } else if (value!.length > 35) {
+                                        return 'Bezeichnung darf nicht länger als 35 Zeichen sein';
+                                      }
+                                    },
+                                    decoration: textInputDecorationbez.copyWith(
+                                        hintText: 'Bezeichnung'),
+                                    onChanged: (value) => setState(() {
+                                      title = value;
+                                    }),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          //dropdown Kategorie
+                          Row(children: <Widget>[
+                            const SizedBox(width: 6),
+                            const SizedBox(
+                              child: Icon(
+                                Icons.list_alt_rounded,
+                                color: Colors.white,
+                                size: 30.0,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: 303,
+                              child: PhysicalModel(
+                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                elevation: 8,
+                                shadowColor: const Color(0xFF212121),
+                                child: DropdownButtonFormField<String>(
+                                  decoration: textInputDecoration.copyWith(
+                                      hintText: 'Kategorie'),
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                  dropdownColor:
+                                      const Color.fromRGBO(63, 63, 63, 1),
+                                  items: categories.map((category) {
+                                    return DropdownMenuItem(
+                                      value: category,
+                                      child: Text(
+                                        category,
+                                        style: const TextStyle(
+                                          color: Color.fromARGB(
+                                              159, 214, 214, 214),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) => setState(() {
+                                    list = value!;
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ]),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          //dropdown Priorität
+                          Row(children: <Widget>[
+                            const SizedBox(width: 6),
+                            const SizedBox(
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: Colors.white,
+                                size: 30.0,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: 303,
+                              child: PhysicalModel(
+                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                elevation: 8,
+                                shadowColor: const Color(0xFF212121),
+                                child: DropdownButtonFormField<String>(
+                                  decoration: textInputDecoration.copyWith(
+                                      hintText: 'Priorität'),
+                                  dropdownColor:
+                                      const Color.fromRGBO(63, 63, 63, 1),
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                  elevation: 8,
+                                  items: priorities.map((priority) {
+                                    return DropdownMenuItem(
+                                      value: priority,
+                                      child: Text(
+                                        priority,
+                                        style: const TextStyle(
+                                          color: Color.fromARGB(
+                                              159, 214, 214, 214),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) => setState(() {
+                                    priority = value!;
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ]),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          //Datum-Picker
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const SizedBox(width: 6),
+                                const SizedBox(
+                                  child: Icon(
+                                    Icons.calendar_month_outlined,
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                SizedBox(
+                                    width: 303,
+                                    child: TextButton(
+                                      style: buttonStyleDecoration,
+                                      onPressed: () async {
+                                        DateTime? pickedDate =
+                                            await showDateTimePicker(
+                                                context: context);
+                                        setState(() {
+                                          dateAndTime = pickedDate;
+                                        });
+                                      },
+                                      child: dateAndTime == null
+                                          ? const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                                'Fälligkeit',
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        159, 214, 214, 214)),
+                                              ),
+                                          )
+                                          : Text(
+                                              '${DateFormat('dd.MM.yyyy').format(dateAndTime!)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
+                                    )),
+                              ]),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          //Notiz
+                          Row(children: <Widget>[
+                            const SizedBox(width: 5),
+                            PhysicalModel(
+                              color: const Color.fromRGBO(63, 63, 63, 1),
+                              elevation: 8,
+                              shadowColor: const Color(0xFF212121),
+                              child: SizedBox(
+                                width: 340,
+                                height: 300,
+                                child: TextFormField(
+                                  maxLines: null,
+                                  expands: true,
+                                  textAlign: TextAlign.start,
+                                  validator: (value) => value!.length > 300
+                                      ? 'Notiz darf nicht länger als 300 Zeichen sein'
+                                      : null,
+                                  initialValue: "",
+                                  decoration: textInputDecoration.copyWith(
+                                      hintText: 'Notiz'),
+                                  onChanged: (value) => setState(() {
+                                    note = value;
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ]),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                //Abbrechen Button
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Abbrechen',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30,
+                              ),
+                              SizedBox(
+                                //Erstellen Button
+                                child: ElevatedButton(
+                                  style: buttonStyleDecorationcolorchange,
+                                  child: const Text('Erstellen'),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _database.addTask(title, note, dateAndTime, priority, lists);
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 30,),
-                  //Erstellen Button
-                  ElevatedButton(
-                    style: buttonStyleDecoration,
-                    child: const Text('Erstellen'),
-                    onPressed: (){
-                      if(_formKey.currentState!.validate()){
-                        _database.addTask(bezeichnung, notiz, dateAndTime, prioritaet, lists);
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20,),
-                  Text(dateAndTime.toString(), style: TextStyle(color: Colors.white),)
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
