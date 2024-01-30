@@ -10,16 +10,16 @@ class DatabaseService{
   final String? uid;
   late final CollectionReference userCollection;
   late final CollectionReference listCollection;
-  late final CollectionReference taskCollection;
   late final CollectionReference referenceCollection;
+  late final CollectionReference taskCollection;
   DatabaseService({this.uid}){
     userCollection = FirebaseFirestore.instance.collection('users');
     listCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('lists');
-    taskCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('tasks');
     referenceCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('references');
+    taskCollection = FirebaseFirestore.instance.collection('tasks');
   }
 
-  //final CollectionReference userCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('tasks');
+  //final CollectionReference userCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('taskCollection');
 
 
 
@@ -70,7 +70,8 @@ class DatabaseService{
       'notiz': notiz,
       'datum': selectedDate,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
-      'priorität': priority
+      'priorität': priority,
+      'owner_id': uid
     }); 
     //adding references
     return await updateTaskListReferences(task: task,lists: lists);
@@ -82,7 +83,8 @@ class DatabaseService{
       'notiz': notiz,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
       'uhrzeit': uhrzeit.toString(),
-      'priorität': priority
+      'priorität': priority,
+      'owner_id': uid
     }); 
     //return await updateTaskListReferences(task: taskId, lists: lists);
   }
