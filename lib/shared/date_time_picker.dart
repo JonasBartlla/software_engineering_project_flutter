@@ -17,6 +17,9 @@ Future<DateTime?> showDateTimePicker({
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
+    helpText: 'Datum wählen',
+    cancelText: 'Kein Datum hinzufügen',
+    confirmText: 'Ok',
     builder: (context, child) {
       return Theme(
         data: ThemeData.dark().copyWith(
@@ -44,6 +47,9 @@ Future<DateTime?> showDateTimePicker({
   final TimeOfDay? selectedTime = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.fromDateTime(selectedDate),
+    helpText: 'Uhrzeit wählen',
+    cancelText: 'Keine Uhrzeit hinzufügen',
+    confirmText: 'Ok',
     builder: (BuildContext context, Widget? child){
       return Theme(
         data: ThemeData.dark().copyWith(

@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
-import 'package:software_engineering_project_flutter/shared/functions.dart';
+import 'package:software_engineering_project_flutter/shared/date_time_picker.dart';
 import 'package:provider/provider.dart';
 
 class CreateToDo extends StatefulWidget {
@@ -23,7 +23,7 @@ class _CreateToDoState extends State<CreateToDo> {
   String note = '';
   String list = '';
   String priority = '';
-  DateTime? dateAndTime;
+  DateTime? dateAndTime; //soll nicht null sein
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
@@ -94,8 +94,10 @@ class _CreateToDoState extends State<CreateToDo> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Bitte eine Bezeichnung eingeben';
-                                      } else if (value!.length > 35) {
+                                      } else if (value.length > 35) {
                                         return 'Bezeichnung darf nicht länger als 35 Zeichen sein';
+                                      } else{
+                                        return null;
                                       }
                                     },
                                     decoration: textInputDecorationbez.copyWith(
@@ -128,7 +130,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 shadowColor: const Color(0xFF212121),
                                 child: DropdownButtonFormField<String>(
                                   decoration: textInputDecoration.copyWith(
-                                      hintText: 'Kategorie'),
+                                      hintText: 'Liste'),
                                   icon: const Icon(
                                     Icons.keyboard_arrow_down,
                                     size: 30,
@@ -215,7 +217,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 const SizedBox(width: 6),
                                 const SizedBox(
                                   child: Icon(
-                                    Icons.calendar_month_outlined,
+                                    Icons.calendar_month_rounded,
                                     color: Colors.white,
                                     size: 30.0,
                                   ),
@@ -235,15 +237,15 @@ class _CreateToDoState extends State<CreateToDo> {
                                       },
                                       child: dateAndTime == null
                                           ? const Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
                                                 'Fälligkeit',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
                                                     color: Color.fromARGB(
                                                         159, 214, 214, 214)),
                                               ),
-                                          )
+                                            )
                                           : Text(
                                               '${DateFormat('dd.MM.yyyy').format(dateAndTime!)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
                                     )),
@@ -306,7 +308,8 @@ class _CreateToDoState extends State<CreateToDo> {
                                   child: const Text('Erstellen'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _database.addTask(title, note, dateAndTime, priority, lists);
+                                      _database.addTask(title, note,
+                                          dateAndTime, priority, lists);
                                       Navigator.pop(context);
                                     }
                                   },

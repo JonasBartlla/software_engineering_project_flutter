@@ -40,7 +40,7 @@ class _SignInState extends State<SignIn> {
                 children: <Widget>[
                   const SizedBox(height: 10),
                   //logo
-                  Text('CheckIT', textAlign: TextAlign.left, style: TextStyle(
+                  const Text('CheckIT', textAlign: TextAlign.left, style: TextStyle(
                     color: Color.fromRGBO(101, 167, 101, 1),
                     fontFamily: 'Comfortaa',
                     fontSize: 70,
@@ -91,7 +91,7 @@ class _SignInState extends State<SignIn> {
                       decoration: textInputDecoration.copyWith(hintText: 'Email'),
                       validator: (val) {
                       if (val!.isEmpty){ // return null if valid
-                        return "Enter an email";
+                        return "Bitte eine E-Mail eingeben";
                       } else{
                         return null;
                       }
@@ -123,7 +123,7 @@ class _SignInState extends State<SignIn> {
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
-                        if (val!.length < 6){
+                        if (val!.length < 6 || val.isEmpty){
                           return "Geben sie ein passwort mit mindestens 6 Zeichen an";
                         } else{
                           return null;
@@ -135,7 +135,7 @@ class _SignInState extends State<SignIn> {
                       obscureText: true,
                     ),
                   ), 
-                  SizedBox(height: 15.0),               
+                  const SizedBox(height: 15.0),               
                   //log in Button
                   TextButton(
                     onPressed: () async {
@@ -214,7 +214,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 const SizedBox(height: 15),
                 Text(error,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.red, 
                     fontSize: 14.0,
                   ),
