@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class TaskList {
 
-  String bezeichnung = '';
+  String ownerId;
+  String bezeichnung;
   IconData icon;
-  int taskCounter;
-  DocumentReference listReference;
+  List<String> associated;
 
-  TaskList({required this.bezeichnung, required this.icon, required this.taskCounter, required this.listReference});
+  TaskList({required this.ownerId, required this.bezeichnung, required this.icon, required this.associated});
 
 }
