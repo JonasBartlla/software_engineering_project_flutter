@@ -23,7 +23,7 @@ class _ListOfTaskListsState extends State<ListOfTaskLists> {
 
     return  lists == null ? Loading() : ListView.builder(
       shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemCount: lists.length,
       itemBuilder: (context, index) {
         return ListTileTest(taskList: lists[index]);

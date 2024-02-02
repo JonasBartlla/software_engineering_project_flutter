@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/taskList.dart';
 
@@ -7,7 +5,7 @@ class ListTileTest extends StatelessWidget {
 
   final TaskList taskList;
 
-  const ListTileTest({required this.taskList});
+  const ListTileTest({required this.taskList, super.key});
 
   @override
   Widget build(BuildContext context) {

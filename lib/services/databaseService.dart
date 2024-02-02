@@ -3,6 +3,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import 'package:software_engineering_project_flutter/models/appUser.dart';
 import "package:software_engineering_project_flutter/models/taskList.dart";
+import 'package:software_engineering_project_flutter/models/task.dart';
 
 class DatabaseService{
   //collection reference
@@ -43,6 +44,7 @@ class DatabaseService{
       'bezeichnung': bezeichnung,
       'icon': icon.codePoint,
       'taskCounter': 0,
+      'ownerId': uid,
     });
      //IconData(iconCodePointFromDataBase, fontFamily: 'MaterialIcons')
   }
@@ -133,6 +135,21 @@ class DatabaseService{
         listReference: doc.reference);
     }
     ).toList();
+  }
+
+  List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return Task(
+        bezeichnung: doc.get('bezeichnung'),
+        notiz: doc.get('notiz'),
+        prioritaet: doc.get('priorität'),
+        faelligkeitsdatum: doc.get('datum'),
+        creationDate: doc.get('wiedervorlagedatum'),
+        ownerId: doc.get('ownerId')
+
+      );
+    }).toList();
+
   }
     // task appUser from Snapshot
   // List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){

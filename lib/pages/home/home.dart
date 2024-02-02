@@ -75,6 +75,14 @@ final AuthService _auth = AuthService();
                 },
                 child: Text('Erstellen'),
               ),
+              TextButton(
+                //bei onpressed dann ggf. die Kategorie mitgeben
+                onPressed: (){
+                  Navigator.pushNamed(context, '/view');
+                },
+                child: Text('Tasks anzeigen'),
+
+              ),
               ListOfTaskLists(),
 
             ],
