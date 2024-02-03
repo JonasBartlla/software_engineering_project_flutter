@@ -18,7 +18,7 @@ class ListTileTest extends StatelessWidget {
             taskList.icon
           ),
           title: Text(taskList.bezeichnung),
-          subtitle: Text("Contains ${taskList.taskCounter.toString()} tasks"),
+          subtitle: Text("Contains tasks"),
         ),
       )
     );
