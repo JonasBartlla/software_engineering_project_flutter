@@ -228,9 +228,9 @@ class _CreateToDoState extends State<CreateToDo> {
                                     child: TextButton(
                                       style: buttonStyleDecoration,
                                       onPressed: () async {
-                                        DateTime? pickedDate =
+                                        DateTime pickedDate =
                                             await showDateTimePicker(
-                                                context: context);
+                                                context: context) ?? DateTime.fromMicrosecondsSinceEpoch(0);
                                         setState(() {
                                           dateAndTime = pickedDate;
                                         });
