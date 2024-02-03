@@ -21,8 +21,8 @@ class _CreateToDoState extends State<CreateToDo> {
   //Felder eines ToDos
   String title = '';
   String note = '';
-  String list = '';
-  String priority = '';
+  String list = 'default';
+  String priority = 'Mittel';
   DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
 
   //Listen für die Dropdowns
