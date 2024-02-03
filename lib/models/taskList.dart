@@ -6,8 +6,8 @@ class TaskList {
   String ownerId;
   String bezeichnung;
   IconData icon;
-  List<String> associated;
+  // List<String> associated;
 
-  TaskList({required this.ownerId, required this.bezeichnung, required this.icon, required this.associated});
+  TaskList({required this.ownerId, required this.bezeichnung, required this.icon});
 
 }
