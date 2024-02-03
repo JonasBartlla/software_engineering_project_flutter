@@ -62,15 +62,18 @@ class DatabaseService{
 
   //add Task
 
-  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, String priority, List<DocumentReference>? lists) async {
+  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, bool notify, String priority, List<DocumentReference>? lists, bool done) async {
     //adding the Task
     return  await taskCollection.add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
       'datum': selectedDate.millisecondsSinceEpoch,
+      'benachrichtigung': notify,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
       'priorität': priority,
-      'owner_id': uid
+      'owner_id': uid,
+      'done': done
+      
     }); 
   }
   //editingTask
@@ -113,9 +116,6 @@ class DatabaseService{
     return taskCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
   }
 
-
-
-
   List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
       return Task(
@@ -123,8 +123,10 @@ class DatabaseService{
         notiz: doc.get('notiz'),
         prioritaet: doc.get('priorität'),
         faelligkeitsdatum: doc.get('datum'),
+        benachrichtigung: doc.get('benachrichtigung'),
         creationDate: doc.get('wiedervorlagedatum'),
-        ownerId: doc.get('ownerId')
+        ownerId: doc.get('ownerId'),
+        done: doc.get('done')
 
       );
     }).toList();

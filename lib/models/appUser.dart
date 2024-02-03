@@ -1,9 +1,9 @@
 class appUser{
-  final String? displayName;
-  final String? email;
+  final String displayName;
+  final String email;
   
 
-  appUser({this.displayName, this.email});
+  appUser({required this.displayName, required this.email});
 
   
 }
