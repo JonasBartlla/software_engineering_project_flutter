@@ -58,14 +58,13 @@ class DatabaseService{
   //deleting List
   Future deleteList(DocumentReference list) async {
     return await list.delete();
-    //return await updateTaskListReferences(task: null,lists: list as List<DocumentReference>);
   }
 
   //add Task
 
   Future addTask(String bezeichnung, String notiz, DateTime selectedDate, String priority, List<DocumentReference>? lists) async {
     //adding the Task
-    DocumentReference task = await taskCollection.add({
+    return  await taskCollection.add({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
       'datum': selectedDate.millisecondsSinceEpoch,
@@ -73,8 +72,6 @@ class DatabaseService{
       'priorität': priority,
       'owner_id': uid
     }); 
-    //adding references
-    return await updateTaskListReferences(task: task,lists: lists);
   }
   //editingTask
   Future editTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, DocumentReference taskId, List<DocumentReference>? lists) async {
@@ -85,42 +82,16 @@ class DatabaseService{
       'uhrzeit': uhrzeit.toString(),
       'priorität': priority
     }); 
-    //return await updateTaskListReferences(task: taskId, lists: lists);
   }
 
   Future deleteTask(DocumentReference task) async{
     return await task.delete();
-    //return await updateTaskListReferences(task: task, lists: null);
   }
 
-  Future updateTaskListReferences({DocumentReference? task, List<DocumentReference>? lists}) async {
-    if (task == null){
-      print('Task is null');
-      // QuerySnapshot<DocumentReference> existingReferences = await referenceCollection.where('userReference', isEqualTo: task).get();
-      // List<DocumentReference> existingRef = existingReferences.docs.map((doc) => doc.data()).toList();
-      //remove all references where the list appears
-    } else if(lists == null){
-      print('List is null');
-      //remove all references where the task appears
-    } else{
-      print('none is null');
-      //update references
-    }
-    
-    return 1;
-  }
-  // get user Stream
-  // Stream<List<appUser>> get users {
-  //   return userCollection.snapshots().map(_taskListFromSnapshot);
-  // }
-
-  void test(){
-    print(Timestamp.fromDate(DateTime.now()));
-  }
 
   //get Stream of Lists
   Stream<List<TaskList>>? get lists {
-    return listCollection.snapshots().map(_taskListFromSnapshot);
+    return listCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskListFromSnapshot);
   }
 
  
@@ -129,13 +100,21 @@ class DatabaseService{
   List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
       return TaskList(
+        ownerId: doc.get('ownerId'),
         bezeichnung: doc.get('bezeichnung'),
         icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
-        taskCounter: doc.get('taskCounter') ?? 0,
-        listReference: doc.reference);
+      );
     }
     ).toList();
   }
+
+  //get Stream of Tasks
+  Stream<List<Task>> get tasks{
+    return taskCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
+  }
+
+
+
 
   List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
