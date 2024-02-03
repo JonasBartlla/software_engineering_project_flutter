@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/appUser.dart';
+import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/pages/home/listOfTaskLists.dart';
 import 'package:software_engineering_project_flutter/models/taskList.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
@@ -25,67 +26,71 @@ final AuthService _auth = AuthService();
     //   value: DatabaseService().users, 
     //   initialData: null,
       // child: 
-      return StreamProvider<List<TaskList>>.value(
+      return StreamProvider<List<Task>>.value(
         initialData: [],
-        value: _database.lists,
-        child: Scaffold(
-          backgroundColor: Colors.green,
-          appBar: AppBar(
-            title: Text('Check IT'),
-            elevation: 0.0,
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 50.0, 0.0),
-                child: TextButton.icon(
-                  icon: Icon(Icons.person,
-                    color: Colors.purple,
-                  ),
-                  label: Text('logout',
-                    style: TextStyle(
+        value: _database.tasks,
+        child: StreamProvider<List<TaskList>>.value(
+          initialData: [],
+          value: _database.lists,
+          child: Scaffold(
+            backgroundColor: Colors.green,
+            appBar: AppBar(
+              title: Text('Check IT'),
+              elevation: 0.0,
+              actions: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 50.0, 0.0),
+                  child: TextButton.icon(
+                    icon: Icon(Icons.person,
                       color: Colors.purple,
                     ),
+                    label: Text('logout',
+                      style: TextStyle(
+                        color: Colors.purple,
+                      ),
+                    ),
+                    onPressed: () async {
+                      await _auth.signOut(); //sorgt dafür dass der Stream den Wert null liefert, somit wird wieder die HomePage angezeigt
+                    },
                   ),
-                  onPressed: () async {
-                    await _auth.signOut(); //sorgt dafür dass der Stream den Wert null liefert, somit wird wieder die HomePage angezeigt
-                  },
                 ),
-              ),
-              TextButton(
-                style: buttonStyleDecoration,
-                onPressed: (){
-                  //_database.deleteTask(_database.taskCollection.doc('hI7a9dF6CVyOphNDPGz8'));
-                  _database.addList("test List neu", Icons.abc);
-                  DateTime date = DateTime.now();
-                  TimeOfDay time = TimeOfDay.now();
-                  List<DocumentReference> listReferences = [_database.listCollection.doc('T24M7SyGOrCAxAxJ4hyj')];
-                  // _database.addTask("Test Task", "Kacken gehen", date,  time, 'Mittel', listReferences);
-                  print('pressed');
-                }, 
-                child: Icon(Icons.add,
-                  color: Colors.black,
+                TextButton(
+                  style: buttonStyleDecoration,
+                  onPressed: (){
+                    //_database.deleteTask(_database.taskCollection.doc('hI7a9dF6CVyOphNDPGz8'));
+                    _database.addList("test List neu", Icons.abc);
+                    DateTime date = DateTime.now();
+                    TimeOfDay time = TimeOfDay.now();
+                    List<DocumentReference> listReferences = [_database.listCollection.doc('T24M7SyGOrCAxAxJ4hyj')];
+                    // _database.addTask("Test Task", "Kacken gehen", date,  time, 'Mittel', listReferences);
+                    print('pressed');
+                  }, 
+                  child: Icon(Icons.add,
+                    color: Colors.black,
+                  )
                 )
-              )
-            ],
-          ),
-          body: Column(
-            children: [
-              TextButton(
-                onPressed: () async {
-                  await Navigator.pushNamed(context, '/create');
-                },
-                child: Text('Erstellen'),
-              ),
-              TextButton(
-                //bei onpressed dann ggf. die Kategorie mitgeben
-                onPressed: (){
-                  Navigator.pushNamed(context, '/view');
-                },
-                child: Text('Tasks anzeigen'),
-
-              ),
-              ListOfTaskLists(),
-
-            ],
+              ],
+            ),
+            body: Column(
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    await Navigator.pushNamed(context, '/create');
+                  },
+                  child: Text('Erstellen'),
+                ),
+                TextButton(
+                  //bei onpressed dann ggf. die Kategorie mitgeben
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/view');
+                  },
+                  child: Text('Tasks anzeigen'),
+        
+                ),
+                ListOfTaskLists(),
+        
+              ],
+            ),
           ),
         ),
       );
