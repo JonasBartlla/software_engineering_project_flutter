@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
+import 'package:software_engineering_project_flutter/shared/validations.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key,this.toggleView});
@@ -102,7 +103,7 @@ class _RegisterState extends State<Register> {
                       if (val!.isEmpty){ // return null if valid
                         return "Enter an email";
                       }else if (!val.contains("@")){
-                        return "Die E-Mail muss ein @-Zeichen enthalten \n a";
+                        return "Die E-Mail muss ein @-Zeichen enthalten";
                       }else{
                         return null;
                       }
@@ -137,8 +138,11 @@ class _RegisterState extends State<Register> {
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
-                        if (val!.length < 6){
-                          return "Das Passwort entspricht nicht den Passwortrichtlinien. Es muss zwischen 8 und 20 Zeichen lang sein \n und mindestens einen Großbuchstaben und ein Sonderzeichen enthalten";
+                        if (val == null || val.isEmpty){
+                          return "Bitte geben SIe ein Passwort ein";
+                        }
+                        else if (validatePasswordPolicy(val) == false){
+                          return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindesten ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
                         } else{
                           return null;
                         }
@@ -172,9 +176,7 @@ class _RegisterState extends State<Register> {
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
-                        if (val!.length < 6){
-                          return "Geben sie ein passwort mit mindestens 6 Zeichen an";
-                        } else if (val != password){
+                        if (val != password){
                           return "Die beiden Passwörter stimmen nicht über ein";
                         }
                         else{
