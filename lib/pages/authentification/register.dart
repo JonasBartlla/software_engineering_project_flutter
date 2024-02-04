@@ -102,7 +102,9 @@ class _RegisterState extends State<Register> {
                       validator: (val) {
                       if (val!.isEmpty){ // return null if valid
                         return "Enter an email";
-                      } else{
+                      }else if (!val.contains("@")){
+                        return "Die E-Mail muss ein @-Zeichen enthalten";
+                      }else{
                         return null;
                       }
                       },
@@ -138,7 +140,7 @@ class _RegisterState extends State<Register> {
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
                         if (val!.length < 6){
-                          return "Geben sie ein passwort mit mindestens 6 Zeichen an";
+                          return "Das Passwort entspricht nicht den Passwortrichtlinien. Es muss zwischen 8 und 20 Zeichen lang sein \n und mindestens einen Großbuchstaben und ein Sonderzeichen enthalten";
                         } else{
                           return null;
                         }
