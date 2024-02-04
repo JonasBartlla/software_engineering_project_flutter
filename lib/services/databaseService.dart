@@ -77,13 +77,15 @@ class DatabaseService{
     }); 
   }
   //editingTask
-  Future editTask(String bezeichnung, String notiz, DateTime selectedDate, TimeOfDay uhrzeit, String priority, DocumentReference taskId, List<DocumentReference>? lists) async {
+  Future editTask(String bezeichnung, String notiz, DateTime selectedDate, bool notify, String priority, List<DocumentReference>? lists, bool done, DocumentReference taskId) async {
     return await taskId.set({
       'bezeichnung': bezeichnung,
       'notiz': notiz,
+      'datum': selectedDate,
+      'benachrichtigung': notify,
       'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
-      'uhrzeit': uhrzeit.toString(),
-      'priorität': priority
+      'priorität': priority,
+      'done': done,
     }); 
   }
 
@@ -126,7 +128,8 @@ class DatabaseService{
         benachrichtigung: doc.get('benachrichtigung'),
         creationDate: doc.get('wiedervorlagedatum'),
         ownerId: doc.get('ownerId'),
-        done: doc.get('done')
+        done: doc.get('done'),
+        taskReference: doc.reference
 
       );
     }).toList();

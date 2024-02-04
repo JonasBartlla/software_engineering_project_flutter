@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/pages/home/create_todo.dart';
+import 'package:software_engineering_project_flutter/pages/home/edit_todo.dart';
 import 'package:software_engineering_project_flutter/pages/home/view_tasks.dart';
 import 'package:software_engineering_project_flutter/wrapper.dart';
 import 'package:software_engineering_project_flutter/pages/home/home.dart';
@@ -29,7 +30,7 @@ class CheckIT extends StatelessWidget{
         routes: {
           '/': (context) => Wrapper(),
           '/create':(context) => const CreateToDo(),
-          '/view': (context) => const ListOfTasksPage()
+          '/view': (context) => const ListOfTasksPage(),
         },
         //home: Wrapper(),
     
