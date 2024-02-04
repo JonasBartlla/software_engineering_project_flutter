@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/appUser.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
+import 'package:software_engineering_project_flutter/models/tasktile.dart';
 import 'package:software_engineering_project_flutter/pages/home/listOfTaskLists.dart';
 import 'package:software_engineering_project_flutter/models/taskList.dart';
 import 'package:software_engineering_project_flutter/pages/home/listOfTasks.dart';
@@ -15,11 +16,22 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 class Home extends StatelessWidget{
 
 final AuthService _auth = AuthService();
-
+final DatabaseService dummyDatabase = DatabaseService();
 
 
   @override
   Widget build(BuildContext context){
+
+    final Task task  = Task(
+      bezeichnung: 'Test', 
+      prioritaet: 'Mittel', 
+      faelligkeitsdatum: DateTime(2022, 12, 3, 17, 30), 
+      benachrichtigung: false, 
+      ownerId: 'fafdafag', 
+      creationDate: DateTime(2022, 12, 3, 17, 30), 
+      done: false, 
+      taskReference: dummyDatabase.taskCollection.doc('CLXRexhDSJvLB9hntUar'), 
+      notiz: 'lolol');
 
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
@@ -89,6 +101,8 @@ final AuthService _auth = AuthService();
         
                 ),
                 ListOfTaskLists(),
+
+                TaskTile(task: task)
         
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
+import 'package:software_engineering_project_flutter/pages/home/edit_todo.dart';
 
 class TaskTile extends StatelessWidget {
   
@@ -15,7 +16,7 @@ class TaskTile extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(20, 6, 20, 0),
         child: ListTile(
           onTap: (){
-            Navigator.pushNamed(context, '/create');
+            Navigator.push(context, MaterialPageRoute(builder: ((context) => EditTodo(task: task))));
           },
           leading: Icon(
             Icons.circle_outlined
@@ -24,14 +25,33 @@ class TaskTile extends StatelessWidget {
           subtitle: Row(
             children: [
               //Hier die Optionalen Angaben unter der Bezeichnung
-              const Icon(Icons.calendar_month_rounded),
+
+              //Priorität
+              task.prioritaet == 'no priority' 
+              ? const Text('') 
+              : const Icon(Icons.arrow_upward),
+                Text(task.prioritaet),
+              
+              //Datum und Uhrzeit
+              task.faelligkeitsdatum == DateTime.fromMillisecondsSinceEpoch(0)
+              ? const Text('')
+              : const Icon(Icons.calendar_month_rounded),
               Text(task.faelligkeitsdatum.toString()),
               const SizedBox(width: 4,),
-              const Icon(Icons.arrow_upward),
-              Text(task.prioritaet),
+
+              //Notiz
+              task.notiz == ''
+              ? const Text('')
+              : const Icon(Icons.list_alt_rounded),
+
+              //Benachrichtigung
+              task.benachrichtigung == true
+              ? const Icon(Icons.notifications_on)
+              : const Text(''),
+              
             ]
-            ),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+          ),
+          trailing: const Icon(Icons.arrow_forward_ios_rounded),
         ),
       ),
     );

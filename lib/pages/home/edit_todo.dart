@@ -10,6 +10,7 @@ import 'package:software_engineering_project_flutter/shared/date_time_picker.dar
 import 'package:provider/provider.dart';
 
 class EditTodo extends StatefulWidget {
+  
   final Task task; 
   const EditTodo({required this.task, super.key});
 
@@ -18,23 +19,16 @@ class EditTodo extends StatefulWidget {
 }
 
 class _EditTodoState extends State<EditTodo> {
-  
-  late Task _task;
 
-    @override
-  void initState() {
-    super.initState();
-    _task = widget.task;
-  }
-
+  late Task task = widget.task;
   final _formKey = GlobalKey<FormState>();
 
   //Felder eines ToDos
-  String title = '';
-  String note = '';
-  String list = 'default';
-  String priority = 'no priority';
-  DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
+  late String title = task.bezeichnung;
+  late String note = task.notiz;
+  late String list = 'default';
+  late String priority = task.prioritaet;
+  late DateTime dateAndTime = task.faelligkeitsdatum; //soll nicht null sein
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
@@ -53,7 +47,7 @@ class _EditTodoState extends State<EditTodo> {
       appBar: AppBar(
         title: Center(
             child: Text(
-          'To-Do erstellen',
+          'To-Do bearbeiten',
           style: standardAppBarTextDecoration,
         )),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
@@ -88,7 +82,7 @@ class _EditTodoState extends State<EditTodo> {
                             children: <Widget>[
                               const SizedBox(
                                 child: Icon(
-                                  Icons.add,
+                                  Icons.circle_outlined,
                                   color: Colors.white,
                                   size: 40.0,
                                 ),
@@ -103,7 +97,7 @@ class _EditTodoState extends State<EditTodo> {
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                     style: const TextStyle(color: Colors.white),
-                                    initialValue: "",
+                                    initialValue: title,
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Bitte eine Bezeichnung eingeben';
@@ -191,6 +185,7 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: DropdownButtonFormField<String>(
+                                  value: task.prioritaet == 'no priority' ? null : task.prioritaet,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor:
@@ -283,7 +278,7 @@ class _EditTodoState extends State<EditTodo> {
                                   validator: (value) => value!.length > 300
                                       ? 'Notiz darf nicht länger als 300 Zeichen sein'
                                       : null,
-                                  initialValue: "",
+                                  initialValue: note,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Notiz'),
                                   onChanged: (value) => setState(() {
@@ -318,11 +313,10 @@ class _EditTodoState extends State<EditTodo> {
                                 //Erstellen Button
                                 child: ElevatedButton(
                                   style: buttonStyleDecorationcolorchange,
-                                  child: const Text('Erstellen'),
+                                  child: const Text('Speichern'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _database.addTask(title, note,
-                                          dateAndTime, false, priority, lists, false);
+                                      _database.editTask(title, note, dateAndTime, false, priority, null, false, task.taskReference);
                                       Navigator.pop(context);
                                     }
                                   },
