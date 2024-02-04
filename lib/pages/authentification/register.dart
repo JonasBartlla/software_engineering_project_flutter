@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
-import 'package:software_engineering_project_flutter/shared/constants.dart';
+import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 
 class Register extends StatefulWidget {
@@ -95,7 +95,6 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
-                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Email'),
@@ -103,7 +102,7 @@ class _RegisterState extends State<Register> {
                       if (val!.isEmpty){ // return null if valid
                         return "Enter an email";
                       }else if (!val.contains("@")){
-                        return "Die E-Mail muss ein @-Zeichen enthalten";
+                        return "Die E-Mail muss ein @-Zeichen enthalten \n a";
                       }else{
                         return null;
                       }
@@ -134,7 +133,6 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
-                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
@@ -170,7 +168,6 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
-                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
