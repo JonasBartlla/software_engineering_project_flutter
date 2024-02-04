@@ -93,7 +93,7 @@ class _EditTodoState extends State<EditTodo> {
                                 //elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: SizedBox(
-                                  height: 45, width: 303,
+                                  width: 303,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                     style: const TextStyle(color: Colors.white),
