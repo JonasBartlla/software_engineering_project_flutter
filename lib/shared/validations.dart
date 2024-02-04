@@ -1,12 +1,19 @@
 import 'package:software_engineering_project_flutter/shared/validate_Domains.dart';
+import 'package:list_ext/list_ext.dart';
 
-bool validateEmail(String value){
-  
-  value = value.substring(start);
-  if(validateDomains.contains(value)){
-    return true;
+String? validateEmail(String? value){
+  if(value == null || value.isEmpty){
+    return 'Bitte geben Sie eine E-Mail-Addresse ein';
+  } else if (1 != value.split('').countWhere((element) => element == "@")){
+    return "Nur E-Mails mit genau eine @-Zeichen sind gültig";
+  } else {
+    value = value.substring(value.indexOf("@"));
+    if (validateDomains.contains(value)){
+      return null;
+    }else{
+      return "Ihre E-Mail-Addresse enthält keine gültige Domain";
+    }
   }
-  return false;
 }
 
 bool validatePasswordPolicy(String value){
