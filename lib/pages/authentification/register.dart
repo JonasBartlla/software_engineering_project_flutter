@@ -100,13 +100,7 @@ class _RegisterState extends State<Register> {
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Email'),
                       validator: (val) {
-                      if (val!.isEmpty){ // return null if valid
-                        return "Enter an email";
-                      }else if (!val.contains("@")){
-                        return "Die E-Mail muss ein @-Zeichen enthalten";
-                      }else{
-                        return null;
-                      }
+                        return validateEmail(val);
                       },
                       onChanged: (val){
                         setState(() { // when the value inside the eMail field changes the value of the variable wil be changed 
