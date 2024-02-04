@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,14 +9,24 @@ import 'package:software_engineering_project_flutter/services/databaseService.da
 import 'package:software_engineering_project_flutter/shared/date_time_picker.dart';
 import 'package:provider/provider.dart';
 
-class CreateToDo extends StatefulWidget {
-  const CreateToDo({super.key});
+class EditTodo extends StatefulWidget {
+  final Task task; 
+  const EditTodo({required this.task, super.key});
 
   @override
-  State<CreateToDo> createState() => _CreateToDoState();
+  State<EditTodo> createState() => _EditTodoState();
 }
 
-class _CreateToDoState extends State<CreateToDo> {
+class _EditTodoState extends State<EditTodo> {
+  
+  late Task _task;
+
+    @override
+  void initState() {
+    super.initState();
+    _task = widget.task;
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   //Felder eines ToDos
@@ -29,6 +40,8 @@ class _CreateToDoState extends State<CreateToDo> {
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
+
+
 
   @override
   Widget build(BuildContext context) {
