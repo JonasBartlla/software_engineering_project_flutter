@@ -1,4 +1,4 @@
-List<String> validateDomains=[
+const List<String> validateDomains=[
 	"0-mail.com",
 	"007addict.com",
 	"020.co.uk",
