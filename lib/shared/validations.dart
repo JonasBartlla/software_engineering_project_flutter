@@ -24,3 +24,12 @@ bool validatePasswordPolicy(String value){
         RegExp regExp = RegExp(pattern);
         return regExp.hasMatch(value);
   }
+
+String? validateRepeatPassword(String value, String password){
+                          if (value != password){
+                          return "Die beiden Passwörter stimmen nicht über ein";
+                        }
+                        else{
+                          return null;
+                        }
+}

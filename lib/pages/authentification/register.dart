@@ -133,7 +133,7 @@ class _RegisterState extends State<Register> {
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
                         if (val == null || val.isEmpty){
-                          return "Bitte geben SIe ein Passwort ein";
+                          return "Bitte geben Sie ein Passwort ein";
                         }
                         else if (validatePasswordPolicy(val) == false){
                           return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindesten ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
@@ -170,12 +170,7 @@ class _RegisterState extends State<Register> {
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
-                        if (val != password){
-                          return "Die beiden Passwörter stimmen nicht über ein";
-                        }
-                        else{
-                          return null;
-                        }
+                        return validateRepeatPassword(val as String, password);
                       },
                       onChanged: (val){
                         password2 = val; // same for password
@@ -196,7 +191,7 @@ class _RegisterState extends State<Register> {
                         dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                         if (result == null){
                           setState(() {
-                            error = 'please supply a valid email';
+                            error = 'Bitte geben Sie eine gültige E-Mail an';
                             loading = false;
                           });
                         }
