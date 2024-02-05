@@ -20,18 +20,15 @@ class _ListOfTasksState extends State<ListOfTasks> {
     for (Task task in tasks!){
       print(task.description);
     }
-    return Container();
 
-    
+    return tasks == null ? Loading() : ListView.builder(
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      itemCount: tasks.length,
+      itemBuilder: (context, index){
+        return TaskTile(task: tasks[index]);
+      },
 
-    // return tasks == null ? Loading() : ListView.builder(
-    //   shrinkWrap: true,
-    //   physics: const BouncingScrollPhysics(),
-    //   itemCount: tasks.length,
-    //   itemBuilder: (context, index){
-    //     return TaskTile(task: tasks[index]);
-    //   },
-
-    // );
+    );
   }
 }

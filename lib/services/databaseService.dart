@@ -108,7 +108,7 @@ class DatabaseService{
 
   //get Stream of Tasks
   Stream<List<Task>> get tasks{
-    return taskCollection.where('owner_id',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
+    return taskCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
   }
 
   List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
@@ -116,7 +116,7 @@ class DatabaseService{
       return Task(
         description: doc.get('description'),
         note: doc.get('note'),
-        priority: doc.get('priotity'),
+        priority: doc.get('priority'),
         maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
         notificationOn: doc.get('notificationOn'),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
