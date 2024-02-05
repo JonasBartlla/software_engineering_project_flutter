@@ -24,11 +24,11 @@ class _EditTodoState extends State<EditTodo> {
   final _formKey = GlobalKey<FormState>();
 
   //Felder eines ToDos
-  late String title = task.bezeichnung;
-  late String note = task.notiz;
+  late String title = task.description;
+  late String note = task.note;
   late String list = 'default';
-  late String priority = task.prioritaet;
-  late DateTime dateAndTime = task.faelligkeitsdatum; //soll nicht null sein
+  late String priority = task.priority;
+  late DateTime maturityDate = task.maturityDate; //soll nicht null sein
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
@@ -185,7 +185,7 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: DropdownButtonFormField<String>(
-                                  value: task.prioritaet == 'no priority' ? null : task.prioritaet,
+                                  value: task.priority == 'no priority' ? null : task.priority,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor:
@@ -240,10 +240,10 @@ class _EditTodoState extends State<EditTodo> {
                                             await showDateTimePicker(
                                                 context: context) ?? DateTime.fromMicrosecondsSinceEpoch(0);
                                         setState(() {
-                                          dateAndTime = pickedDate;
+                                          maturityDate = pickedDate;
                                         });
                                       },
-                                      child: dateAndTime == DateTime.fromMillisecondsSinceEpoch(0)
+                                      child: maturityDate == DateTime.fromMillisecondsSinceEpoch(0)
                                           ? const Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
@@ -255,7 +255,7 @@ class _EditTodoState extends State<EditTodo> {
                                               ),
                                             )
                                           : Text(
-                                              '${DateFormat('dd.MM.yyyy').format(dateAndTime)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime.minute.toString().padLeft(2, '0')}'),
+                                              '${DateFormat('dd.MM.yyyy').format(maturityDate)} ${maturityDate.hour.toString().padLeft(2, '0')}:${maturityDate.minute.toString().padLeft(2, '0')}'),
                                     )),
                               ]),
                           const SizedBox(
@@ -316,7 +316,7 @@ class _EditTodoState extends State<EditTodo> {
                                   child: const Text('Speichern'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _database.editTask(title, note, dateAndTime, false, priority, null, false, task.taskReference);
+                                      _database.editTask(title, note, maturityDate, false, priority, null, false, task.taskReference);
                                       Navigator.pop(context);
                                     }
                                   },

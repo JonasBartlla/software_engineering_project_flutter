@@ -16,15 +16,22 @@ class _ListOfTasksState extends State<ListOfTasks> {
   Widget build(BuildContext context) {
 
     final tasks = Provider.of<List<Task>?>(context);
+    print(tasks);
+    for (Task task in tasks!){
+      print(task.description);
+    }
+    return Container();
 
-    return tasks == null ? Loading() : ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemCount: tasks.length,
-      itemBuilder: (context, index){
-        return TaskTile(task: tasks[index]);
-      },
+    
 
-    );
+    // return tasks == null ? Loading() : ListView.builder(
+    //   shrinkWrap: true,
+    //   physics: const BouncingScrollPhysics(),
+    //   itemCount: tasks.length,
+    //   itemBuilder: (context, index){
+    //     return TaskTile(task: tasks[index]);
+    //   },
+
+    // );
   }
 }

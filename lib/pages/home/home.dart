@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/appUser.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
-import 'package:software_engineering_project_flutter/models/tasktile.dart';
+import 'package:software_engineering_project_flutter/models/taskTile.dart';
 import 'package:software_engineering_project_flutter/pages/home/listOfTaskLists.dart';
 import 'package:software_engineering_project_flutter/models/taskList.dart';
 import 'package:software_engineering_project_flutter/pages/home/listOfTasks.dart';
@@ -23,15 +23,15 @@ final DatabaseService dummyDatabase = DatabaseService();
   Widget build(BuildContext context){
 
     final Task task  = Task(
-      bezeichnung: 'Test', 
-      prioritaet: 'Mittel', 
-      faelligkeitsdatum: DateTime(2022, 12, 3, 17, 30), 
-      benachrichtigung: false, 
+      description: 'Test', 
+      priority: 'Mittel', 
+      maturityDate: DateTime(2022, 12, 3, 17, 30), 
+      notificationOn: false, 
       ownerId: 'fafdafag', 
       creationDate: DateTime(2022, 12, 3, 17, 30), 
       done: false, 
       taskReference: dummyDatabase.taskCollection.doc('CLXRexhDSJvLB9hntUar'), 
-      notiz: 'lolol');
+      note: 'lolol');
 
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
@@ -42,9 +42,9 @@ final DatabaseService dummyDatabase = DatabaseService();
       return StreamProvider<List<Task>>.value(
         initialData: [],
         value: _database.tasks,
-        child: StreamProvider<List<TaskList>>.value(
+        child: StreamProvider<List<Task>>.value(
           initialData: [],
-          value: _database.lists,
+          value: _database.tasks,
           child: Scaffold(
             backgroundColor: Colors.green,
             appBar: AppBar(
@@ -100,7 +100,8 @@ final DatabaseService dummyDatabase = DatabaseService();
                   child: Text('Tasks anzeigen'),
         
                 ),
-                ListOfTaskLists(),
+                // ListOfTaskLists(),
+                ListOfTasks(),
 
                 TaskTile(task: task)
         

@@ -2,19 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Task{
 
-  String bezeichnung;
-  String notiz;
+  String description;
+  String note;
   //String zugehoerigeListe;
-  String prioritaet;
+  String priority;
   //String? wiederholung;
-  DateTime faelligkeitsdatum;
-  bool benachrichtigung;
+  DateTime maturityDate;
+  bool notificationOn;
   String ownerId;
   DateTime creationDate;
   bool done;
   DocumentReference taskReference;
 
 
-  Task({required this.bezeichnung, required this.notiz, required this.prioritaet, required this.faelligkeitsdatum, required this.benachrichtigung, required this.ownerId, required this.creationDate, required this.done, required this.taskReference});
+  Task({required this.description, required this.note, required this.priority, required this.maturityDate, required this.notificationOn, required this.ownerId, required this.creationDate, required this.done, required this.taskReference});
 
 }

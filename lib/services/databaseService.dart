@@ -31,23 +31,15 @@ class DatabaseService{
     );
   }
 
-
-  // Future testListReferences() async {
-  //   return await addList(bezeichnung, icon)
-  // }
-
-
-
   //add List
-  Future addList(String bezeichnung, IconData icon) async {
+  Future addList(String description, IconData icon) async {
     return await listCollection.add({
-      'bezeichnung': bezeichnung,
+      'bezeichnung': description,
       'icon': icon.codePoint,
-      'taskCounter': 0,
       'ownerId': uid,
     });
-     //IconData(iconCodePointFromDataBase, fontFamily: 'MaterialIcons')
   }
+
   //editing List
   Future editList(String bezeichnung, IconData icon, DocumentReference list) async {
     return await list.set({
@@ -55,40 +47,41 @@ class DatabaseService{
       'icon': icon.codePoint
     });
   }
+
   //deleting List
   Future deleteList(DocumentReference list) async {
     return await list.delete();
   }
 
   //add Task
-
-  Future addTask(String bezeichnung, String notiz, DateTime selectedDate, bool notify, String priority, List<DocumentReference>? lists, bool done) async {
+  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done) async {
     //adding the Task
     return  await taskCollection.add({
-      'bezeichnung': bezeichnung,
-      'notiz': notiz,
-      'datum': selectedDate.millisecondsSinceEpoch,
-      'benachrichtigung': notify,
-      'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
-      'priorität': priority,
-      'owner_id': uid,
+      'description': description,
+      'note': note,
+      'creationDate': DateTime.now().millisecondsSinceEpoch,
+      'notificationOn': notificationOn,
+      'maturityDate': maturityDate.millisecondsSinceEpoch,
+      'priority': priority,
+      'ownerId': uid,
       'done': done
-      
-    }); 
-  }
-  //editingTask
-  Future editTask(String bezeichnung, String notiz, DateTime selectedDate, bool notify, String priority, List<DocumentReference>? lists, bool done, DocumentReference taskId) async {
-    return await taskId.set({
-      'bezeichnung': bezeichnung,
-      'notiz': notiz,
-      'datum': selectedDate,
-      'benachrichtigung': notify,
-      'wiedervorlagedatum': Timestamp.fromDate(DateTime.now()),
-      'priorität': priority,
-      'done': done,
     }); 
   }
 
+  // editing Task
+  Future editTask(String description, String note, DateTime resubmissionDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done, DocumentReference taskId) async {
+    return await taskId.set({
+      'description': description,
+      'note': note,
+      'creationDate': DateTime.now().millisecondsSinceEpoch,
+      'notificationOn': notificationOn,
+      'resubmissionDate': resubmissionDate.millisecondsSinceEpoch,
+      'priority': priority,
+      'done': done
+    }); 
+  }
+
+  // deletion of task
   Future deleteTask(DocumentReference task) async{
     return await task.delete();
   }
@@ -106,7 +99,7 @@ class DatabaseService{
     return snapshot.docs.map((doc){
       return TaskList(
         ownerId: doc.get('ownerId'),
-        bezeichnung: doc.get('bezeichnung'),
+        description: doc.get('description'),
         icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
       );
     }
@@ -115,22 +108,21 @@ class DatabaseService{
 
   //get Stream of Tasks
   Stream<List<Task>> get tasks{
-    return taskCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
+    return taskCollection.where('owner_id',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
   }
 
   List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
       return Task(
-        bezeichnung: doc.get('bezeichnung'),
-        notiz: doc.get('notiz'),
-        prioritaet: doc.get('priorität'),
-        faelligkeitsdatum: doc.get('datum'),
-        benachrichtigung: doc.get('benachrichtigung'),
-        creationDate: doc.get('wiedervorlagedatum'),
+        description: doc.get('description'),
+        note: doc.get('note'),
+        priority: doc.get('priotity'),
+        maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
+        notificationOn: doc.get('notificationOn'),
+        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
         ownerId: doc.get('ownerId'),
         done: doc.get('done'),
         taskReference: doc.reference
-
       );
     }).toList();
 

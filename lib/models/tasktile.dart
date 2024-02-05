@@ -21,31 +21,31 @@ class TaskTile extends StatelessWidget {
           leading: Icon(
             Icons.circle_outlined
           ),
-          title: Text(task.bezeichnung),
+          title: Text(task.description),
           subtitle: Row(
             children: [
               //Hier die Optionalen Angaben unter der Bezeichnung
 
               //Priorität
-              task.prioritaet == 'no priority' 
+              task.priority == 'no priority' 
               ? const Text('') 
               : const Icon(Icons.arrow_upward),
-                Text(task.prioritaet),
+                Text(task.priority),
               
               //Datum und Uhrzeit
-              task.faelligkeitsdatum == DateTime.fromMillisecondsSinceEpoch(0)
+              task.maturityDate == DateTime.fromMillisecondsSinceEpoch(0)
               ? const Text('')
               : const Icon(Icons.calendar_month_rounded),
-              Text(task.faelligkeitsdatum.toString()),
+              Text(task.maturityDate.toString()),
               const SizedBox(width: 4,),
 
               //Notiz
-              task.notiz == ''
+              task.note == ''
               ? const Text('')
               : const Icon(Icons.list_alt_rounded),
 
               //Benachrichtigung
-              task.benachrichtigung == true
+              task.notificationOn == true
               ? const Icon(Icons.notifications_on)
               : const Text(''),
               

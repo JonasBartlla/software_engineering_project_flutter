@@ -17,7 +17,7 @@ class ListTileTest extends StatelessWidget {
           leading: Icon(
             taskList.icon
           ),
-          title: Text(taskList.bezeichnung),
+          title: Text(taskList.description),
           subtitle: Text("Contains tasks"),
         ),
       )
