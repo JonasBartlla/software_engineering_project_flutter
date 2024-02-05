@@ -34,7 +34,7 @@ class DatabaseService{
   //add List
   Future addList(String description, IconData icon) async {
     return await listCollection.add({
-      'bezeichnung': description,
+      'description': description,
       'icon': icon.codePoint,
       'ownerId': uid,
     });
@@ -43,7 +43,7 @@ class DatabaseService{
   //editing List
   Future editList(String bezeichnung, IconData icon, DocumentReference list) async {
     return await list.set({
-      'bezeichnung': bezeichnung,
+      'description': bezeichnung,
       'icon': icon.codePoint
     });
   }
