@@ -97,6 +97,12 @@ final DatabaseService dummyDatabase = DatabaseService();
                     child: Text('Erstellen'),
                   ),
                   TextButton(
+                    onPressed: () async {
+                      await Navigator.pushNamed(context, '/createList');
+                    },
+                    child: Text('Liste Erstellen'),
+                  ),
+                  TextButton(
                     //bei onpressed dann ggf. die Kategorie mitgeben
                     onPressed: (){
                       Navigator.pushNamed(context, '/view');
