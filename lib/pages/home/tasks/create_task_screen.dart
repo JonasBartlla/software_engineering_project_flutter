@@ -5,7 +5,7 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
-import 'package:software_engineering_project_flutter/shared/date_time_picker.dart';
+import 'package:software_engineering_project_flutter/shared/date_time_picker_widget.dart';
 import 'package:provider/provider.dart';
 
 class CreateToDo extends StatefulWidget {
@@ -21,9 +21,9 @@ class _CreateToDoState extends State<CreateToDo> {
   //Felder eines ToDos
   String title = '';
   String note = '';
-  String list = '';
-  String priority = '';
-  DateTime? dateAndTime; //soll nicht null sein
+  String list = 'default';
+  String priority = 'no priority';
+  DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
@@ -86,7 +86,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 //elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: SizedBox(
-                                  height: 45, width: 303,
+                                  width: 303,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                     style: const TextStyle(color: Colors.white),
@@ -228,14 +228,14 @@ class _CreateToDoState extends State<CreateToDo> {
                                     child: TextButton(
                                       style: buttonStyleDecoration,
                                       onPressed: () async {
-                                        DateTime? pickedDate =
+                                        DateTime pickedDate =
                                             await showDateTimePicker(
-                                                context: context);
+                                                context: context) ?? DateTime.fromMicrosecondsSinceEpoch(0);
                                         setState(() {
                                           dateAndTime = pickedDate;
                                         });
                                       },
-                                      child: dateAndTime == null
+                                      child: dateAndTime == DateTime.fromMillisecondsSinceEpoch(0)
                                           ? const Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
@@ -247,7 +247,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                               ),
                                             )
                                           : Text(
-                                              '${DateFormat('dd.MM.yyyy').format(dateAndTime!)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime!.minute.toString().padLeft(2, '0')}'),
+                                              '${DateFormat('dd.MM.yyyy').format(dateAndTime)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime.minute.toString().padLeft(2, '0')}'),
                                     )),
                               ]),
                           const SizedBox(
@@ -309,7 +309,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       _database.addTask(title, note,
-                                          dateAndTime, priority, lists);
+                                          dateAndTime, false, priority, lists, false);
                                       Navigator.pop(context);
                                     }
                                   },

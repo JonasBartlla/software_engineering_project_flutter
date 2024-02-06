@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:software_engineering_project_flutter/pages/home/create_todo.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
+import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
+import 'package:software_engineering_project_flutter/pages/home/tasks/edit_task_screen.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
 import 'package:software_engineering_project_flutter/wrapper.dart';
-import 'package:software_engineering_project_flutter/pages/home/home.dart';
+import 'package:software_engineering_project_flutter/pages/home/main_screens/home.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/sign_in.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 
@@ -27,7 +30,9 @@ class CheckIT extends StatelessWidget{
         initialRoute: '/',
         routes: {
           '/': (context) => Wrapper(),
-          '/create':(context) => const CreateToDo()
+          '/create':(context) => const CreateToDo(),
+          '/view': (context) => const ListOfTasksPage(),
+          '/createList':(context) => const CreateListPage()
         },
         //home: Wrapper(),
     

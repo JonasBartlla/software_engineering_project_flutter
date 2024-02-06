@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
-import 'package:software_engineering_project_flutter/shared/constants.dart';
+import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
+import 'package:software_engineering_project_flutter/shared/validations.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key,this.toggleView});
@@ -95,16 +96,11 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
-                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Email'),
                       validator: (val) {
-                      if (val!.isEmpty){ // return null if valid
-                        return "Enter an email";
-                      } else{
-                        return null;
-                      }
+                        return validateEmail(val);
                       },
                       onChanged: (val){
                         setState(() { // when the value inside the eMail field changes the value of the variable wil be changed 
@@ -132,13 +128,15 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
-                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
-                        if (val!.length < 6){
-                          return "Geben sie ein passwort mit mindestens 6 Zeichen an";
+                        if (val == null || val.isEmpty){
+                          return "Bitte geben Sie ein Passwort ein";
+                        }
+                        else if (validatePasswordPolicy(val) == false){
+                          return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindesten ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
                         } else{
                           return null;
                         }
@@ -168,19 +166,11 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
-                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'Password'),
                       validator: (val) {
-                        if (val!.length < 6){
-                          return "Geben sie ein passwort mit mindestens 6 Zeichen an";
-                        } else if (val != password){
-                          return "Die beiden Passwörter stimmen nicht über ein";
-                        }
-                        else{
-                          return null;
-                        }
+                        return validateRepeatPassword(val as String, password);
                       },
                       onChanged: (val){
                         password2 = val; // same for password
@@ -201,7 +191,7 @@ class _RegisterState extends State<Register> {
                         dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                         if (result == null){
                           setState(() {
-                            error = 'please supply a valid email';
+                            error = 'Bitte geben Sie eine gültige E-Mail an';
                             loading = false;
                           });
                         }

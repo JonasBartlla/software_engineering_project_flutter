@@ -39,7 +39,7 @@ Future<DateTime?> showDateTimePicker({
     },
   );
 
-  if (selectedDate == null) return null;
+  if (selectedDate == null) return DateTime.fromMillisecondsSinceEpoch(0);
 
   if (!context.mounted) return selectedDate;
 
