@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:software_engineering_project_flutter/models/appUser.dart';
+import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
-import 'package:software_engineering_project_flutter/models/taskTile.dart';
-import 'package:software_engineering_project_flutter/pages/home/listOfTaskLists.dart';
-import 'package:software_engineering_project_flutter/models/taskList.dart';
-import 'package:software_engineering_project_flutter/pages/home/listOfTasks.dart';
+import 'package:software_engineering_project_flutter/models/task_tile.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
+import 'package:software_engineering_project_flutter/models/task_list.dart';
+import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_tasks_widget.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:provider/provider.dart';
@@ -88,32 +88,34 @@ final DatabaseService dummyDatabase = DatabaseService();
                   )
                 ],
               ),
-              body: Column(
-                children: [
-                  TextButton(
-                    onPressed: () async {
-                      await Navigator.pushNamed(context, '/create');
-                    },
-                    child: Text('Erstellen'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      await Navigator.pushNamed(context, '/createList');
-                    },
-                    child: Text('Liste Erstellen'),
-                  ),
-                  TextButton(
-                    //bei onpressed dann ggf. die Kategorie mitgeben
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/view');
-                    },
-                    child: Text('Tasks anzeigen'),
-                    
-                  ),
-                  ListOfTaskLists(),
-                  ListOfTasks(), 
-                  TaskTile(task: task)
-                ],
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextButton(
+                      onPressed: () async {
+                        await Navigator.pushNamed(context, '/create');
+                      },
+                      child: Text('Erstellen'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        await Navigator.pushNamed(context, '/createList');
+                      },
+                      child: Text('Liste Erstellen'),
+                    ),
+                    TextButton(
+                      //bei onpressed dann ggf. die Kategorie mitgeben
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/view');
+                      },
+                      child: Text('Tasks anzeigen'),
+                      
+                    ),
+                    ListOfTaskLists(),
+                    ListOfTasks(), 
+                    TaskTile(task: task)
+                  ],
+                ),
               ),
             ),
           );

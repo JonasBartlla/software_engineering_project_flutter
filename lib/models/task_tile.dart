@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
-import 'package:software_engineering_project_flutter/pages/home/edit_todo.dart';
+import 'package:software_engineering_project_flutter/pages/home/tasks/edit_task_screen.dart';
 
 class TaskTile extends StatelessWidget {
   

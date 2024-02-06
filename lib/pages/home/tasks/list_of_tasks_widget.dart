@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
-import 'package:software_engineering_project_flutter/models/taskTile.dart';
+import 'package:software_engineering_project_flutter/models/task_tile.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 
 class ListOfTasks extends StatefulWidget {

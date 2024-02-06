@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:software_engineering_project_flutter/pages/home/listOfTasks.dart';
+import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_tasks_widget.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
-import 'package:software_engineering_project_flutter/models/appUser.dart';
+import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 

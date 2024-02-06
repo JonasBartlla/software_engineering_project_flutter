@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:software_engineering_project_flutter/models/taskList.dart';
+import 'package:software_engineering_project_flutter/models/task_list.dart';
 
 class EditListPage extends StatefulWidget {
 

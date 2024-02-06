@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:software_engineering_project_flutter/models/taskList.dart';
-import 'package:software_engineering_project_flutter/pages/home/edit_list_page.dart';
+import 'package:software_engineering_project_flutter/models/task_list.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 
 class ListTileTest extends StatelessWidget {
 

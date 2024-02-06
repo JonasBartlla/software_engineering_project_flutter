@@ -1,6 +1,6 @@
 import 'dart:html';
-import 'package:software_engineering_project_flutter/models/appUser.dart';
-import 'package:software_engineering_project_flutter/models/customUser.dart';
+import 'package:software_engineering_project_flutter/models/app_user.dart';
+import 'package:software_engineering_project_flutter/models/custom_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 

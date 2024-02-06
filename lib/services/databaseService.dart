@@ -1,8 +1,8 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
-import 'package:software_engineering_project_flutter/models/appUser.dart';
-import "package:software_engineering_project_flutter/models/taskList.dart";
+import 'package:software_engineering_project_flutter/models/app_user.dart';
+import "package:software_engineering_project_flutter/models/task_list.dart";
 import 'package:software_engineering_project_flutter/models/task.dart';
 
 class DatabaseService{
