@@ -30,6 +30,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
 var textInputDecoration = InputDecoration(
     fillColor: Colors.grey[700],
     filled: true,
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     hoverColor: const Color.fromARGB(255, 110, 110, 110),
     hintStyle: const TextStyle(
       color: Color.fromARGB(159, 214, 214, 214),
