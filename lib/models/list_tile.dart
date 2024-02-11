@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
@@ -12,6 +14,9 @@ class ListTileTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final tasks = Provider.of<List<Task>?>(context);
+
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
         child: Card(
@@ -23,7 +28,12 @@ class ListTileTest extends StatelessWidget {
             width: 30,
             child: ListTile(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description,))));
+                if (taskList.description != 'default'){
+                  final List<Task> filteredTasks = tasks!.where((task) => task.list == taskList.description).toList();
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description,tasks: filteredTasks,))));
+                } else {
+                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description, tasks: tasks!,))));
+                }
               },
               contentPadding: EdgeInsets.all(8.0),
               title: Column(
