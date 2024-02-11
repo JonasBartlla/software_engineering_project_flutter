@@ -28,7 +28,8 @@ class Home extends StatelessWidget {
         creationDate: DateTime(2022, 12, 3, 17, 30),
         done: false,
         taskReference: dummyDatabase.taskCollection.doc('CLXRexhDSJvLB9hntUar'),
-        note: 'lolol');
+        note: 'lolol',
+        list: 'Haushalt');
 
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
@@ -81,7 +82,7 @@ class Home extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await Navigator.pushNamed(context, '/createList');
+                    await Navigator.pushNamed(context, '/create');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromRGBO(

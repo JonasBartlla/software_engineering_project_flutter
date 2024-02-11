@@ -7,7 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 
 class ListOfTasksPage extends StatefulWidget {
-  const ListOfTasksPage({super.key});
+  
+  final String? list;
+  const ListOfTasksPage({required this.list, super.key});
 
   @override
   State<ListOfTasksPage> createState() => _ListOfTaskPageState();
@@ -17,7 +19,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
   @override
   Widget build(BuildContext context) {
 
-
+    late String? list = widget.list;
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
 
@@ -27,9 +29,9 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
       value: _database.tasks,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('*Kategorie*'),
+          title: Text(list!),
         ),
-        body: ListOfTasks(),
+        body: ListOfTasks(list: list,),
       ),
     );
   }

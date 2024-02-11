@@ -313,7 +313,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       _database.addTask(title, note,
-                                          dateAndTime, false, priority, lists, false);
+                                          dateAndTime, false, priority, lists, false, list);
                                       Navigator.pop(context);
                                     }
                                   },
