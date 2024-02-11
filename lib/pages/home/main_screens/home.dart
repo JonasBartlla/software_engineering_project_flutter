@@ -50,8 +50,9 @@ final DatabaseService dummyDatabase = DatabaseService();
               )
             ],
             child: Scaffold(
-              backgroundColor: Colors.green,
+              backgroundColor: Colors.grey[850],
               appBar: AppBar(
+                backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
                 title: Text('Check IT'),
                 elevation: 0.0,
                 actions: <Widget>[
