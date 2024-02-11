@@ -54,7 +54,7 @@ class DatabaseService{
   }
 
   //add Task
-  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done) async {
+  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
     return  await taskCollection.add({
       'description': description,
@@ -64,7 +64,8 @@ class DatabaseService{
       'maturityDate': maturityDate.millisecondsSinceEpoch,
       'priority': priority,
       'ownerId': uid,
-      'done': done
+      'done': done,
+      'list': list
     }); 
   }
 
@@ -122,6 +123,7 @@ class DatabaseService{
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
         ownerId: doc.get('ownerId'),
         done: doc.get('done'),
+        list: doc.get('list'),
         taskReference: doc.reference
       );
     }).toList();

@@ -4,7 +4,7 @@ class Task{
 
   String description;
   String note;
-  //String zugehoerigeListe;
+  String list;
   String priority;
   //String? wiederholung;
   DateTime maturityDate;
@@ -15,6 +15,6 @@ class Task{
   DocumentReference taskReference;
 
 
-  Task({required this.description, required this.note, required this.priority, required this.maturityDate, required this.notificationOn, required this.ownerId, required this.creationDate, required this.done, required this.taskReference});
+  Task({required this.description, required this.note, required this.priority, required this.list, required this.maturityDate, required this.notificationOn, required this.ownerId, required this.creationDate, required this.done, required this.taskReference});
 
 }

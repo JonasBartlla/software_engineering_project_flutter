@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class ListTileTest extends StatelessWidget {
@@ -22,7 +23,7 @@ class ListTileTest extends StatelessWidget {
             width: 30,
             child: ListTile(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => EditListPage(taskList: taskList))));
+                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description,))));
               },
               contentPadding: EdgeInsets.all(8.0),
               title: Column(

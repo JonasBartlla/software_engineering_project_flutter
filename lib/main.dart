@@ -27,11 +27,10 @@ class CheckIT extends StatelessWidget{
       initialData: null, //https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html
       value: AuthService().user,
       child: MaterialApp(
-        initialRoute: '/create',
+        initialRoute: '/',
         routes: {
           '/': (context) => Wrapper(),
           '/create':(context) => const CreateToDo(),
-          '/view': (context) => const ListOfTasksPage(),
           '/createList':(context) => const CreateListPage(),
           '/home':(context) =>  Home(),
         },
