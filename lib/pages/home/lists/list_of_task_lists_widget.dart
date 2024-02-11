@@ -19,13 +19,16 @@ class _ListOfTaskListsState extends State<ListOfTaskLists> {
 
     final lists = Provider.of<List<TaskList>?>(context);
 
-    return  lists == null ? Loading() : ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemCount: lists.length,
-      itemBuilder: (context, index) {
-        return ListTileTest(taskList: lists[index]);
-      },
+    return  lists == null ? Loading() : GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 1.5,
+        children: List.generate(
+          lists.length, 
+          (index) => ListTileTest(taskList: lists[index])
+          ),
+        
 
     );
   }
