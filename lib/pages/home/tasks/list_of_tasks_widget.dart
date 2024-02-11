@@ -6,8 +6,8 @@ import 'package:software_engineering_project_flutter/shared/loading.dart';
 
 class ListOfTasks extends StatefulWidget {
   
-  final String? list;
-  const ListOfTasks({this.list, super.key});
+  final List<Task> tasks;
+  const ListOfTasks({required this.tasks, super.key});
 
   @override
   State<ListOfTasks> createState() => _ListOfTasksState();
@@ -17,22 +17,22 @@ class _ListOfTasksState extends State<ListOfTasks> {
   @override
   Widget build(BuildContext context) {
 
-    late String? list = widget.list;
+    late List<Task> tasks = widget.tasks;
 
-    final tasks = Provider.of<List<Task>?>(context);
-    final List<Task> filteredTasks = tasks!.where((task) => task.list == list).toList();
-    
-    print(tasks);
-    for (Task task in tasks!){
-      print(task.description);
-    }
+    //final tasks = Provider.of<List<Task>?>(context);
+    //final List<Task> filteredTasks = tasks!.where((task) => task.list == list).toList();
+
+    // print(tasks);
+    // for (Task task in tasks!){
+    //   print(task.description);
+    // }
 
     return tasks == null ? Loading() : ListView.builder(
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      itemCount: filteredTasks.length,
+      itemCount: tasks.length,
       itemBuilder: (context, index){
-        return TaskTile(task: filteredTasks[index]);
+        return TaskTile(task: tasks[index]);
       },
 
     );
