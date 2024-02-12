@@ -8,7 +8,6 @@ String? validateEmail(String? value){
     return "Nur E-Mails mit genau eine @-Zeichen sind gültig";
   } else {
     value = value.substring(value.indexOf("@")+1);
-    print(value);
     if (validateDomains.contains(value)){
       return null;
     }else{
