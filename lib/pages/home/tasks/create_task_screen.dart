@@ -110,7 +110,7 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 50),
                           //dropdown Kategorie
                           Row(children: <Widget>[
                             const SizedBox(width: 6),
@@ -158,7 +158,7 @@ class _CreateToDoState extends State<CreateToDo> {
                             ),
                           ]),
                           const SizedBox(
-                            height: 20,
+                            height: 50,
                           ),
                           //dropdown Priorität
                           Row(children: <Widget>[
@@ -208,7 +208,7 @@ class _CreateToDoState extends State<CreateToDo> {
                             ),
                           ]),
                           const SizedBox(
-                            height: 20,
+                            height: 50,
                           ),
                           //Datum-Picker
                           Row(
@@ -225,6 +225,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 const SizedBox(width: 5),
                                 SizedBox(
                                     width: 303,
+                                    height: 50,
                                     child: TextButton(
                                       style: buttonStyleDecoration,
                                       onPressed: () async {
@@ -247,11 +248,13 @@ class _CreateToDoState extends State<CreateToDo> {
                                               ),
                                             )
                                           : Text(
-                                              '${DateFormat('dd.MM.yyyy').format(dateAndTime)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime.minute.toString().padLeft(2, '0')}'),
+                                              '${DateFormat('dd.MM.yyyy').format(dateAndTime)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime.minute.toString().padLeft(2, '0')}',
+                                              style: const TextStyle(color: Colors.white),
+                                              ),
                                     )),
                               ]),
                           const SizedBox(
-                            height: 20,
+                            height: 60,
                           ),
                           //Notiz
                           Row(children: <Widget>[
@@ -262,8 +265,9 @@ class _CreateToDoState extends State<CreateToDo> {
                               shadowColor: const Color(0xFF212121),
                               child: SizedBox(
                                 width: 340,
-                                height: 300,
+                                height: 100,
                                 child: TextFormField(
+                                  style: const TextStyle(color: Colors.white),
                                   maxLines: null,
                                   expands: true,
                                   textAlign: TextAlign.start,
@@ -280,7 +284,7 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                             ),
                           ]),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 70),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -309,7 +313,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       _database.addTask(title, note,
-                                          dateAndTime, false, priority, lists, false);
+                                          dateAndTime, false, priority, lists, false, list);
                                       Navigator.pop(context);
                                     }
                                   },
