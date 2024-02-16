@@ -80,9 +80,10 @@ class Home extends StatelessWidget {
                 const Expanded(
                   child: ListOfTaskLists(),
                 ),
+                SizedBox(height: 5,),
                 ElevatedButton(
                   onPressed: () async {
-                    await Navigator.pushNamed(context, '/create');
+                    await Navigator.pushNamed(context, '/createList');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromRGBO(
@@ -112,7 +113,7 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                const MyBottomNavigationBar(),
+                MyBottomNavigationBar(),
               ],
             ),
           ),

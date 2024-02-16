@@ -136,6 +136,7 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: DropdownButtonFormField<String>(
+                                  value: task.list,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Liste'),
                                   icon: const Icon(
@@ -316,7 +317,7 @@ class _EditTodoState extends State<EditTodo> {
                                   child: const Text('Speichern'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _database.editTask(title, note, maturityDate, false, priority, null, false, task.taskReference);
+                                      _database.editTask(title, note, maturityDate, false, priority, list, false, task.taskReference);
                                       Navigator.pop(context);
                                     }
                                   },

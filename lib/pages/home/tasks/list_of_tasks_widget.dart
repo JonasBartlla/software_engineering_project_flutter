@@ -32,7 +32,7 @@ class _ListOfTasksState extends State<ListOfTasks> {
       physics: const BouncingScrollPhysics(),
       itemCount: tasks.length,
       itemBuilder: (context, index){
-        return TaskTile(task: tasks[index]);
+        return TaskTile(task: tasks[index], done: tasks[index].done,);
       },
 
     );

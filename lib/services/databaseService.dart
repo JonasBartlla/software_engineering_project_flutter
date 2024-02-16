@@ -70,7 +70,7 @@ class DatabaseService{
   }
 
   // editing Task
-  Future editTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done, DocumentReference taskId) async {
+  Future editTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, String list, bool done, DocumentReference taskId) async {
     return await taskId.set({
       'description': description,
       'note': note,
@@ -78,7 +78,9 @@ class DatabaseService{
       'notificationOn': notificationOn,
       'maturityDate': maturityDate.millisecondsSinceEpoch,
       'priority': priority,
-      'done': done
+      'done': done,
+      'list': list,
+      'ownerId': uid
     }); 
   }
 
