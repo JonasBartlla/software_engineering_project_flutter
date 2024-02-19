@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/validations.dart';
 
 class Register extends StatefulWidget {
@@ -29,7 +30,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.grey[850],
+      backgroundColor: AppColors.myBackgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -42,7 +43,7 @@ class _RegisterState extends State<Register> {
                   Text('CheckIT', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: Color.fromRGBO(101, 167, 101, 1),
+                      color: AppColors.myAppbarColor,
                       fontFamily: 'Comfortaa',
                       fontSize: 70,
                       letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
@@ -55,7 +56,7 @@ class _RegisterState extends State<Register> {
                   const Text('ORGANIZE YOUR DAY', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: Color.fromRGBO(101, 167, 101, 1),
+                      color: AppColors.myGreenButton,
                       fontFamily: 'Comfortaa',
                       fontSize: 16,
                       letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
@@ -70,7 +71,7 @@ class _RegisterState extends State<Register> {
                   const Text('Registrieren! ', 
                     textAlign: TextAlign.center, 
                     style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 1),
+                      color: AppColors.myTextColor,
                       fontFamily: 'Comfortaa',
                       fontSize: 40,
                       letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
@@ -85,7 +86,7 @@ class _RegisterState extends State<Register> {
                   const Text('E-Mail Adresse', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 1),
+                      color: AppColors.myTextColor,
                       fontFamily: 'Comfortaa',
                       fontSize: 16,
                       letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
@@ -117,7 +118,7 @@ class _RegisterState extends State<Register> {
                   const Text('Passwort', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 1),
+                      color: AppColors.myTextColor,
                       fontFamily: 'Comfortaa',
                       fontSize: 16,
                       letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
@@ -154,7 +155,7 @@ class _RegisterState extends State<Register> {
                   const Text('Passwort wiederholen', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 1),
+                      color: AppColors.myTextColor,
                       fontFamily: 'Comfortaa',
                       fontSize: 16,
                       letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
@@ -202,7 +203,7 @@ class _RegisterState extends State<Register> {
                         const EdgeInsets.all(25),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.green.shade400,
+                        AppColors.myGreenButton,
                       ),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
@@ -229,7 +230,7 @@ class _RegisterState extends State<Register> {
                     const Text(
                       'Du hast bereits einen Account?',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.myTextColor,
                       ),
                     ),
                     TextButton(
@@ -239,7 +240,7 @@ class _RegisterState extends State<Register> {
                       child:  const Text(
                         'Hier einloggen',
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColors.myGreenButton,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),
