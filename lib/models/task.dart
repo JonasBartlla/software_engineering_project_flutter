@@ -5,7 +5,7 @@ class Task{
   String description;
   String note;
   String list;
-  int priority;
+  String priority;
   //String? wiederholung;
   DateTime maturityDate;
   bool notificationOn;

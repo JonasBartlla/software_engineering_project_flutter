@@ -18,7 +18,7 @@ class DatabaseService{
     taskCollection = FirebaseFirestore.instance.collection('tasks');
   }
 
-  final priorityDict = {"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
+  final priorityDict = {"no priority":0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
 
   //final CollectionReference userCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('taskCollection');
 
@@ -122,8 +122,7 @@ class DatabaseService{
       return Task(
         description: doc.get('description'),
         note: doc.get('note'),
-        priority: priorityDict.keys.firstWhere(
-          (element) => priorityDict[element] == doc.get('priority')),
+        priority: doc.get('priority'),
         maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
         notificationOn: doc.get('notificationOn'),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
@@ -133,7 +132,11 @@ class DatabaseService{
         taskReference: doc.reference
       );
     }).toList();
+  }
 
+  String getPriority(int priority){
+    return priorityDict.keys.firstWhere(
+          (element) => priorityDict[element] == priority);
   }
     // task appUser from Snapshot
   // List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){
