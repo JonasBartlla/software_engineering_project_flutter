@@ -44,7 +44,7 @@ class _CreateToDoState extends State<CreateToDo> {
           'To-Do erstellen',
           style: standardAppBarTextDecoration,
         )),
-        backgroundColor: AppColors.myGreenButton,
+        backgroundColor: AppColors.myCheckItGreen,
       ),
       body: SafeArea(
         child: Form(
@@ -66,7 +66,7 @@ class _CreateToDoState extends State<CreateToDo> {
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
                         ),
-                        color: AppColors.myTilesColor,
+                        color: AppColors.myCheckITDarkGrey,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,7 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                               const SizedBox(width: 2),
                               PhysicalModel(
-                                color: AppColors.myTilesColor,
+                                color: AppColors.myCheckITDarkGrey,
                                 //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
@@ -126,7 +126,7 @@ class _CreateToDoState extends State<CreateToDo> {
                             SizedBox(
                               width: 303,
                               child: PhysicalModel(
-                                color: AppColors.myTilesColor,
+                                color: AppColors.myCheckITDarkGrey,
                                 elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
@@ -138,7 +138,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                     color: Colors.white,
                                   ),
                                   dropdownColor:
-                                      AppColors.myTilesColor,
+                                      AppColors.myCheckITDarkGrey,
                                   items: categories.map((category) {
                                     return DropdownMenuItem(
                                       value: category,
@@ -174,14 +174,14 @@ class _CreateToDoState extends State<CreateToDo> {
                             SizedBox(
                               width: 303,
                               child: PhysicalModel(
-                                color: AppColors.myTilesColor,
+                                color: AppColors.myCheckITDarkGrey,
                                 elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor:
-                                      AppColors.myTilesColor,
+                                      AppColors.myCheckITDarkGrey,
                                   icon: const Icon(
                                     Icons.keyboard_arrow_down,
                                     size: 30,
@@ -258,7 +258,7 @@ class _CreateToDoState extends State<CreateToDo> {
                           Row(children: <Widget>[
                             const SizedBox(width: 5),
                             PhysicalModel(
-                              color: AppColors.myTilesColor,
+                              color: AppColors.myCheckITDarkGrey,
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(

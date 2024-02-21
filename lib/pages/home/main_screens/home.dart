@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
         appBar: AppBar(
-          backgroundColor: AppColors.myAppbarColor,
+          backgroundColor: AppColors.myCheckItGreen,
           centerTitle: true,
           title: Text(
             'Check IT',
@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
                     await Navigator.pushNamed(context, '/createList');
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: AppColors.myTilesColor,
+                    primary: AppColors.myCheckITDarkGrey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           12.0),
@@ -98,7 +98,7 @@ class Home extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.add, 
-                        color: AppColors.myAppbarColor,
+                        color: AppColors.myCheckItGreen,
                       ),
                       SizedBox(
                           width:

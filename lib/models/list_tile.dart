@@ -22,7 +22,7 @@ class ListTileTest extends StatelessWidget {
       padding: EdgeInsets.only(top: 8.0),
         child: Card(
           elevation: 4,
-          color: AppColors.myTilesColor,
+          color: AppColors.myCheckITDarkGrey,
           margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
           child: SizedBox(
             height: 30,
@@ -42,7 +42,7 @@ class ListTileTest extends StatelessWidget {
                 children: [
                   Icon(
                     taskList.icon,
-                    color: AppColors.myGreenButton,
+                    color: AppColors.myCheckItGreen,
                     size: 48.0,
                   ),
                   SizedBox(height: 8.0),

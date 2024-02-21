@@ -40,7 +40,7 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(height: 10),
                   //logo
                   const Text('CheckIT', textAlign: TextAlign.left, style: TextStyle(
-                    color: AppColors.myAppbarColor,
+                    color: AppColors.myCheckItGreen,
                     fontFamily: 'Comfortaa',
                     fontSize: 70,
                     letterSpacing: 0,
@@ -50,7 +50,7 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(height: 1),
               
                   const Text('ORGANIZE YOUR DAY', textAlign: TextAlign.left, style: TextStyle(
-                    color: AppColors.myAppbarColor,
+                    color: AppColors.myCheckItGreen,
                     fontFamily: 'Comfortaa',
                     fontSize: 16,
                     letterSpacing: 0,
@@ -156,7 +156,7 @@ class _SignInState extends State<SignIn> {
                         const EdgeInsets.all(25),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        AppColors.myGreenButton,
+                        AppColors.myCheckItGreen,
                       ),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
@@ -192,7 +192,7 @@ class _SignInState extends State<SignIn> {
                       child: const Text(
                         'Hier registrieren',
                         style: TextStyle(
-                        color: AppColors.myGreenButton,
+                        color: AppColors.myCheckItGreen,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                         ),
