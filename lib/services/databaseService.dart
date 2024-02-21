@@ -38,6 +38,7 @@ class DatabaseService{
     return await listCollection.add({
       'description': description,
       'icon': icon.codePoint,
+      'creationDate': DateTime.now().millisecondsSinceEpoch,
       'ownerId': uid,
     });
   }
@@ -58,6 +59,8 @@ class DatabaseService{
   //add Task
   Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
+    print(priority);
+    print(priorityDict[priority]);
     return  await taskCollection.add({
       'description': description,
       'note': note,
