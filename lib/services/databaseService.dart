@@ -48,7 +48,7 @@ class DatabaseService{
     return await list.set({
       'description': bezeichnung,
       'icon': icon.codePoint,
-      'creationDate': creationDate,
+      'creationDate': creationDate.millisecondsSinceEpoch,
       'ownerId': ownerId,
     });
   }
