@@ -30,7 +30,9 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
       initialData: [],
       value: _database.tasks,
       child: Scaffold(
+        backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
         appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
           title: Text(list),
         ),
         body: ListOfTasks(tasks: tasks,),

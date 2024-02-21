@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
@@ -36,14 +37,14 @@ class _CreateToDoState extends State<CreateToDo> {
     final DatabaseService _database = DatabaseService(uid: user?.uid);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
+      backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
         title: Center(
             child: Text(
           'To-Do erstellen',
           style: standardAppBarTextDecoration,
         )),
-        backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+        backgroundColor: AppColors.myGreenButton,
       ),
       body: SafeArea(
         child: Form(
@@ -65,7 +66,7 @@ class _CreateToDoState extends State<CreateToDo> {
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
                         ),
-                        color: Color.fromRGBO(63, 63, 63, 1),
+                        color: AppColors.myTilesColor,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,14 +83,14 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                               const SizedBox(width: 2),
                               PhysicalModel(
-                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                color: AppColors.myTilesColor,
                                 //elevation: 8,
-                                shadowColor: const Color(0xFF212121),
+                                shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
                                   width: 303,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: AppColors.myTextColor),
                                     initialValue: "",
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -125,9 +126,9 @@ class _CreateToDoState extends State<CreateToDo> {
                             SizedBox(
                               width: 303,
                               child: PhysicalModel(
-                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                color: AppColors.myTilesColor,
                                 elevation: 8,
-                                shadowColor: const Color(0xFF212121),
+                                shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Liste'),
@@ -137,15 +138,14 @@ class _CreateToDoState extends State<CreateToDo> {
                                     color: Colors.white,
                                   ),
                                   dropdownColor:
-                                      const Color.fromRGBO(63, 63, 63, 1),
+                                      AppColors.myTilesColor,
                                   items: categories.map((category) {
                                     return DropdownMenuItem(
                                       value: category,
                                       child: Text(
                                         category,
                                         style: const TextStyle(
-                                          color: Color.fromARGB(
-                                              159, 214, 214, 214),
+                                          color: AppColors.myTextInputColor,
                                         ),
                                       ),
                                     );
@@ -174,14 +174,14 @@ class _CreateToDoState extends State<CreateToDo> {
                             SizedBox(
                               width: 303,
                               child: PhysicalModel(
-                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                color: AppColors.myTilesColor,
                                 elevation: 8,
-                                shadowColor: const Color(0xFF212121),
+                                shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor:
-                                      const Color.fromRGBO(63, 63, 63, 1),
+                                      AppColors.myTilesColor,
                                   icon: const Icon(
                                     Icons.keyboard_arrow_down,
                                     size: 30,
@@ -194,8 +194,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                       child: Text(
                                         priority,
                                         style: const TextStyle(
-                                          color: Color.fromARGB(
-                                              159, 214, 214, 214),
+                                          color: AppColors.myTextInputColor,
                                         ),
                                       ),
                                     );
@@ -243,13 +242,12 @@ class _CreateToDoState extends State<CreateToDo> {
                                                 'Fälligkeit',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        159, 214, 214, 214)),
+                                                    color: AppColors.myTextInputColor),
                                               ),
                                             )
                                           : Text(
                                               '${DateFormat('dd.MM.yyyy').format(dateAndTime)} ${dateAndTime!.hour.toString().padLeft(2, '0')}:${dateAndTime.minute.toString().padLeft(2, '0')}',
-                                              style: const TextStyle(color: Colors.white),
+                                              style: const TextStyle(color: AppColors.myTextColor),
                                               ),
                                     )),
                               ]),
@@ -260,14 +258,14 @@ class _CreateToDoState extends State<CreateToDo> {
                           Row(children: <Widget>[
                             const SizedBox(width: 5),
                             PhysicalModel(
-                              color: const Color.fromRGBO(63, 63, 63, 1),
+                              color: AppColors.myTilesColor,
                               elevation: 8,
-                              shadowColor: const Color(0xFF212121),
+                              shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
                                 width: 340,
                                 height: 100,
                                 child: TextFormField(
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: AppColors.myTextColor),
                                   maxLines: null,
                                   expands: true,
                                   textAlign: TextAlign.start,

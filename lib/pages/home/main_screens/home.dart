@@ -10,6 +10,7 @@ import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_ta
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:provider/provider.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/navbar.dart';
 
@@ -46,9 +47,9 @@ class Home extends StatelessWidget {
             initialData: [], value: _database.lists)
       ],
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
+        backgroundColor: AppColors.myBackgroundColor,
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+          backgroundColor: AppColors.myAppbarColor,
           centerTitle: true,
           title: Text(
             'Check IT',
@@ -80,13 +81,13 @@ class Home extends StatelessWidget {
                 const Expanded(
                   child: ListOfTaskLists(),
                 ),
+                SizedBox(height: 5,),
                 ElevatedButton(
                   onPressed: () async {
-                    await Navigator.pushNamed(context, '/create');
+                    await Navigator.pushNamed(context, '/createList');
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromRGBO(
-                        63, 63, 63, 1),
+                    primary: AppColors.myTilesColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           12.0),
@@ -97,7 +98,7 @@ class Home extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.add, 
-                        color: const Color.fromRGBO(101, 167, 101, 1),
+                        color: AppColors.myAppbarColor,
                       ),
                       SizedBox(
                           width:
@@ -112,7 +113,7 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                const MyBottomNavigationBar(),
+                MyBottomNavigationBar(),
               ],
             ),
           ),

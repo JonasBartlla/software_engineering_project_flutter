@@ -3,6 +3,7 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/textfields.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) { // if loading is true show loading screen, else shown sign in page
     return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.grey[850],
+      backgroundColor: AppColors.myBackgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -39,7 +40,7 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(height: 10),
                   //logo
                   const Text('CheckIT', textAlign: TextAlign.left, style: TextStyle(
-                    color: Color.fromRGBO(101, 167, 101, 1),
+                    color: AppColors.myAppbarColor,
                     fontFamily: 'Comfortaa',
                     fontSize: 70,
                     letterSpacing: 0,
@@ -49,7 +50,7 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(height: 1),
               
                   const Text('ORGANIZE YOUR DAY', textAlign: TextAlign.left, style: TextStyle(
-                    color: Color.fromRGBO(101, 167, 101, 1),
+                    color: AppColors.myAppbarColor,
                     fontFamily: 'Comfortaa',
                     fontSize: 16,
                     letterSpacing: 0,
@@ -61,7 +62,7 @@ class _SignInState extends State<SignIn> {
               
                   //willkommen
                   const Text('Willkommen! ', textAlign: TextAlign.center, style: TextStyle(
-                    color: Color.fromRGBO(255, 255, 255, 1),
+                    color: AppColors.myTextColor,
                     fontFamily: 'Comfortaa',
                     fontSize: 40,
                     letterSpacing: 0,
@@ -73,7 +74,7 @@ class _SignInState extends State<SignIn> {
               
                   //Email Adresse
                   const Text('E-Mail Adresse', textAlign: TextAlign.left, style: TextStyle(
-                    color: Color.fromRGBO(255, 255, 255, 1),
+                    color: AppColors.myTextColor,
                     fontFamily: 'Comfortaa',
                     fontSize: 16,
                     letterSpacing: 1,
@@ -107,7 +108,7 @@ class _SignInState extends State<SignIn> {
               
                   //Passwort eingabe
                   const Text('Passwort', textAlign: TextAlign.left, style: TextStyle(
-                    color: Color.fromRGBO(255, 255, 255, 1),
+                    color: AppColors.myTextColor,
                     fontFamily: 'Comfortaa',
                     fontSize: 16,
                     letterSpacing: 1,
@@ -155,7 +156,7 @@ class _SignInState extends State<SignIn> {
                         const EdgeInsets.all(25),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.green.shade400,
+                        AppColors.myGreenButton,
                       ),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
@@ -181,7 +182,7 @@ class _SignInState extends State<SignIn> {
                     const Text(
                       'Du hast noch keinen Account?',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.myTextColor,
                         ),
                     ),
                     TextButton(
@@ -191,7 +192,7 @@ class _SignInState extends State<SignIn> {
                       child: const Text(
                         'Hier registrieren',
                         style: TextStyle(
-                        color: Colors.green,
+                        color: AppColors.myGreenButton,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                         ),
@@ -206,7 +207,7 @@ class _SignInState extends State<SignIn> {
                   children: <Widget>[
                     Text(
                       'Passwort vergessen?',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: AppColors.myTextColor),
                     ),
                   ],
                 ),
