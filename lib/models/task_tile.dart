@@ -224,7 +224,7 @@ class _TaskTileState extends State<TaskTile> {
                                   color: Colors.grey,
                                 ),
                                 Text(
-                                  '${DateFormat('dd.MM.yyyy').format(widget.task.maturityDate)} ${widget.task.maturityDate!.hour.toString().padLeft(2, '0')}:${widget.task.maturityDate.minute.toString().padLeft(2, '0')}',
+                                  '${DateFormat('dd.MM.yyyy').format(widget.task.maturityDate)} ${widget.task.maturityDate.hour.toString().padLeft(2, '0')}:${widget.task.maturityDate.minute.toString().padLeft(2, '0')}',
                                   style: const TextStyle(
                                     decoration: TextDecoration.lineThrough,
                                     color: Colors.grey,
