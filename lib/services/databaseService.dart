@@ -124,7 +124,7 @@ class DatabaseService{
       return Task(
         description: doc.get('description'),
         note: doc.get('note'),
-        priority: doc.get('priority'),
+        priority: getPriority(doc.get('priority')),
         maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
         notificationOn: doc.get('notificationOn'),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
