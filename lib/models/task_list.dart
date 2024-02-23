@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TaskList {
-
-  String ownerId;
   String description;
   IconData icon;
+  DateTime creationDate;
+  String ownerId;
+  
+
   // List<String> associated;
 
-  TaskList({required this.ownerId, required this.description, required this.icon});
+  TaskList({required this.description, required this.icon, required this.creationDate , required this.ownerId});
 
 }
