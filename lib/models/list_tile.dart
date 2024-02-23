@@ -31,9 +31,9 @@ class ListTileTest extends StatelessWidget {
               onTap: () {
                 if (taskList.description != 'default'){
                   final List<Task> filteredTasks = tasks!.where((task) => task.list == taskList.description).toList();
-                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description,tasks: filteredTasks,))));
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(tasks: filteredTasks, taskList: taskList))));
                 } else {
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description, tasks: tasks!,))));
+                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(tasks: tasks!, taskList: taskList))));
                 }
               },
               contentPadding: EdgeInsets.all(8.0),

@@ -39,11 +39,11 @@ class _CreateToDoState extends State<CreateToDo> {
     return Scaffold(
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
-        title: Center(
-            child: Text(
+        centerTitle: true,
+        title: Text(
           'To-Do erstellen',
           style: standardAppBarTextDecoration,
-        )),
+        ),
         backgroundColor: AppColors.myCheckItGreen,
       ),
       body: SafeArea(
