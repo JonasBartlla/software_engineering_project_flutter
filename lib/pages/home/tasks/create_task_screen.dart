@@ -41,7 +41,7 @@ class _CreateToDoState extends State<CreateToDo> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'To-Do erstellen',
+          'ToDo erstellen',
           style: standardAppBarTextDecoration,
         ),
         backgroundColor: AppColors.myCheckItGreen,

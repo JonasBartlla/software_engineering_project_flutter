@@ -130,6 +130,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                 ],
               ),
             ),
+            SizedBox(height: 5,),
             Expanded(
                 child: ListOfTasks(
               tasks: tasks,
@@ -138,9 +139,10 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               height: 5,
             ),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                var abc = await Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => const CreateToDo())));
+                setState(() {});
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.myCheckITDarkGrey,
@@ -157,7 +159,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                   ),
                   const SizedBox(width: 8.0),
                   Text(
-                    'Task erstellen',
+                    'ToDo erstellen',
                     style: standardTextDecoration,
                   ),
                 ],

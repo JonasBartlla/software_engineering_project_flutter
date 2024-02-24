@@ -45,11 +45,11 @@ class _EditTodoState extends State<EditTodo> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
-        title: Center(
-            child: Text(
+        centerTitle: true,
+        title: Text(
           'To-Do bearbeiten',
           style: standardAppBarTextDecoration,
-        )),
+        ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
       ),
       body: SafeArea(
