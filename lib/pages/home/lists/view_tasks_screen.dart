@@ -25,10 +25,26 @@ class ListOfTasksPage extends StatefulWidget {
 
 enum MenuItem { edit, delete }
 
+class SortFields{
+  String sortCriteria;
+  IconData icon;
+
+  SortFields(this.sortCriteria, this.icon);
+}
+
 class _ListOfTaskPageState extends State<ListOfTasksPage> {
   @override
   Widget build(BuildContext context) {
     late List<Task> tasks = widget.tasks;
+    final List<SortFields> fields = [
+      SortFields("Erstellungsdatum", Icons.arrow_upward_sharp),
+      SortFields("Erstellungsdatum", Icons.arrow_downward_sharp),
+      SortFields("Priorität", Icons.arrow_upward_sharp),
+      SortFields("Priorität", Icons.arrow_downward_sharp),
+      SortFields("Fälligkeit", Icons.arrow_upward_sharp),
+      SortFields("Fälligkeit", Icons.arrow_downward_sharp)
+    ];
+    SortFields selectedValue = SortFields("Sortieren", Icons.swap_vert);
     // late String list = widget.list;
     // late IconData icon = widget.icon;
     late TaskList taskList = widget.taskList;
@@ -114,18 +130,49 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
-                    child: TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.swap_vert,
-                        color: AppColors.myTextColor,
-                      ),
-                      label: const Text(
-                        'Sortieren',
-                        style: TextStyle(color: AppColors.myTextColor),
-                      ),
-                      style: buttonStyleDecoration,
-                    ),
+                    child: DropdownButton<SortFields>(
+                      hint: Text(selectedValue.sortCriteria, style: TextStyle(color: Colors.white),),
+                      //value: selectedValue,
+                      onChanged: (SortFields? newValue){
+                        setState(() {
+                        if(newValue == fields[0]){
+                          tasks.sort((a,b){
+                            if(a.creationDate != b.creationDate){
+                              return a.creationDate.compareTo(b.creationDate);
+                            }
+                            else{
+                              return a.creationDate.compareTo(b.creationDate);
+                            }
+                          });
+                        }
+                      });
+                      },
+                      items: fields.map((SortFields field){
+                        return DropdownMenuItem<SortFields>(
+                          value: field,
+                          child: Row(
+                            children: <Widget>[
+                              Icon(field.icon),
+                              SizedBox(width: 10,),
+                              Text(field.sortCriteria),
+                            ],
+                          )
+                          );
+                      }
+                      ).toList(),
+                    )
+                    // TextButton.icon(
+                    //   onPressed: () {},
+                    //   icon: const Icon(
+                    //     Icons.swap_vert,
+                    //     color: AppColors.myTextColor,
+                    //   ),
+                    //   label: const Text(
+                    //     'Sortieren',
+                    //     style: TextStyle(color: AppColors.myTextColor),
+                    //   ),
+                    //   style: buttonStyleDecoration,
+                    // ),
                   )
                 ],
               ),
