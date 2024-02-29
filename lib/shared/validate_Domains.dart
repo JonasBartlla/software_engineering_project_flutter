@@ -1146,7 +1146,7 @@ const List<String> validateDomains=[
 	"edtnmail.com",
 	"educacao.te.pt",
 	"educastmail.com",
-  "edu.fhdw.com",
+  "edu.fhdw.de",
 	"eelmail.com",
 	"ehmail.com",
 	"einmalmail.de",
