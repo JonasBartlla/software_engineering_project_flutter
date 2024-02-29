@@ -27,7 +27,6 @@ class CheckIT extends StatelessWidget{
       initialData: null, //https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html
       value: AuthService().user,
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
           '/': (context) => Wrapper(),
