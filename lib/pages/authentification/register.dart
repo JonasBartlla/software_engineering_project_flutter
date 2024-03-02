@@ -97,6 +97,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
+                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       style: const TextStyle(color: AppColors.myTextColor),
@@ -130,6 +131,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
+                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       style: const TextStyle(color: AppColors.myTextColor),
@@ -169,6 +171,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
+                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
                       style: const TextStyle(color: AppColors.myTextColor),
