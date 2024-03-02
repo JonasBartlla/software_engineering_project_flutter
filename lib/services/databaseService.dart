@@ -44,10 +44,12 @@ class DatabaseService{
   }
 
   //editing List
-  Future editList(String bezeichnung, IconData icon, DocumentReference list) async {
+  Future editList(String bezeichnung, IconData icon, DocumentReference list, DateTime creationDate, String ownerId) async {
     return await list.set({
       'description': bezeichnung,
-      'icon': icon.codePoint
+      'icon': icon.codePoint,
+      'creationDate': creationDate.millisecondsSinceEpoch,
+      'ownerId': ownerId,
     });
   }
 
@@ -74,12 +76,11 @@ class DatabaseService{
     }); 
   }
 
-  // editing Task
-  Future editTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, String list, bool done, DocumentReference taskId) async {
+  Future editTask(String description, String note, DateTime creationDate, bool notificationOn, DateTime maturityDate, int priority, String list, bool done, String ownerId, DocumentReference taskId) async {
     return await taskId.set({
       'description': description,
       'note': note,
-      'creationDate': DateTime.now().millisecondsSinceEpoch,
+      'creationDate': creationDate.millisecondsSinceEpoch,
       'notificationOn': notificationOn,
       'maturityDate': maturityDate.millisecondsSinceEpoch,
       'priority': priority,
@@ -105,10 +106,11 @@ class DatabaseService{
   //TaskList from Snapshot
   List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
-      return TaskList(
-        ownerId: doc.get('ownerId'),
+      return TaskList(     
         description: doc.get('description'),
         icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
+        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
+        ownerId: doc.get('ownerId'),
       );
     }
     ).toList();
