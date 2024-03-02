@@ -93,10 +93,10 @@ class _TaskTileState extends State<TaskTile> {
                 //Hier die Optionalen Angaben unter der Bezeichnung (hier am besten mit Row in Row arbeiten)
 
                 //Priorität
-                widget.task.priority == 'no priority'
+                _database.getPriority(widget.task.priority) == 'no priority'
                     ? const Text('')
                     : const Icon(Icons.arrow_upward, color: Colors.white),
-                Text(widget.task.priority, style: const TextStyle(color: Colors.white)),
+                Text(_database.getPriority(widget.task.priority), style: const TextStyle(color: Colors.white)),
 
                 //Datum und Uhrzeit
                 widget.task.maturityDate == DateTime.fromMillisecondsSinceEpoch(0)
