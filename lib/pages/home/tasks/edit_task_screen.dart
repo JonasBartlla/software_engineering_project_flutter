@@ -27,7 +27,7 @@ class _EditTodoState extends State<EditTodo> {
   late String title = task.description;
   late String note = task.note;
   late String list = 'default';
-  late String priority = task.priority;
+  late int priority = task.priority;
   late DateTime maturityDate = task.maturityDate; //soll nicht null sein
 
   //Listen für die Dropdowns
@@ -186,7 +186,7 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: DropdownButtonFormField<String>(
-                                  value: task.priority == 'no priority' ? null : task.priority,
+                                  value: task.priority == 0 ? null : _database.getPriority(task.priority),
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor:
@@ -210,7 +210,7 @@ class _EditTodoState extends State<EditTodo> {
                                     );
                                   }).toList(),
                                   onChanged: (value) => setState(() {
-                                    priority = value!;
+                                    priority = _database.priorityDict[value]!;
                                   }),
                                 ),
                               ),

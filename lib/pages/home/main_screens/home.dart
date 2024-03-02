@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final Task task = Task(
         description: 'Test',
-        priority: 'Mittel',
+        priority: 3, //'Mittel',
         maturityDate: DateTime(2022, 12, 3, 17, 30),
         notificationOn: false,
         ownerId: 'fafdafag',

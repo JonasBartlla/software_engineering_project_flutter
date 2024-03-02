@@ -93,7 +93,7 @@ class _TaskTileState extends State<TaskTile> {
                 padding: const EdgeInsets.only(bottom:3),
                 child: Row(children: [
                   //Priorität
-                  widget.task.priority == 'no priority'
+                  _database.getPriority(widget.task.priority) == 'no priority'
                       ? const Text('')
                       : Row(
                           children: [
@@ -101,7 +101,7 @@ class _TaskTileState extends State<TaskTile> {
                                 color: widget.task.done
                                     ? Colors.grey
                                     : AppColors.myTextColor),
-                            Text(widget.task.priority,
+                            Text(_database.getPriority(widget.task.priority),
                                 style: TextStyle(
                                   color: widget.task.done
                                       ? Colors.grey
