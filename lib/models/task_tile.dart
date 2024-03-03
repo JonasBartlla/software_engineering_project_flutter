@@ -75,11 +75,13 @@ class _TaskTileState extends State<TaskTile> {
                     _database.editTask(
                         widget.task.description,
                         widget.task.note,
-                        widget.task.maturityDate,
+                        widget.task.creationDate,
                         widget.task.notificationOn,
+                        widget.task.maturityDate,
                         widget.task.priority,
                         widget.task.list,
                         !widget.task.done,
+                        widget.task.ownerId,
                         widget.task.taskReference);
                     widget.task.done = !widget.task.done;
                   });

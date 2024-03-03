@@ -33,18 +33,21 @@ class SortFields{
 }
 
 class _ListOfTaskPageState extends State<ListOfTasksPage> {
+
+  SortFields selectedValue = SortFields("Sortieren", Icons.swap_vert);
+  final List<SortFields> fields = [
+    SortFields("Erstellungsdatum", Icons.arrow_upward_sharp),
+    SortFields("Erstellungsdatum", Icons.arrow_downward_sharp),
+    SortFields("Priorität", Icons.arrow_upward_sharp),
+    SortFields("Priorität", Icons.arrow_downward_sharp),
+    SortFields("Fälligkeit", Icons.arrow_upward_sharp),
+    SortFields("Fälligkeit", Icons.arrow_downward_sharp)
+  ];
+
   @override
   Widget build(BuildContext context) {
+    
     late List<Task> tasks = widget.tasks;
-    final List<SortFields> fields = [
-      SortFields("Erstellungsdatum", Icons.arrow_upward_sharp),
-      SortFields("Erstellungsdatum", Icons.arrow_downward_sharp),
-      SortFields("Priorität", Icons.arrow_upward_sharp),
-      SortFields("Priorität", Icons.arrow_downward_sharp),
-      SortFields("Fälligkeit", Icons.arrow_upward_sharp),
-      SortFields("Fälligkeit", Icons.arrow_downward_sharp)
-    ];
-    SortFields selectedValue = SortFields("Sortieren", Icons.swap_vert);
     // late String list = widget.list;
     // late IconData icon = widget.icon;
     late TaskList taskList = widget.taskList;
@@ -128,14 +131,29 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
+                  Container(
                     padding: const EdgeInsets.only(left: 8),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.myCheckITDarkGrey),
                     child: DropdownButton<SortFields>(
-                      hint: Text(selectedValue.sortCriteria, style: TextStyle(color: Colors.white),),
-                      //value: selectedValue,
+                      icon: Icon(Icons.swap_vert, color: AppColors.myCheckITDarkGrey,),
+                      underline: SizedBox(),
+                      borderRadius: BorderRadius.circular(8),
+                      dropdownColor: AppColors.myCheckITDarkGrey,
+                      hint: Row(children:  [Icon(selectedValue.icon, color: Colors.white,), SizedBox(width: 3,), Text(selectedValue.sortCriteria, style: TextStyle(color: Colors.white),)]),
                       onChanged: (SortFields? newValue){
                         setState(() {
+                          selectedValue = newValue!;
                         if(newValue == fields[0]){
+                          tasks.sort((a,b){
+                            if(a.creationDate != b.creationDate){
+                              return b.creationDate.compareTo(a.creationDate);
+                            }
+                            else{
+                              return b.creationDate.compareTo(a.creationDate);
+                            }
+                          });
+                        }
+                        if(newValue == fields[1]){
                           tasks.sort((a,b){
                             if(a.creationDate != b.creationDate){
                               return a.creationDate.compareTo(b.creationDate);
@@ -145,6 +163,46 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                             }
                           });
                         }
+                        if(newValue == fields[2]){
+                          tasks.sort((a,b){
+                            if(a.priority != b.priority){
+                              return b.priority.compareTo(a.priority);
+                            }
+                            else{
+                              return b.priority.compareTo(a.priority);
+                            }
+                          });
+                        }
+                        if(newValue == fields[3]){
+                          tasks.sort((a,b){
+                            if(a.priority != b.priority){
+                              return a.priority.compareTo(b.priority);
+                            }
+                            else{
+                              return a.priority.compareTo(b.priority);
+                            }
+                          });
+                        }
+                        if(newValue == fields[4]){
+                          tasks.sort((a, b) {
+                            if(a.maturityDate != b.maturityDate){
+                              return a.maturityDate.compareTo(b.maturityDate);
+                            }
+                            else{
+                              return a.maturityDate.compareTo(b.maturityDate);
+                            }
+                          },);
+                        }
+                        if(newValue == fields[5]){
+                          tasks.sort((a, b) {
+                            if(a.maturityDate != b.maturityDate){
+                              return b.maturityDate.compareTo(a.maturityDate);
+                            }
+                            else{
+                              return b.maturityDate.compareTo(a.maturityDate);
+                            }
+                          },);
+                        }
                       });
                       },
                       items: fields.map((SortFields field){
@@ -152,9 +210,9 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                           value: field,
                           child: Row(
                             children: <Widget>[
-                              Icon(field.icon),
+                              Icon(field.icon, color: Colors.white,),
                               SizedBox(width: 10,),
-                              Text(field.sortCriteria),
+                              Text(field.sortCriteria, style: TextStyle(color: Colors.white),),
                             ],
                           )
                           );
