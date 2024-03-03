@@ -40,7 +40,7 @@ class _EditTodoState extends State<EditTodo> {
     final DatabaseService _database = DatabaseService(uid: user?.uid);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
+      backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(
@@ -52,10 +52,10 @@ class _EditTodoState extends State<EditTodo> {
           ),
         centerTitle: true,
         title: Text(
-          'ToDo bearbeiten',
+          'ToDo',
           style: standardAppBarTextDecoration,
         ),
-        backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+        backgroundColor: AppColors.myCheckItGreen,
       ),
       body: SafeArea(
         child: Form(
@@ -77,7 +77,7 @@ class _EditTodoState extends State<EditTodo> {
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
                         ),
-                        color: Color.fromRGBO(63, 63, 63, 1),
+                        color: AppColors.myCheckITDarkGrey,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,9 +95,9 @@ class _EditTodoState extends State<EditTodo> {
                               ),
                               const SizedBox(width: 5),
                               PhysicalModel(
-                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                color: AppColors.myCheckITDarkGrey,
                                 //elevation: 8,
-                                shadowColor: const Color(0xFF212121),
+                                shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
                                   width: 311,
                                   //Bezeichnung eingeben
@@ -139,9 +139,11 @@ class _EditTodoState extends State<EditTodo> {
                               width: 311,
                               height: 55,
                               child: PhysicalModel(
-                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular((8)),
+                                color: AppColors.myCheckITDarkGrey,
                                 elevation: 8,
-                                shadowColor: const Color(0xFF212121),
+                                shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
                                   value: task.list,
                                   decoration: textInputDecoration.copyWith(
@@ -187,17 +189,18 @@ class _EditTodoState extends State<EditTodo> {
                               width: 311,
                               height: 55,
                               child: PhysicalModel(
-                                color: const Color.fromRGBO(63, 63, 63, 1),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular((8)),
+                                color: AppColors.myCheckITDarkGrey,
                                 elevation: 8,
-                                shadowColor: const Color(0xFF212121),
+                                shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
                                   value: task.priority == 'no priority'
                                       ? null
                                       : task.priority,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
-                                  dropdownColor:
-                                      const Color.fromRGBO(63, 63, 63, 1),
+                                  dropdownColor: AppColors.myCheckITDarkGrey,
                                   icon: const Icon(
                                     Icons.keyboard_arrow_down,
                                     size: 30,
@@ -260,11 +263,10 @@ class _EditTodoState extends State<EditTodo> {
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
                                                     fontSize: 17,
-                                                    color: Color.fromARGB(
-                                                        159, 214, 214, 214)),
-                                              ),
-                                            )
-                                          : Text(
+                                                    color: AppColors.myTextInputColor,
+                                                ),
+                                              )
+                                              ): Text(
                                               '${DateFormat('dd.MM.yyyy').format(maturityDate)} ${maturityDate.hour.toString().padLeft(2, '0')}:${maturityDate.minute.toString().padLeft(2, '0')}',
                                               style: standardTextDecoration,
                                             ),
@@ -304,12 +306,14 @@ class _EditTodoState extends State<EditTodo> {
                           Row(children: <Widget>[
                             const SizedBox(width: 5),
                             PhysicalModel(
-                              color: const Color.fromRGBO(63, 63, 63, 1),
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular((8)),
+                              color: AppColors.myCheckITDarkGrey,
                               elevation: 8,
-                              shadowColor: const Color(0xFF212121),
+                              shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
                                 width: 348,
-                                height: 235,
+                                height: 230,
                                 child: Align(
                                   alignment: Alignment.topLeft,
                                   child: TextFormField(
