@@ -107,4 +107,10 @@ var creditTextDecoration = const TextStyle(
     fontWeight: FontWeight.normal,
     height: 1);
 
-
+var WaterMarkDecoration = const TextStyle(
+    color: AppColors.myWaterMarkColor,
+    fontFamily: 'Comfortaa',
+    fontSize: 44,
+    letterSpacing: 2,
+    fontWeight: FontWeight.normal,
+    height: 1);

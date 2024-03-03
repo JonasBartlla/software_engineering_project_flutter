@@ -11,4 +11,5 @@ class AppColors {
   static const Color myAbbrechenColor = Color(0xFF616161);
   static const Color myDeleteColor = Color.fromRGBO(212, 108, 108, 1);
   static const Color myBoxColor = Color.fromRGBO(85, 85, 85, 1);  
+  static const Color myWaterMarkColor = Color.fromRGBO(46, 46, 46, 1);  
 }
