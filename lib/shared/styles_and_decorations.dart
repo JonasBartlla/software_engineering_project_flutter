@@ -99,5 +99,12 @@ var standardAppBarTextDecoration = const TextStyle(
     fontWeight: FontWeight.bold,
     height: 1);
 
+var creditTextDecoration = const TextStyle(
+    color: AppColors.myBoxColor,
+    fontFamily: 'Comfortaa',
+    fontSize: 12,
+    letterSpacing: 1,
+    fontWeight: FontWeight.normal,
+    height: 1);
 
 
