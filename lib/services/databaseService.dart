@@ -62,7 +62,7 @@ class DatabaseService{
   Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
     print(priority);
-    print(priorityDict[priority]);
+   
     return  await taskCollection.add({
       'description': description,
       'note': note,
@@ -76,7 +76,6 @@ class DatabaseService{
     }); 
   }
 
-  // editing Task
   Future editTask(String description, String note, DateTime creationDate, bool notificationOn, DateTime maturityDate, int priority, String list, bool done, String ownerId, DocumentReference taskId) async {
     return await taskId.set({
       'description': description,

@@ -60,8 +60,8 @@ class _CreateListPageState extends State<CreateListPage> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Bitte eine Bezeichnung eingeben';
-                  } else if (value.length > 20) {
-                    return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
+                  } else if (value.length > 10) {
+                    return 'Bezeichnung darf nicht länger als 10 Zeichen sein';
                   } else {
                     return null;
                   }
