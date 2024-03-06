@@ -58,6 +58,26 @@ class DatabaseService{
     return await list.delete();
   }
 
+    //get Stream of Lists
+  Stream<List<TaskList>>? get lists {
+    return listCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskListFromSnapshot);
+  }
+
+ 
+
+  //TaskList from Snapshot
+  List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return TaskList(     
+        description: doc.get('description'),
+        icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
+        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
+        ownerId: doc.get('ownerId'),
+      );
+    }
+    ).toList();
+  }
+
   //add Task
   Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
@@ -94,27 +114,6 @@ class DatabaseService{
   // deletion of task
   Future deleteTask(DocumentReference task) async{
     return await task.delete();
-  }
-
-
-  //get Stream of Lists
-  Stream<List<TaskList>>? get lists {
-    return listCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskListFromSnapshot);
-  }
-
- 
-
-  //TaskList from Snapshot
-  List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-      return TaskList(     
-        description: doc.get('description'),
-        icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
-        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
-        ownerId: doc.get('ownerId'),
-      );
-    }
-    ).toList();
   }
 
   //get Stream of Tasks
