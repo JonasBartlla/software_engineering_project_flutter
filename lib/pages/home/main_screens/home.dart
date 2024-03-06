@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final Task task = Task(
         description: 'Test',
-        priority: 'Mittel',
+        priority: 3, //'Mittel',
         maturityDate: DateTime(2022, 12, 3, 17, 30),
         notificationOn: false,
         ownerId: 'fafdafag',
@@ -49,10 +49,10 @@ class Home extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
         appBar: AppBar(
-          backgroundColor: AppColors.myAppbarColor,
+          backgroundColor: AppColors.myCheckItGreen,
           centerTitle: true,
           title: Text(
-            'Check IT',
+            'CheckIT',
             style: standardAppBarTextDecoration,
           ),
           elevation: 0.0,
@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
                     await Navigator.pushNamed(context, '/createList');
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: AppColors.myTilesColor,
+                    primary: AppColors.myCheckITDarkGrey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           12.0),
@@ -98,7 +98,7 @@ class Home extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.add, 
-                        color: AppColors.myAppbarColor,
+                        color: AppColors.myCheckItGreen,
                       ),
                       SizedBox(
                           width:

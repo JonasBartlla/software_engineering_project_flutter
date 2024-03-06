@@ -28,7 +28,7 @@ class _EditTodoState extends State<EditTodo> {
   late String note = task.note;
   late DateTime creationDate = task.creationDate;
   late String list = 'default';
-  late String priority = task.priority;
+  late int priority = task.priority;
   late DateTime maturityDate = task.maturityDate; //soll nicht null sein
   late String ownerId = task.ownerId;
 
@@ -47,11 +47,11 @@ class _EditTodoState extends State<EditTodo> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
-        title: Center(
-            child: Text(
+        centerTitle: true,
+        title: Text(
           'To-Do bearbeiten',
           style: standardAppBarTextDecoration,
-        )),
+        ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
       ),
       body: SafeArea(
@@ -188,7 +188,7 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: const Color(0xFF212121),
                                 child: DropdownButtonFormField<String>(
-                                  value: task.priority == 'no priority' ? null : task.priority,
+                                  value: task.priority == 0 ? null : _database.getPriority(task.priority),
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor:
@@ -212,7 +212,7 @@ class _EditTodoState extends State<EditTodo> {
                                     );
                                   }).toList(),
                                   onChanged: (value) => setState(() {
-                                    priority = value!;
+                                    priority = _database.priorityDict[value]!;
                                   }),
                                 ),
                               ),
@@ -320,6 +320,7 @@ class _EditTodoState extends State<EditTodo> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       _database.editTask(title, note, creationDate, false, maturityDate, priority, list, false, ownerId,task.taskReference);
+                                      print("edit done");
                                       Navigator.pop(context);
                                     }
                                   },

@@ -21,7 +21,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
       if (states.contains(MaterialState.pressed)) {
         return Colors.grey;
       } else {
-        return AppColors.myGreenButton;
+        return AppColors.myCheckItGreen;
       }
     }),
     enableFeedback: false,
@@ -29,7 +29,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
     shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
 
 var textInputDecoration = InputDecoration(
-    fillColor: AppColors.myFillingColor,
+    fillColor: AppColors.myCheckITDarkGrey,
     filled: true,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     hoverColor: AppColors.myHoverColor,
@@ -39,7 +39,7 @@ var textInputDecoration = InputDecoration(
     ));
 
 var textInputDecorationbez = const InputDecoration(
-    fillColor: AppColors.myFillingColor,
+    fillColor: AppColors.myCheckITDarkGrey,
     filled: false,
     enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.white, width: 3)),

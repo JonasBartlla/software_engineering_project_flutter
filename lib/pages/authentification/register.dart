@@ -40,10 +40,10 @@ class _RegisterState extends State<Register> {
                 children: [
                   const SizedBox(height: 10),
                   //logo
-                  Text('CheckIT', 
+                  const Text('CheckIT', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: AppColors.myAppbarColor,
+                      color: AppColors.myCheckItGreen,
                       fontFamily: 'Comfortaa',
                       fontSize: 70,
                       letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
@@ -56,7 +56,7 @@ class _RegisterState extends State<Register> {
                   const Text('ORGANIZE YOUR DAY', 
                     textAlign: TextAlign.left, 
                     style: TextStyle(
-                      color: AppColors.myGreenButton,
+                      color: AppColors.myCheckItGreen,
                       fontFamily: 'Comfortaa',
                       fontSize: 16,
                       letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
@@ -203,7 +203,7 @@ class _RegisterState extends State<Register> {
                         const EdgeInsets.all(25),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        AppColors.myGreenButton,
+                        AppColors.myCheckItGreen,
                       ),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
@@ -240,7 +240,7 @@ class _RegisterState extends State<Register> {
                       child:  const Text(
                         'Hier einloggen',
                         style: TextStyle(
-                          color: AppColors.myGreenButton,
+                          color: AppColors.myCheckItGreen,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),

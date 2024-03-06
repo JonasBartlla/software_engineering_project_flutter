@@ -22,7 +22,7 @@ class ListTileTest extends StatelessWidget {
       padding: EdgeInsets.only(top: 8.0),
         child: Card(
           elevation: 4,
-          color: AppColors.myTilesColor,
+          color: AppColors.myCheckITDarkGrey,
           margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
           child: SizedBox(
             height: 30,
@@ -31,9 +31,9 @@ class ListTileTest extends StatelessWidget {
               onTap: () {
                 if (taskList.description != 'default'){
                   final List<Task> filteredTasks = tasks!.where((task) => task.list == taskList.description).toList();
-                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description,tasks: filteredTasks,))));
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(tasks: filteredTasks, taskList: taskList))));
                 } else {
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(list: taskList.description, tasks: tasks!,))));
+                Navigator.push(context, MaterialPageRoute(builder: ((context) => ListOfTasksPage(tasks: tasks!, taskList: taskList))));
                 }
               },
               contentPadding: EdgeInsets.all(8.0),
@@ -42,7 +42,7 @@ class ListTileTest extends StatelessWidget {
                 children: [
                   Icon(
                     taskList.icon,
-                    color: AppColors.myGreenButton,
+                    color: AppColors.myCheckItGreen,
                     size: 48.0,
                   ),
                   SizedBox(height: 8.0),
