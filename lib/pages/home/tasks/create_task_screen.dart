@@ -23,7 +23,7 @@ class _CreateToDoState extends State<CreateToDo> {
   String title = '';
   String note = '';
   String list = 'default';
-  String priority = 'no priority';
+  int priority = 0;
   DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
 
   //Listen für die Dropdowns
@@ -208,7 +208,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                     );
                                   }).toList(),
                                   onChanged: (value) => setState(() {
-                                    priority = value!;
+                                    priority = _database.priorityDict[value]!;
                                   }),
                                 ),
                               ),

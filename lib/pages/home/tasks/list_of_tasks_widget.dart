@@ -18,7 +18,7 @@ class _ListOfTasksState extends State<ListOfTasks> {
   Widget build(BuildContext context) {
 
     late List<Task> tasks = widget.tasks;
-
+    
     //final tasks = Provider.of<List<Task>?>(context);
     //final List<Task> filteredTasks = tasks!.where((task) => task.list == list).toList();
 

@@ -59,32 +59,31 @@ class DatabaseService{
   }
 
   //add Task
-  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, String priority, List<DocumentReference>? lists, bool done, String list) async {
+  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
     print(priority);
-    print(priorityDict[priority]);
+   
     return  await taskCollection.add({
       'description': description,
       'note': note,
       'creationDate': DateTime.now().millisecondsSinceEpoch,
       'notificationOn': notificationOn,
       'maturityDate': maturityDate.millisecondsSinceEpoch,
-      'priority': priorityDict[priority],
+      'priority': priority,
       'ownerId': uid,
       'done': done,
       'list': list
     }); 
   }
 
-  // editing Task
-  Future editTask(String description, String note, DateTime creationDate, bool notificationOn, DateTime maturityDate, String priority, String list, bool done, String ownerId, DocumentReference taskId) async {
+  Future editTask(String description, String note, DateTime creationDate, bool notificationOn, DateTime maturityDate, int priority, String list, bool done, String ownerId, DocumentReference taskId) async {
     return await taskId.set({
       'description': description,
       'note': note,
       'creationDate': creationDate.millisecondsSinceEpoch,
       'notificationOn': notificationOn,
       'maturityDate': maturityDate.millisecondsSinceEpoch,
-      'priority': priorityDict[priority],
+      'priority': priority,
       'done': done,
       'list': list,
       'ownerId': uid
@@ -127,7 +126,7 @@ class DatabaseService{
       return Task(
         description: doc.get('description'),
         note: doc.get('note'),
-        priority: getPriority(doc.get('priority')),
+        priority: doc.get('priority'),
         maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
         notificationOn: doc.get('notificationOn'),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
