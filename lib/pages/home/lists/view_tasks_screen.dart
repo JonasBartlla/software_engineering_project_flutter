@@ -71,11 +71,13 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
           ),
           title: Icon(
             taskList.icon,
+            color: AppColors.myBackgroundColor,
             size: 40,
           ),
           centerTitle: true,
           actions: [
             PopupMenuButton(
+              icon: Icon(Icons.more_vert, color: AppColors.myBackgroundColor),
                 color: AppColors.myCheckITDarkGrey,
                 iconSize: 35,
                 onSelected: (value) {

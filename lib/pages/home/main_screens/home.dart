@@ -115,7 +115,7 @@ class Home extends StatelessWidget {
                           width:
                               8.0),
                       Text(
-                        'Liste Erstellen',
+                        'Liste erstellen',
                         style: standardTextDecoration,
                       ),
                     ],
