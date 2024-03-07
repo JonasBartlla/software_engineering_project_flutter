@@ -85,6 +85,7 @@ class _TaskTileState extends State<TaskTile> {
                           widget.task.priority,
                           widget.task.list,
                           !widget.task.done,
+                          widget.task.ownerId,
                           widget.task.taskReference);
                       widget.task.done = !widget.task.done;
                     });

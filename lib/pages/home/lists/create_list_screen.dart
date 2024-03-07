@@ -34,19 +34,17 @@ class _CreateListPageState extends State<CreateListPage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
-        title: Center(
-          child: Text(
+        title:Text(
             'Liste erstellen',
             style: standardAppBarTextDecoration,
           ),
         ),
-
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
