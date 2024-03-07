@@ -80,7 +80,7 @@ class _EditListPageState extends State<EditListPage> {
                           children: <Widget>[
                             const SizedBox(
                               child: Icon(
-                                Icons.add,
+                                Icons.circle_outlined,
                                 color: Colors.white,
                                 size: 40.0,
                               ),
