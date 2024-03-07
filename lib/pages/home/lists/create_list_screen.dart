@@ -203,17 +203,18 @@ class _CreateListPageState extends State<CreateListPage> {
                   height: 20,
                 ),
                 Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(100),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(icon),
-                        const SizedBox(height: 20),
-                        Text(title)
-                      ],
-                    ),
-                  ),
+                  color: AppColors.myCheckITDarkGrey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(icon),
+                          const SizedBox(height: 20),
+                          Text(title)
+                        ],
+                      ),
+                    ),                  
                 ),
               ],
             ),

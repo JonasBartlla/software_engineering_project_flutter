@@ -224,9 +224,6 @@ class _EditListPageState extends State<EditListPage> {
                 ),
                 Card(
                   color: AppColors.myCheckITDarkGrey,
-                  child: SizedBox(
-                    height: 30,
-                    width: 30,
                     child: Padding(
                       padding: const EdgeInsets.all(100),
                       child: Column(
@@ -238,7 +235,6 @@ class _EditListPageState extends State<EditListPage> {
                         ],
                       ),
                     ),
-                  ),
                 ),
               ],
             ),
