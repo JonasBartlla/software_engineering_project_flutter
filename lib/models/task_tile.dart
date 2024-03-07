@@ -134,14 +134,14 @@ class _TaskTileState extends State<TaskTile> {
                               Icons.calendar_month_rounded,
                               color: widget.task.done
                                   ? Colors.grey
-                                  : isToday(widget.task.maturityDate) ? Colors.red : AppColors.myTextColor,
+                                  : isToday(widget.task.maturityDate) ? AppColors.myDeleteColor: AppColors.myTextColor,
                             ),
                             Text(
                               '${DateFormat('dd.MM.yyyy').format(widget.task.maturityDate)}, ${widget.task.maturityDate.hour.toString().padLeft(2, '0')}:${widget.task.maturityDate.minute.toString().padLeft(2, '0')}',
                               style: TextStyle(
                                 color: widget.task.done
                                     ? Colors.grey
-                                    : isToday(widget.task.maturityDate) ? Colors.red : AppColors.myTextColor,
+                                    : isToday(widget.task.maturityDate) ? AppColors.myDeleteColor : AppColors.myTextColor,
                                 decoration: widget.task.done
                                     ? TextDecoration.lineThrough
                                     : null,
