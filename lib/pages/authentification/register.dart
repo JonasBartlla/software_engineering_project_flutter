@@ -97,9 +97,11 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
+                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
-                      decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                      style: const TextStyle(color: AppColors.myTextColor),
+                      decoration: textInputDecoration.copyWith(hintText: 'E-Mail'),
                       validator: (val) {
                         return validateEmail(val);
                       },
@@ -112,7 +114,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
               
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
               
                   //Passwort eingabe
                   const Text('Passwort', 
@@ -129,15 +131,17 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
+                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
-                      decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                      style: const TextStyle(color: AppColors.myTextColor),
+                      decoration: textInputDecoration.copyWith(hintText: 'Passwort'),
                       validator: (val) {
                         if (val == null || val.isEmpty){
-                          return "Bitte geben Sie ein Passwort ein";
+                          return "Bitte gib ein Passwort ein";
                         }
                         else if (validatePasswordPolicy(val) == false){
-                          return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindesten ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
+                          return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindestens ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
                         } else{
                           return null;
                         }
@@ -149,7 +153,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ), 
               
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
               
                   //Passwort erneut eingeben
                   const Text('Passwort wiederholen', 
@@ -167,9 +171,11 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 2),
               
                   SizedBox(
+                    height: 50.0,
                     width: 700.0,
                     child: TextFormField(
-                      decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                      style: const TextStyle(color: AppColors.myTextColor),
+                      decoration: textInputDecoration.copyWith(hintText: 'Passwort'),
                       validator: (val) {
                         return validateRepeatPassword(val as String, password);
                       },
@@ -192,7 +198,7 @@ class _RegisterState extends State<Register> {
                         dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                         if (result == null){
                           setState(() {
-                            error = 'Bitte geben Sie eine gültige E-Mail an';
+                            error = 'Bitte gib eine gültige E-Mail an';
                             loading = false;
                           });
                         }
@@ -221,7 +227,7 @@ class _RegisterState extends State<Register> {
                     ),
                 ),
               
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
               
                   //hier einloggen
                 Row(

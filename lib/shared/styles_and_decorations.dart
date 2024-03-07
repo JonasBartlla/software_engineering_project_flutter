@@ -99,5 +99,18 @@ var standardAppBarTextDecoration = const TextStyle(
     fontWeight: FontWeight.bold,
     height: 1);
 
+var creditTextDecoration = const TextStyle(
+    color: AppColors.myBoxColor,
+    fontFamily: 'Comfortaa',
+    fontSize: 12,
+    letterSpacing: 1,
+    fontWeight: FontWeight.normal,
+    height: 1);
 
-
+var WaterMarkDecoration = const TextStyle(
+    color: AppColors.myWaterMarkColor,
+    fontFamily: 'Comfortaa',
+    fontSize: 44,
+    letterSpacing: 2,
+    fontWeight: FontWeight.normal,
+    height: 1);

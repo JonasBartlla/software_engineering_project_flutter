@@ -87,7 +87,8 @@ class _SignInState extends State<SignIn> {
                     height: 50.0,
                     width: 700.0,
                     child: TextFormField(
-                      decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                      style: const TextStyle(color: AppColors.myTextColor),
+                      decoration: textInputDecoration.copyWith(hintText: 'E-Mail'),
                       validator: (val) {
                       if (val!.isEmpty){ // return null if valid
                         return "Bitte eine E-Mail eingeben";
@@ -104,7 +105,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
               
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
               
                   //Passwort eingabe
                   const Text('Passwort', textAlign: TextAlign.left, style: TextStyle(
@@ -120,10 +121,11 @@ class _SignInState extends State<SignIn> {
                     height: 50.0,
                     width: 700.0,
                     child: TextFormField(
-                      decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                      style: const TextStyle(color: AppColors.myTextColor),
+                      decoration: textInputDecoration.copyWith(hintText: 'Passwort'),
                       validator: (val) {
                         if (val!.length < 6 || val.isEmpty){
-                          return "Geben sie ein passwort mit mindestens 6 Zeichen an";
+                          return "Bitte ein Passwort mit mindestens 8 Zeichen angeben";
                         } else{
                           return null;
                         }
@@ -134,7 +136,9 @@ class _SignInState extends State<SignIn> {
                       obscureText: true,
                     ),
                   ), 
-                  const SizedBox(height: 15.0),               
+
+                  const SizedBox(height: 25),
+                                 
                   //log in Button
                   TextButton(
                     onPressed: () async {
@@ -174,6 +178,7 @@ class _SignInState extends State<SignIn> {
                     ),
                 ),
 
+                const SizedBox(height: 25),
             
                 //Registrierung
                 Row(
