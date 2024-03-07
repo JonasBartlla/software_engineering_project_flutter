@@ -25,9 +25,11 @@ class _EditTodoState extends State<EditTodo> {
   //Felder eines ToDos
   late String title = task.description;
   late String note = task.note;
+  late DateTime creationDate = task.creationDate;
   late String list = 'default';
   late String priority = task.priority;
   late DateTime maturityDate = task.maturityDate; //soll nicht null sein
+  late String ownerId = task.ownerId;
 
   //Listen für die Dropdowns
   List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
@@ -380,15 +382,8 @@ class _EditTodoState extends State<EditTodo> {
                                   child: const Text('Speichern'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      _database.editTask(
-                                          title,
-                                          note,
-                                          maturityDate,
-                                          false,
-                                          priority,
-                                          list,
-                                          false,
-                                          task.taskReference);
+
+                                      _database.editTask(title, note, creationDate, false, maturityDate, priority, list, false, ownerId,task.taskReference);
                                       Navigator.pop(context);
                                     }
                                   },
