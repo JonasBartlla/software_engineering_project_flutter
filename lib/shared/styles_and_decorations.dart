@@ -1,11 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 
+var buttonBoxDecoration = ButtonStyle(
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    )),
+    fixedSize: MaterialStateProperty.all(Size(100, 10)),
+    backgroundColor:
+        MaterialStateColor.resolveWith((states) => AppColors.myBoxColor),
+    elevation: MaterialStateProperty.all(8),
+    shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
+
+var buttonStyleDecorationDelete = ButtonStyle(
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    )),
+    fixedSize: MaterialStateProperty.all(Size(120, 10)),
+    backgroundColor:
+        MaterialStateColor.resolveWith((states) => AppColors.myDeleteColor),
+    elevation: MaterialStateProperty.all(8),
+    shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
+
+
 var buttonStyleDecoration = ButtonStyle(
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
+    fixedSize: MaterialStateProperty.all(Size(100, 10)),
     backgroundColor:
         MaterialStateColor.resolveWith((states) => AppColors.myAbbrechenColor),
     elevation: MaterialStateProperty.all(8),
@@ -16,6 +40,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
+    fixedSize: MaterialStateProperty.all(Size(120, 10)),
     backgroundColor:
         MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
@@ -29,7 +54,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
     shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
 
 var textInputDecoration = InputDecoration(
-    fillColor: AppColors.myCheckITDarkGrey,
+    fillColor: AppColors.myBoxColor,
     filled: true,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     hoverColor: AppColors.myHoverColor,
@@ -73,4 +98,6 @@ var standardAppBarTextDecoration = const TextStyle(
     letterSpacing: 1,
     fontWeight: FontWeight.bold,
     height: 1);
+
+
 

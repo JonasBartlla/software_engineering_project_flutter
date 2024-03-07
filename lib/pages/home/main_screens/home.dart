@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
           backgroundColor: AppColors.myCheckItGreen,
           centerTitle: true,
           title: Text(
-            'Check IT',
+            'CheckIT',
             style: standardAppBarTextDecoration,
           ),
           elevation: 0.0,
