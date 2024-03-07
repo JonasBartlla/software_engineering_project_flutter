@@ -39,6 +39,14 @@ class _CreateToDoState extends State<CreateToDo> {
     return Scaffold(
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.myBackgroundColor,
+              size: 35,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
         centerTitle: true,
         title: Text(
           'ToDo erstellen',

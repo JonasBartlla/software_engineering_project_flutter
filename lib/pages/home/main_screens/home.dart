@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/navbar.dart';
+import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -49,6 +50,16 @@ class Home extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.person, 
+              size: 30,
+              color: AppColors.myBackgroundColor
+              ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: ((context)=>MySettings())));
+            },
+          ),
           backgroundColor: AppColors.myCheckItGreen,
           centerTitle: true,
           title: Text(
@@ -60,7 +71,7 @@ class Home extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
               child: TextButton.icon(
-                icon: Icon(
+                icon: const Icon(
                   Icons.person,
                   color: Colors.white,
                 ),
@@ -81,13 +92,13 @@ class Home extends StatelessWidget {
                 const Expanded(
                   child: ListOfTaskLists(),
                 ),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
                 ElevatedButton(
                   onPressed: () async {
                     await Navigator.pushNamed(context, '/createList');
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: AppColors.myCheckITDarkGrey,
+                    backgroundColor: AppColors.myCheckITDarkGrey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           12.0),
@@ -96,11 +107,11 @@ class Home extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.add, 
                         color: AppColors.myCheckItGreen,
                       ),
-                      SizedBox(
+                      const SizedBox(
                           width:
                               8.0),
                       Text(
@@ -110,7 +121,7 @@ class Home extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 MyBottomNavigationBar(),

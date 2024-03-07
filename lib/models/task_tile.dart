@@ -59,33 +59,37 @@ class _TaskTileState extends State<TaskTile> {
                     MaterialPageRoute(
                         builder: ((context) => EditTodo(task: widget.task))));
               },
-              leading: Checkbox(
-                value: widget.task.done,
-                shape: const CircleBorder(),
-                side: const BorderSide(
-                  color: AppColors.myTextColor,
-                  width: 3,
-                  strokeAlign: BorderSide.strokeAlignCenter
+              leading: Transform.scale(
+                scale: 1.3,
+                child: Checkbox(
+                  value: widget.task.done,
+                  hoverColor: AppColors.myBackgroundColor,
+                  splashRadius: 14,
+                  shape: const CircleBorder(),
+                  side: const BorderSide(
+                    color: AppColors.myTextColor,
+                    width: 3,
+                    strokeAlign: BorderSide.strokeAlignCenter
+                  ),
+                  checkColor: AppColors.myCheckItGreen,
+                  activeColor: AppColors.myCheckItGreen,
+                  //side: const BorderSide(color: Colors.white, width: 2),
+                  onChanged: (bool? isChecked) {
+                    setState(() {
+                      _database.editTask(
+                          widget.task.description,
+                          widget.task.note,
+                          widget.task.creationDate,
+                          widget.task.notificationOn,
+                          widget.task.maturityDate,
+                          widget.task.priority,
+                          widget.task.list,
+                          !widget.task.done,
+                          widget.task.taskReference);
+                      widget.task.done = !widget.task.done;
+                    });
+                  },
                 ),
-                checkColor: AppColors.myCheckItGreen,
-                activeColor: AppColors.myCheckItGreen,
-                //side: const BorderSide(color: Colors.white, width: 2),
-                onChanged: (bool? isChecked) {
-                  setState(() {
-                    _database.editTask(
-                        widget.task.description,
-                        widget.task.note,
-                        widget.task.creationDate,
-                        widget.task.notificationOn,
-                        widget.task.maturityDate,
-                        widget.task.priority,
-                        widget.task.list,
-                        !widget.task.done,
-                        widget.task.ownerId,
-                        widget.task.taskReference);
-                    widget.task.done = !widget.task.done;
-                  });
-                },
               ),
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),

@@ -64,7 +64,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.myCheckITDarkGrey,
+              color: AppColors.myBackgroundColor,
               size: 35,
             ),
             onPressed: () => Navigator.pop(context),
