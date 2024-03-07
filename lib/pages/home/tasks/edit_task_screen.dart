@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,13 +24,21 @@ class _EditTodoState extends State<EditTodo> {
   late Task task = widget.task;
   final _formKey = GlobalKey<FormState>();
 
+  //Felder für den Speichernbutton Check
+  late String originalTitle = task.description;
+  late String originalNote = task.note;
+  late DateTime originalCreationDate = task.creationDate;
+  late String originalList = 'default';
+  late int originalPriority = task.priority;
+  late DateTime originalMaturityDate = task.maturityDate;
+
   //Felder eines ToDos
   late String title = task.description;
   late String note = task.note;
   late DateTime creationDate = task.creationDate;
   late String list = 'default';
   late int priority = task.priority;
-  late DateTime maturityDate = task.maturityDate; //soll nicht null sein
+  late DateTime maturityDate = task.maturityDate;
   late String ownerId = task.ownerId;
 
   //Listen für die Dropdowns
@@ -37,7 +46,9 @@ class _EditTodoState extends State<EditTodo> {
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
 
-
+  bool informationChanged(){
+    return originalTitle != title || originalNote != note || originalList != list || originalPriority != priority || originalMaturityDate != maturityDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -315,15 +326,20 @@ class _EditTodoState extends State<EditTodo> {
                               SizedBox(
                                 //Erstellen Button
                                 child: ElevatedButton(
-                                  style: buttonStyleDecorationcolorchange,
-                                  child: const Text('Speichern'),
-                                  onPressed: () {
+                                  style: buttonStyleDecorationcolorchange.copyWith(backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states){
+                                    if(states.contains(MaterialState.disabled)){
+                                      return Colors.grey;
+                                    }
+                                    return AppColors.myCheckItGreen;
+                                  })),
+                                  onPressed: informationChanged() ? () {
                                     if (_formKey.currentState!.validate()) {
                                       _database.editTask(title, note, creationDate, false, maturityDate, priority, list, false, ownerId,task.taskReference);
                                       print("edit done");
                                       Navigator.pop(context);
                                     }
-                                  },
+                                  } : null,
+                                  child: const Text('Speichern'), 
                                 ),
                               ),
                             ],
