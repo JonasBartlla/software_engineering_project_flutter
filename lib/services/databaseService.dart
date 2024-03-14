@@ -33,6 +33,12 @@ class DatabaseService{
     );
   }
 
+  Future initializeCollection() async {
+    await addList("Mein Tag", Icons.calendar_month);
+    await addList("Erledigte ToDos", Icons.abc);
+    return await addList("Alle ToDos", Icons.house);
+  }
+
   //add List
   Future addList(String description, IconData icon) async {
     return await listCollection.add({
