@@ -54,10 +54,14 @@ class _TaskTileState extends State<TaskTile> {
               ),
               tileColor: AppColors.myBackgroundColor,
               onTap: () {
+                _database.getAvailableListForUser().then((lists){
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => EditTodo(task: widget.task))));
+                        builder: ((context) => EditTodo(task: widget.task, availableLists: lists))
+                    )
+                );
+                });
               },
               leading: Transform.scale(
                 scale: 1.3,

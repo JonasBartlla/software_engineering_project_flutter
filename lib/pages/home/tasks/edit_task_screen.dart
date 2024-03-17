@@ -13,7 +13,8 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 class EditTodo extends StatefulWidget {
   final Task task;
-  const EditTodo({required this.task, super.key});
+  final List<String> availableLists;
+  const EditTodo({required this.task, required this.availableLists,super.key});
 
   @override
   State<EditTodo> createState() => _EditTodoState();
@@ -42,13 +43,17 @@ class _EditTodoState extends State<EditTodo> {
   late String ownerId = task.ownerId;
 
   //Listen für die Dropdowns
-  List<String> categories = ['Arbeit', 'Schule', 'Haushalt','Testlist'];
+  late List<String> categories;
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
 
 
   bool informationChanged(){
     return originalTitle != title || originalNote != note || originalList != list || originalPriority != priority || originalMaturityDate != maturityDate;
+  }
+
+  void initState() {
+    categories = widget.availableLists;
   }
 
   @override
