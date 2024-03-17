@@ -63,7 +63,12 @@ class DatabaseService{
     return listCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskListFromSnapshot);
   }
 
- 
+  Future<List<String>> getAvailableListForUser() async {
+    QuerySnapshot snapshot = await listCollection.where('ownerId',isEqualTo: uid).get();
+    return snapshot.docs.map((e){
+      return e.get('description') as String;
+    }).toList();
+  }
 
   //TaskList from Snapshot
   List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){

@@ -12,7 +12,8 @@ import 'package:software_engineering_project_flutter/models/task_list.dart';
 
 
 class CreateToDo extends StatefulWidget {
-  const CreateToDo({super.key});
+  final List<String> availableLists;
+  const CreateToDo({required this.availableLists ,super.key});
 
   @override
   State<CreateToDo> createState() => _CreateToDoState();
@@ -29,20 +30,19 @@ class _CreateToDoState extends State<CreateToDo> {
   DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
 
   //Listen für die Dropdowns
-  // List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
+  late List<String> categories;//['Arbeit', 'Schule', 'Haushalt'];
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
+
+  @override
+  void initState() {
+  categories = widget.availableLists;
+  }
 
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
-
-    return StreamBuilder<List<TaskList?>>(
-      stream: _database.lists,
-      builder: (context, availableLists){ 
-        List<String?>? availableList = availableLists.data?.map((list) => list!.description).toList();  
-        print(availableList);
         return Scaffold(
           backgroundColor: AppColors.myBackgroundColor,
           appBar: AppBar(
@@ -146,11 +146,11 @@ class _CreateToDoState extends State<CreateToDo> {
                                       ),
                                       dropdownColor:
                                           AppColors.myCheckITDarkGrey,
-                                      items: availableList?.map((category) {
+                                      items: categories.map((category) {
                                         return DropdownMenuItem(
                                           value: category,
                                           child: Text(
-                                            category!,
+                                            category,
                                             style: const TextStyle(
                                               color: AppColors.myTextInputColor,
                                             ),
@@ -338,6 +338,4 @@ class _CreateToDoState extends State<CreateToDo> {
           ),
         );
       }
-    );
   }
-}

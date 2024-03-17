@@ -31,7 +31,7 @@ class CheckIT extends StatelessWidget{
         initialRoute: '/',
         routes: {
           '/': (context) => Wrapper(),
-          '/create':(context) => const CreateToDo(),
+          // '/create':(context) => const CreateToDo(),
           '/createList':(context) => const CreateListPage(),
           '/home':(context) =>  Home(),
         },
