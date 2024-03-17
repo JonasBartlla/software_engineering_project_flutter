@@ -26,17 +26,16 @@ class CheckIT extends StatelessWidget{
     return StreamProvider<User?>.value( //The StreamProvider listens to a Stream (in this case a Stream provider Instances of the class User) and exposes its content to child
       initialData: null, //https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html
       value: AuthService().user,
-      child: MaterialApp(
-        initialRoute: '/',
-        routes: {
-          '/': (context) => Wrapper(),
-          // '/create':(context) => const CreateToDo(),
-          '/createList':(context) => const CreateListPage(),
-          '/home':(context) =>  Home(),
-        },
-        //home: Wrapper(),
-    
-      ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => Wrapper(),
+            // '/create':(context) => const CreateToDo(),
+            '/createList':(context) => const CreateListPage(),
+            '/home':(context) =>  Home(),
+          },
+        ),
     );
   }
 }
