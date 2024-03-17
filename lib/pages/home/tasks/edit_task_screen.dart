@@ -367,7 +367,8 @@ class _EditTodoState extends State<EditTodo> {
                                 //Löschen Button
                                 child: TextButton(
                                   style: buttonStyleDecorationDelete,
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    await _database.deleteTask(task.taskReference);
                                     Navigator.pop(context);
                                   },
                                   child: const Text(
