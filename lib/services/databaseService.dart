@@ -72,9 +72,11 @@ class DatabaseService{
   }
 
   //add Task
-  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String list) async {
+  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String? list) async {
     //adding the Task
-    print(priority);
+    if(list == null){
+      list = 'keine Liste';
+    }
    
     return  await taskCollection.add({
       'description': description,
