@@ -7,6 +7,7 @@ import 'package:software_engineering_project_flutter/pages/home/lists/create_lis
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/edit_task_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
+import 'package:software_engineering_project_flutter/services/firebase_api.dart';
 import 'package:software_engineering_project_flutter/wrapper.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/home.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/sign_in.dart';
@@ -17,6 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+await FirebaseApi().initNotifications();
   runApp(CheckIT());
 }
 
