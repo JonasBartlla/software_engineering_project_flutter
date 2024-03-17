@@ -10,8 +10,9 @@ import 'package:software_engineering_project_flutter/shared/date_time_picker_wid
 import 'package:provider/provider.dart';
 
 class CreateToDo extends StatefulWidget {
+  final String? listCreatedFrom;
   final List<String> availableLists;
-  const CreateToDo({required this.availableLists, super.key});
+  const CreateToDo({required this.listCreatedFrom, required this.availableLists, super.key});
 
   @override
   State<CreateToDo> createState() => _CreateToDoState();
@@ -31,10 +32,12 @@ class _CreateToDoState extends State<CreateToDo> {
   late List<String> categories;
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
+  late String? listCreatedFrom;
 
   @override
   void initState() {
   categories = widget.availableLists;
+  listCreatedFrom = widget.listCreatedFrom;
   }
 
   @override
@@ -144,6 +147,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
+                                  value: listCreatedFrom,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Liste'),
                                   icon: const Icon(

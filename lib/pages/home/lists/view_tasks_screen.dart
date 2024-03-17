@@ -249,7 +249,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               onPressed: () {
                 _database.getAvailableListForUser().then((lists){
                 Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => CreateToDo(availableLists: lists))));
+                    MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: taskList.description, availableLists: lists))));
                 });    
                 setState(() {});
               },
