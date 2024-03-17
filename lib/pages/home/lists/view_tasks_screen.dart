@@ -246,9 +246,11 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               height: 5,
             ),
             ElevatedButton(
-              onPressed: () async {
-                var abc = await Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => const CreateToDo())));
+              onPressed: () {
+                _database.getAvailableListForUser().then((lists){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => CreateToDo(availableLists: lists))));
+                });    
                 setState(() {});
               },
               style: ElevatedButton.styleFrom(

@@ -42,7 +42,7 @@ class _EditTodoState extends State<EditTodo> {
   late String ownerId = task.ownerId;
 
   //Listen für die Dropdowns
-  List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
+  List<String> categories = ['Arbeit', 'Schule', 'Haushalt','Testlist'];
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
 

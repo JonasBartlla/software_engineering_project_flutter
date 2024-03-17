@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
-
+import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({super.key});
@@ -14,12 +16,14 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _currentIndex = 0;
 
   //das hier muss in den Body bei Home
-  final List<Widget> _pages =  [
-    CreateToDo(),
-  ];
+  // final List<Widget> _pages =  [
+  //   CreateToDo(),
+  // ];
 
   @override
   Widget build(BuildContext context) {
+    final User? user = Provider.of<User?>(context);
+    final DatabaseService _database = DatabaseService(uid: user?.uid);
     return BottomNavigationBar(
       backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
       currentIndex: _currentIndex,
@@ -28,7 +32,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           _currentIndex = index;
         });
         if(_currentIndex == 1){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateToDo()));
+          _database.getAvailableListForUser().then((lists){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateToDo(availableLists: lists)));
+          });
           _currentIndex = 0;
         }
       },

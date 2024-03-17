@@ -10,7 +10,8 @@ import 'package:software_engineering_project_flutter/shared/date_time_picker_wid
 import 'package:provider/provider.dart';
 
 class CreateToDo extends StatefulWidget {
-  const CreateToDo({super.key});
+  final List<String> availableLists;
+  const CreateToDo({required this.availableLists, super.key});
 
   @override
   State<CreateToDo> createState() => _CreateToDoState();
@@ -27,9 +28,14 @@ class _CreateToDoState extends State<CreateToDo> {
   DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
 
   //Listen für die Dropdowns
-  List<String> categories = ['Arbeit', 'Schule', 'Haushalt'];
+  late List<String> categories;
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
+
+  @override
+  void initState() {
+  categories = widget.availableLists;
+  }
 
   @override
   Widget build(BuildContext context) {

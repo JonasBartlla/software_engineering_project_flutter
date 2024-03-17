@@ -64,6 +64,13 @@ class DatabaseService{
     return await list.delete();
   }
 
+  Future<List<String>> getAvailableListForUser() async {
+    QuerySnapshot snapshot = await listCollection.where('ownerId',isEqualTo: uid).get();
+    return snapshot.docs.map((e){
+      return e.get('description') as String;
+    }).toList();
+  }
+
   //add Task
   Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
