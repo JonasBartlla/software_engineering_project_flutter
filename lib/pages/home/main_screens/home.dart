@@ -18,21 +18,11 @@ import 'package:software_engineering_project_flutter/pages/home/main_screens/set
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService dummyDatabase = DatabaseService();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  bool switchIndicator = false;
 
   @override
   Widget build(BuildContext context) {
-    final Task task = Task(
-        description: 'Test',
-        priority: 3, //'Mittel',
-        maturityDate: DateTime(2022, 12, 3, 17, 30),
-        notificationOn: false,
-        ownerId: 'fafdafag',
-        creationDate: DateTime(2022, 12, 3, 17, 30),
-        done: false,
-        taskReference: dummyDatabase.taskCollection.doc('CLXRexhDSJvLB9hntUar'),
-        note: 'lolol',
-        list: 'Haushalt');
-
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
     // return StreamProvider<List<Task>>.value(
@@ -49,15 +39,13 @@ class Home extends StatelessWidget {
       ],
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
+        key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(
-              Icons.person, 
-              size: 30,
-              color: AppColors.myBackgroundColor
-              ),
+            icon: const Icon(Icons.menu,
+                size: 30, color: AppColors.myBackgroundColor),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: ((context)=>MySettings())));
+              _scaffoldKey.currentState?.openDrawer();
             },
           ),
           backgroundColor: AppColors.myCheckItGreen,
@@ -67,22 +55,95 @@ class Home extends StatelessWidget {
             style: standardAppBarTextDecoration,
           ),
           elevation: 0.0,
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
-              child: TextButton.icon(
-                icon: const Icon(
-                  Icons.person,
-                  color: Colors.white,
+        ),
+        drawer: Drawer(
+          backgroundColor: AppColors.myCheckITDarkGrey,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(17),
+                  bottomRight: Radius.circular(17))),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: AppColors.myCheckItGreen,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 5),
+                      Container(
+                        height: 75,
+                        width: 75,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.myTextColor,
+                        ),
+                        child: const Icon(
+                          Icons.person,
+                          size: 50,
+                          color: AppColors.myAbbrechenColor,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Dennis',
+                        style: standardTextDecoration),
+                      const SizedBox(height: 4),
+                      Text(
+                        'dennis@test.de',
+                        style: standardTextDecoration.copyWith(fontSize: 14))
+                    ],
+                  )),
+              ListTile(
+                title: Row(
+                  children: [
+                    Text('Profil', style: standardTextDecoration),
+                    const SizedBox(width: 10),
+                    const Icon(
+                      Icons.person,
+                      color: AppColors.myTextColor,
+                    ),
+                  ],
                 ),
-                label: Text('logout', style: standardTextDecoration),
-                onPressed: () async {
-                  await _auth
-                      .signOut(); //sorgt dafür dass der Stream den Wert null liefert, somit wird wieder die HomePage angezeigt
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => MySettings())));
                 },
               ),
-            ),
-          ],
+              ListTile(
+                title: Text('Datenschutz', style: standardTextDecoration),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('ABGs', style: standardTextDecoration),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Impressum', style: standardTextDecoration),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Row(
+                  children: [
+                    Text('Abmelden',
+                        style: standardTextDecoration.copyWith(
+                            color: AppColors.myDeleteColor)),
+                    const SizedBox(width: 10),
+                    const Icon(
+                      Icons.logout,
+                      color: AppColors.myDeleteColor,
+                    ),
+                  ],
+                ),
+                onTap: () async {
+                  await _auth.signOut();
+                },
+              ),
+              // Add more ListTiles for additional menu items
+            ],
+          ),
         ),
         body: SafeArea(
           child: Padding(
@@ -92,7 +153,9 @@ class Home extends StatelessWidget {
                 const Expanded(
                   child: ListOfTaskLists(),
                 ),
-                const SizedBox(height: 5,),
+                const SizedBox(
+                  height: 5,
+                ),
                 ElevatedButton(
                   onPressed: () async {
                     await Navigator.pushNamed(context, '/createList');
@@ -100,20 +163,17 @@ class Home extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.myCheckITDarkGrey,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          12.0),
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
                     fixedSize: Size(465.0, 20.0),
                   ),
                   child: Row(
                     children: [
                       const Icon(
-                        Icons.add, 
+                        Icons.add,
                         color: AppColors.myCheckItGreen,
                       ),
-                      const SizedBox(
-                          width:
-                              8.0),
+                      const SizedBox(width: 8.0),
                       Text(
                         'Liste erstellen',
                         style: standardTextDecoration,
