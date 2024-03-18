@@ -17,15 +17,13 @@ class _ListOfTasksState extends State<ListOfTasks> {
   @override
   Widget build(BuildContext context) {
 
-    late List<Task> tasks = widget.tasks;
-    
+    //late List<Task> tasks = widget.tasks;
+    List<Task> tasks = Provider.of<List<Task>>(context).where((element){
+      return element.list == 'Haha' ? true : false;
+    }).toList();
+    print(tasks);
     //final tasks = Provider.of<List<Task>?>(context);
     //final List<Task> filteredTasks = tasks!.where((task) => task.list == list).toList();
-
-    // print(tasks);
-    // for (Task task in tasks!){
-    //   print(task.description);
-    // }
 
     return tasks == null ? Loading() : ListView.builder(
       shrinkWrap: true,
