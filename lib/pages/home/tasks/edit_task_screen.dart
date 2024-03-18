@@ -28,7 +28,7 @@ class _EditTodoState extends State<EditTodo> {
   late String originalTitle = task.description;
   late String originalNote = task.note;
   late DateTime originalCreationDate = task.creationDate;
-  late String originalList = 'default';
+  late String originalList = task.list;
   late int originalPriority = task.priority;
   late DateTime originalMaturityDate = task.maturityDate;
 
