@@ -24,7 +24,7 @@ class _CreateToDoState extends State<CreateToDo> {
   //Felder eines ToDos
   String title = '';
   String note = '';
-  String list = 'default';
+  late String? list;
   int priority = 0;
   DateTime dateAndTime = DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
 
@@ -36,8 +36,8 @@ class _CreateToDoState extends State<CreateToDo> {
 
   @override
   void initState() {
-  categories = widget.availableLists;
-  listCreatedFrom = widget.listCreatedFrom;
+    categories = widget.availableLists;
+    list = widget.listCreatedFrom;
   }
 
   @override
@@ -147,7 +147,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                 elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
-                                  value: listCreatedFrom,
+                                  value: list,
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Liste'),
                                   icon: const Icon(

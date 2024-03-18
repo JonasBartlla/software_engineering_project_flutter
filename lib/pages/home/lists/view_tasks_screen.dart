@@ -240,7 +240,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             SizedBox(height: 5,),
             Expanded(
                 child: ListOfTasks(
-              tasks: tasks,
+              listDescription: widget.taskList.description,
             )),
             const SizedBox(
               height: 5,
