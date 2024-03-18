@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
@@ -19,7 +20,19 @@ class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService dummyDatabase = DatabaseService();
 
+
   @override
+  void initState(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message){
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+
   Widget build(BuildContext context) {
     final Task task = Task(
         description: 'Test',
