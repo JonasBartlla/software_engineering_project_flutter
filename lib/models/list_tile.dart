@@ -23,7 +23,8 @@ class ListTileTest extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Card(
-        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 10,
         color: AppColors.myCheckITDarkGrey,
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: SizedBox(
@@ -55,6 +56,7 @@ class ListTileTest extends StatelessWidget {
                   contentPadding: EdgeInsets.all(8.0),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         taskList.icon,
@@ -67,6 +69,7 @@ class ListTileTest extends StatelessWidget {
                         style: standardHeadlineDecoration,
                         textAlign: TextAlign.center,
                       ),
+                      SizedBox(height: 15.0),
                     ],
                   ),
                 ),
@@ -82,7 +85,7 @@ class ListTileTest extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white),
                   ),
-                  child: Center(child: Text(counter.toString(), style: TextStyle(fontSize: 18),)),
+                  child: Center(child: Text(counter.toString(), style: standardTextDecoration.copyWith(color: Colors.black),)),
                 ),
               )
             ],
