@@ -32,8 +32,6 @@ class _EditTodoState extends State<EditTodo> {
   late int originalPriority = task.priority;
   late DateTime originalMaturityDate = task.maturityDate;
 
-  bool abc = true;
-
   //Felder eines ToDos
   late String title = task.description;
   late String note = task.note;
