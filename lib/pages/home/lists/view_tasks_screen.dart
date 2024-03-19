@@ -23,8 +23,6 @@ class ListOfTasksPage extends StatefulWidget {
   State<ListOfTasksPage> createState() => _ListOfTaskPageState();
 }
 
-enum MenuItem { edit, delete }
-
 class SortFields{
   String sortCriteria;
   IconData icon;
@@ -48,8 +46,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
   Widget build(BuildContext context) {
     
     late List<Task> tasks = widget.tasks;
-    // late String list = widget.list;
-    // late IconData icon = widget.icon;
     late TaskList taskList = widget.taskList;
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
@@ -75,40 +71,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             size: 40,
           ),
           centerTitle: true,
-          actions: [
-            PopupMenuButton(
-              icon: Icon(Icons.more_vert, color: AppColors.myBackgroundColor),
-                color: AppColors.myCheckITDarkGrey,
-                iconSize: 35,
-                onSelected: (value) {
-                  if (value == MenuItem.edit) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => EditListPage(
-                                  taskList: taskList,
-                                ))));
-                  } else if (value == MenuItem.delete) {
-                    //Hier Code zum Löschen einer Liste
-                  }
-                },
-                itemBuilder: (context) => const [
-                      PopupMenuItem(
-                        value: MenuItem.edit,
-                        child: Text(
-                          'Liste bearbeiten',
-                          style: TextStyle(color: AppColors.myTextColor),
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: MenuItem.delete,
-                        child: Text(
-                          'Liste löschen',
-                          style: TextStyle(color: AppColors.myTextColor),
-                        ),
-                      )
-                    ])
-          ],
         ),
         body: Column(
           children: [
@@ -121,7 +83,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                 padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                 child: Text(
                   taskList.description,
-                  style: TextStyle(color: AppColors.myTextColor, fontSize: 25),
+                  style: const TextStyle(color: AppColors.myTextColor, fontSize: 25),
                 ),
               ),
             ),
@@ -245,47 +207,132 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             const SizedBox(
               height: 5,
             ),
-            ElevatedButton(
-              onPressed: () {
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => EditListPage(
+                                  taskList: taskList,
+                                ))));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.myAbbrechenColor,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12.0),
+                        ),
+                        fixedSize: Size(70.0, 70.0),
+                      ),
+                      child: const Center(
+                        child: Stack(children: [
+                          Icon(Icons.format_list_bulleted, size: 35,),
+                          Positioned(top: 14, right: -5,
+                          child: Icon(Icons.edit, color: Colors.white, ))
+                        ]),
+                      )
+                    ),
+                    const SizedBox(width: 25,),
+                    ElevatedButton(
+                      onPressed: () {
                 _database.getAvailableListForUser().then((lists){
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: taskList.description, availableLists: lists))));
                 });    
                 setState(() {});
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.myCheckITDarkGrey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.myCheckItGreen,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12.0),
+                        ),
+                        fixedSize: Size(250.0, 70.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                          const SizedBox(
+                              height:
+                                  3.0),
+                          Text(
+                            'ToDo erstellen',
+                            style: standardTextDecoration.copyWith(fontSize: 17),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 25,),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Navigator.pushNamed(context, '/createList');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.myDeleteColor,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12.0),
+                        ),
+                        fixedSize: Size(70.0, 70.0),
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                         Icon(
+                            Icons.delete, 
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                fixedSize: const Size(465.0, 20.0),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.add,
-                    color: AppColors.myCheckItGreen,
-                  ),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    'ToDo erstellen',
-                    style: standardTextDecoration,
-                  ),
-                ],
-              ),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     _database.getAvailableListForUser().then((lists){
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: taskList.description, availableLists: lists))));
+            //     });    
+            //     setState(() {});
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: AppColors.myCheckITDarkGrey,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(12.0),
+            //     ),
+            //     fixedSize: const Size(465.0, 20.0),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       const Icon(
+            //         Icons.add,
+            //         color: AppColors.myCheckItGreen,
+            //       ),
+            //       const SizedBox(width: 8.0),
+            //       Text(
+            //         'ToDo erstellen',
+            //         style: standardTextDecoration,
+            //       ),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: 20,
             )
           ],
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.push(context, MaterialPageRoute(builder: ((context) => CreateToDo())));
-        //   },
-        //   child: Icon(Icons.add),
-        //   backgroundColor: AppColors.myCheckItGreen,
-        // ),
       ),
     );
   }
