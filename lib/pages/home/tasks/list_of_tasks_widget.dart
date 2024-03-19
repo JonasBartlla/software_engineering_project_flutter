@@ -43,7 +43,17 @@ class _ListOfTasksState extends State<ListOfTasks> {
                 }).toList();
 
     }
-    return tasks == null ? Loading() : ListView.builder(
+    if (tasks == null){
+      return Loading();
+    } else if (tasks.isEmpty){
+      return Text('Diese Liste enthält aktuell noch keine Tasks',
+        style: TextStyle(
+          color: Colors.amber,
+          fontSize: 100.0
+        ),
+      );
+    }else{
+      return ListView.builder(
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemCount: tasks.length,
@@ -52,5 +62,6 @@ class _ListOfTasksState extends State<ListOfTasks> {
       },
 
     );
+    }
   }
 }
