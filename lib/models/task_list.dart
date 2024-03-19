@@ -6,10 +6,11 @@ class TaskList {
   IconData icon;
   DateTime creationDate;
   String ownerId;
+  bool isEditable;
   DocumentReference listReference;
 
   // List<String> associated;
 
-  TaskList({required this.description, required this.icon, required this.creationDate , required this.ownerId, required this.listReference});
+  TaskList({required this.description, required this.icon, required this.creationDate , required this.ownerId, required this.isEditable, required this.listReference});
 
 }
