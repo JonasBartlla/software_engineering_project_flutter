@@ -183,18 +183,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                       }
                       ).toList(),
                     )
-                    // TextButton.icon(
-                    //   onPressed: () {},
-                    //   icon: const Icon(
-                    //     Icons.swap_vert,
-                    //     color: AppColors.myTextColor,
-                    //   ),
-                    //   label: const Text(
-                    //     'Sortieren',
-                    //     style: TextStyle(color: AppColors.myTextColor),
-                    //   ),
-                    //   style: buttonStyleDecoration,
-                    // ),
                   )
                 ],
               ),

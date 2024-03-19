@@ -60,7 +60,17 @@ class DatabaseService{
   }
 
   //deleting List
-  Future deleteList(DocumentReference list) async {
+  Future deleteList(DocumentReference list, String listName) async {
+    //get all Tasks of affected List
+    QuerySnapshot tasksOfList = await taskCollection.where('ownerId',isEqualTo: uid).get();
+    List<DocumentReference> taskReferences = tasksOfList.docs.where((doc) {
+      return doc.get('list') == listName;
+    }).map((doc){
+      return doc.reference;
+    }).toList();
+    for(DocumentReference taskReference in taskReferences){
+      deleteTask(taskReference);
+    }
     return await list.delete();
   }
 
@@ -126,6 +136,7 @@ class DatabaseService{
         icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
         ownerId: doc.get('ownerId'),
+        listReference: doc.reference
       );
     }
     ).toList();
