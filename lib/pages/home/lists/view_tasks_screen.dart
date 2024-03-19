@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
@@ -23,7 +24,7 @@ class ListOfTasksPage extends StatefulWidget {
   State<ListOfTasksPage> createState() => _ListOfTaskPageState();
 }
 
-class SortFields{
+class SortFields {
   String sortCriteria;
   IconData icon;
 
@@ -31,7 +32,6 @@ class SortFields{
 }
 
 class _ListOfTaskPageState extends State<ListOfTasksPage> {
-
   SortFields selectedValue = SortFields("Sortieren", Icons.swap_vert);
   final List<SortFields> fields = [
     SortFields("Erstellungsdatum", Icons.arrow_upward_sharp),
@@ -44,7 +44,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     late List<Task> tasks = widget.tasks;
     late TaskList taskList = widget.taskList;
     final User? user = Provider.of<User?>(context);
@@ -83,7 +82,8 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                 padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                 child: Text(
                   taskList.description,
-                  style: const TextStyle(color: AppColors.myTextColor, fontSize: 25),
+                  style: const TextStyle(
+                      color: AppColors.myTextColor, fontSize: 25),
                 ),
               ),
             ),
@@ -95,99 +95,137 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 8),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.myCheckITDarkGrey),
-                    child: DropdownButton<SortFields>(
-                      icon: Icon(Icons.swap_vert, color: AppColors.myCheckITDarkGrey,),
-                      underline: SizedBox(),
-                      borderRadius: BorderRadius.circular(8),
-                      dropdownColor: AppColors.myCheckITDarkGrey,
-                      hint: Row(children:  [Icon(selectedValue.icon, color: Colors.white,), SizedBox(width: 3,), Text(selectedValue.sortCriteria, style: TextStyle(color: Colors.white),)]),
-                      onChanged: (SortFields? newValue){
-                        setState(() {
-                          selectedValue = newValue!;
-                        if(newValue == fields[0]){
-                          tasks.sort((a,b){
-                            if(a.creationDate != b.creationDate){
-                              return b.creationDate.compareTo(a.creationDate);
-                            }
-                            else{
-                              return b.creationDate.compareTo(a.creationDate);
-                            }
-                          });
-                        }
-                        if(newValue == fields[1]){
-                          tasks.sort((a,b){
-                            if(a.creationDate != b.creationDate){
-                              return a.creationDate.compareTo(b.creationDate);
-                            }
-                            else{
-                              return a.creationDate.compareTo(b.creationDate);
-                            }
-                          });
-                        }
-                        if(newValue == fields[2]){
-                          tasks.sort((a,b){
-                            if(a.priority != b.priority){
-                              return b.priority.compareTo(a.priority);
-                            }
-                            else{
-                              return b.priority.compareTo(a.priority);
-                            }
-                          });
-                        }
-                        if(newValue == fields[3]){
-                          tasks.sort((a,b){
-                            if(a.priority != b.priority){
-                              return a.priority.compareTo(b.priority);
-                            }
-                            else{
-                              return a.priority.compareTo(b.priority);
-                            }
-                          });
-                        }
-                        if(newValue == fields[4]){
-                          tasks.sort((a, b) {
-                            if(a.maturityDate != b.maturityDate){
-                              return a.maturityDate.compareTo(b.maturityDate);
-                            }
-                            else{
-                              return a.maturityDate.compareTo(b.maturityDate);
-                            }
-                          },);
-                        }
-                        if(newValue == fields[5]){
-                          tasks.sort((a, b) {
-                            if(a.maturityDate != b.maturityDate){
-                              return b.maturityDate.compareTo(a.maturityDate);
-                            }
-                            else{
-                              return b.maturityDate.compareTo(a.maturityDate);
-                            }
-                          },);
-                        }
-                      });
-                      },
-                      items: fields.map((SortFields field){
-                        return DropdownMenuItem<SortFields>(
-                          value: field,
-                          child: Row(
-                            children: <Widget>[
-                              Icon(field.icon, color: Colors.white,),
-                              SizedBox(width: 10,),
-                              Text(field.sortCriteria, style: TextStyle(color: Colors.white),),
-                            ],
-                          )
-                          );
-                      }
-                      ).toList(),
-                    )
+                  PhysicalModel(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular((8)),
+                    color: AppColors.myCheckITDarkGrey,
+                    elevation: 8,
+                    shadowColor: AppColors.myShadowColor,
+                    child: Container(
+                        padding: const EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: AppColors.myCheckITDarkGrey),
+                        child: DropdownButton<SortFields>(
+                          icon: Icon(
+                            Icons.swap_vert,
+                            color: AppColors.myCheckITDarkGrey,
+                          ),
+                          underline: SizedBox(),
+                          elevation: 10,
+                          borderRadius: BorderRadius.circular(8),
+                          dropdownColor: AppColors.myCheckITDarkGrey,
+                          hint: Row(children: [
+                            Icon(
+                              selectedValue.icon,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text(
+                              selectedValue.sortCriteria,
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ]),
+                          onChanged: (SortFields? newValue) {
+                            setState(() {
+                              selectedValue = newValue!;
+                              if (newValue == fields[0]) {
+                                tasks.sort((a, b) {
+                                  if (a.creationDate != b.creationDate) {
+                                    return b.creationDate
+                                        .compareTo(a.creationDate);
+                                  } else {
+                                    return b.creationDate
+                                        .compareTo(a.creationDate);
+                                  }
+                                });
+                              }
+                              if (newValue == fields[1]) {
+                                tasks.sort((a, b) {
+                                  if (a.creationDate != b.creationDate) {
+                                    return a.creationDate
+                                        .compareTo(b.creationDate);
+                                  } else {
+                                    return a.creationDate
+                                        .compareTo(b.creationDate);
+                                  }
+                                });
+                              }
+                              if (newValue == fields[2]) {
+                                tasks.sort((a, b) {
+                                  if (a.priority != b.priority) {
+                                    return b.priority.compareTo(a.priority);
+                                  } else {
+                                    return b.priority.compareTo(a.priority);
+                                  }
+                                });
+                              }
+                              if (newValue == fields[3]) {
+                                tasks.sort((a, b) {
+                                  if (a.priority != b.priority) {
+                                    return a.priority.compareTo(b.priority);
+                                  } else {
+                                    return a.priority.compareTo(b.priority);
+                                  }
+                                });
+                              }
+                              if (newValue == fields[4]) {
+                                tasks.sort(
+                                  (a, b) {
+                                    if (a.maturityDate != b.maturityDate) {
+                                      return a.maturityDate
+                                          .compareTo(b.maturityDate);
+                                    } else {
+                                      return a.maturityDate
+                                          .compareTo(b.maturityDate);
+                                    }
+                                  },
+                                );
+                              }
+                              if (newValue == fields[5]) {
+                                tasks.sort(
+                                  (a, b) {
+                                    if (a.maturityDate != b.maturityDate) {
+                                      return b.maturityDate
+                                          .compareTo(a.maturityDate);
+                                    } else {
+                                      return b.maturityDate
+                                          .compareTo(a.maturityDate);
+                                    }
+                                  },
+                                );
+                              }
+                            });
+                          },
+                          items: fields.map((SortFields field) {
+                            return DropdownMenuItem<SortFields>(
+                                value: field,
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      field.icon,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      field.sortCriteria,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ));
+                          }).toList(),
+                        )),
                   )
                 ],
               ),
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Expanded(
                 child: ListOfTasks(
               listDescription: widget.taskList.description,
@@ -196,103 +234,119 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               height: 5,
             ),
             Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => EditListPage(
-                                  taskList: taskList,
-                                ))));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.myAbbrechenColor,
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              12.0),
-                        ),
-                        fixedSize: Size(70.0, 70.0),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => EditListPage(
+                                    taskList: taskList,
+                                  ))));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(1),
+                      backgroundColor: AppColors.myAbbrechenColor,
+                      surfaceTintColor: AppColors.myAbbrechenColor,
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      child: const Center(
-                        child: Stack(children: [
-                          Icon(Icons.format_list_bulleted, size: 35,),
-                          Positioned(top: 14, right: -5,
-                          child: Icon(Icons.edit, color: Colors.white, ))
-                        ]),
-                      )
+                      fixedSize: Size(70.0, 70.0),
                     ),
-                    const SizedBox(width: 25,),
-                    ElevatedButton(
-                      onPressed: () {
-                _database.getAvailableListForUser().then((lists){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: taskList.description, availableLists: lists))));
-                });    
-                setState(() {});
-              },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.myCheckItGreen,
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              12.0),
+                    child: const Center(
+                      child: Stack(children: [
+                        Icon(
+                          Icons.format_list_bulleted,
+                          size: 35,
+                          color: Colors.white,
                         ),
-                        fixedSize: Size(250.0, 70.0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 35,
-                          ),
-                          const SizedBox(
-                              height:
-                                  3.0),
-                          Text(
-                            'ToDo erstellen',
-                            style: standardTextDecoration.copyWith(fontSize: 17),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 25,),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await Navigator.pushNamed(context, '/createList');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.myDeleteColor,
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              12.0),
-                        ),
-                        fixedSize: Size(70.0, 70.0),
-                      ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                         Icon(
-                            Icons.delete, 
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        Positioned(
+                            top: 14,
+                            right: -5,
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ))
+                      ]),
+                    )),
+                const SizedBox(
+                  width: 25,
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    _database.getAvailableListForUser().then((lists) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => CreateToDo(
+                                  listCreatedFrom: taskList.description,
+                                  availableLists: lists))));
+                    });
+                    setState(() {});
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.myCheckItGreen,
+                    surfaceTintColor: AppColors.myCheckItGreen,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    fixedSize: Size(250.0, 70.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                      const SizedBox(height: 3.0),
+                      Text(
+                        'ToDo erstellen',
+                        style: standardTextDecoration.copyWith(fontSize: 17),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 25,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await Navigator.pushNamed(context, '/createList');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(1),
+                    backgroundColor: AppColors.myDeleteColor,
+                    surfaceTintColor: AppColors.myDeleteColor,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    fixedSize: Size(70.0, 70.0),
+                  ),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             // ElevatedButton(
             //   onPressed: () {
             //     _database.getAvailableListForUser().then((lists){
             //     Navigator.push(context,
             //         MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: taskList.description, availableLists: lists))));
-            //     });    
+            //     });
             //     setState(() {});
             //   },
             //   style: ElevatedButton.styleFrom(

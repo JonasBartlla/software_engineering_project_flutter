@@ -140,7 +140,7 @@ class _CreateToDoState extends State<CreateToDo> {
                             const SizedBox(width: 6),
                             const SizedBox(
                               child: Icon(
-                                Icons.list_alt_rounded,
+                                Icons.list,
                                 color: Colors.white,
                                 size: 30.0,
                               ),

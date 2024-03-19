@@ -62,6 +62,7 @@ class Home extends StatelessWidget {
           elevation: 5,
           shadowColor: AppColors.myShadowColor,
           backgroundColor: AppColors.myCheckITDarkGrey,
+          surfaceTintColor: AppColors.myCheckITDarkGrey,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(15),
@@ -165,24 +166,21 @@ class Home extends StatelessWidget {
                         await Navigator.pushNamed(context, '/createList');
                       },
                       style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(1),
                         backgroundColor: AppColors.myAbbrechenColor,
+                        surfaceTintColor: AppColors.myAbbrechenColor,
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               12.0),
                         ),
-                        fixedSize: Size(70.0, 70.0),
+                        fixedSize: const Size(70.0, 70.0),
                       ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
+                      child: const Icon(
                             Icons.format_list_bulleted_add, 
                             color: Colors.white,
                             size: 35,
                           ),
-                        ],
-                      ),
                     ),
                     const SizedBox(width: 25,),
                     ElevatedButton(
@@ -194,6 +192,7 @@ class Home extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.myCheckItGreen,
+                        surfaceTintColor: AppColors.myCheckItGreen,
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
@@ -225,7 +224,9 @@ class Home extends StatelessWidget {
                         //hier gehts zum Kalender
                       },
                       style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(1),
                         backgroundColor: AppColors.myAbbrechenColor,
+                        surfaceTintColor: AppColors.myAbbrechenColor,
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
