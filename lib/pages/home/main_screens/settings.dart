@@ -1,16 +1,33 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class MySettings extends StatefulWidget {
-  const MySettings({super.key});
+  // const MySettings({super.key});
+
+  const MySettings({Key? key})
+      : super(key: key);
 
   @override
   State<MySettings> createState() => _MySettingsState();
 }
 
 class _MySettingsState extends State<MySettings> {
+  File? _image;
+
+  Future _getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +93,12 @@ class _MySettingsState extends State<MySettings> {
                   color: AppColors.myCheckItGreen,
                 ),
               ],
+            ),
+            const SizedBox(height: 14),
+
+            ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
+            Center(
+              // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
             ),
 
             // Unten am Bildschirm
