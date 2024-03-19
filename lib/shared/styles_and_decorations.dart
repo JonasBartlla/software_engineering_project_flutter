@@ -17,7 +17,7 @@ var buttonStyleDecorationDelete = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    fixedSize: MaterialStateProperty.all(Size(120, 10)),
+    fixedSize: MaterialStateProperty.all(Size(120, 40)),
     backgroundColor:
         MaterialStateColor.resolveWith((states) => AppColors.myDeleteColor),
     elevation: MaterialStateProperty.all(8),
@@ -40,7 +40,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    fixedSize: MaterialStateProperty.all(Size(120, 10)),
+    fixedSize: MaterialStateProperty.all(Size(120, 40)),
     backgroundColor:
         MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
@@ -54,6 +54,8 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
     shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
 
 var textInputDecoration = InputDecoration(
+    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.myCheckItGreen)),
+    enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.myBoxColor)),
     fillColor: AppColors.myBoxColor,
     filled: true,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),

@@ -23,6 +23,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
     // return StreamProvider<List<Task>>.value(
@@ -57,11 +58,13 @@ class Home extends StatelessWidget {
           elevation: 0.0,
         ),
         drawer: Drawer(
+          elevation: 5,
+          shadowColor: AppColors.myShadowColor,
           backgroundColor: AppColors.myCheckITDarkGrey,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(17),
-                  bottomRight: Radius.circular(17))),
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15))),
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -141,7 +144,6 @@ class Home extends StatelessWidget {
                   await _auth.signOut();
                 },
               ),
-              // Add more ListTiles for additional menu items
             ],
           ),
         ),
@@ -181,9 +183,7 @@ class Home extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 MyBottomNavigationBar(),
               ],
             ),

@@ -14,7 +14,7 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 class EditTodo extends StatefulWidget {
   final Task task;
   final List<String> availableLists;
-  const EditTodo({required this.task, required this.availableLists,super.key});
+  const EditTodo({required this.task, required this.availableLists, super.key});
 
   @override
   State<EditTodo> createState() => _EditTodoState();
@@ -31,16 +31,17 @@ class _EditTodoState extends State<EditTodo> {
   late String originalList = task.list;
   late int originalPriority = task.priority;
   late DateTime originalMaturityDate = task.maturityDate;
+  late bool originalNotification = task.notificationOn;
 
   //Felder eines ToDos
   late String title = task.description;
   late String note = task.note;
   late DateTime creationDate = task.creationDate;
-  // late String list = 'default'; was war der Grunf fafür?
+  // late String list = 'default'; was war der Grund fafür?
   late String list = task.list;
   late int priority = task.priority;
   late DateTime maturityDate = task.maturityDate;
-
+  late bool notification = task.notificationOn;
   late String ownerId = task.ownerId;
 
   //Listen für die Dropdowns
@@ -48,9 +49,13 @@ class _EditTodoState extends State<EditTodo> {
   List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
 
-
-  bool informationChanged(){
-    return originalTitle != title || originalNote != note || originalList != list || originalPriority != priority || originalMaturityDate != maturityDate;
+  bool informationChanged() {
+    return originalTitle != title ||
+        originalNote != note ||
+        originalList != list ||
+        originalPriority != priority ||
+        originalMaturityDate != maturityDate ||
+        originalNotification != notification;
   }
 
   void initState() {
@@ -66,13 +71,13 @@ class _EditTodoState extends State<EditTodo> {
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.myBackgroundColor,
-              size: 35,
-            ),
-            onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.myBackgroundColor,
+            size: 35,
           ),
+          onPressed: () => Navigator.pop(context),
+        ),
         centerTitle: true,
         title: Text(
           'ToDo',
@@ -125,6 +130,7 @@ class _EditTodoState extends State<EditTodo> {
                                   width: 311,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
+                                    cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(color: Colors.white),
                                     initialValue: title,
                                     validator: (value) {
@@ -176,15 +182,12 @@ class _EditTodoState extends State<EditTodo> {
                                     size: 30,
                                     color: Colors.white,
                                   ),
-                                  dropdownColor:
-                                      AppColors.myBoxColor,
+                                  dropdownColor: AppColors.myBoxColor,
                                   items: categories.map((category) {
                                     return DropdownMenuItem(
                                       value: category,
-                                      child: Text(
-                                        category,
-                                        style: standardTextDecoration,
-                                      ),
+                                      child: Text(category,
+                                          style: standardTextDecoration),
                                     );
                                   }).toList(),
                                   onChanged: (value) => setState(() {
@@ -218,8 +221,9 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
-                                  value: task.priority == 0 ? null : _database.getPriority(task.priority),
-
+                                  value: task.priority == 0
+                                      ? null
+                                      : _database.getPriority(task.priority),
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor: AppColors.myCheckITDarkGrey,
@@ -284,11 +288,12 @@ class _EditTodoState extends State<EditTodo> {
                                                 'Fälligkeit',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: AppColors.myTextInputColor,
+                                                  fontSize: 17,
+                                                  color: AppColors
+                                                      .myTextInputColor,
                                                 ),
-                                              )
-                                              ): Text(
+                                              ))
+                                          : Text(
                                               '${DateFormat('dd.MM.yyyy').format(maturityDate)} ${maturityDate.hour.toString().padLeft(2, '0')}:${maturityDate.minute.toString().padLeft(2, '0')}',
                                               style: standardTextDecoration,
                                             ),
@@ -304,10 +309,10 @@ class _EditTodoState extends State<EditTodo> {
                               Transform.scale(
                                 scale: 1.5,
                                 child: Checkbox(
-                                  hoverColor: AppColors.myAbbrechenColor,
-                                  splashRadius: 14,
+                                    hoverColor: AppColors.myAbbrechenColor,
+                                    splashRadius: 14,
                                     side: const BorderSide(
-                                      width: 1.8,
+                                        width: 1.8,
                                         color: AppColors.myTextColor),
                                     activeColor: AppColors.myCheckItGreen,
                                     value: task.notificationOn,
@@ -315,12 +320,15 @@ class _EditTodoState extends State<EditTodo> {
                                       setState(() {
                                         task.notificationOn =
                                             !task.notificationOn;
+                                        notification = !notification;
                                       });
                                     }),
                               ),
                               const SizedBox(width: 5),
-                              Text('Ich möchte über die Fälligkeit des\nToDos informiert werden.',
-                              style: standardTextDecoration,),
+                              Text(
+                                'Ich möchte über die Fälligkeit des\nToDos informiert werden.',
+                                style: standardTextDecoration,
+                              ),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -335,23 +343,24 @@ class _EditTodoState extends State<EditTodo> {
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
                                 width: 348,
-                                height: 230,
+                                height: 150,
                                 child: Align(
-                                  alignment: Alignment.topLeft,
                                   child: TextFormField(
+                                    cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(
                                         color: AppColors.myTextColor),
                                     maxLines: null,
                                     expands: true,
+                                    textAlignVertical: TextAlignVertical.top,
                                     textAlign: TextAlign.start,
                                     validator: (value) => value!.length > 300
                                         ? 'Notiz darf nicht länger als 300 Zeichen sein'
                                         : null,
                                     initialValue: note,
                                     decoration: textInputDecoration.copyWith(
-                                        hintText: 'Notiz',
-                                        alignLabelWithHint: true,
-                                        ),
+                                      hintText: 'Notiz',
+                                      alignLabelWithHint: true,
+                                    ),
                                     onChanged: (value) => setState(() {
                                       note = value;
                                     }),
@@ -369,7 +378,8 @@ class _EditTodoState extends State<EditTodo> {
                                 child: TextButton(
                                   style: buttonStyleDecorationDelete,
                                   onPressed: () async {
-                                    await _database.deleteTask(task.taskReference);
+                                    await _database
+                                        .deleteTask(task.taskReference);
                                     Navigator.pop(context);
                                   },
                                   child: const Text(
@@ -386,6 +396,9 @@ class _EditTodoState extends State<EditTodo> {
                               SizedBox(
                                 //Abbrechen Button
                                 child: TextButton(
+                                  style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          AppColors.myCheckITDarkGrey)),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
@@ -403,20 +416,45 @@ class _EditTodoState extends State<EditTodo> {
                               SizedBox(
                                 //Speichern Button
                                 child: ElevatedButton(
-                                  style: buttonStyleDecorationcolorchange.copyWith(backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states){
-                                    if(states.contains(MaterialState.disabled)){
+                                  style: buttonStyleDecorationcolorchange
+                                      .copyWith(backgroundColor:
+                                          MaterialStateProperty.resolveWith<
+                                                  Color>(
+                                              (Set<MaterialState> states) {
+                                    if (states
+                                        .contains(MaterialState.disabled)) {
                                       return Colors.grey;
                                     }
                                     return AppColors.myCheckItGreen;
                                   })),
-                                  onPressed: informationChanged() ? () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _database.editTask(title, note, creationDate, false, maturityDate, priority, list, false, ownerId,task.taskReference);
-                                      print("edit done");
-                                      Navigator.pop(context);
-                                    }
-                                  } : null,
-                                  child: const Text('Speichern'), 
+                                  onPressed: informationChanged()
+                                      ? () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            _database.editTask(
+                                                title,
+                                                note,
+                                                creationDate,
+                                                false,
+                                                maturityDate,
+                                                priority,
+                                                list,
+                                                false,
+                                                ownerId,
+                                                task.taskReference);
+                                            print("edit done");
+                                            Navigator.pop(context);
+                                          }
+                                        }
+                                      : null,
+                                  child: const Text('Speichern',
+                                      style: TextStyle(
+                                          color: AppColors.myTextColor,
+                                          fontFamily: 'Comfortaa',
+                                          fontSize: 14,
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.normal,
+                                          height: 1)),
                                 ),
                               ),
                             ],
