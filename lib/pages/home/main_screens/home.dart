@@ -6,6 +6,7 @@ import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_tile.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
+import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_tasks_widget.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
@@ -155,36 +156,98 @@ class Home extends StatelessWidget {
                 const Expanded(
                   child: ListOfTaskLists(),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    await Navigator.pushNamed(context, '/createList');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.myCheckITDarkGrey,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                const SizedBox(height: 5,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Navigator.pushNamed(context, '/createList');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.myAbbrechenColor,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12.0),
+                        ),
+                        fixedSize: Size(70.0, 70.0),
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.format_list_bulleted_add, 
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                        ],
+                      ),
                     ),
-                    fixedSize: Size(465.0, 20.0),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.add,
-                        color: AppColors.myCheckItGreen,
+                    const SizedBox(width: 25,),
+                    ElevatedButton(
+                      onPressed: () {
+                       _database.getAvailableListForUser().then((lists){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: null, availableLists: lists))));
+                }); // hier Todo erstellen mit Database
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.myCheckItGreen,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12.0),
+                        ),
+                        fixedSize: Size(250.0, 70.0),
                       ),
-                      const SizedBox(width: 8.0),
-                      Text(
-                        'Liste erstellen',
-                        style: standardTextDecoration,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                          const SizedBox(
+                              height:
+                                  3.0),
+                          Text(
+                            'ToDo erstellen',
+                            style: standardTextDecoration.copyWith(fontSize: 17),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 25,),
+                    ElevatedButton(
+                      onPressed: () {
+                        //hier gehts zum Kalender
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.myAbbrechenColor,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12.0),
+                        ),
+                        fixedSize: Size(70.0, 70.0),
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                         Icon(
+                            Icons.calendar_month_outlined, 
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 15),
-                MyBottomNavigationBar(),
+
+                //MyBottomNavigationBar(),
               ],
             ),
           ),

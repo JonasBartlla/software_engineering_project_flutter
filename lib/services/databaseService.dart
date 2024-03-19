@@ -34,41 +34,57 @@ class DatabaseService{
   }
 
   Future initializeCollection() async {
-    await addList("Mein Tag", Icons.calendar_month);
-    await addList("Erledigte ToDos", Icons.abc);
-    return await addList("Alle ToDos", Icons.house);
+    await addList("Mein Tag", Icons.calendar_month, isEditable: false);
+    await addList("Erledigte ToDos", Icons.abc, isEditable: false);
+    return await addList("Alle ToDos", Icons.house, isEditable: false);
   }
 
   //add List
-  Future addList(String description, IconData icon) async {
+  Future addList(String description, IconData icon, {bool isEditable = true}) async {
     return await listCollection.add({
       'description': description,
       'icon': icon.codePoint,
       'creationDate': DateTime.now().millisecondsSinceEpoch,
+      'isEditable': isEditable,
       'ownerId': uid,
     });
   }
 
   //editing List
-  Future editList(String bezeichnung, IconData icon, DocumentReference list, DateTime creationDate, String ownerId) async {
+  Future editList(String bezeichnung, IconData icon, DocumentReference list, DateTime creationDate, bool isEditable, String ownerId) async {
     return await list.set({
       'description': bezeichnung,
       'icon': icon.codePoint,
       'creationDate': creationDate.millisecondsSinceEpoch,
+      'isEditable': isEditable,
       'ownerId': ownerId,
     });
   }
 
   //deleting List
-  Future deleteList(DocumentReference list) async {
+  Future deleteList(DocumentReference list, String listName) async {
+    //get all Tasks of affected List
+    QuerySnapshot tasksOfList = await taskCollection.where('ownerId',isEqualTo: uid).get();
+    List<DocumentReference> taskReferences = tasksOfList.docs.where((doc) {
+      return doc.get('list') == listName;
+    }).map((doc){
+      return doc.reference;
+    }).toList();
+    for(DocumentReference taskReference in taskReferences){
+      deleteTask(taskReference);
+    }
     return await list.delete();
   }
 
   Future<List<String>> getAvailableListForUser() async {
-    QuerySnapshot snapshot = await listCollection.where('ownerId',isEqualTo: uid).get();
-    return snapshot.docs.map((e){
+    QuerySnapshot snapshot = await listCollection.where('ownerId',isEqualTo: uid).get(); //Filter all list of user
+    List<String> lists = snapshot.docs.where((list){ //filter all editableList of user
+      return list.get('isEditable') == true;
+    })
+    .map((e){ // get description of Lists
       return e.get('description') as String;
     }).toList();
+    return lists;
   }
 
   //add Task
@@ -126,6 +142,8 @@ class DatabaseService{
         icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
         ownerId: doc.get('ownerId'),
+        isEditable: doc.get('isEditable'),
+        listReference: doc.reference
       );
     }
     ).toList();

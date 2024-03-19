@@ -37,7 +37,6 @@ class _EditTodoState extends State<EditTodo> {
   late String title = task.description;
   late String note = task.note;
   late DateTime creationDate = task.creationDate;
-  // late String list = 'default'; was war der Grund fafür?
   late String list = task.list;
   late int priority = task.priority;
   late DateTime maturityDate = task.maturityDate;
