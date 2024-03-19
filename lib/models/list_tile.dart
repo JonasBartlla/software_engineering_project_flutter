@@ -26,6 +26,7 @@ class ListTileTest extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 10,
         color: AppColors.myCheckITDarkGrey,
+        surfaceTintColor: AppColors.myCheckITDarkGrey,
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: SizedBox(
           height: 30,
