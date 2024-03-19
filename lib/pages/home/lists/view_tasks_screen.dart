@@ -89,6 +89,8 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                                   taskList: taskList,
                                 ))));
                   } else if (value == MenuItem.delete) {
+                    _database.deleteList(taskList.listReference, taskList.description);
+                    Navigator.pop(context);
                     //Hier Code zum Löschen einer Liste
                   }
                 },
@@ -221,18 +223,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                       }
                       ).toList(),
                     )
-                    // TextButton.icon(
-                    //   onPressed: () {},
-                    //   icon: const Icon(
-                    //     Icons.swap_vert,
-                    //     color: AppColors.myTextColor,
-                    //   ),
-                    //   label: const Text(
-                    //     'Sortieren',
-                    //     style: TextStyle(color: AppColors.myTextColor),
-                    //   ),
-                    //   style: buttonStyleDecoration,
-                    // ),
                   )
                 ],
               ),

@@ -32,11 +32,13 @@ class _EditTodoState extends State<EditTodo> {
   late int originalPriority = task.priority;
   late DateTime originalMaturityDate = task.maturityDate;
 
+  bool abc = true;
+
   //Felder eines ToDos
   late String title = task.description;
   late String note = task.note;
   late DateTime creationDate = task.creationDate;
-  // late String list = 'default'; was war der Grunf fafür?
+  // late String list = 'default'; was war der Grund dafür?
   late String list = task.list;
   late int priority = task.priority;
   late DateTime maturityDate = task.maturityDate;
