@@ -61,7 +61,7 @@ class _EditListPageState extends State<EditListPage> {
                 ),
                 Center(
                   child: Container(
-                    width: 360,
+                    width: 460,
                     height: 250,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -188,13 +188,13 @@ class _EditListPageState extends State<EditListPage> {
                               width: 15,
                             ),
                             SizedBox(
-                              //Erstellen Button
+                              //Bearbeiten Button
                               child: ElevatedButton(
                                 style: buttonStyleDecorationcolorchange,
-                                child: const Text('Erstellen'),
+                                child: const Text('Bearbeiten'),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    _database.addList(title, icon);
+                                    _database.editList(title, icon, widget.taskList.listReference, widget.taskList.creationDate, widget.taskList.isEditable, widget.taskList.ownerId);
                                     Navigator.pop(context);
                                   }
                                 },
