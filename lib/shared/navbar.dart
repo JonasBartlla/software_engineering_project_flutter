@@ -3,6 +3,7 @@ import 'package:software_engineering_project_flutter/pages/home/tasks/create_tas
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({super.key});
@@ -25,7 +26,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
     return BottomNavigationBar(
-      backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+      backgroundColor: AppColors.myCheckITDarkGrey,
       currentIndex: _currentIndex,
       onTap: (index){
         setState(() {
@@ -41,11 +42,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Liste',
+          label: 'Listen',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.add),
-          label: 'Hinzufügen',
+          label: 'ToDo erstellen',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
