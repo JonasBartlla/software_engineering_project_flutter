@@ -284,35 +284,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                 getDeleteButton(_database, taskList, context)
               ],
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     _database.getAvailableListForUser().then((lists){
-            //     Navigator.push(context,
-            //         MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: taskList.description, availableLists: lists))));
-            //     });
-            //     setState(() {});
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: AppColors.myCheckITDarkGrey,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(12.0),
-            //     ),
-            //     fixedSize: const Size(465.0, 20.0),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       const Icon(
-            //         Icons.add,
-            //         color: AppColors.myCheckItGreen,
-            //       ),
-            //       const SizedBox(width: 8.0),
-            //       Text(
-            //         'ToDo erstellen',
-            //         style: standardTextDecoration,
-            //       ),
-            //     ],
-            //   ),
-            // ),
             const SizedBox(
               height: 20,
             )

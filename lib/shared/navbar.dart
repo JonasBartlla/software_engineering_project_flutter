@@ -16,11 +16,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   
   int _currentIndex = 0;
 
-  //das hier muss in den Body bei Home
-  // final List<Widget> _pages =  [
-  //   CreateToDo(),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<User?>(context);
