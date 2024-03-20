@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 
 Future<DateTime?> showDateTimePicker({
@@ -26,7 +27,8 @@ Future<DateTime?> showDateTimePicker({
           colorScheme: const ColorScheme.light(
             primary: Color.fromRGBO(101, 167, 101, 1),
             onSurface: Colors.white,
-            surface: Color.fromARGB(255, 68, 68, 68)
+            surface: AppColors.myCheckITDarkGrey,
+            surfaceTint: AppColors.myCheckITDarkGrey
           ),
           buttonTheme: const ButtonThemeData(
             colorScheme: ColorScheme.light(
@@ -55,8 +57,15 @@ Future<DateTime?> showDateTimePicker({
         data: ThemeData.dark().copyWith(
           colorScheme: const ColorScheme.light(
             primary: Color.fromRGBO(101, 167, 101, 1),
+            //primaryContainer: Colors.pink,
+            //secondary: Colors.pink,
+            //tertiary: Colors.pink,
+            surfaceVariant: AppColors.myAbbrechenColor,
             onSurface: Colors.white,
-            surface: Color.fromARGB(255, 68, 68, 68)
+            surface: AppColors.myCheckITDarkGrey,
+            surfaceTint: AppColors.myCheckITDarkGrey,
+            background: Colors.red,
+            //shadow: AppColors.myShadowColor
           ),
           buttonTheme: const ButtonThemeData(
             colorScheme: ColorScheme.dark(

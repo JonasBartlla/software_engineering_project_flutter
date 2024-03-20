@@ -17,7 +17,8 @@ var buttonStyleDecorationDelete = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    fixedSize: MaterialStateProperty.all(Size(120, 10)),
+    fixedSize: MaterialStateProperty.all(Size(120, 40)),
+    surfaceTintColor: MaterialStateProperty.all(AppColors.myDeleteColor),
     backgroundColor:
         MaterialStateColor.resolveWith((states) => AppColors.myDeleteColor),
     elevation: MaterialStateProperty.all(8),
@@ -30,8 +31,10 @@ var buttonStyleDecoration = ButtonStyle(
       borderRadius: BorderRadius.circular(5),
     )),
     fixedSize: MaterialStateProperty.all(Size(100, 10)),
+    surfaceTintColor: MaterialStateProperty.all(AppColors.myBoxColor),
+    overlayColor: MaterialStateProperty.all(AppColors.myBoxColor),
     backgroundColor:
-        MaterialStateColor.resolveWith((states) => AppColors.myAbbrechenColor),
+        MaterialStateColor.resolveWith((states) => AppColors.myBoxColor),
     elevation: MaterialStateProperty.all(8),
     shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
 
@@ -40,7 +43,8 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    fixedSize: MaterialStateProperty.all(Size(120, 10)),
+    fixedSize: MaterialStateProperty.all(Size(120, 40)),
+    surfaceTintColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
     backgroundColor:
         MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
@@ -54,6 +58,8 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
     shadowColor: MaterialStateProperty.all(AppColors.myShadowColor));
 
 var textInputDecoration = InputDecoration(
+    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.myCheckItGreen)),
+    enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.myBoxColor)),
     fillColor: AppColors.myBoxColor,
     filled: true,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),

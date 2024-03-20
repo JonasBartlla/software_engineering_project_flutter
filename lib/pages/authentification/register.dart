@@ -6,7 +6,7 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/validations.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key,this.toggleView});
+  const Register({super.key, this.toggleView});
 
   final Function? toggleView;
 
@@ -15,7 +15,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
   AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -26,240 +25,262 @@ class _RegisterState extends State<Register> {
   String password2 = '';
   String error = '';
 
-
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : Scaffold(
-      backgroundColor: AppColors.myBackgroundColor,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-                  //logo
-                  const Text('CheckIT', 
-                    textAlign: TextAlign.left, 
-                    style: TextStyle(
-                      color: AppColors.myCheckItGreen,
-                      fontFamily: 'Comfortaa',
-                      fontSize: 70,
-                      letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                    ),
-                  ),
-                  const SizedBox(height: 1),
-              
-                  const Text('ORGANIZE YOUR DAY', 
-                    textAlign: TextAlign.left, 
-                    style: TextStyle(
-                      color: AppColors.myCheckItGreen,
-                      fontFamily: 'Comfortaa',
-                      fontSize: 16,
-                      letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                    ),
-                  ),
-              
-                  const SizedBox(height: 60),
-              
-                  //willkommen
-                  const Text('Registrieren! ', 
-                    textAlign: TextAlign.center, 
-                    style: TextStyle(
-                      color: AppColors.myTextColor,
-                      fontFamily: 'Comfortaa',
-                      fontSize: 40,
-                      letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                    ),
-                  ),
-              
-                  const SizedBox(height: 70),
-              
-                  //Email Adresse
-                  const Text('E-Mail Adresse', 
-                    textAlign: TextAlign.left, 
-                    style: TextStyle(
-                      color: AppColors.myTextColor,
-                      fontFamily: 'Comfortaa',
-                      fontSize: 16,
-                      letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-              
-                  SizedBox(
-                    height: 50.0,
-                    width: 700.0,
-                    child: TextFormField(
-                      style: const TextStyle(color: AppColors.myTextColor),
-                      decoration: textInputDecoration.copyWith(hintText: 'E-Mail'),
-                      validator: (val) {
-                        return validateEmail(val);
-                      },
-                      onChanged: (val){
-                        setState(() { // when the value inside the eMail field changes the value of the variable wil be changed 
-                          email = val;
-                        }
-                        );
-                      },
-                    ),
-                  ),
-              
-                  const SizedBox(height: 25),
-              
-                  //Passwort eingabe
-                  const Text('Passwort', 
-                    textAlign: TextAlign.left, 
-                    style: TextStyle(
-                      color: AppColors.myTextColor,
-                      fontFamily: 'Comfortaa',
-                      fontSize: 16,
-                      letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-              
-                  SizedBox(
-                    height: 50.0,
-                    width: 700.0,
-                    child: TextFormField(
-                      style: const TextStyle(color: AppColors.myTextColor),
-                      decoration: textInputDecoration.copyWith(hintText: 'Passwort'),
-                      validator: (val) {
-                        if (val == null || val.isEmpty){
-                          return "Bitte gib ein Passwort ein";
-                        }
-                        else if (validatePasswordPolicy(val) == false){
-                          return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindestens ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
-                        } else{
-                          return null;
-                        }
-                      },
-                      onChanged: (val){
-                        password = val; // same for password
-                      },
-                      obscureText: true,
-                    ),
-                  ), 
-              
-                  const SizedBox(height: 25),
-              
-                  //Passwort erneut eingeben
-                  const Text('Passwort wiederholen', 
-                    textAlign: TextAlign.left, 
-                    style: TextStyle(
-                      color: AppColors.myTextColor,
-                      fontFamily: 'Comfortaa',
-                      fontSize: 16,
-                      letterSpacing: 1 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                   ),
-                  ),
-                   
-                  const SizedBox(height: 2),
-              
-                  SizedBox(
-                    height: 50.0,
-                    width: 700.0,
-                    child: TextFormField(
-                      style: const TextStyle(color: AppColors.myTextColor),
-                      decoration: textInputDecoration.copyWith(hintText: 'Passwort'),
-                      validator: (val) {
-                        return validateRepeatPassword(val as String, password);
-                      },
-                      onChanged: (val){
-                        password2 = val; // same for password
-                      },
-                      obscureText: true,
-                    ),
-                  ), 
-              
-                  const SizedBox(height: 25),
-              
-                  //Registrierung Button
-                  TextButton(
-                    onPressed: () async {
-                      if(_formKey.currentState!.validate()){ //Checks if all Validations are passed, falls überall null zurück geliefert wird wird true returnt => ist valid
-                        setState(() {
-                          loading = true;
-                        });
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                        if (result == null){
-                          setState(() {
-                            error = 'Bitte gib eine gültige E-Mail an';
-                            loading = false;
-                          });
-                        }
-                      }
-                    },
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.all(25),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        AppColors.myCheckItGreen,
-                      ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+    return loading
+        ? Loading()
+        : Scaffold(
+            backgroundColor: AppColors.myBackgroundColor,
+            body: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        //logo
+                        const Text(
+                          'CheckIT',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: AppColors.myCheckItGreen,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 70,
+                              letterSpacing:
+                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
                         ),
-                      ),
-                    ),
-                    child: const Text(
-                      'Registrieren',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                ),
-              
-                const SizedBox(height: 25),
-              
-                  //hier einloggen
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    const Text(
-                      'Du hast bereits einen Account?',
-                      style: TextStyle(
-                        color: AppColors.myTextColor,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        widget.toggleView!();
-                      },
-                      child:  const Text(
-                        'Hier einloggen',
-                        style: TextStyle(
-                          color: AppColors.myCheckItGreen,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
+                        const SizedBox(height: 1),
+
+                        const Text(
+                          'ORGANIZE YOUR DAY',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: AppColors.myCheckItGreen,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 16,
+                              letterSpacing:
+                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
                         ),
-                      )
-                    )
-                  ]
+
+                        const SizedBox(height: 60),
+
+                        //willkommen
+                        const Text(
+                          'Registrieren! ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: AppColors.myTextColor,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 40,
+                              letterSpacing:
+                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
+                        ),
+
+                        const SizedBox(height: 70),
+
+                        //Email Adresse
+                        const Text(
+                          'E-Mail Adresse',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: AppColors.myTextColor,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 16,
+                              letterSpacing:
+                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
+                        ),
+                        const SizedBox(height: 2),
+
+                        SizedBox(
+                          height: 50.0,
+                          width: 700.0,
+                          child: TextFormField(
+                            cursorColor: AppColors.myCheckItGreen,
+                            style:
+                                const TextStyle(color: AppColors.myTextColor),
+                            decoration: textInputDecoration.copyWith(
+                                hintText: 'E-Mail'),
+                            validator: (val) {
+                              return validateEmail(val);
+                            },
+                            onChanged: (val) {
+                              setState(() {
+                                // when the value inside the eMail field changes the value of the variable wil be changed
+                                email = val;
+                              });
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(height: 25),
+
+                        //Passwort eingabe
+                        const Text(
+                          'Passwort',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: AppColors.myTextColor,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 16,
+                              letterSpacing:
+                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
+                        ),
+                        const SizedBox(height: 2),
+
+                        SizedBox(
+                          height: 50.0,
+                          width: 700.0,
+                          child: TextFormField(
+                            cursorColor: AppColors.myCheckItGreen,
+                            style:
+                                const TextStyle(color: AppColors.myTextColor),
+                            decoration: textInputDecoration.copyWith(
+                                hintText: 'Passwort'),
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return "Bitte gib ein Passwort ein";
+                              } else if (validatePasswordPolicy(val) == false) {
+                                return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindestens ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
+                              } else {
+                                return null;
+                              }
+                            },
+                            onChanged: (val) {
+                              password = val; // same for password
+                            },
+                            obscureText: true,
+                          ),
+                        ),
+
+                        const SizedBox(height: 25),
+
+                        //Passwort erneut eingeben
+                        const Text(
+                          'Passwort wiederholen',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: AppColors.myTextColor,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 16,
+                              letterSpacing:
+                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
+                        ),
+
+                        const SizedBox(height: 2),
+
+                        SizedBox(
+                          height: 50.0,
+                          width: 700.0,
+                          child: TextFormField(
+                            cursorColor: AppColors.myCheckItGreen,
+                            style:
+                                const TextStyle(color: AppColors.myTextColor),
+                            decoration: textInputDecoration.copyWith(
+                                hintText: 'Passwort'),
+                            validator: (val) {
+                              return validateRepeatPassword(
+                                  val as String, password);
+                            },
+                            onChanged: (val) {
+                              password2 = val; // same for password
+                            },
+                            obscureText: true,
+                          ),
+                        ),
+
+                        const SizedBox(height: 25),
+
+                        //Registrierung Button
+                        TextButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              //Checks if all Validations are passed, falls überall null zurück geliefert wird wird true returnt => ist valid
+                              setState(() {
+                                loading = true;
+                              });
+                              dynamic result =
+                                  await _auth.registerWithEmailAndPassword(
+                                      email, password);
+                              if (result == null) {
+                                setState(() {
+                                  error = 'Bitte gib eine gültige E-Mail an';
+                                  loading = false;
+                                });
+                              }
+                            }
+                          },
+                          style: ButtonStyle(
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              const EdgeInsets.all(25),
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.myCheckItGreen,
+                            ),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                          ),
+                          child: const Text(
+                            'Registrieren',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 25),
+
+                        //hier einloggen
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Du hast bereits einen Account?',
+                                style: TextStyle(
+                                  color: AppColors.myTextColor,
+                                ),
+                              ),
+                              TextButton(
+                                  style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          AppColors.myCheckITDarkGrey)),
+                                  onPressed: () {
+                                    widget.toggleView!();
+                                  },
+                                  child: const Text(
+                                    'Hier einloggen',
+                                    style: TextStyle(
+                                        color: AppColors.myCheckItGreen,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            AppColors.myCheckItGreen),
+                                  ))
+                            ]),
+                      ],
+                    ),
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-    ),
-  );
-}
+          );
+  }
 }
