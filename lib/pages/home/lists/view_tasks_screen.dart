@@ -10,6 +10,7 @@ import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:software_engineering_project_flutter/shared/other_functions.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class ListOfTasksPage extends StatefulWidget {
@@ -236,41 +237,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => EditListPage(
-                                    taskList: taskList,
-                                  ))));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(1),
-                      backgroundColor: AppColors.myAbbrechenColor,
-                      surfaceTintColor: AppColors.myAbbrechenColor,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      fixedSize: Size(70.0, 70.0),
-                    ),
-                    child: const Center(
-                      child: Stack(children: [
-                        Icon(
-                          Icons.format_list_bulleted,
-                          size: 35,
-                          color: Colors.white,
-                        ),
-                        Positioned(
-                            top: 14,
-                            right: -5,
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ))
-                      ]),
-                    )),
+                getEditButton(taskList, context),
                 const SizedBox(
                   width: 25,
                 ),
@@ -314,31 +281,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                 const SizedBox(
                   width: 25,
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    await Navigator.pushNamed(context, '/createList');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(1),
-                    backgroundColor: AppColors.myDeleteColor,
-                    surfaceTintColor: AppColors.myDeleteColor,
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    fixedSize: Size(70.0, 70.0),
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                    ],
-                  ),
-                ),
+                getDeleteButton(_database, taskList, context)
               ],
             ),
             // ElevatedButton(
