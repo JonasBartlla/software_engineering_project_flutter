@@ -33,7 +33,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         });
         if(_currentIndex == 1){
           _database.getAvailableListForUser().then((lists){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateToDo(listCreatedFrom: null, availableLists: lists)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateToDo(listCreatedFrom: 'keine Liste', availableLists: lists)));
           });
           _currentIndex = 0;
         }

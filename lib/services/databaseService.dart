@@ -18,7 +18,7 @@ class DatabaseService{
     taskCollection = FirebaseFirestore.instance.collection('tasks');
   }
 
-  final priorityDict = {"no priority":0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
+  final priorityDict = {"keine Priorität" :0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
 
   //final CollectionReference userCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('taskCollection');
 
@@ -84,16 +84,13 @@ class DatabaseService{
     .map((e){ // get description of Lists
       return e.get('description') as String;
     }).toList();
+    lists.add('keine Liste');
     return lists;
   }
 
   //add Task
-  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String? list) async {
+  Future addTask(String description, String note, DateTime maturityDate, bool notificationOn, int priority, List<DocumentReference>? lists, bool done, String list) async {
     //adding the Task
-    if(list == null){
-      list = 'keine Liste';
-    }
-   
     return  await taskCollection.add({
       'description': description,
       'note': note,
