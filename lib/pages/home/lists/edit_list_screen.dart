@@ -222,19 +222,23 @@ class _EditListPageState extends State<EditListPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Card(
-                  color: AppColors.myCheckITDarkGrey,
-                    child: Padding(
-                      padding: const EdgeInsets.all(100),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(icon),
-                          const SizedBox(height: 20),
-                          Text(title)
-                        ],
-                      ),
-                    ),
+                SizedBox(
+                  height: 300,
+                  width: 300,
+                  child: Card(
+                    color: AppColors.myCheckITDarkGrey,
+                      child: Padding(
+                        padding: const EdgeInsets.all(100),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(icon, color: AppColors.myCheckItGreen,),
+                            const SizedBox(height: 20),
+                            Text(title, style: standardAppBarTextDecoration,)
+                          ],
+                        ),
+                      ),                  
+                  ),
                 ),
               ],
             ),
