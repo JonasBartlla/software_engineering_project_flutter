@@ -45,7 +45,7 @@ class _EditTodoState extends State<EditTodo> {
 
   //Listen für die Dropdowns
   late List<String> categories;
-  List<String> priorities = ['Hoch', 'Mittel', 'Niedrig'];
+  List<String> priorities = ['keine Priorität','Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
 
   bool informationChanged() {
@@ -220,9 +220,7 @@ class _EditTodoState extends State<EditTodo> {
                                 elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: DropdownButtonFormField<String>(
-                                  value: task.priority == 0
-                                      ? null
-                                      : _database.getPriority(task.priority),
+                                  value: _database.getPriority(task.priority),
                                   decoration: textInputDecoration.copyWith(
                                       hintText: 'Priorität'),
                                   dropdownColor: AppColors.myCheckITDarkGrey,
