@@ -126,7 +126,7 @@ class _EditTodoState extends State<EditTodo> {
                                 //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
-                                  width: 311,
+                                  width: 310,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                     cursorColor: AppColors.myCheckItGreen,
@@ -157,7 +157,7 @@ class _EditTodoState extends State<EditTodo> {
                             const SizedBox(width: 6),
                             const SizedBox(
                               child: Icon(
-                                Icons.list_alt_rounded,
+                                Icons.list,
                                 color: Colors.white,
                                 size: 30.0,
                               ),
@@ -321,7 +321,7 @@ class _EditTodoState extends State<EditTodo> {
                                       });
                                     }),
                               ),
-                              const SizedBox(width: 5),
+                              const SizedBox(width: 6),
                               Text(
                                 'Ich möchte über die Fälligkeit des\nToDos informiert werden.',
                                 style: standardTextDecoration,
@@ -331,7 +331,7 @@ class _EditTodoState extends State<EditTodo> {
                           const SizedBox(height: 20),
                           //Notiz
                           Row(children: <Widget>[
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 6),
                             PhysicalModel(
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular((8)),
@@ -339,7 +339,7 @@ class _EditTodoState extends State<EditTodo> {
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 348,
+                                width: 346,
                                 height: 150,
                                 child: Align(
                                   child: TextFormField(
@@ -366,7 +366,7 @@ class _EditTodoState extends State<EditTodo> {
                               ),
                             ),
                           ]),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 60),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
