@@ -432,7 +432,7 @@ class _EditTodoState extends State<EditTodo> {
                                                 title,
                                                 note,
                                                 creationDate,
-                                                false,
+                                                notification,
                                                 maturityDate,
                                                 priority,
                                                 list,
