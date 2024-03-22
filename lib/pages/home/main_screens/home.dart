@@ -187,7 +187,7 @@ class Home extends StatelessWidget {
                       onPressed: () {
                        _database.getAvailableListForUser().then((lists){
                 Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: null, availableLists: lists))));
+                    MaterialPageRoute(builder: ((context) => CreateToDo(listCreatedFrom: 'keine Liste', availableLists: lists))));
                 }); // hier Todo erstellen mit Database
                       },
                       style: ElevatedButton.styleFrom(
