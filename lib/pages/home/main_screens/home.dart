@@ -38,7 +38,9 @@ class Home extends StatelessWidget {
           value: _database.tasks,
         ),
         StreamProvider<List<TaskList>>.value(
-            initialData: [], value: _database.lists)
+            initialData: [], value: _database.lists),
+        StreamProvider<List<appUser>>.value(
+            initialData: [], value: _database.user),
       ],
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,

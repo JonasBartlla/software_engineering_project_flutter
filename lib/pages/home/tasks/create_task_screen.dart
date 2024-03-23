@@ -41,6 +41,12 @@ class _CreateToDoState extends State<CreateToDo> {
   void initState() {
     categories = widget.availableLists;
     list = widget.listCreatedFrom;
+    if (list == 'Mein Tag'){
+      dateAndTime = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59);
+    }
+    if(['Mein Tag',"Alle ToDos","Erledigte ToDos"].contains(list)){
+      list = 'keine Liste';
+    }
   }
 
   @override
