@@ -1,8 +1,13 @@
 import 'dart:io';
+import 'dart:js';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:software_engineering_project_flutter/models/app_user.dart';
+import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class MySettings extends StatefulWidget {
@@ -18,6 +23,8 @@ class MySettings extends StatefulWidget {
 class _MySettingsState extends State<MySettings> {
   File? _image;
 
+
+
   Future _getImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -28,8 +35,12 @@ class _MySettingsState extends State<MySettings> {
     }
   }
 
+  
+  
   @override
   Widget build(BuildContext context) {
+    final User? user = Provider.of<User?>(context);
+    String? displayName = user!.displayName;
     return Scaffold(
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
@@ -77,12 +88,13 @@ class _MySettingsState extends State<MySettings> {
                   child: SizedBox(
                     width: 300,
                     child: TextFormField(
+                      
                       style: const TextStyle(color: Colors.white),
-                      initialValue: null, // Hier dann Benutzername aus DB
+                      initialValue: displayName, // Hier dann Benutzername aus DB
                       decoration: textInputDecorationbez.copyWith(
                           hintText: 'Dennis der Boss'),
                       onChanged: (value) => setState(() {
-                        value = value;
+                        displayName = value;
                       }),
                     ),
                   ),
@@ -102,22 +114,31 @@ class _MySettingsState extends State<MySettings> {
             ),
 
             // Unten am Bildschirm
-            const SizedBox(height: 140),
-            Text(
-              'CheckIT',
-              style: WaterMarkDecoration,
-            ),
-            const SizedBox(height: 40),
-
-            Text(
-              'ver.1.1.0',
-              style: creditTextDecoration,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'CheckIT GmbH @ 2024',
-              style: creditTextDecoration,
-            ),
+            Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'CheckIT',
+                        style: WaterMarkDecoration,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'ver.1.1.0',
+                        style: creditTextDecoration,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'CheckIT GmbH @ 2024',
+                        style: creditTextDecoration,
+                      ),
+                      const SizedBox(height: 20)
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),

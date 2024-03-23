@@ -15,6 +15,7 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
+import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -37,7 +38,9 @@ class Home extends StatelessWidget {
           value: _database.tasks,
         ),
         StreamProvider<List<TaskList>>.value(
-            initialData: [], value: _database.lists)
+            initialData: [], value: _database.lists),
+        StreamProvider<List<appUser>>.value(
+            initialData: [], value: _database.user),
       ],
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
@@ -119,15 +122,24 @@ class Home extends StatelessWidget {
               ),
               ListTile(
                 title: Text('Datenschutz', style: standardTextDecoration),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                },
               ),
               ListTile(
-                title: Text('ABGs', style: standardTextDecoration),
-                onTap: () {},
+                title: Text('AGBs', style: standardTextDecoration),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                },
               ),
               ListTile(
                 title: Text('Impressum', style: standardTextDecoration),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                },
               ),
               ListTile(
                 title: Row(

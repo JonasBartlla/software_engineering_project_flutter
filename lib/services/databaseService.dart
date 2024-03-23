@@ -24,19 +24,45 @@ class DatabaseService{
 
 
 
-  Future updateUserDate(String displayName, String? email) async {
+  Future updateUserDate(String uid, String? displayName, String? email) async {
     return await userCollection.doc(uid).set(
       {
+        'uid': uid,
         'displayName': displayName,
         'email': email,
       }
     );
   }
 
+  Stream<List<appUser>>? get user {
+    return userCollection.where('uid',isEqualTo: uid).snapshots().map((_appUserFromSnapshot)); 
+  }
+
+  List<appUser> _appUserFromSnapshot (QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return appUser(uid: doc.get('uid'), displayName: doc.get('displayName'), email: doc.get('email'));
+    } ).toList();
+  }
+
+
+  //   List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
+  //   return snapshot.docs.map((doc){
+  //     return TaskList(     
+  //       description: doc.get('description'),
+  //       icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
+  //       creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
+  //       ownerId: doc.get('ownerId'),
+  //       isEditable: doc.get('isEditable'),
+  //       listReference: doc.reference
+  //     );
+  //   }
+  //   ).toList();
+  // }
+
   Future initializeCollection() async {
-    await addList("Mein Tag", Icons.calendar_month, isEditable: false);
+    await addList("Alle ToDos", Icons.house, isEditable: false);
     await addList("Erledigte ToDos", Icons.abc, isEditable: false);
-    return await addList("Alle ToDos", Icons.house, isEditable: false);
+    return await addList("Mein Tag", Icons.calendar_month, isEditable: false);
   }
 
   //add List
@@ -126,7 +152,7 @@ class DatabaseService{
 
   //get Stream of Lists
   Stream<List<TaskList>>? get lists {
-    return listCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskListFromSnapshot);
+    return listCollection.where('ownerId',isEqualTo: uid).orderBy('creationDate').snapshots().map(_taskListFromSnapshot);
   }
 
  
