@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
@@ -15,10 +16,29 @@ class ListTileTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tasks = Provider.of<List<Task>?>(context);
-     int counter = tasks!
-        .where((task) => task.list == taskList.description)
-        .toList()
-        .length;
+
+    int getCounter(TaskList taskList) {
+      if (taskList.description == "Mein Tag") {
+        DateTime now = DateTime.now();
+        return tasks!
+            .where((task) =>
+                task.maturityDate.year == now.year &&
+                task.maturityDate.month == now.month &&
+                task.maturityDate.day == now.day && 
+                task.done == false)
+            .toList()
+            .length; //hier nach Datum schauen
+      } else if (taskList.description == "Erledigte ToDos") {
+        return tasks!.where((task) => task.done == true).toList().length;
+      } else if (taskList.description == "Alle ToDos") {
+        return tasks!.where((task) => task.done == false).toList().length;
+      } else {
+        return tasks!
+            .where((task) => task.list == taskList.description && task.done == false)
+            .toList()
+            .length;
+      }
+    }
 
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
@@ -86,7 +106,11 @@ class ListTileTest extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white),
                   ),
-                  child: Center(child: Text(counter.toString(), style: standardTextDecoration.copyWith(color: Colors.black),)),
+                  child: Center(
+                      child: Text(
+                    getCounter(taskList).toString(),
+                    style: standardTextDecoration.copyWith(color: Colors.black),
+                  )),
                 ),
               )
             ],
