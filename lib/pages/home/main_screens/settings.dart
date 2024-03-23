@@ -102,22 +102,31 @@ class _MySettingsState extends State<MySettings> {
             ),
 
             // Unten am Bildschirm
-            const SizedBox(height: 140),
-            Text(
-              'CheckIT',
-              style: WaterMarkDecoration,
-            ),
-            const SizedBox(height: 40),
-
-            Text(
-              'ver.1.1.0',
-              style: creditTextDecoration,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'CheckIT GmbH @ 2024',
-              style: creditTextDecoration,
-            ),
+            Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'CheckIT',
+                        style: WaterMarkDecoration,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'ver.1.1.0',
+                        style: creditTextDecoration,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'CheckIT GmbH @ 2024',
+                        style: creditTextDecoration,
+                      ),
+                      const SizedBox(height: 20)
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),
