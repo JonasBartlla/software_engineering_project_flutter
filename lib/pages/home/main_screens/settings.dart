@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class MySettings extends StatefulWidget {
-  // const MySettings({super.key});
+  final appUser currentUser;
+  final DatabaseService databaseService;
+  const MySettings({required this.currentUser, required this.databaseService, super.key});
 
-  const MySettings({Key? key})
-      : super(key: key);
 
   @override
   State<MySettings> createState() => _MySettingsState();
@@ -22,6 +22,9 @@ class MySettings extends StatefulWidget {
 
 class _MySettingsState extends State<MySettings> {
   File? _image;
+  late appUser currentUser;
+  late DatabaseService _databaseService;
+  late String changedDisplayName;
 
 
 
@@ -35,12 +38,21 @@ class _MySettingsState extends State<MySettings> {
     }
   }
 
+  @override
+  void initState() {
+    currentUser = widget.currentUser;
+    _databaseService = widget.databaseService;
+    changedDisplayName = widget.currentUser.displayName;
+  }
+
+
+
   
   
   @override
   Widget build(BuildContext context) {
-    final User? user = Provider.of<User?>(context);
-    String? displayName = user!.displayName;
+    
+
     return Scaffold(
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
@@ -90,20 +102,27 @@ class _MySettingsState extends State<MySettings> {
                     child: TextFormField(
                       
                       style: const TextStyle(color: Colors.white),
-                      initialValue: displayName, // Hier dann Benutzername aus DB
+                      initialValue: currentUser.displayName, // Hier dann Benutzername aus DB
                       decoration: textInputDecorationbez.copyWith(
                           hintText: 'Dennis der Boss'),
                       onChanged: (value) => setState(() {
-                        displayName = value;
+                        changedDisplayName = value;
                       }),
                     ),
                   ),
                 ),
-                const Icon(
-                  Icons.save,
-                  size: 35,
-                  color: AppColors.myCheckItGreen,
-                ),
+                ElevatedButton(
+                  onPressed: ()async{
+                    print("${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
+                    await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email);
+                    print('updated');
+                  }, 
+                  child: Icon(
+                    Icons.save,
+                    size: 35,
+                    color: AppColors.myCheckItGreen,
+                  )
+                )
               ],
             ),
             const SizedBox(height: 14),

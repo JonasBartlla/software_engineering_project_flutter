@@ -12,6 +12,7 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
@@ -28,9 +29,11 @@ class Home extends StatelessWidget {
 
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
-    // return StreamProvider<List<Task>>.value(
-    //     initialData: [],
-    //     value: _database.tasks,
+    final List<appUser> currenUser = Provider.of<List<appUser>>(context);
+
+    if(currenUser.isEmpty){
+      return Loading();
+    }else{
     return MultiProvider(
       providers: [
         StreamProvider<List<Task>>.value(
@@ -39,8 +42,6 @@ class Home extends StatelessWidget {
         ),
         StreamProvider<List<TaskList>>.value(
             initialData: [], value: _database.lists),
-        StreamProvider<List<appUser>>.value(
-            initialData: [], value: _database.user),
       ],
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
@@ -96,11 +97,11 @@ class Home extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Dennis',
+                        currenUser.first.displayName,
                         style: standardTextDecoration),
                       const SizedBox(height: 4),
                       Text(
-                        'dennis@test.de',
+                        currenUser.first.email,
                         style: standardTextDecoration.copyWith(fontSize: 14))
                     ],
                   )),
@@ -117,7 +118,7 @@ class Home extends StatelessWidget {
                 ),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => MySettings())));
+                      MaterialPageRoute(builder: ((context) => MySettings(currentUser: currenUser.first,databaseService: _database))));
                 },
               ),
               ListTile(
@@ -267,5 +268,6 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+    };
   }
 }

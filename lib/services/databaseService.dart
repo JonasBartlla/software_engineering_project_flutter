@@ -34,8 +34,8 @@ class DatabaseService{
     );
   }
 
-  Stream<List<appUser>>? get user {
-    return userCollection.where('uid',isEqualTo: uid).snapshots().map((_appUserFromSnapshot)); 
+  Stream<List<appUser>>? get appUsers {
+    return userCollection.where('uid',isEqualTo: uid).snapshots().map(_appUserFromSnapshot); 
   }
 
   List<appUser> _appUserFromSnapshot (QuerySnapshot snapshot){
@@ -43,7 +43,6 @@ class DatabaseService{
       return appUser(uid: doc.get('uid'), displayName: doc.get('displayName'), email: doc.get('email'));
     } ).toList();
   }
-
 
   //   List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
   //   return snapshot.docs.map((doc){
