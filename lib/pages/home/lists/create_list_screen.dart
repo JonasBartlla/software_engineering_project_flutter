@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -57,7 +58,7 @@ class _CreateListPageState extends State<CreateListPage> {
                 Center(
                   child: Container(
                     width: 360,
-                    height: 250,
+                    height: 265,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -89,6 +90,9 @@ class _CreateListPageState extends State<CreateListPage> {
                                 width: 303,
                                 //Bezeichnung eingeben
                                 child: TextFormField(
+                                  //inputFormatters: [
+                                  //  LengthLimitingTextInputFormatter(20)
+                                 // ],
                                   style: const TextStyle(
                                       color: AppColors.myTextColor),
                                   initialValue: "",
@@ -203,7 +207,7 @@ class _CreateListPageState extends State<CreateListPage> {
                 ),
                 SizedBox(
                   height: 300,
-                  width: 300,
+                  width: 350,
                   child: Card(
                     color: AppColors.myCheckITDarkGrey,
                       child: Padding(
@@ -213,7 +217,7 @@ class _CreateListPageState extends State<CreateListPage> {
                           children: [
                             Icon(icon, color: AppColors.myCheckItGreen,),
                             const SizedBox(height: 20),
-                            Text(title, style: standardAppBarTextDecoration,)
+                            Text(title, style: standardHeadlineDecoration,)
                           ],
                         ),
                       ),                  

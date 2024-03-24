@@ -62,7 +62,7 @@ class _EditListPageState extends State<EditListPage> {
                 Center(
                   child: Container(
                     width: 460,
-                    height: 250,
+                    height: 275,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -224,7 +224,7 @@ class _EditListPageState extends State<EditListPage> {
                 ),
                 SizedBox(
                   height: 300,
-                  width: 300,
+                  width: 350,
                   child: Card(
                     color: AppColors.myCheckITDarkGrey,
                       child: Padding(
