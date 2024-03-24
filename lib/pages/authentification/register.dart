@@ -101,7 +101,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         SizedBox(
-                          height: 50.0,
+                          height: 100.0,
                           width: 700.0,
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
@@ -139,7 +139,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         SizedBox(
-                          height: 50.0,
+                          height: 100.0,
                           width: 700.0,
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
@@ -216,7 +216,7 @@ class _RegisterState extends State<Register> {
                                       email, password);
                               if (result == null) {
                                 setState(() {
-                                  error = 'Bitte gib eine gültige E-Mail an';
+                                  error = 'Bitte eine gültige E-Mail eingeben';
                                   loading = false;
                                 });
                               }
