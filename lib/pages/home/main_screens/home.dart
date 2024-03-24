@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_tile.dart';
@@ -16,6 +17,7 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
+import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -170,6 +172,8 @@ class Home extends StatelessWidget {
                   child: ListOfTaskLists(),
                 ),
                 const SizedBox(height: 5,),
+                SizedBox(height: 40,),
+                CheckITPercentIndicator(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

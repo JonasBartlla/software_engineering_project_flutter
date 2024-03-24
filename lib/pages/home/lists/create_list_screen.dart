@@ -90,9 +90,9 @@ class _CreateListPageState extends State<CreateListPage> {
                                 width: 303,
                                 //Bezeichnung eingeben
                                 child: TextFormField(
-                                  //inputFormatters: [
-                                  //  LengthLimitingTextInputFormatter(20)
-                                 // ],
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(20)
+                                  ],
                                   style: const TextStyle(
                                       color: AppColors.myTextColor),
                                   initialValue: "",
