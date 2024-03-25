@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:intl/intl.dart';
@@ -117,6 +118,9 @@ class _CreateToDoState extends State<CreateToDo> {
                                   width: 310,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
+                                    inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                     cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(
                                         color: AppColors.myTextColor),

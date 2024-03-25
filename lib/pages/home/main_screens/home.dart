@@ -173,7 +173,6 @@ class Home extends StatelessWidget {
                 ),
                 const SizedBox(height: 5,),
                 SizedBox(height: 40,),
-                CheckITPercentIndicator(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
