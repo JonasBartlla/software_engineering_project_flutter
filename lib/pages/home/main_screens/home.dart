@@ -253,7 +253,7 @@ class Home extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                          Icon(
-                            Icons.calendar_month_outlined, 
+                            Icons.calendar_month_rounded, 
                             color: Colors.white,
                             size: 35,
                           ),

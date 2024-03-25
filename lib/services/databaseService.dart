@@ -59,9 +59,9 @@ class DatabaseService{
   // }
 
   Future initializeCollection() async {
-    await addList("Alle ToDos", Icons.house, isEditable: false);
-    await addList("Erledigte ToDos", Icons.abc, isEditable: false);
-    return await addList("Mein Tag", Icons.calendar_month, isEditable: false);
+    await addList("Mein Tag", Icons.calendar_month_rounded, isEditable: false);
+    await addList("Alle ToDos", Icons.house_rounded, isEditable: false);
+    return await addList("Erledigte ToDos", Icons.check_circle_outline_rounded, isEditable: false);
   }
 
   //add List

@@ -321,13 +321,13 @@ class _CreateToDoState extends State<CreateToDo> {
                           const SizedBox(height: 20),
                           //Notiz
                           Row(children: <Widget>[
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 7),
                             PhysicalModel(
                               color: AppColors.myCheckITDarkGrey,
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 346,
+                                width: 345,
                                 height: 150,
                                 child: TextFormField(
                                   cursorColor: AppColors.myCheckItGreen,

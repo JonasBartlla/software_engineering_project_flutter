@@ -335,7 +335,7 @@ class _EditTodoState extends State<EditTodo> {
                           const SizedBox(height: 20),
                           //Notiz
                           Row(children: <Widget>[
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 7),
                             PhysicalModel(
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular((8)),
@@ -343,7 +343,7 @@ class _EditTodoState extends State<EditTodo> {
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 346,
+                                width: 345,
                                 height: 150,
                                 child: Align(
                                   child: TextFormField(
@@ -424,7 +424,7 @@ class _EditTodoState extends State<EditTodo> {
                                               (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.disabled)) {
-                                      return Colors.grey;
+                                      return AppColors.myTextInputColor;
                                     }
                                     return AppColors.myCheckItGreen;
                                   })),
