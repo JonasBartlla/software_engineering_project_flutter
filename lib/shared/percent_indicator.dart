@@ -5,20 +5,23 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 
 class CheckITPercentIndicator extends StatelessWidget {
   final double progressPercent;
-  const CheckITPercentIndicator({required this.progressPercent, super.key});
+  final Color progressColor;
+
+  const CheckITPercentIndicator({required this.progressPercent, required this.progressColor, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(15.0),
+    return Padding(padding: const EdgeInsets.all(15.0),
                 child: LinearPercentIndicator(
                   animation: true,
                   lineHeight: 20,
-                  animationDuration: 2500,
+                  animationDuration: 500,
                   percent: progressPercent,
                  // center: Text("${(progressPercent * 100).toInt().toString()}%"),
                   trailing: Text("${(progressPercent * 100).toInt().toString()}%", style: standardTextDecoration,),
-                  barRadius: Radius.circular(15),
-                  progressColor: AppColors.myCheckItGreen,
+                  barRadius: const Radius.circular(15),
+                  progressColor: progressColor,
+                  backgroundColor: AppColors.myTextInputColor,
                 ),
                 );
   }

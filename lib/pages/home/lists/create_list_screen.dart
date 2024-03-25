@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -96,11 +94,10 @@ class _CreateListPageState extends State<CreateListPage> {
                                 //Bezeichnung eingeben
                                 child: TextFormField(
                                   inputFormatters: [
-                                    LengthLimitingTextInputFormatter(20)
+                                    LengthLimitingTextInputFormatter(16)
                                   ],
                                   style: const TextStyle(
                                       color: AppColors.myTextColor),
-                                  initialValue: "",
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Bitte eine Bezeichnung eingeben';
@@ -150,12 +147,12 @@ class _CreateListPageState extends State<CreateListPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return IconPickerDialog(
-                                          iconColor: iconColor,
+                                            iconColor: iconColor,
                                             onIconSelected: (selectedIcon) {
-                                          setState(() {
-                                            icon = selectedIcon;
-                                          });
-                                        });
+                                              setState(() {
+                                                icon = selectedIcon;
+                                              });
+                                            });
                                       });
                                 },
                               ),
@@ -184,7 +181,7 @@ class _CreateListPageState extends State<CreateListPage> {
                               style: buttonBoxDecoration.copyWith(
                                   backgroundColor:
                                       MaterialStatePropertyAll(iconColor)),
-                              child: SizedBox(height: 10),
+                              child: const SizedBox(height: 10),
                               onPressed: () {
                                 showDialog(
                                     context: context,
@@ -210,12 +207,14 @@ class _CreateListPageState extends State<CreateListPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text(
-                                  'Abbrechen',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
+                                child: const Text('Abbrechen',
+                                    style: TextStyle(
+                                        color: AppColors.myTextColor,
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 14,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1)),
                               ),
                             ),
                             const SizedBox(
@@ -225,7 +224,16 @@ class _CreateListPageState extends State<CreateListPage> {
                               //Erstellen Button
                               child: ElevatedButton(
                                 style: buttonStyleDecorationcolorchange,
-                                child: const Text('Erstellen'),
+                                child: const Text(
+                                  'Erstellen',
+                                  style: TextStyle(
+                                      color: AppColors.myTextColor,
+                                      fontFamily: 'Comfortaa',
+                                      fontSize: 14,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1),
+                                ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _database.addList(title, icon, iconColor);
@@ -257,29 +265,71 @@ class _CreateListPageState extends State<CreateListPage> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: 300,
-                  width: 350,
-                  child: Card(
-                    color: AppColors.myCheckITDarkGrey,
-                    child: Padding(
-                      padding: const EdgeInsets.all(100),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            icon,
-                            color: iconColor,
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            title,
-                            style: standardHeadlineDecoration,
-                          )
-                        ],
+                  width: 250,
+                  height: 170,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      elevation: 10,
+                      color: AppColors.myCheckITDarkGrey,
+                      surfaceTintColor: AppColors.myCheckITDarkGrey,
+                      margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+                      child: SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(8.0),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      icon,
+                                      color: iconColor,
+                                      size: 48.0,
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Text(
+                                      title,
+                                      style: standardHeadlineDecoration,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 8.0,
+                              right: 8.0,
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  '1',
+                                  style: standardTextDecoration.copyWith(
+                                      color: Colors.black),
+                                )),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),

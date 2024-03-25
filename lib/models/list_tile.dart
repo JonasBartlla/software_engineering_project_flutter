@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
-import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
 import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -51,7 +49,7 @@ class ListTileTest extends StatelessWidget {
                 task.maturityDate.day == now.day && 
                 task.done == true)
             .toList()
-            .length.toDouble() / tasks!
+            .length.toDouble() / tasks
             .where((task) =>
                 task.maturityDate.year == now.year &&
                 task.maturityDate.month == now.month &&
@@ -60,12 +58,12 @@ class ListTileTest extends StatelessWidget {
             .length.toDouble();
       }
       else if (taskList.description == "Alle ToDos") {
-        progress = tasks!.where((task) => task.done == true).toList().length.toDouble() / tasks!.toList().length.toDouble();
+        progress = tasks!.where((task) => task.done == true).toList().length.toDouble() / tasks.toList().length.toDouble();
         } else {
         progress = tasks!
             .where((task) => task.list == taskList.description && task.done == true)
             .toList()
-            .length.toDouble() / tasks!
+            .length.toDouble() / tasks
             .where((task) => task.list == taskList.description)
             .toList()
             .length.toDouble();
@@ -81,8 +79,8 @@ class ListTileTest extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 10,
-        color: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
-        surfaceTintColor: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
+        color: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? const Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
+        surfaceTintColor: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? const Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
         margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: SizedBox(
           height: 30,
@@ -110,7 +108,7 @@ class ListTileTest extends StatelessWidget {
                                   tasks: tasks!, taskList: taskList))));
                     }
                   },
-                  contentPadding: EdgeInsets.all(8.0),
+                  contentPadding: const EdgeInsets.all(8.0),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -127,8 +125,8 @@ class ListTileTest extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
 
-                      SizedBox(height: 5.0),
-                      taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList))
+                      const SizedBox(height: 5.0),
+                      taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? const SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList), progressColor: taskList.iconColor,)
                     ],
                   ),
                 ),
