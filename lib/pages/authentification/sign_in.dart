@@ -96,9 +96,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         const SizedBox(height: 2),
 
-                        SizedBox(
-                          height: 100.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -137,9 +135,7 @@ class _SignInState extends State<SignIn> {
                               height: 1),
                         ),
                         const SizedBox(height: 2),
-                        SizedBox(
-                          height: 100.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
