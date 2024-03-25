@@ -5,7 +5,8 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 class IconPickerDialog extends StatelessWidget {
 
   final Function(IconData) onIconSelected;
-  IconPickerDialog({required this.onIconSelected, super.key});
+  Color iconColor;
+  IconPickerDialog({required this.onIconSelected, required this.iconColor, super.key});
 
 
 
@@ -41,7 +42,7 @@ class IconPickerDialog extends StatelessWidget {
           onIconSelected(iconData);
           Navigator.pop(context);
         }, 
-        icon: Icon(iconData, color: AppColors.myCheckItGreen, size: 35,)
+        icon: Icon(iconData, color: iconColor, size: 35,)
         )
   ];
 }

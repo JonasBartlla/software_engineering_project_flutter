@@ -44,7 +44,7 @@ class _ListOfTasksState extends State<ListOfTasks> {
         tasks = Provider.of<List<Task>>(context).where((element) {
           DateTime rightNow = DateTime.now();
           if (element.maturityDate.isAfter(
-                  DateTime(rightNow.year, rightNow.month, rightNow.day)) &&
+                  DateTime(rightNow.year, rightNow.month, rightNow.day - 1, 23, 59)) &&
               element.maturityDate.isBefore(
                   DateTime(rightNow.year, rightNow.month, rightNow.day + 1))) {
             return true;

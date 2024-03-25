@@ -23,7 +23,7 @@ class _CreateListPageState extends State<CreateListPage> {
   //Felder einer Liste
   String title = '';
   IconData icon = Icons.format_list_bulleted;
-  Color iconColor = Colors.white;
+  Color iconColor = AppColors.myCheckItGreen;
 
   //Liste für die Icons
   List<IconData> choosableIcons = [
@@ -143,13 +143,14 @@ class _CreateListPageState extends State<CreateListPage> {
                                 color: AppColors.myBoxColor,
                                 icon: Icon(
                                   icon,
-                                  color: Colors.white,
+                                  color: iconColor,
                                 ),
                                 onPressed: () {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return IconPickerDialog(
+                                          iconColor: iconColor,
                                             onIconSelected: (selectedIcon) {
                                           setState(() {
                                             icon = selectedIcon;
