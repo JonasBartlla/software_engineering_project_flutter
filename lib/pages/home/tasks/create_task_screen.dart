@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:intl/intl.dart';
@@ -118,6 +119,9 @@ class _CreateToDoState extends State<CreateToDo> {
                                   width: 310,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
+                                    inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                     cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(
                                         color: AppColors.myTextColor),
@@ -318,13 +322,13 @@ class _CreateToDoState extends State<CreateToDo> {
                           const SizedBox(height: 20),
                           //Notiz
                           Row(children: <Widget>[
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 7),
                             PhysicalModel(
                               color: AppColors.myCheckITDarkGrey,
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 346,
+                                width: 345,
                                 height: 150,
                                 child: TextFormField(
                                   cursorColor: AppColors.myCheckItGreen,

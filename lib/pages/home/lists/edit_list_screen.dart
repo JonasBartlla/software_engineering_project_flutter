@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +64,7 @@ class _EditListPageState extends State<EditListPage> {
                 Center(
                   child: Container(
                     width: 460,
-                    height: 250,
+                    height: 275,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -95,6 +96,9 @@ class _EditListPageState extends State<EditListPage> {
                                 width: 303,
                                 //Bezeichnung eingeben
                                 child: TextFormField(
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(20)
+                                  ],
                                   style: const TextStyle(
                                       color: AppColors.myTextColor),
                                   initialValue: "",
@@ -225,7 +229,7 @@ class _EditListPageState extends State<EditListPage> {
                 ),
                 SizedBox(
                   height: 300,
-                  width: 300,
+                  width: 350,
                   child: Card(
                     color: AppColors.myCheckITDarkGrey,
                       child: Padding(
@@ -235,7 +239,7 @@ class _EditListPageState extends State<EditListPage> {
                           children: [
                             Icon(icon, color: AppColors.myCheckItGreen,),
                             const SizedBox(height: 20),
-                            Text(title, style: standardAppBarTextDecoration,)
+                            Text(title, style: standardHeadlineDecoration,)
                           ],
                         ),
                       ),                  
