@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/shared/color_picker.dart';
+import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 
@@ -19,6 +23,7 @@ class _CreateListPageState extends State<CreateListPage> {
   //Felder einer Liste
   String title = '';
   IconData icon = Icons.format_list_bulleted;
+  Color iconColor = Colors.white;
 
   //Liste für die Icons
   List<IconData> choosableIcons = [
@@ -41,11 +46,11 @@ class _CreateListPageState extends State<CreateListPage> {
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
-        title:Text(
-            'Liste erstellen',
-            style: standardAppBarTextDecoration,
-          ),
+        title: Text(
+          'Liste erstellen',
+          style: standardAppBarTextDecoration,
         ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -132,23 +137,68 @@ class _CreateListPageState extends State<CreateListPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            SizedBox(
-                              width: 288,
-                              child: DropdownButtonFormField<IconData>(
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Icon'),
-                                  items: choosableIcons.map((icon) {
-                                    return DropdownMenuItem(
-                                      value: icon,
-                                      child: Icon(icon),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) => setState(() {
-                                        icon = value!;
-                                      })),
+                            Center(
+                              child: IconButton(
+                                style: buttonBoxDecoration,
+                                color: AppColors.myBoxColor,
+                                icon: Icon(
+                                  icon,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return IconPickerDialog(
+                                            onIconSelected: (selectedIcon) {
+                                          setState(() {
+                                            icon = selectedIcon;
+                                          });
+                                        });
+                                      });
+                                },
+                              ),
                             ),
+                            const SizedBox(height: 10),
                           ],
                         ),
+                        const SizedBox(height: 10),
+                        Row(children: <Widget>[
+                          const SizedBox(width: 8),
+                          const Text(
+                            'Farbe:',
+                            style: TextStyle(
+                                color: AppColors.myTextColor,
+                                fontFamily: 'Comfortaa',
+                                fontSize: 18,
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.normal,
+                                height: 1),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Center(
+                            child: TextButton(
+                              style: buttonBoxDecoration.copyWith(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(iconColor)),
+                              child: SizedBox(height: 10),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ColorPickerDialog(
+                                          onColorSelected: (selectedColor) {
+                                        setState(() {
+                                          iconColor = selectedColor;
+                                        });
+                                      });
+                                    });
+                              },
+                            ),
+                          ),
+                        ]),
                         const SizedBox(height: 45),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +227,7 @@ class _CreateListPageState extends State<CreateListPage> {
                                 child: const Text('Erstellen'),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    _database.addList(title, icon);
+                                    _database.addList(title, icon, iconColor);
                                     Navigator.pop(context);
                                   }
                                 },
@@ -210,17 +260,23 @@ class _CreateListPageState extends State<CreateListPage> {
                   width: 350,
                   child: Card(
                     color: AppColors.myCheckITDarkGrey,
-                      child: Padding(
-                        padding: const EdgeInsets.all(100),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(icon, color: AppColors.myCheckItGreen,),
-                            const SizedBox(height: 20),
-                            Text(title, style: standardHeadlineDecoration,)
-                          ],
-                        ),
-                      ),                  
+                    child: Padding(
+                      padding: const EdgeInsets.all(100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            icon,
+                            color: iconColor,
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            title,
+                            style: standardHeadlineDecoration,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

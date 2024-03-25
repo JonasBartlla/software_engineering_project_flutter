@@ -77,13 +77,13 @@ class ListTileTest extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 10,
-        color: AppColors.myCheckITDarkGrey,
-        surfaceTintColor: AppColors.myCheckITDarkGrey,
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+        color: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
+        surfaceTintColor: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
+        margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: SizedBox(
           height: 30,
           width: 30,
@@ -117,15 +117,16 @@ class ListTileTest extends StatelessWidget {
                     children: [
                       Icon(
                         taskList.icon,
-                        color: AppColors.myCheckItGreen,
+                        color: taskList.iconColor,
                         size: 48.0,
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Text(
                         taskList.description,
                         style: standardHeadlineDecoration,
                         textAlign: TextAlign.center,
                       ),
+
                       SizedBox(height: 5.0),
                       taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList))
                     ],
