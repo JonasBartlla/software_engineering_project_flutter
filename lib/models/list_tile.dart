@@ -126,7 +126,7 @@ class ListTileTest extends StatelessWidget {
                         style: standardHeadlineDecoration,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 15.0),
+                      SizedBox(height: 5.0),
                       taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList))
                     ],
                   ),
