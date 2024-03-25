@@ -18,7 +18,6 @@ import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
 import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
-
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService dummyDatabase = DatabaseService();
