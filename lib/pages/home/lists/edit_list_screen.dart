@@ -10,7 +10,6 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 class EditListPage extends StatefulWidget {
-
   final TaskList taskList;
   const EditListPage({required this.taskList, super.key});
 
@@ -19,7 +18,6 @@ class EditListPage extends StatefulWidget {
 }
 
 class _EditListPageState extends State<EditListPage> {
-  
   late TaskList taskList = widget.taskList;
   final _formKey = GlobalKey<FormState>();
 
@@ -27,7 +25,7 @@ class _EditListPageState extends State<EditListPage> {
   late String title = taskList.description;
   late IconData icon = taskList.icon;
   late Color iconColor = taskList.iconColor;
-  
+
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<User?>(context);
@@ -147,12 +145,12 @@ class _EditListPageState extends State<EditListPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return IconPickerDialog(
-                                          iconColor: iconColor,
+                                            iconColor: iconColor,
                                             onIconSelected: (selectedIcon) {
-                                          setState(() {
-                                            icon = selectedIcon;
-                                          });
-                                        });
+                                              setState(() {
+                                                icon = selectedIcon;
+                                              });
+                                            });
                                       });
                                 },
                               ),
@@ -161,56 +159,42 @@ class _EditListPageState extends State<EditListPage> {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Row(children: <Widget>[
-                          const SizedBox(width: 8),
-                          const Text(
-                            'Farbe:',
-                            style: TextStyle(
-                                color: AppColors.myTextColor,
-                                fontFamily: 'Comfortaa',
-                                fontSize: 18,
-                                letterSpacing: 1,
-                                fontWeight: FontWeight.normal,
-                                height: 1),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Center(
-                            child: TextButton(
-                              style: buttonBoxDecoration.copyWith(
-                                  backgroundColor:
-                                      MaterialStatePropertyAll(iconColor)),
-                              child: const SizedBox(height: 10),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ColorPickerDialog(
-                                          onColorSelected: (selectedColor) {
-                                        setState(() {
-                                          iconColor = selectedColor;
+                        Row(
+                          children: <Widget>[
+                            const SizedBox(width: 8),
+                            const Text(
+                              'Farbe:',
+                              style: TextStyle(
+                                  color: AppColors.myTextColor,
+                                  fontFamily: 'Comfortaa',
+                                  fontSize: 18,
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.normal,
+                                  height: 1),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Center(
+                              child: TextButton(
+                                style: buttonBoxDecoration.copyWith(
+                                    backgroundColor:
+                                        MaterialStatePropertyAll(iconColor)),
+                                child: const SizedBox(height: 10),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ColorPickerDialog(
+                                            onColorSelected: (selectedColor) {
+                                          setState(() {
+                                            iconColor = selectedColor;
+                                          });
                                         });
                                       });
-                                    });
-                              },
+                                },
+                              ),
                             ),
-                          ),
-                            // SizedBox(
-                            //   width: 288,
-                            //   child: DropdownButtonFormField<IconData>(
-                            //       decoration: textInputDecoration.copyWith(
-                            //           hintText: 'Icon'),
-                            //       items: choosableIcons.map((icon) {
-                            //         return DropdownMenuItem(
-                            //           value: icon,
-                            //           child: Icon(icon),
-                            //         );
-                            //       }).toList(),
-                            //       onChanged: (value) => setState(() {
-                            //             icon = value!;
-                            //           })),
-                            // ),
                           ],
                         ),
                         const SizedBox(height: 45),
@@ -226,12 +210,12 @@ class _EditListPageState extends State<EditListPage> {
                                 child: const Text(
                                   'Abbrechen',
                                   style: TextStyle(
-                                          color: AppColors.myTextColor,
-                                          fontFamily: 'Comfortaa',
-                                          fontSize: 14,
-                                          letterSpacing: 1,
-                                          fontWeight: FontWeight.normal,
-                                          height: 1),
+                                      color: AppColors.myTextColor,
+                                      fontFamily: 'Comfortaa',
+                                      fontSize: 14,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1),
                                 ),
                               ),
                             ),
@@ -242,17 +226,26 @@ class _EditListPageState extends State<EditListPage> {
                               //Speichern Button
                               child: ElevatedButton(
                                 style: buttonStyleDecorationcolorchange,
-                                child: const Text('Speichern', style: TextStyle(
-                                        color: AppColors.myTextColor,
-                                        fontFamily: 'Comfortaa',
-                                        fontSize: 14,
-                                        letterSpacing: 1,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1),
-                                  ),
+                                child: const Text(
+                                  'Speichern',
+                                  style: TextStyle(
+                                      color: AppColors.myTextColor,
+                                      fontFamily: 'Comfortaa',
+                                      fontSize: 14,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1),
+                                ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    _database.editList(title, icon, iconColor, widget.taskList.listReference, widget.taskList.creationDate, widget.taskList.isEditable, widget.taskList.ownerId);
+                                    _database.editList(
+                                        title,
+                                        icon,
+                                        iconColor,
+                                        widget.taskList.listReference,
+                                        widget.taskList.creationDate,
+                                        widget.taskList.isEditable,
+                                        widget.taskList.ownerId);
                                     Navigator.pop(context);
                                   }
                                 },
@@ -280,92 +273,73 @@ class _EditListPageState extends State<EditListPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                //  Padding(
-                //    padding: const EdgeInsets.only(top: 8.0),
-                //    child: Card(
-                //       margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                //       color: AppColors.myCheckITDarkGrey,
-                //       surfaceTintColor: AppColors.myCheckITDarkGrey,
-                //         child: SizedBox(
-                //           height: 30,
-                //           width: 30,
-                //           child: Column(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               Icon(icon, color: iconColor,),
-                //               const SizedBox(height: 20),
-                //               Text(title, style: standardHeadlineDecoration,)
-                //             ],
-                //           ),
-                //         ),                  
-                //     ),
-                //  ),
-
                 SizedBox(
                   width: 250,
                   height: 170,
-                   child: Padding(
-                         padding: const EdgeInsets.only(top: 8.0),
-                         child: Card(
-                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                           elevation: 10,
-                           color:  AppColors.myCheckITDarkGrey,
-                           surfaceTintColor:  AppColors.myCheckITDarkGrey,
-                           margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                           child: SizedBox(
-                             height: 30,
-                             width: 30,
-                             child: Stack(
-                               children: [
-                                 Align(
-                                   alignment: Alignment.center,
-                                   child: ListTile(
-                    contentPadding: const EdgeInsets.all(8.0),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          icon,
-                          color: iconColor,
-                          size: 48.0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      elevation: 10,
+                      color: AppColors.myCheckITDarkGrey,
+                      surfaceTintColor: AppColors.myCheckITDarkGrey,
+                      margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+                      child: SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(8.0),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      icon,
+                                      color: iconColor,
+                                      size: 48.0,
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Text(
+                                      title,
+                                      style: standardHeadlineDecoration,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 8.0,
+                              right: 8.0,
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  '1',
+                                  style: standardTextDecoration.copyWith(
+                                      color: Colors.black),
+                                )),
+                              ),
+                            )
+                          ],
                         ),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          title,
-                          style: standardHeadlineDecoration,
-                          textAlign: TextAlign.center,
-                        ),
-                   
-                        const SizedBox(height: 5.0),
-                      ],
+                      ),
                     ),
-                                   ),
-                                 ),
-                                 Positioned(
-                                   top: 8.0,
-                                   right: 8.0,
-                                   child: Container(
-                    width: 25,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Center(
-                        child: Text(
-                      '1',
-                      style: standardTextDecoration.copyWith(color: Colors.black),
-                    )),
-                                   ),
-                                 )
-                               ],
-                             ),
-                           ),
-                         ),
-                               ),
-                 )],
+                  ),
+                )
+              ],
             ),
           ),
         ),
