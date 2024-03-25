@@ -40,7 +40,8 @@ class _CreateListPageState extends State<CreateListPage> {
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.myBackgroundColor,
+              size: 35),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),

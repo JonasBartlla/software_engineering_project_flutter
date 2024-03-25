@@ -34,7 +34,8 @@ class _EditListPageState extends State<EditListPage> {
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.myBackgroundColor,
+              size: 35),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
