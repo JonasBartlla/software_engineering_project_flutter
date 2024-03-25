@@ -35,6 +35,7 @@ class _EditListPageState extends State<EditListPage> {
   Widget build(BuildContext context) {
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
+    Color iconColor = Colors.white;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 40, 40, 1),
       appBar: AppBar(
@@ -194,7 +195,7 @@ class _EditListPageState extends State<EditListPage> {
                                 child: const Text('Bearbeiten'),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    _database.editList(title, icon, widget.taskList.listReference, widget.taskList.creationDate, widget.taskList.isEditable, widget.taskList.ownerId);
+                                    _database.editList(title, icon, iconColor, widget.taskList.listReference, widget.taskList.creationDate, widget.taskList.isEditable, widget.taskList.ownerId);
                                     Navigator.pop(context);
                                   }
                                 },

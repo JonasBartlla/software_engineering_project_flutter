@@ -60,16 +60,17 @@ class DatabaseService{
   // }
 
   Future initializeCollection() async {
-    await addList("Alle ToDos", Icons.house, isEditable: false);
-    await addList("Erledigte ToDos", Icons.abc, isEditable: false);
-    return await addList("Mein Tag", Icons.calendar_month, isEditable: false);
+    await addList("Alle ToDos", Icons.house, Colors.white, isEditable: false);
+    await addList("Erledigte ToDos", Icons.abc, Colors.white, isEditable: false);
+    return await addList("Mein Tag", Icons.calendar_month, Colors.white, isEditable: false);
   }
 
   //add List
-  Future addList(String description, IconData icon, {bool isEditable = true}) async {
+  Future addList(String description, IconData icon, Color iconColor, {bool isEditable = true}) async {
     return await listCollection.add({
       'description': description,
       'icon': icon.codePoint,
+      'iconColor': iconColor.value,
       'creationDate': DateTime.now().millisecondsSinceEpoch,
       'isEditable': isEditable,
       'ownerId': uid,
@@ -77,10 +78,11 @@ class DatabaseService{
   }
 
   //editing List
-  Future editList(String bezeichnung, IconData icon, DocumentReference list, DateTime creationDate, bool isEditable, String ownerId) async {
+  Future editList(String bezeichnung, IconData icon, Color iconColor, DocumentReference list, DateTime creationDate, bool isEditable, String ownerId) async {
     return await list.set({
       'description': bezeichnung,
       'icon': icon.codePoint,
+      'iconColor': iconColor.value,
       'creationDate': creationDate.millisecondsSinceEpoch,
       'isEditable': isEditable,
       'ownerId': ownerId,
@@ -163,6 +165,7 @@ class DatabaseService{
       return TaskList(     
         description: doc.get('description'),
         icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
+        iconColor: Color(doc.get('iconColor')),
         creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
         ownerId: doc.get('ownerId'),
         isEditable: doc.get('isEditable'),
