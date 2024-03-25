@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:js';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -100,7 +101,9 @@ class _MySettingsState extends State<MySettings> {
                   child: SizedBox(
                     width: 300,
                     child: TextFormField(
-                      
+                      inputFormatters: [
+                                    LengthLimitingTextInputFormatter(20)
+                                  ],
                       style: const TextStyle(color: Colors.white),
                       initialValue: currentUser.displayName, // Hier dann Benutzername aus DB
                       decoration: textInputDecorationbez.copyWith(

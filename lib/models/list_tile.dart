@@ -6,6 +6,7 @@ import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
+import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class ListTileTest extends StatelessWidget {
@@ -38,6 +39,41 @@ class ListTileTest extends StatelessWidget {
             .toList()
             .length;
       }
+    }
+    double getProgressPercent(TaskList tasklist){
+      double progress;
+      if (tasklist.description == "Mein Tag"){
+        DateTime now = DateTime.now();
+        progress = tasks!
+            .where((task) =>
+                task.maturityDate.year == now.year &&
+                task.maturityDate.month == now.month &&
+                task.maturityDate.day == now.day && 
+                task.done == true)
+            .toList()
+            .length.toDouble() / tasks!
+            .where((task) =>
+                task.maturityDate.year == now.year &&
+                task.maturityDate.month == now.month &&
+                task.maturityDate.day == now.day)
+            .toList()
+            .length.toDouble();
+      }
+      else if (taskList.description == "Alle ToDos") {
+        progress = tasks!.where((task) => task.done == true).toList().length.toDouble() / tasks!.toList().length.toDouble();
+        } else {
+        progress = tasks!
+            .where((task) => task.list == taskList.description && task.done == true)
+            .toList()
+            .length.toDouble() / tasks!
+            .where((task) => task.list == taskList.description)
+            .toList()
+            .length.toDouble();
+      }
+      if (progress.isNaN){
+        return 2;
+      }
+      return progress;
     }
 
     return Padding(
@@ -91,6 +127,7 @@ class ListTileTest extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 15.0),
+                      taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList))
                     ],
                   ),
                 ),
