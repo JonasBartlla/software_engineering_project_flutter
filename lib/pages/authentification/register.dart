@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
@@ -100,9 +102,7 @@ class _RegisterState extends State<Register> {
                         ),
                         const SizedBox(height: 2),
 
-                        SizedBox(
-                          height: 50.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -138,9 +138,7 @@ class _RegisterState extends State<Register> {
                         ),
                         const SizedBox(height: 2),
 
-                        SizedBox(
-                          height: 50.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -181,9 +179,7 @@ class _RegisterState extends State<Register> {
 
                         const SizedBox(height: 2),
 
-                        SizedBox(
-                          height: 50.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -216,7 +212,7 @@ class _RegisterState extends State<Register> {
                                       email, password);
                               if (result == null) {
                                 setState(() {
-                                  error = 'Bitte gib eine gültige E-Mail an';
+                                  error = 'Bitte eine gültige E-Mail eingeben';
                                   loading = false;
                                 });
                               }
