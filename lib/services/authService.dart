@@ -36,12 +36,13 @@ class AuthService{
       DatabaseService _database = DatabaseService(uid: user!.uid);
       await _database.updateUserDate(user.uid, user.email, user.email);
       await _database.initializeCollection();
+
       print('created record');
       
       return user;
     } catch (e) {
       print(e.toString());
-      return null;
+      return e.toString();
     }
   }
 
