@@ -25,6 +25,7 @@ class _MySettingsState extends State<MySettings> {
   late appUser currentUser;
   late DatabaseService _databaseService;
   late String changedDisplayName;
+  final _formKey = GlobalKey<FormState>();
 
 
 
@@ -71,94 +72,109 @@ class _MySettingsState extends State<MySettings> {
         ),
         backgroundColor: AppColors.myCheckItGreen,
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 80),
-            //Bild
-            Container(
-              height: 200,
-              width: 200,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.myTextColor,
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 80),
+              //Bild
+              Container(
+                height: 200,
+                width: 200,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.myTextColor,
+                ),
+                child: const Icon(
+                  Icons.person,
+                  size: 150,
+                  color: AppColors.myAbbrechenColor,
+                ),
               ),
-              child: const Icon(
-                Icons.person,
-                size: 150,
-                color: AppColors.myAbbrechenColor,
+              const SizedBox(height: 20),
+              // Benutzername
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PhysicalModel(
+                    color: AppColors.myBackgroundColor,
+                    child: SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                        
+                        style: const TextStyle(color: Colors.white),
+                        initialValue: currentUser.displayName, // Hier dann Benutzername aus DB
+                        decoration: textInputDecorationbez.copyWith(
+                            hintText: 'Anzeigename'),
+                        onChanged: (value) => setState(() {
+                          changedDisplayName = value;
+                          }
+                        ),
+                        validator: (value) {
+                          if (value!.length >0){
+                            return null;
+                          }else{
+                            return "Der Benutzername darf nicht leer sein";
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: ()async{
+                      if (_formKey.currentState!.validate()) {
+                        print("${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
+                        await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email);
+                        print('updated');
+                      }else{
+                        print('unable to update');
+                      }
+                    }, 
+                    child: Icon(
+                      Icons.save,
+                      size: 35,
+                      color: AppColors.myCheckItGreen,
+                    )
+                  )
+                ],
               ),
-            ),
-            const SizedBox(height: 20),
-            // Benutzername
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                PhysicalModel(
-                  color: AppColors.myBackgroundColor,
-                  child: SizedBox(
-                    width: 300,
-                    child: TextFormField(
-                      
-                      style: const TextStyle(color: Colors.white),
-                      initialValue: currentUser.displayName, // Hier dann Benutzername aus DB
-                      decoration: textInputDecorationbez.copyWith(
-                          hintText: 'Dennis der Boss'),
-                      onChanged: (value) => setState(() {
-                        changedDisplayName = value;
-                      }),
+              const SizedBox(height: 14),
+        
+              ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
+              Center(
+                // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
+              ),
+        
+              // Unten am Bildschirm
+              Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'CheckIT',
+                          style: WaterMarkDecoration,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'ver.1.1.0',
+                          style: creditTextDecoration,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'CheckIT GmbH @ 2024',
+                          style: creditTextDecoration,
+                        ),
+                        const SizedBox(height: 20)
+                      ],
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: ()async{
-                    print("${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
-                    await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email);
-                    print('updated');
-                  }, 
-                  child: Icon(
-                    Icons.save,
-                    size: 35,
-                    color: AppColors.myCheckItGreen,
-                  )
-                )
-              ],
-            ),
-            const SizedBox(height: 14),
-
-            ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
-            Center(
-              // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
-            ),
-
-            // Unten am Bildschirm
-            Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'CheckIT',
-                        style: WaterMarkDecoration,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'ver.1.1.0',
-                        style: creditTextDecoration,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'CheckIT GmbH @ 2024',
-                        style: creditTextDecoration,
-                      ),
-                      const SizedBox(height: 20)
-                    ],
-                  ),
-                ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
