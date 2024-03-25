@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class CheckITPercentIndicator extends StatelessWidget {
   final double progressPercent;
@@ -14,7 +15,8 @@ class CheckITPercentIndicator extends StatelessWidget {
                   lineHeight: 20,
                   animationDuration: 2500,
                   percent: progressPercent,
-                  center: Text("${(progressPercent * 100).toInt().toString()}%"),
+                 // center: Text("${(progressPercent * 100).toInt().toString()}%"),
+                  trailing: Text("${(progressPercent * 100).toInt().toString()}%", style: standardTextDecoration,),
                   barRadius: Radius.circular(15),
                   progressColor: AppColors.myCheckItGreen,
                 ),
