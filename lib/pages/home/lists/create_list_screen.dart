@@ -7,7 +7,8 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 class CreateListPage extends StatefulWidget {
-  const CreateListPage({super.key});
+  final List<String> existingLists;
+  const CreateListPage({required this.existingLists, super.key});
 
   @override
   State<CreateListPage> createState() => _CreateListPageState();
@@ -101,7 +102,10 @@ class _CreateListPageState extends State<CreateListPage> {
                                       return 'Bitte eine Bezeichnung eingeben';
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
-                                    } else {
+                                    } else if(existingLists.contains(value)){
+                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie einen anderen';
+                                    }
+                                    else {
                                       return null;
                                     }
                                   },

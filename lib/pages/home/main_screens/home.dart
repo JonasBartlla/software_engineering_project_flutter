@@ -178,7 +178,12 @@ class Home extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        await Navigator.pushNamed(context, '/createList');
+                        await _database.getAvailableListForUser(addInitialLists = true).then((value){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: ((context) => CreateListPage(existingLists: value
+                                  ))));
+                        }
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(1),
