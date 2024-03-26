@@ -107,7 +107,7 @@ class _EditListPageState extends State<EditListPage> {
                                       return 'Bitte eine Bezeichnung eingeben';
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
-                                    } else if(existingLists.contains(value)){
+                                    } else if(widget.existingLists.contains(value)){
                                       return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie einen anderen';
                                     }else {
                                       return null;

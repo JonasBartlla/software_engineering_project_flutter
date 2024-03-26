@@ -5,6 +5,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_tile.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
@@ -178,7 +179,7 @@ class Home extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        await _database.getAvailableListForUser(addInitialLists = true).then((value){
+                        await _database.getAvailableListForUser(addInitialLists: true).then((value){
                           Navigator.push(context, MaterialPageRoute(
                               builder: ((context) => CreateListPage(existingLists: value
                                   ))));

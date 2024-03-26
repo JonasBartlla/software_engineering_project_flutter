@@ -45,7 +45,7 @@ Widget getEditButton(TaskList taskList, DatabaseService _database, context){
   if (taskList.isEditable){
     return  ElevatedButton(
       onPressed: () {
-        _database.getAvailableListForUser(addInitialLists = true).then((value){
+        _database.getAvailableListForUser(addInitialLists: true).then((value){
         Navigator.push(
             context,
             MaterialPageRoute(
