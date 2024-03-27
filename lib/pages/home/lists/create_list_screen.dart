@@ -59,7 +59,7 @@ class _CreateListPageState extends State<CreateListPage> {
                 Center(
                   child: Container(
                     width: 360,
-                    height: 265,
+                    height: 280,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -103,7 +103,7 @@ class _CreateListPageState extends State<CreateListPage> {
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
                                     } else if(widget.existingLists.contains(value)){
-                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie einen anderen';
+                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie eine andere Bezeichnung';
                                     }
                                     else {
                                       return null;

@@ -64,7 +64,7 @@ class _EditListPageState extends State<EditListPage> {
                 Center(
                   child: Container(
                     width: 460,
-                    height: 275,
+                    height: 280,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -108,7 +108,7 @@ class _EditListPageState extends State<EditListPage> {
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
                                     } else if(widget.existingLists.contains(value)){
-                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie einen anderen';
+                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie eine andere Bezeichnung';
                                     }else {
                                       return null;
                                     }
