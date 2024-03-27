@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
@@ -14,9 +15,24 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+FirebaseMessaging messaging = FirebaseMessaging.instance;
+NotificationSettings settings = await messaging.requestPermission(
+  alert: true,
+  announcement: false,
+  badge: true,
+  carPlay: false,
+  criticalAlert: false,
+  provisional: false,
+  sound: true 
+  );
+  print(settings.authorizationStatus);
+  
+  final token = await messaging.getToken(vapidKey: 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
+  print(token);
   runApp(CheckIT());
 }
 
