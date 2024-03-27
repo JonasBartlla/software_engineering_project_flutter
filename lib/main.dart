@@ -16,23 +16,11 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  final abc =await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
-FirebaseMessaging messaging = FirebaseMessaging.instance;
-NotificationSettings settings = await messaging.requestPermission(
-  alert: true,
-  announcement: false,
-  badge: true,
-  carPlay: false,
-  criticalAlert: false,
-  provisional: false,
-  sound: true 
-  );
-  print(settings.authorizationStatus);
-  
-  final token = await messaging.getToken(vapidKey: 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
-  print(token);
+print(abc);
+
   runApp(CheckIT());
 }
 
