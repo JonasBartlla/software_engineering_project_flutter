@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
@@ -19,11 +20,54 @@ import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
 import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
+
   final DatabaseService dummyDatabase = DatabaseService();
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   bool switchIndicator = false;
+
+  @override
+  void initState(){
+    FirebaseMessaging.onMessage.listen((event) {
+      if (event.notification == null){
+        return;
+      } else {
+        showDialog(
+          context: context, 
+          builder: (context){
+            return Material(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 200,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Text(event.notification?.title??''),
+                        SizedBox(height: 8),
+                        Text(event.notification?.body??'')
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

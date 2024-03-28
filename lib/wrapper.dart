@@ -21,23 +21,6 @@ class Wrapper extends StatelessWidget{
       return Authenticate();
     }else {
       DatabaseService _database = DatabaseService(uid: user.uid);
-      FirebaseMessaging messaging = FirebaseMessaging.instance;
-      NotificationSettings settings;
-      messaging.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true 
-        ).then((value)async{
-          settings = value;
-          print(settings.authorizationStatus);
-          final token =  await messaging.getToken(vapidKey: 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
-          print(token);
-
-        });
       return StreamProvider<List<appUser>>.value(
         initialData: [],
         value: _database.appUsers,
