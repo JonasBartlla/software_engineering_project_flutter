@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -22,6 +23,7 @@ class _RegisterState extends State<Register> {
   bool loading = false;
   // text field state
 
+  String displayName = '';
   String email = '';
   String password = '';
   String password2 = '';
@@ -86,6 +88,49 @@ class _RegisterState extends State<Register> {
                         ),
 
                         const SizedBox(height: 70),
+
+                        //Anzeigename
+                        const Text(
+                          'Anzeigename',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: AppColors.myTextColor,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 16,
+                              letterSpacing:
+                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
+                        ),
+                        const SizedBox(height: 2),
+
+                        Container(
+                          child: TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(20)
+                            ],
+                            cursorColor: AppColors.myCheckItGreen,
+                            style:
+                                const TextStyle(color: AppColors.myTextColor),
+                            decoration: textInputDecoration.copyWith(
+                                hintText: 'Anzeigename'),
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return "Bitte gib ein Anzeigename ein";
+                              } else {
+                                return null;
+                              }
+                            },
+                            onChanged: (val) {
+                              setState(() {
+                                // when the value inside the eMail field changes the value of the variable wil be changed
+                                displayName = val;
+                              });
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(height: 25),
 
                         //Email Adresse
                         const Text(
@@ -209,7 +254,7 @@ class _RegisterState extends State<Register> {
                               });
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
-                                      email, password);
+                                      email, password, displayName);
                               if (result == null) {
                                 setState(() {
                                   error = 'Bitte eine gültige E-Mail eingeben';

@@ -28,13 +28,13 @@ class AuthService{
   }
 
   // register with email & password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password, String displayName) async {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       //create a new document for the user with the uid
       DatabaseService _database = DatabaseService(uid: user!.uid);
-      await _database.updateUserDate(user.uid, user.email, user.email);
+      await _database.updateUserDate(user.uid, displayName, user.email);
       await _database.initializeCollection();
       print('created record');
       
