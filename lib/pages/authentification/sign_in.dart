@@ -200,8 +200,43 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
 
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 15),
 
+                        //google log in Button
+                        TextButton(
+                          onPressed: () async {
+                            await _auth.signInWithGoogle().then((result){
+                              print(result);
+                              if (result != null){
+                                Navigator.pushNamed(context, "/");
+                              }
+                            });
+                          },
+                          style: ButtonStyle(
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              const EdgeInsets.all(25),
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.myCheckItGreen,
+                            ),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                          ),
+                          child: const Text(
+                            'Log In with Google',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 15),
                         //Registrierung
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
