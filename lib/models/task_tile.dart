@@ -10,8 +10,9 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 class TaskTile extends StatefulWidget {
   final Task task;
   final bool done;
+  final String listDescription;
 
-  const TaskTile({required this.task, required this.done, super.key});
+  const TaskTile({required this.task, required this.done, required this.listDescription, super.key});
 
   @override
   State<TaskTile> createState() => _TaskTileState();
@@ -102,9 +103,20 @@ class _TaskTileState extends State<TaskTile> {
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(bottom:3),
-                child: Row(children: [
+                child: Row(
+                  //direction: Axis.horizontal, //für Wrap Widget
+                  children: [
+                  //Liste
+                  widget.listDescription == "Mein Tag" || widget.listDescription == "Alle ToDos" || widget.listDescription == "Erledigte ToDos"
+                    ? Row(
+                      children: [
+                        //Icon(widget.task.),
+                        Text(widget.listDescription)
+                      ],
+                    )
+                    : const Text(''),
                   //Priorität
-                  _database.getPriority(widget.task.priority) == 'no priority'
+                  _database.getPriority(widget.task.priority) == 'keine Priorität'
                       ? const Text('')
                       : Row(
                           children: [
@@ -124,9 +136,9 @@ class _TaskTileState extends State<TaskTile> {
                           ],
                         ),
               
-                  const SizedBox(
-                    width: 5,
-                  ),
+                   const SizedBox(
+                     width: 5,
+                   ),
               
                   //Datum und Uhrzeit
                   widget.task.maturityDate ==
@@ -179,12 +191,12 @@ class _TaskTileState extends State<TaskTile> {
                                 )),
                           ],
                         ),
-              
+                        const SizedBox(width: 5,),
                   //Benachrichtigung
                   widget.task.notificationOn == true
-                      ? const Icon(
+                      ?  Icon(
                           Icons.notifications_on,
-                          color: AppColors.myTextColor,
+                          color: widget.task.done ? Colors.grey : AppColors.myTextColor,
                         )
                       : const Text(''),
                 ]),

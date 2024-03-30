@@ -19,6 +19,7 @@ var buttonStyleDecorationDelete = ButtonStyle(
     )),
     fixedSize: MaterialStateProperty.all(Size(120, 40)),
     surfaceTintColor: MaterialStateProperty.all(AppColors.myDeleteColor),
+    overlayColor: MaterialStateProperty.all(AppColors.myDeleteColor),
     backgroundColor:
         MaterialStateColor.resolveWith((states) => AppColors.myDeleteColor),
     elevation: MaterialStateProperty.all(8),
@@ -45,6 +46,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
     )),
     fixedSize: MaterialStateProperty.all(Size(120, 40)),
     surfaceTintColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
+    overlayColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
     backgroundColor:
         MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {

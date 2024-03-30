@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_tile.dart';
@@ -12,10 +13,12 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
-
+import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
+import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService dummyDatabase = DatabaseService();
@@ -27,9 +30,11 @@ class Home extends StatelessWidget {
 
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
-    // return StreamProvider<List<Task>>.value(
-    //     initialData: [],
-    //     value: _database.tasks,
+    final List<appUser> currenUser = Provider.of<List<appUser>>(context);
+
+    if(currenUser.isEmpty){
+      return Loading();
+    }else{
     return MultiProvider(
       providers: [
         StreamProvider<List<Task>>.value(
@@ -38,8 +43,6 @@ class Home extends StatelessWidget {
         ),
         StreamProvider<List<TaskList>>.value(
             initialData: [], value: _database.lists),
-        StreamProvider<List<appUser>>.value(
-            initialData: [], value: _database.user),
       ],
       child: Scaffold(
         backgroundColor: AppColors.myBackgroundColor,
@@ -95,11 +98,11 @@ class Home extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Dennis',
+                        currenUser.first.displayName,
                         style: standardTextDecoration),
                       const SizedBox(height: 4),
                       Text(
-                        'dennis@test.de',
+                        currenUser.first.email,
                         style: standardTextDecoration.copyWith(fontSize: 14))
                     ],
                   )),
@@ -116,20 +119,29 @@ class Home extends StatelessWidget {
                 ),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => MySettings())));
+                      MaterialPageRoute(builder: ((context) => MySettings(currentUser: currenUser.first,databaseService: _database))));
                 },
               ),
               ListTile(
                 title: Text('Datenschutz', style: standardTextDecoration),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                },
               ),
               ListTile(
-                title: Text('ABGs', style: standardTextDecoration),
-                onTap: () {},
+                title: Text('AGBs', style: standardTextDecoration),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                },
               ),
               ListTile(
                 title: Text('Impressum', style: standardTextDecoration),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                },
               ),
               ListTile(
                 title: Row(
@@ -160,6 +172,7 @@ class Home extends StatelessWidget {
                   child: ListOfTaskLists(),
                 ),
                 const SizedBox(height: 5,),
+                SizedBox(height: 40,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -240,7 +253,7 @@ class Home extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                          Icon(
-                            Icons.calendar_month_outlined, 
+                            Icons.calendar_month_rounded, 
                             color: Colors.white,
                             size: 35,
                           ),
@@ -257,5 +270,6 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+    };
   }
 }

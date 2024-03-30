@@ -96,9 +96,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         const SizedBox(height: 2),
 
-                        SizedBox(
-                          height: 50.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -108,7 +106,7 @@ class _SignInState extends State<SignIn> {
                             validator: (val) {
                               if (val!.isEmpty) {
                                 // return null if valid
-                                return "Bitte eine E-Mail eingeben";
+                                return "Bitte eine gültige E-Mail eingeben";
                               } else {
                                 return null;
                               }
@@ -137,9 +135,7 @@ class _SignInState extends State<SignIn> {
                               height: 1),
                         ),
                         const SizedBox(height: 2),
-                        SizedBox(
-                          height: 50.0,
-                          width: 700.0,
+                        Container(
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -174,7 +170,7 @@ class _SignInState extends State<SignIn> {
                                   .signInWithEmailAndPassword(email, password);
                               if (result == null) {
                                 setState(() {
-                                  error = 'YOU SHALL NOT PASS';
+                                  error = 'E-Mail oder Passwort ist falsch';
                                   loading = false;
                                 });
                               }
@@ -204,8 +200,39 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
 
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 15),
 
+                        //google log in Button
+                        TextButton(
+                          onPressed: () async {
+                            _auth.signInWithGoogleWeb();
+                            
+                          },
+                          style: ButtonStyle(
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              const EdgeInsets.all(25),
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.myCheckItGreen,
+                            ),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                          ),
+                          child: const Text(
+                            'Log In with Google',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 15),
                         //Registrierung
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,

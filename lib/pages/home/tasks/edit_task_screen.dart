@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -126,9 +127,12 @@ class _EditTodoState extends State<EditTodo> {
                                 //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
-                                  width: 311,
+                                  width: 310,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
+                                    inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                     cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(color: Colors.white),
                                     initialValue: title,
@@ -157,7 +161,7 @@ class _EditTodoState extends State<EditTodo> {
                             const SizedBox(width: 6),
                             const SizedBox(
                               child: Icon(
-                                Icons.list_alt_rounded,
+                                Icons.list,
                                 color: Colors.white,
                                 size: 30.0,
                               ),
@@ -321,7 +325,7 @@ class _EditTodoState extends State<EditTodo> {
                                       });
                                     }),
                               ),
-                              const SizedBox(width: 5),
+                              const SizedBox(width: 6),
                               Text(
                                 'Ich möchte über die Fälligkeit des\nToDos informiert werden.',
                                 style: standardTextDecoration,
@@ -331,7 +335,7 @@ class _EditTodoState extends State<EditTodo> {
                           const SizedBox(height: 20),
                           //Notiz
                           Row(children: <Widget>[
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 7),
                             PhysicalModel(
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular((8)),
@@ -339,7 +343,7 @@ class _EditTodoState extends State<EditTodo> {
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 348,
+                                width: 345,
                                 height: 150,
                                 child: Align(
                                   child: TextFormField(
@@ -366,7 +370,7 @@ class _EditTodoState extends State<EditTodo> {
                               ),
                             ),
                           ]),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 60),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -420,7 +424,7 @@ class _EditTodoState extends State<EditTodo> {
                                               (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.disabled)) {
-                                      return Colors.grey;
+                                      return AppColors.myTextInputColor;
                                     }
                                     return AppColors.myCheckItGreen;
                                   })),
@@ -432,7 +436,7 @@ class _EditTodoState extends State<EditTodo> {
                                                 title,
                                                 note,
                                                 creationDate,
-                                                false,
+                                                notification,
                                                 maturityDate,
                                                 priority,
                                                 list,

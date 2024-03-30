@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:intl/intl.dart';
@@ -100,23 +102,26 @@ class _CreateToDoState extends State<CreateToDo> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              const SizedBox(width: 6),
+                              const SizedBox(width: 3),
                               const SizedBox(
                                 child: Icon(
                                   Icons.add,
                                   color: Colors.white,
-                                  size: 30.0,
+                                  size: 35.0,
                                 ),
                               ),
-                              const SizedBox(width: 5),
+                              const SizedBox(width: 3),
                               PhysicalModel(
                                 color: AppColors.myCheckITDarkGrey,
                                 //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
-                                  width: 311,
+                                  width: 310,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
+                                    inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                     cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(
                                         color: AppColors.myTextColor),
@@ -307,7 +312,7 @@ class _CreateToDoState extends State<CreateToDo> {
                                       });
                                     }),
                               ),
-                              const SizedBox(width: 5),
+                              const SizedBox(width: 6),
                               Text(
                                 'Ich möchte über die Fälligkeit des\nToDos informiert werden.',
                                 style: standardTextDecoration,
@@ -317,14 +322,14 @@ class _CreateToDoState extends State<CreateToDo> {
                           const SizedBox(height: 20),
                           //Notiz
                           Row(children: <Widget>[
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 7),
                             PhysicalModel(
                               color: AppColors.myCheckITDarkGrey,
                               elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 340,
-                                height: 100,
+                                width: 345,
+                                height: 150,
                                 child: TextFormField(
                                   cursorColor: AppColors.myCheckItGreen,
                                   style: const TextStyle(
@@ -345,7 +350,7 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                             ),
                           ]),
-                          const SizedBox(height: 70),
+                          const SizedBox(height: 60),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
