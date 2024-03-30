@@ -1,5 +1,8 @@
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -21,52 +24,52 @@ import 'package:software_engineering_project_flutter/pages/home/main_screens/set
 import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
 import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 class Home extends StatefulWidget {
+  final User user;
+  final DatabaseService database;
+  const Home({required this.user, required this.database, super.key});
   @override
   State<Home> createState() => _HomeState();
 }
 
+  Future<void> _getToken(DatabaseService _database, String uid) async {
+    // Request permission
+    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission();
+    print(settings.authorizationStatus);
+    // Get token
+    if (settings.authorizationStatus == AuthorizationStatus.authorized){
+      int counter = 0;
+      while(counter < 3){
+        try{
+          String? token = await FirebaseMessaging.instance.getToken(vapidKey: 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
+          print(token);
+          await _database.updateToken(uid, token);
+          print('update done');
+          break;
+        }catch (e){
+          print(e.toString());
+          counter = counter + 1;
+        }
+      }
+
+    }else{
+      _database.updateToken(uid, '');
+    }
+  }
+
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
-
-  final DatabaseService dummyDatabase = DatabaseService();
-
+  late DatabaseService _database;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  late User user;
 
-  bool switchIndicator = false;
 
   @override
   void initState(){
-    FirebaseMessaging.onMessage.listen((event) {
-      if (event.notification == null){
-        return;
-      } else {
-        showDialog(
-          context: context, 
-          builder: (context){
-            return Material(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 200,
-                    height: 200,
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Text(event.notification?.title??''),
-                        SizedBox(height: 8),
-                        Text(event.notification?.body??'')
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            );
-          }
-        );
-      }
-    });
+    user = widget.user;
+    _database = widget.database;
+    _getToken(_database, user.uid);
+    
+
   }
 
   @override

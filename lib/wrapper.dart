@@ -24,7 +24,7 @@ class Wrapper extends StatelessWidget{
       return StreamProvider<List<appUser>>.value(
         initialData: [],
         value: _database.appUsers,
-        child: Home(),
+        child: Home(user: user, database: _database),
       );
     }
 

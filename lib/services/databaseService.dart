@@ -34,6 +34,10 @@ class DatabaseService{
     );
   }
 
+  Future<void> updateToken(String uid, String? token) async {
+    return await userCollection.doc(uid).update({'token': token});
+  }
+
   Stream<List<appUser>>? get appUsers {
     return userCollection.where('uid',isEqualTo: uid).snapshots().map(_appUserFromSnapshot); 
   }
