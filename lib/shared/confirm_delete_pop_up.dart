@@ -18,7 +18,7 @@ Future<void> showDeleteListConfirmationDialog(TaskList taskList, DatabaseService
         content: SingleChildScrollView(
           child: ListBody(
             children: [
-              Text('Möchtest du die Liste wirklich löschen? Alle darin enthaltenen ToDos werden gelöscht.', style: standardTextDecoration,),
+              Text('Möchtest du die Liste wirklich löschen?\n\nAlle darin enthaltenen ToDos werden gelöscht.', style: standardTextDecoration,),
             ],
           )
         ),
