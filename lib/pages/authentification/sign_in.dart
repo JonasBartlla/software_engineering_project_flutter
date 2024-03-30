@@ -205,12 +205,8 @@ class _SignInState extends State<SignIn> {
                         //google log in Button
                         TextButton(
                           onPressed: () async {
-                            await _auth.signInWithGoogle().then((result){
-                              print(result);
-                              if (result != null){
-                                Navigator.pushNamed(context, "/");
-                              }
-                            });
+                            _auth.signInWithGoogleWeb();
+                            
                           },
                           style: ButtonStyle(
                             padding:
