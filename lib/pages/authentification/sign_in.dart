@@ -248,9 +248,6 @@ class _SignInState extends State<SignIn> {
                             fontSize: 14.0,
                           ),
                         ),
-                        ElevatedButton(onPressed: () async{
-                            dynamic user = await _auth.signInWithGooglea();
-                        }, child: Text('Hi'))
                       ],
                     ),
                   ),
