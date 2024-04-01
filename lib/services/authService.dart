@@ -35,7 +35,7 @@ class AuthService{
       User? user = result.user;
       //create a new document for the user with the uid
       DatabaseService _database = DatabaseService(uid: user!.uid);
-      await _database.updateUserDate(user.uid, displayName, user.email);
+      await _database.updateUserDate(user.uid, displayName, user.email, 'https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc=');
       await _database.initializeCollection();
       print('created record');
       
@@ -74,7 +74,7 @@ class AuthService{
   DatabaseService _database = DatabaseService(uid: user!.uid);
   if(_database.userCollection.where('uid', isEqualTo: user.uid).count() == 0){
     _database.initializeCollection();
-    _database.updateUserDate(user.uid, user.displayName, user.email);
+    _database.updateUserDate(user.uid, user.displayName, user.email, 'https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc=');
   }else{
     print('user already exists');
   }

@@ -76,19 +76,23 @@ class Home extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 5),
-                      Container(
-                        height: 75,
-                        width: 75,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.myTextColor,
-                        ),
-                        child: const Icon(
-                          Icons.person,
-                          size: 50,
-                          color: AppColors.myAbbrechenColor,
-                        ),
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(currenUser.first.imageUrl),
                       ),
+                      // Container(
+                      //   height: 75,
+                      //   width: 75,
+                      //   decoration: const BoxDecoration(
+                      //     shape: BoxShape.circle,
+                      //     color: AppColors.myTextColor,
+                      //   ),
+                      //   child: const Icon(
+                      //     Icons.person,
+                      //     size: 50,
+                      //     color: AppColors.myAbbrechenColor,
+                      //   ),
+                      // ),
                       const SizedBox(height: 10),
                       Text(
                         currenUser.first.displayName,
@@ -164,8 +168,7 @@ class Home extends StatelessWidget {
                 const Expanded(
                   child: ListOfTaskLists(),
                 ),
-                const SizedBox(height: 5,),
-                const SizedBox(height: 40,),
+                const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
