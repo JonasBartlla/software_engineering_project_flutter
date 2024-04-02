@@ -111,11 +111,11 @@ class _MySettingsState extends State<MySettings> {
                 ],
               ),
               const SizedBox(height: 20),
-              Container(
-                height: 100,
-                width: 100,
-                child: Image.network(currentUser.imageUrl)),
-              // Benutzername
+              // Container(
+              //   height: 100,
+              //   width: 100,
+              //   child: Image.network(currentUser.imageUrl)),
+              // // Benutzername
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
