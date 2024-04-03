@@ -4,6 +4,7 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/textfields.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key, this.toggleView});
@@ -203,32 +204,15 @@ class _SignInState extends State<SignIn> {
                         const SizedBox(height: 15),
 
                         //google log in Button
-                        TextButton(
+                        SignInButton(
+                          Buttons.google,
                           onPressed: () async {
                             _auth.signInWithGoogleWeb();
                             
                           },
-                          style: ButtonStyle(
-                            padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              const EdgeInsets.all(25),
-                            ),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              AppColors.myCheckItGreen,
-                            ),
-                            shape: MaterialStateProperty.all<OutlinedBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                          ),
-                          child: const Text(
-                            'Log In with Google',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
+                          text: "Einloggen mit Google",
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
 
