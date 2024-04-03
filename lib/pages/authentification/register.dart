@@ -30,6 +30,13 @@ class _RegisterState extends State<Register> {
   String error = '';
 
   @override
+  void setState(VoidCallback fn){
+    if(mounted){
+      super.setState(fn);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return loading
         ? Loading()
