@@ -38,7 +38,7 @@ class Home extends StatefulWidget {
     // Get token
     if (settings.authorizationStatus == AuthorizationStatus.authorized){
       int counter = 0;
-      while(counter < 3){
+      while(counter < 5){
         try{
           String? token = await FirebaseMessaging.instance.getToken(vapidKey: 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
           print(token);
@@ -62,36 +62,53 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late User user;
 
+  Future<void> setupMessage()async{
+    RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage(); //wenn die App von einem TerminiertenZustand über eine Notification geöffnet wird, wird dies übergeben
+    if(message != null){
+      handleNavigation(message);
+    }
+    FirebaseMessaging.onMessageOpenedApp.listen(handleNavigation);
+  }
+
+  void handleNavigation(RemoteMessage message){
+    if(message.data['type']=='chat'){
+      Navigator.pushNamed(context, '/createList');
+    }
+  }
+
 
   @override
   void initState(){
     user = widget.user;
     _database = widget.database;
     _getToken(_database, user.uid);
+    setupMessage();
     FirebaseMessaging.onMessage.listen((event) {
       if(event.notification == null) return;
-      showDialog(context: context, 
-        builder: (context){
-          return Material(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(width: 200,height: 200,
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    Text(event.notification?.title??''),
-                    SizedBox(height: 8),
-                    Text(event.notification?.body??'')
-                  ],
-                ),
-                )
-              ],
-            ),
-          );
-        } 
-        ).then((value) => print('skr'));
+      print(event.data['type']);
+      Navigator.pushNamed(context, '/createList');
+      // showDialog(context: context, 
+      //   builder: (context){
+      //     return Material(
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         children: [
+      //           Container(width: 200,height: 200,
+      //           color: Colors.white,
+      //           child: Column(
+      //             children: [
+      //               Text(event.notification?.title??''),
+      //               SizedBox(height: 8),
+      //               Text(event.notification?.body??'')
+      //             ],
+      //           ),
+      //           )
+      //         ],
+      //       ),
+      //     );
+      //   } 
+        // );
     });
     print('dun');
   }
