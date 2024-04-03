@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
-import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/view_tasks_screen.dart';
 import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
 class ListTileTest extends StatelessWidget {
   final TaskList taskList;
+  final List<TaskList> lists;
 
-  const ListTileTest({required this.taskList, super.key});
+  const ListTileTest({required this.taskList, required this.lists, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class ListTileTest extends StatelessWidget {
                 task.maturityDate.day == now.day && 
                 task.done == true)
             .toList()
-            .length.toDouble() / tasks!
+            .length.toDouble() / tasks
             .where((task) =>
                 task.maturityDate.year == now.year &&
                 task.maturityDate.month == now.month &&
@@ -60,12 +59,12 @@ class ListTileTest extends StatelessWidget {
             .length.toDouble();
       }
       else if (taskList.description == "Alle ToDos") {
-        progress = tasks!.where((task) => task.done == true).toList().length.toDouble() / tasks!.toList().length.toDouble();
+        progress = tasks!.where((task) => task.done == true).toList().length.toDouble() / tasks.toList().length.toDouble();
         } else {
         progress = tasks!
             .where((task) => task.list == taskList.description && task.done == true)
             .toList()
-            .length.toDouble() / tasks!
+            .length.toDouble() / tasks
             .where((task) => task.list == taskList.description)
             .toList()
             .length.toDouble();
@@ -77,13 +76,13 @@ class ListTileTest extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 10,
-        color: AppColors.myCheckITDarkGrey,
-        surfaceTintColor: AppColors.myCheckITDarkGrey,
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+        color: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? const Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
+        surfaceTintColor: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? const Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
+        margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: SizedBox(
           height: 30,
           width: 30,
@@ -101,33 +100,34 @@ class ListTileTest extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: ((context) => ListOfTasksPage(
-                                  tasks: filteredTasks, taskList: taskList))));
+                                  tasks: filteredTasks, taskList: taskList, lists: lists))));
                     } else {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: ((context) => ListOfTasksPage(
-                                  tasks: tasks!, taskList: taskList))));
+                                  tasks: tasks!, taskList: taskList, lists: lists,))));
                     }
                   },
-                  contentPadding: EdgeInsets.all(8.0),
+                  contentPadding: const EdgeInsets.all(8.0),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         taskList.icon,
-                        color: AppColors.myCheckItGreen,
+                        color: taskList.iconColor,
                         size: 48.0,
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Text(
                         taskList.description,
                         style: standardHeadlineDecoration,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 15.0),
-                      taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList))
+
+                      const SizedBox(height: 5.0),
+                      taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? const SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList), progressColor: taskList.iconColor,)
                     ],
                   ),
                 ),

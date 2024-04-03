@@ -4,6 +4,7 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/textfields.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key, this.toggleView});
@@ -200,8 +201,22 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
 
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 15),
 
+                        //google log in Button
+                        SignInButton(
+                          Buttons.google,
+                          onPressed: () async {
+                            _auth.signInWithGoogleWeb();
+                            
+                          },
+                          text: "Einloggen mit Google",
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+
+                        const SizedBox(height: 15),
                         //Registrierung
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
