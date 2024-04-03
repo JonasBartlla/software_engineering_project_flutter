@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
@@ -19,10 +22,95 @@ import 'package:software_engineering_project_flutter/pages/home/additional_pages
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/datenschutz.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/impressum.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  final User user;
+  final DatabaseService database;
+  const Home({required this.user, required this.database, super.key});
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+  Future<void> _getToken(DatabaseService _database, String uid) async {
+    // Request permission
+    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission();
+    print(settings.authorizationStatus);
+    // Get token
+    if (settings.authorizationStatus == AuthorizationStatus.authorized){
+      int counter = 0;
+      while(counter < 5){
+        try{
+          String? token = await FirebaseMessaging.instance.getToken(vapidKey: 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
+          print(token);
+          await _database.updateToken(uid, token);
+          print('update done');
+          break;
+        }catch (e){
+          print(e.toString());
+          counter = counter + 1;
+        }
+      }
+
+    }else{
+      _database.updateToken(uid, '');
+    }
+  }
+
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
-  final DatabaseService dummyDatabase = DatabaseService();
+  late DatabaseService _database;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  late User user;
+
+  Future<void> setupMessage()async{
+    RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage(); //wenn die App von einem TerminiertenZustand über eine Notification geöffnet wird, wird dies übergeben
+    if(message != null){
+      handleNavigation(message);
+    }
+    FirebaseMessaging.onMessageOpenedApp.listen(handleNavigation);
+  }
+
+  void handleNavigation(RemoteMessage message){
+    if(message.data['type']=='chat'){
+      Navigator.pushNamed(context, '/createList');
+    }
+  }
+
+
+  @override
+  void initState(){
+    user = widget.user;
+    _database = widget.database;
+    _getToken(_database, user.uid);
+    setupMessage();
+    FirebaseMessaging.onMessage.listen((event) {
+      if(event.notification == null) return;
+      print(event.data['type']);
+      Navigator.pushNamed(context, '/createList');
+      // showDialog(context: context, 
+      //   builder: (context){
+      //     return Material(
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         children: [
+      //           Container(width: 200,height: 200,
+      //           color: Colors.white,
+      //           child: Column(
+      //             children: [
+      //               Text(event.notification?.title??''),
+      //               SizedBox(height: 8),
+      //               Text(event.notification?.body??'')
+      //             ],
+      //           ),
+      //           )
+      //         ],
+      //       ),
+      //     );
+      //   } 
+        // );
+    });
+    print('dun');
+  }
 
   @override
   Widget build(BuildContext context) {

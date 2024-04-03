@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/firebase_options.dart';
@@ -14,9 +15,10 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 
 
 void main() async {
-  await Firebase.initializeApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  final abc =await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(CheckIT());
 }
 
@@ -32,7 +34,7 @@ class CheckIT extends StatelessWidget{
           routes: {
             '/': (context) => Wrapper(),
             // '/create':(context) => const CreateToDo(),
-            // '/createList':(context) => const CreateListPage(),
+            '/createList':(context) => const CreateListPage(),
             '/home':(context) =>  Home(),
           },
         ),
