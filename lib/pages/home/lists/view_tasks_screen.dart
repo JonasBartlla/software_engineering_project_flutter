@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
-import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_tasks_widget.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
-import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
@@ -18,8 +16,9 @@ class ListOfTasksPage extends StatefulWidget {
   // final String list;
   // final IconData icon;
   final TaskList taskList;
+  final List<TaskList> lists;
   const ListOfTasksPage(
-      {required this.tasks, required this.taskList, super.key});
+      {required this.tasks, required this.taskList, required this.lists, super.key});
 
   @override
   State<ListOfTasksPage> createState() => _ListOfTaskPageState();
@@ -38,7 +37,6 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    late List<Task> tasks = widget.tasks;
     late TaskList taskList = widget.taskList;
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
@@ -90,6 +88,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             Expanded(
                 child: ListOfTasks(
               listDescription: widget.taskList.description,
+              lists: widget.lists,
             )),
             const SizedBox(
               height: 5,
@@ -97,7 +96,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                getEditButton(taskList, context),
+                getEditButton(taskList, _database, context),
                 const SizedBox(
                   width: 25,
                 ),

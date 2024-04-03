@@ -9,8 +9,9 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 
 class ListTileTest extends StatelessWidget {
   final TaskList taskList;
+  final List<TaskList> lists;
 
-  const ListTileTest({required this.taskList, super.key});
+  const ListTileTest({required this.taskList, required this.lists, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +100,13 @@ class ListTileTest extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: ((context) => ListOfTasksPage(
-                                  tasks: filteredTasks, taskList: taskList))));
+                                  tasks: filteredTasks, taskList: taskList, lists: lists))));
                     } else {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: ((context) => ListOfTasksPage(
-                                  tasks: tasks!, taskList: taskList))));
+                                  tasks: tasks!, taskList: taskList, lists: lists,))));
                     }
                   },
                   contentPadding: const EdgeInsets.all(8.0),

@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/custom_user.dart';
@@ -37,12 +38,13 @@ class AuthService{
       DatabaseService _database = DatabaseService(uid: user!.uid);
       await _database.updateUserDate(user.uid, displayName, user.email);
       await _database.initializeCollection();
+
       print('created record');
       
       return user;
     } catch (e) {
       print(e.toString());
-      return null;
+      return e.toString();
     }
   }
 
@@ -72,7 +74,8 @@ class AuthService{
   User? user = userCredential.user;
   //create a new document for the user with the uid
   DatabaseService _database = DatabaseService(uid: user!.uid);
-  if(_database.userCollection.where('uid', isEqualTo: user.uid).count() == 0){
+  AggregateQuerySnapshot aggregatedQuery = await _database.userCollection.where('uid', isEqualTo: user.uid).count().get();
+  if( aggregatedQuery.count == 0){
     _database.initializeCollection();
     _database.updateUserDate(user.uid, user.displayName, user.email);
   }else{

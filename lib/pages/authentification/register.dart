@@ -254,10 +254,15 @@ class _RegisterState extends State<Register> {
                               });
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
-                                      email, password, displayName);
-                              if (result == null) {
+                                      email, password);
+                              if (result == '[firebase_auth/email-already-in-use] The email address is already in use by another account.') { // FirebaseAuthUserCollisionException
                                 setState(() {
-                                  error = 'Bitte eine gültige E-Mail eingeben';
+                                  error = 'Zu dieser E-Mail existiert bereits ein Account. Bitte verwende diesen.';
+                                  loading = false;
+                                });
+                              }else { //FirebaseAuthInvalidCredentialsException
+                                setState(() {
+                                  error = 'Während der Anmeldung ist ein Fehler aufgetreten. Bitte wende dich an den Support.'; 
                                   loading = false;
                                 });
                               }
@@ -286,9 +291,11 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 25),
-
+                        SizedBox(height: 10.0),
+                        Text(error,
+                        style: TextStyle(color: AppColors.myDeleteColor),
+                        ),
+                        SizedBox(height: 5.0),
                         //hier einloggen
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,

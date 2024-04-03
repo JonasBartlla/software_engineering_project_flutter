@@ -1,21 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_tile.dart';
+import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
-import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_tasks_widget.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
-import 'package:software_engineering_project_flutter/shared/navbar.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
 import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/agbs.dart';
@@ -26,7 +23,6 @@ class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService dummyDatabase = DatabaseService();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  bool switchIndicator = false;
 
   @override
   Widget build(BuildContext context) {
@@ -175,16 +171,21 @@ class Home extends StatelessWidget {
                   child: ListOfTaskLists(),
                 ),
                 const SizedBox(height: 5,),
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        await Navigator.pushNamed(context, '/createList');
+                        await _database.getAvailableListForUser(addInitialLists: true).then((value){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: ((context) => CreateListPage(existingLists: value
+                                  ))));
+                        }
+                        );
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(1),
+                        padding: const EdgeInsets.all(1),
                         backgroundColor: AppColors.myAbbrechenColor,
                         surfaceTintColor: AppColors.myAbbrechenColor,
                         elevation: 10,
@@ -216,7 +217,7 @@ class Home extends StatelessWidget {
                           borderRadius: BorderRadius.circular(
                               12.0),
                         ),
-                        fixedSize: Size(250.0, 70.0),
+                        fixedSize: const Size(250.0, 70.0),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -250,7 +251,7 @@ class Home extends StatelessWidget {
                           borderRadius: BorderRadius.circular(
                               12.0),
                         ),
-                        fixedSize: Size(70.0, 70.0),
+                        fixedSize: const Size(70.0, 70.0),
                       ),
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -266,13 +267,12 @@ class Home extends StatelessWidget {
                   ],
                 ),
 
-                //MyBottomNavigationBar(),
               ],
             ),
           ),
         ),
       ),
     );
-    };
+    }
   }
 }
