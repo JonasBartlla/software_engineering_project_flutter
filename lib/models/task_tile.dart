@@ -36,9 +36,12 @@ class _TaskTileState extends State<TaskTile> {
   Widget build(BuildContext context) {
     final User? user = Provider.of<User?>(context);
     final DatabaseService _database = DatabaseService(uid: user?.uid);
-    TaskList taskListElement = widget.lists
-        .where((taskList) => taskList.description == widget.task.list)
-        .first;
+    TaskList? taskListElement;
+    if (widget.task.list != "keine Liste") {
+      taskListElement = widget.lists
+          .where((taskList) => taskList.description == widget.task.list)
+          .first;
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
@@ -110,25 +113,24 @@ class _TaskTileState extends State<TaskTile> {
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Wrap(
-                    runSpacing: 5,
-                    children: [
-
-                      //Liste
-                      widget.listDescription == "Mein Tag" ||
-                              widget.listDescription == "Alle ToDos" ||
-                              widget.listDescription == "Erledigte ToDos"
-                          ? Row(
+                child: Wrap(runSpacing: 5, children: [
+                  //Liste
+                  widget.listDescription == "Mein Tag" ||
+                          widget.listDescription == "Alle ToDos" ||
+                          widget.listDescription == "Erledigte ToDos"
+                      ? widget.task.list == "keine Liste"
+                          ? const Text('')
+                          : Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(
-                                  taskListElement.icon,
+                                  taskListElement!.icon,
                                   color: widget.done == false
-                                      ? taskListElement.iconColor
+                                      ? taskListElement!.iconColor
                                       : Colors.grey,
                                 ),
                                 const SizedBox(
-                                  width: 5,
+                                  width: 3,
                                 ),
                                 Text(widget.task.list),
                                 const SizedBox(
@@ -136,106 +138,108 @@ class _TaskTileState extends State<TaskTile> {
                                 )
                               ],
                             )
-                          : const Text(''),
+                      : const Text(''),
 
-                      //Priorität
-                      _database.getPriority(widget.task.priority) ==
-                              'keine Priorität'
-                          ? const Text('')
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.arrow_upward,
-                                    color: widget.task.done
-                                        ? Colors.grey
-                                        : AppColors.myTextColor),
-                                Text(
-                                    _database.getPriority(widget.task.priority),
-                                    style: TextStyle(
-                                      color: widget.task.done
-                                          ? Colors.grey
-                                          : AppColors.myTextColor,
-                                      decoration: widget.task.done
-                                          ? TextDecoration.lineThrough
-                                          : null,
-                                    )),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                              ],
-                            ),
-
-                      //Datum und Uhrzeit
-                      widget.task.maturityDate ==
-                              DateTime.fromMillisecondsSinceEpoch(0)
-                          ? const Text('')
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.calendar_month_rounded,
-                                  color: widget.task.done
-                                      ? Colors.grey
-                                      : isToday(widget.task.maturityDate)
-                                          ? AppColors.myDeleteColor
-                                          : AppColors.myTextColor,
-                                ),
-                                Text(
-                                  '${DateFormat('dd.MM.yyyy').format(widget.task.maturityDate)}, ${widget.task.maturityDate.hour.toString().padLeft(2, '0')}:${widget.task.maturityDate.minute.toString().padLeft(2, '0')}',
-                                  style: TextStyle(
-                                    color: widget.task.done
-                                        ? Colors.grey
-                                        : isToday(widget.task.maturityDate)
-                                            ? AppColors.myDeleteColor
-                                            : AppColors.myTextColor,
-                                    decoration: widget.task.done
-                                        ? TextDecoration.lineThrough
-                                        : null,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                              ],
-                            ),
-
-                      //Notiz
-                      widget.task.note == ''
-                          ? const Text('')
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.list_alt_rounded,
+                  //Priorität
+                  _database.getPriority(widget.task.priority) ==
+                          'keine Priorität'
+                      ? const Text('')
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.arrow_upward,
+                                color: widget.task.done
+                                    ? Colors.grey
+                                    : AppColors.myTextColor),
+                            const SizedBox(width: 3,),
+                            Text(_database.getPriority(widget.task.priority),
+                                style: TextStyle(
                                   color: widget.task.done
                                       ? Colors.grey
                                       : AppColors.myTextColor,
-                                ),
-                                Text('Notiz',
-                                    style: TextStyle(
-                                      color: widget.task.done
-                                          ? Colors.grey
-                                          : AppColors.myTextColor,
-                                      decoration: widget.task.done
-                                          ? TextDecoration.lineThrough
-                                          : null,
-                                    )),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                              ],
+                                  decoration: widget.task.done
+                                      ? TextDecoration.lineThrough
+                                      : null,
+                                )),
+                            const SizedBox(
+                              width: 5,
                             ),
+                          ],
+                        ),
 
-                      //Benachrichtigung
-                      widget.task.notificationOn == true
-                          ? Icon(
-                              Icons.notifications_on,
+                  //Datum und Uhrzeit
+                  widget.task.maturityDate ==
+                          DateTime.fromMillisecondsSinceEpoch(0)
+                      ? const Text('')
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.calendar_month_rounded,
+                              color: widget.task.done
+                                  ? Colors.grey
+                                  : isToday(widget.task.maturityDate)
+                                      ? AppColors.myDeleteColor
+                                      : AppColors.myTextColor,
+                            ),
+                            const SizedBox(width: 3,),
+                            Text(
+                              '${DateFormat('dd.MM.yyyy').format(widget.task.maturityDate)}, ${widget.task.maturityDate.hour.toString().padLeft(2, '0')}:${widget.task.maturityDate.minute.toString().padLeft(2, '0')}',
+                              style: TextStyle(
+                                color: widget.task.done
+                                    ? Colors.grey
+                                    : isToday(widget.task.maturityDate)
+                                        ? AppColors.myDeleteColor
+                                        : AppColors.myTextColor,
+                                decoration: widget.task.done
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                          ],
+                        ),
+
+                  //Notiz
+                  widget.task.note == ''
+                      ? const Text('')
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.list_alt_rounded,
                               color: widget.task.done
                                   ? Colors.grey
                                   : AppColors.myTextColor,
-                            )
-                          : const Text(''),
-                    ]),
+                            ),
+                            const SizedBox(width: 3,),
+                            Text('Notiz',
+                                style: TextStyle(
+                                  color: widget.task.done
+                                      ? Colors.grey
+                                      : AppColors.myTextColor,
+                                  decoration: widget.task.done
+                                      ? TextDecoration.lineThrough
+                                      : null,
+                                )),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                          ],
+                        ),
+
+                  //Benachrichtigung
+                  widget.task.notificationOn == true
+                      ? Icon(
+                          Icons.notifications_on,
+                          color: widget.task.done
+                              ? Colors.grey
+                              : AppColors.myTextColor,
+                        )
+                      : const Text(''),
+                ]),
               ),
               trailing: const Icon(
                 Icons.arrow_forward_ios_rounded,

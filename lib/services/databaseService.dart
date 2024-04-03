@@ -24,12 +24,13 @@ class DatabaseService{
 
 
 
-  Future updateUserDate(String uid, String? displayName, String? email) async {
+  Future updateUserDate(String uid, String? displayName, String? email, String? imageUrl) async {
     return await userCollection.doc(uid).set(
       {
         'uid': uid,
         'displayName': displayName,
         'email': email,
+        'profileUrl': imageUrl
       }
     );
   }
@@ -44,7 +45,7 @@ class DatabaseService{
 
   List<appUser> _appUserFromSnapshot (QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
-      return appUser(uid: doc.get('uid'), displayName: doc.get('displayName'), email: doc.get('email'));
+      return appUser(uid: doc.get('uid'), displayName: doc.get('displayName'), email: doc.get('email'), imageUrl: doc.get('profileUrl'));
     } ).toList();
   }
 
