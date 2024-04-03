@@ -41,16 +41,20 @@ Widget getDeleteButton(DatabaseService _database, TaskList taskList, context){
   }
 }
 
-Widget getEditButton(TaskList taskList, context){
+Widget getEditButton(TaskList taskList, DatabaseService _database, context){
   if (taskList.isEditable){
     return  ElevatedButton(
       onPressed: () {
+        _database.getAvailableListForUser(addInitialLists: true).then((value){
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: ((context) => EditListPage(
-                      taskList: taskList,
+                    existingLists: value,
+                    taskList: taskList,
                     ))));
+        }
+        );
       },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(1),

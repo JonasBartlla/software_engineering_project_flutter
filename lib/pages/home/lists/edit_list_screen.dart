@@ -10,8 +10,10 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 class EditListPage extends StatefulWidget {
+
+  final List<String> existingLists;
   final TaskList taskList;
-  const EditListPage({required this.taskList, super.key});
+  const EditListPage({required this.existingLists, required this.taskList, super.key});
 
   @override
   State<EditListPage> createState() => _EditListPageState();
@@ -58,7 +60,7 @@ class _EditListPageState extends State<EditListPage> {
                 Center(
                   child: Container(
                     width: 460,
-                    height: 275,
+                    height: 280,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -101,7 +103,9 @@ class _EditListPageState extends State<EditListPage> {
                                       return 'Bitte eine Bezeichnung eingeben';
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
-                                    } else {
+                                    } else if(widget.existingLists.contains(value)){
+                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie eine andere Bezeichnung';
+                                    }else {
                                       return null;
                                     }
                                   },

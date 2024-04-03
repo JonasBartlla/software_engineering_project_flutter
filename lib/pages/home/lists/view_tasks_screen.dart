@@ -96,7 +96,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                getEditButton(taskList, context),
+                getEditButton(taskList, _database, context),
                 const SizedBox(
                   width: 25,
                 ),
