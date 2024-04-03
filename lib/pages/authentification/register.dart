@@ -254,7 +254,7 @@ class _RegisterState extends State<Register> {
                               });
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
-                                      email, password);
+                                      email, password, displayName);
                               if (result == '[firebase_auth/email-already-in-use] The email address is already in use by another account.') { // FirebaseAuthUserCollisionException
                                 setState(() {
                                   error = 'Zu dieser E-Mail existiert bereits ein Account. Bitte verwende diesen.';
