@@ -14,7 +14,11 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
-import 'package:software_engineering_project_flutter/pages/home/main_screens/additional_pages.dart';
+import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
+import 'package:software_engineering_project_flutter/pages/home/additional_pages/agbs.dart';
+import 'package:software_engineering_project_flutter/pages/home/additional_pages/datenschutz.dart';
+import 'package:software_engineering_project_flutter/pages/home/additional_pages/impressum.dart';
+
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService dummyDatabase = DatabaseService();
@@ -121,21 +125,21 @@ class Home extends StatelessWidget {
                 title: Text('Datenschutz', style: standardTextDecoration),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                      MaterialPageRoute(builder: ((context) => Datenschutz())));
                 },
               ),
               ListTile(
                 title: Text('AGBs', style: standardTextDecoration),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                      MaterialPageRoute(builder: ((context) => Agbs())));
                 },
               ),
               ListTile(
                 title: Text('Impressum', style: standardTextDecoration),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => AdditionalPages())));
+                      MaterialPageRoute(builder: ((context) => Impressum())));
                 },
               ),
               ListTile(
