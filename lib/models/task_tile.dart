@@ -130,7 +130,7 @@ class _TaskTileState extends State<TaskTile> {
                                       : Colors.grey,
                                 ),
                                 const SizedBox(
-                                  width: 5,
+                                  width: 3,
                                 ),
                                 Text(widget.task.list),
                                 const SizedBox(
@@ -151,6 +151,7 @@ class _TaskTileState extends State<TaskTile> {
                                 color: widget.task.done
                                     ? Colors.grey
                                     : AppColors.myTextColor),
+                            const SizedBox(width: 3,),
                             Text(_database.getPriority(widget.task.priority),
                                 style: TextStyle(
                                   color: widget.task.done
@@ -181,6 +182,7 @@ class _TaskTileState extends State<TaskTile> {
                                       ? AppColors.myDeleteColor
                                       : AppColors.myTextColor,
                             ),
+                            const SizedBox(width: 3,),
                             Text(
                               '${DateFormat('dd.MM.yyyy').format(widget.task.maturityDate)}, ${widget.task.maturityDate.hour.toString().padLeft(2, '0')}:${widget.task.maturityDate.minute.toString().padLeft(2, '0')}',
                               style: TextStyle(
@@ -212,6 +214,7 @@ class _TaskTileState extends State<TaskTile> {
                                   ? Colors.grey
                                   : AppColors.myTextColor,
                             ),
+                            const SizedBox(width: 3,),
                             Text('Notiz',
                                 style: TextStyle(
                                   color: widget.task.done
