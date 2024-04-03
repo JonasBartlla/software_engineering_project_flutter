@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:software_engineering_project_flutter/shared/confirm_delete_pop_up.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -379,9 +380,8 @@ class _EditTodoState extends State<EditTodo> {
                                 child: TextButton(
                                   style: buttonStyleDecorationDelete,
                                   onPressed: () async {
-                                    await _database
-                                        .deleteTask(task.taskReference);
-                                    Navigator.pop(context);
+                                    await showDeleteTaskConfirmationDialog(task, _database, context);
+                                    // Navigator.pop(context);
                                   },
                                   child: const Text(
                                     'Löschen',
