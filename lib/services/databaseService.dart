@@ -107,7 +107,7 @@ class DatabaseService{
     return await list.delete();
   }
 
-  Future<List<String>> getAvailableListForUser() async {
+  Future<List<String>> getAvailableListForUser({bool addInitialLists = false}) async {
     QuerySnapshot snapshot = await listCollection.where('ownerId',isEqualTo: uid).get(); //Filter all list of user
     List<String> lists = snapshot.docs.where((list){ //filter all editableList of user
       return list.get('isEditable') == true;
@@ -116,6 +116,11 @@ class DatabaseService{
       return e.get('description') as String;
     }).toList();
     lists.add('keine Liste');
+    if(addInitialLists){
+      lists.add('Mein Tag');
+      lists.add('Alle ToDos');
+      lists.add('Erledigte ToDos');
+    }
     return lists;
   }
 

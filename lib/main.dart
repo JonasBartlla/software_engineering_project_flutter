@@ -35,7 +35,7 @@ class CheckIT extends StatelessWidget{
             '/': (context) => Wrapper(),
             // '/create':(context) => const CreateToDo(),
             '/createList':(context) => const CreateListPage(),
-            // '/home':(context) =>  Home(),
+            '/home':(context) =>  Home(),
           },
         ),
     );
