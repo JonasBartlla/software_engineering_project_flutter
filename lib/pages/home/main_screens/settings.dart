@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:js';
+import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +9,9 @@ import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:software_engineering_project_flutter/shared/image_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
+import 'package:software_engineering_project_flutter/services/upload_image.dart';
 
 class MySettings extends StatefulWidget {
   final appUser currentUser;
@@ -22,23 +24,29 @@ class MySettings extends StatefulWidget {
 }
 
 class _MySettingsState extends State<MySettings> {
-  File? _image;
+  Uint8List? _image;
   late appUser currentUser;
   late DatabaseService _databaseService;
   late String changedDisplayName;
+  final StoreData imageStorage = StoreData();
   final _formKey = GlobalKey<FormState>();
 
-
-
-  Future _getImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
+    void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+          _image = img;
+    });
   }
+
+  // Future _getImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _image = File(pickedFile.path);
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
@@ -81,21 +89,33 @@ class _MySettingsState extends State<MySettings> {
             children: [
               const SizedBox(height: 80),
               //Bild
-              Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.myTextColor,
-                ),
-                child: const Icon(
-                  Icons.person,
-                  size: 150,
-                  color: AppColors.myAbbrechenColor,
-                ),
+              Stack(
+                children: [
+                  _image != null ? 
+                  CircleAvatar(
+                    radius: 64,
+                    backgroundImage: MemoryImage(_image!),
+                  )
+                  : CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(currentUser.imageUrl),
+                  ),
+                  Positioned(
+                    child: IconButton(
+                      onPressed: selectImage,
+                      icon: Icon(Icons.add_a_photo, color: AppColors.myCheckItGreen,),
+                    ),
+                    bottom: -10,
+                    left: 90,
+                    )
+                ],
               ),
               const SizedBox(height: 20),
-              // Benutzername
+              // Container(
+              //   height: 100,
+              //   width: 100,
+              //   child: Image.network(currentUser.imageUrl)),
+              // // Benutzername
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -129,7 +149,8 @@ class _MySettingsState extends State<MySettings> {
                     onPressed: ()async{
                       if (_formKey.currentState!.validate()) {
                         print("${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
-                        await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email);
+                        String imageUrl = await imageStorage.uploadImageToStorage(currentUser.email, _image!);
+                        await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email, imageUrl);
                         print('updated');
                       }else{
                         print('unable to update');
@@ -145,7 +166,7 @@ class _MySettingsState extends State<MySettings> {
               ),
               const SizedBox(height: 14),
         
-              ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
+              //ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
               Center(
                 // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
               ),
