@@ -3,6 +3,7 @@ import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:software_engineering_project_flutter/shared/confirm_delete_pop_up.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:flutter/material.dart';                        
                             
@@ -11,8 +12,9 @@ Widget getDeleteButton(DatabaseService _database, TaskList taskList, context){
     print('true');
     return ElevatedButton(
       onPressed: () async {
-        _database.deleteList(taskList.listReference, taskList.description);
-        Navigator.pop(context);
+        showDeleteListConfirmationDialog(taskList, _database, context);
+        // _database.deleteList(taskList.listReference, taskList.description);
+        // Navigator.pop(context);
       },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(1),
@@ -41,16 +43,20 @@ Widget getDeleteButton(DatabaseService _database, TaskList taskList, context){
   }
 }
 
-Widget getEditButton(TaskList taskList, context){
+Widget getEditButton(TaskList taskList, DatabaseService _database, context){
   if (taskList.isEditable){
     return  ElevatedButton(
       onPressed: () {
+        _database.getAvailableListForUser(addInitialLists: true).then((value){
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: ((context) => EditListPage(
-                      taskList: taskList,
+                    existingLists: value,
+                    taskList: taskList,
                     ))));
+        }
+        );
       },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(1),

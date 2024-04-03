@@ -217,6 +217,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.8.1"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      sha256: fd3ae8fd4e1687cac1f5fd788c7f8e69bb1bbb2e3947cdc4c46f304e19ed2f07
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.7.21"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      sha256: df3c04f31f365cc78052c65678d3b437bfc644b29f63f9e533ba459a6606143a
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.29"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      sha256: b60252e4b77a66f3466190d2679b7144218199442c00e6ced45c2963484e9db0
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.7.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -256,6 +280,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: transitive
+    description:
+      name: font_awesome_flutter
+      sha256: "275ff26905134bcb59417cf60ad979136f1f8257f2f449914b2c3e05bbb4cd6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.7.0"
   google_identity_services_web:
     dependency: transitive
     description:
@@ -284,10 +316,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_ios
-      sha256: a7d653803468d30b82ceb47ea00fe86d23c56e63eb2e5c2248bb68e9df203217
+      sha256: "1e0d4fde6cc07a8ff423f6bc931e83a74163d6af702004bacaee752649fdd2e7"
       url: "https://pub.dev"
     source: hosted
-    version: "5.7.4"
+    version: "5.7.5"
   google_sign_in_platform_interface:
     dependency: transitive
     description:
@@ -608,6 +640,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  sign_in_button:
+    dependency: "direct main"
+    description:
+      name: sign_in_button
+      sha256: "977b9b0415d2f3909e642275dfabba7919ba8e111324641b76cae6d1acbd183e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   sky_engine:
     dependency: transitive
     description: flutter
