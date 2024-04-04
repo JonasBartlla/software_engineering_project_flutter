@@ -1,16 +1,20 @@
 import 'dart:html';
-import 'package:software_engineering_project_flutter/models/appUser.dart';
-import 'package:software_engineering_project_flutter/models/customUser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/models/app_user.dart';
+import 'package:software_engineering_project_flutter/models/custom_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+
 
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   
   //create user obj based on firebaseUSer
-
   CustomUser _userFromFirebaseUser(UserCredential userCredential){
     final user = userCredential.user;
     if (user != null) {
@@ -28,19 +32,21 @@ class AuthService{
   }
 
   // register with email & password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password, String displayName) async {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-
       //create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserDate(user.uid, user.email);
+      DatabaseService _database = DatabaseService(uid: user!.uid);
+      await _database.updateUserDate(user.uid, displayName, user.email, 'https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc=');
+      await _database.initializeCollection();
+
       print('created record');
       
       return user;
     } catch (e) {
       print(e.toString());
-      return null;
+      return e.toString();
     }
   }
 
@@ -56,6 +62,33 @@ class AuthService{
     }
   }
 
+  Future<User> signInWithGoogleWeb() async {
+  // Create a new provider
+  GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+  // googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  googleProvider.setCustomParameters({
+    'login_hint': 'user@example.com'
+  });
+
+  // Once signed in, return the UserCredential
+  UserCredential userCredential = await FirebaseAuth.instance.signInWithPopup(googleProvider);
+  User? user = userCredential.user;
+  //create a new document for the user with the uid
+  DatabaseService _database = DatabaseService(uid: user!.uid);
+  AggregateQuerySnapshot aggregatedQuery = await _database.userCollection.where('uid', isEqualTo: user.uid).count().get();
+  if( aggregatedQuery.count == 0){
+    _database.initializeCollection();
+    _database.updateUserDate(user.uid, user.displayName, user.email, 'https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc=');
+  }else{
+    print('user already exists');
+  }
+  return user;
+  
+  
+}
+
+
   // Methode zum ausloggen
   Future signOut() async {
     try{
@@ -65,5 +98,4 @@ class AuthService{
       return null;
     }
   }
-  
 }
