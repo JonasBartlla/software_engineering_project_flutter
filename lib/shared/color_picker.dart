@@ -9,6 +9,20 @@ class ColorPickerDialog extends StatelessWidget {
   
   ColorPickerDialog({required this.onColorSelected, super.key});
 
+    final List<Color> _availableColors = [
+    Colors.white,
+    Colors.black,
+    AppColors.myDeleteColor,
+    const Color.fromRGBO(245, 137, 102, 1),
+    const Color.fromRGBO(232, 181, 51, 1),
+    AppColors.myCheckItGreen,
+    const Color.fromRGBO(73, 123, 68, 1),
+    const Color.fromRGBO(67, 174, 208, 1),
+    const Color.fromRGBO(67, 100, 220, 1),
+    const Color.fromRGBO(194, 97, 228, 1),
+    const Color.fromRGBO(252, 134, 219, 1),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
@@ -19,6 +33,7 @@ class ColorPickerDialog extends StatelessWidget {
         Column(
           children: [
             Wrap(
+              alignment: WrapAlignment.center,
               spacing: 8,
               runSpacing: 8,
               children: _buildColorButtons(context),
@@ -52,18 +67,4 @@ class ColorPickerDialog extends StatelessWidget {
       )
     ];
   }
-
-  final List<Color> _availableColors = [
-    Colors.black,
-    Colors.yellow,
-    Colors.green,
-    AppColors.myDeleteColor,
-    Colors.blue,
-    Colors.purple,
-    Colors.white,
-    Colors.orange,
-    Colors.pink,
-    Colors.cyan
-
-  ];
 }
