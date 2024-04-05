@@ -99,6 +99,14 @@ var standardHeadlineDecoration = const TextStyle(
     fontWeight: FontWeight.bold,
     height: 1);
 
+var standardTileDecoration = const TextStyle(
+    color: AppColors.myTextColor,
+    fontFamily: 'Comfortaa',
+    fontSize: 16,
+    letterSpacing: 1,
+    fontWeight: FontWeight.bold,
+    height: 1);
+
 var standardAppBarTextDecoration = const TextStyle(
     color: AppColors.myTextColor,
     fontFamily: 'Comfortaa',

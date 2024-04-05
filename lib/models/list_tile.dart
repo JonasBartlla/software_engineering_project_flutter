@@ -76,13 +76,13 @@ class ListTileTest extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 5.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 10,
         color: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? const Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
         surfaceTintColor: taskList.description == "Mein Tag" ? AppColors.myDeleteColor : taskList.description == "Alle ToDos" ? const Color.fromRGBO(88, 107, 164, 1) : taskList.description == "Erledigte ToDos" ? AppColors.myCheckItGreen : AppColors.myCheckITDarkGrey,
-        margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+        margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
         child: SizedBox(
           height: 30,
           width: 30,
@@ -109,7 +109,7 @@ class ListTileTest extends StatelessWidget {
                                   tasks: tasks!, taskList: taskList, lists: lists,))));
                     }
                   },
-                  contentPadding: const EdgeInsets.all(8.0),
+                  contentPadding: const EdgeInsets.all(0.0),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -119,14 +119,12 @@ class ListTileTest extends StatelessWidget {
                         color: taskList.iconColor,
                         size: 48.0,
                       ),
-                      const SizedBox(height: 8.0),
+                      const SizedBox(height: 2.0),
                       Text(
                         taskList.description,
                         style: standardHeadlineDecoration,
                         textAlign: TextAlign.center,
                       ),
-
-                      const SizedBox(height: 5.0),
                       taskList.description == "Erledigte ToDos" || getProgressPercent(taskList) == 2? const SizedBox(): CheckITPercentIndicator(progressPercent: getProgressPercent(taskList), progressColor: taskList.iconColor,)
                     ],
                   ),
