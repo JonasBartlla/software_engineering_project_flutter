@@ -149,7 +149,10 @@ class _MySettingsState extends State<MySettings> {
                     onPressed: ()async{
                       if (_formKey.currentState!.validate()) {
                         print("${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
-                        String imageUrl = await imageStorage.uploadImageToStorage(currentUser.email, _image!);
+                        String imageUrl = currentUser.imageUrl;
+                        if(_image != null){
+                          imageUrl = await imageStorage.uploadImageToStorage(currentUser.email, _image!);
+                        }
                         await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email, imageUrl);
                         print('updated');
                       }else{
