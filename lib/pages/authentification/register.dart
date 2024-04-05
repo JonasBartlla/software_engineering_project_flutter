@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
@@ -112,6 +113,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(20)
@@ -155,6 +157,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -191,6 +194,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -232,6 +236,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -298,11 +303,23 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         Text(error,
-                        style: TextStyle(color: AppColors.myDeleteColor),
+                        style: const TextStyle(color: AppColors.myDeleteColor),
                         ),
-                        SizedBox(height: 5.0),
+                        const SizedBox(height: 5,),
+                        //google log in Button
+                        SignInButton(
+                          Buttons.google,
+                          onPressed: () async {
+                            _auth.signInWithGoogleWeb();
+                          },
+                          text: "Registrieren mit Google",
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
                         //hier einloggen
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
