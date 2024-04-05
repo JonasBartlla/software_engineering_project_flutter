@@ -57,6 +57,7 @@ class IconPickerDialog extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextButton(
+              style: ButtonStyle(overlayColor: MaterialStateProperty.all(AppColors.myCheckITDarkGrey)),
               onPressed: () => Navigator.pop(context), 
               child: Text('Abbrechen', style: standardTextDecoration.copyWith(color: AppColors.myTextInputColor),),
               ),

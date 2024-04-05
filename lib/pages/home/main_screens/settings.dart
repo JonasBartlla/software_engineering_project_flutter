@@ -124,6 +124,7 @@ class _MySettingsState extends State<MySettings> {
                     child: SizedBox(
                       width: 300,
                       child: TextFormField(
+                        cursorColor: AppColors.myCheckItGreen,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(20)
                         ],
