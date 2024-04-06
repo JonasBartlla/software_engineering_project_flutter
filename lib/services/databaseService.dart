@@ -1,6 +1,9 @@
+import "dart:async";
+
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:flutter/widgets.dart";
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import "package:software_engineering_project_flutter/models/task_list.dart";
 import 'package:software_engineering_project_flutter/models/task.dart';
@@ -12,10 +15,12 @@ class DatabaseService{
   late final CollectionReference userCollection;
   late final CollectionReference listCollection;
   late final CollectionReference taskCollection;
+  late final CollectionReference notificationCollection;
   DatabaseService({this.uid}){
     userCollection = FirebaseFirestore.instance.collection('users');
     listCollection = FirebaseFirestore.instance.collection('lists');
     taskCollection = FirebaseFirestore.instance.collection('tasks');
+    notificationCollection = FirebaseFirestore.instance.collection('notification');
   }
 
   final priorityDict = {"keine Priorität" :0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
@@ -81,6 +86,8 @@ class DatabaseService{
     });
   }
 
+
+
   //editing List
   Future editList(String bezeichnung, IconData icon, Color iconColor, DocumentReference list, DateTime creationDate, bool isEditable, String ownerId) async {
     return await list.set({
@@ -127,8 +134,9 @@ class DatabaseService{
 
   //add Task
   Future addTask(String description, String note, DateTime maturityDate, int priority, List<DocumentReference>? lists, bool done, String list) async {
+
     //adding the Task
-    return  await taskCollection.add({
+    DocumentReference  task =await taskCollection.add({
       'description': description,
       'note': note,
       'creationDate': DateTime.now().millisecondsSinceEpoch,
@@ -138,9 +146,28 @@ class DatabaseService{
       'done': done,
       'list': list
     }); 
+
+    if(maturityDate.isAfter(DateTime.now())){
+      addNotification(uid!, task.id, maturityDate);
+    }
+    return task;
+  }
+
+  Future addNotification(String ownerId, String taskId, DateTime maturityDate, {bool messageSent = false}) async {
+    return await notificationCollection.add({
+      'ownerId' : ownerId,
+      'taskId': taskId,
+      'maturityDate': maturityDate.millisecondsSinceEpoch,
+      'messageSent':  messageSent
+    });
   }
 
   Future editTask(String description, String note, DateTime creationDate, DateTime maturityDate, int priority, String list, bool done, String ownerId, DocumentReference taskId) async {
+    if(maturityDate.isBefore(DateTime.now())){
+      deleteNotification(taskId.id);
+    }else{
+      updateNotification(taskId.id, maturityDate);
+    }
     return await taskId.set({
       'description': description,
       'note': note,
@@ -153,8 +180,32 @@ class DatabaseService{
     }); 
   }
 
+  Future<void> updateNotification(String taskId, DateTime maturityDate)async{
+    QuerySnapshot notificationDocument = await notificationCollection.where('taskId', isEqualTo: taskId).get();
+    print(notificationDocument.size);
+    if(notificationDocument.size == 0){
+      addNotification(uid!, taskId, maturityDate);
+    }else{
+      notificationDocument.docs.forEach((element) 
+      {
+        element.reference.update({'maturityDate': maturityDate.millisecondsSinceEpoch});
+      }
+      );
+    }
+    return;
+  }
+
+  Future<void> deleteNotification(String taskId)async{
+    QuerySnapshot notificationDocument = await notificationCollection.where('taskId', isEqualTo: taskId).get();
+    notificationDocument.docs.forEach((element) {
+      element.reference.delete();
+    });
+    return;
+  }
+
   // deletion of task
   Future deleteTask(DocumentReference task) async{
+    deleteNotification(task.id);
     return await task.delete();
   }
 
