@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/color_picker.dart';
@@ -41,8 +42,8 @@ class _CreateListPageState extends State<CreateListPage> {
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.myBackgroundColor,
-              size: 35),
+          icon: const Icon(Icons.arrow_back_ios_new,
+              color: AppColors.myBackgroundColor, size: 35),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
@@ -63,7 +64,7 @@ class _CreateListPageState extends State<CreateListPage> {
                 Center(
                   child: Container(
                     width: 360,
-                    height: 280,
+                    height: 290,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -79,22 +80,20 @@ class _CreateListPageState extends State<CreateListPage> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            const SizedBox(
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 40.0,
-                              ),
+                            const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 40.0,
                             ),
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 7),
                             PhysicalModel(
                               color: AppColors.myCheckITDarkGrey,
-                              //elevation: 8,
                               shadowColor: AppColors.myShadowColor,
                               child: SizedBox(
-                                width: 303,
+                                width: 300,
                                 //Bezeichnung eingeben
                                 child: TextFormField(
+                                  cursorColor: AppColors.myCheckItGreen,
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(16)
                                   ],
@@ -105,10 +104,10 @@ class _CreateListPageState extends State<CreateListPage> {
                                       return 'Bitte eine Bezeichnung eingeben';
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
-                                    } else if(widget.existingLists.contains(value)){
+                                    } else if (widget.existingLists
+                                        .contains(value)) {
                                       return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie eine andere Bezeichnung';
-                                    }
-                                    else {
+                                    } else {
                                       return null;
                                     }
                                   },
@@ -131,17 +130,19 @@ class _CreateListPageState extends State<CreateListPage> {
                               style: TextStyle(
                                   color: AppColors.myTextColor,
                                   fontFamily: 'Comfortaa',
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.normal,
                                   height: 1),
                             ),
                             const SizedBox(
-                              width: 10,
+                              width: 30,
                             ),
                             Center(
                               child: IconButton(
-                                style: buttonBoxDecoration,
+                                style: buttonBoxDecoration.copyWith(
+                                    fixedSize: MaterialStateProperty.all(
+                                        Size(100, 40))),
                                 color: AppColors.myBoxColor,
                                 icon: Icon(
                                   icon,
@@ -165,7 +166,7 @@ class _CreateListPageState extends State<CreateListPage> {
                             const SizedBox(height: 10),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(children: <Widget>[
                           const SizedBox(width: 8),
                           const Text(
@@ -173,19 +174,21 @@ class _CreateListPageState extends State<CreateListPage> {
                             style: TextStyle(
                                 color: AppColors.myTextColor,
                                 fontFamily: 'Comfortaa',
-                                fontSize: 18,
+                                fontSize: 16,
                                 letterSpacing: 1,
                                 fontWeight: FontWeight.normal,
                                 height: 1),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 17,
                           ),
                           Center(
                             child: TextButton(
                               style: buttonBoxDecoration.copyWith(
                                   backgroundColor:
-                                      MaterialStatePropertyAll(iconColor)),
+                                      MaterialStatePropertyAll(iconColor),
+                                  fixedSize:
+                                      MaterialStateProperty.all(Size(100, 40))),
                               child: const SizedBox(height: 10),
                               onPressed: () {
                                 showDialog(
@@ -202,59 +205,67 @@ class _CreateListPageState extends State<CreateListPage> {
                             ),
                           ),
                         ]),
-                        const SizedBox(height: 45),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              //Abbrechen Button
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Abbrechen',
-                                    style: TextStyle(
-                                        color: AppColors.myTextColor,
-                                        fontFamily: 'Comfortaa',
-                                        fontSize: 14,
-                                        letterSpacing: 1,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1)),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                            SizedBox(
-                              //Erstellen Button
-                              child: ElevatedButton(
-                                style: buttonStyleDecorationcolorchange,
-                                child: const Text(
-                                  'Erstellen',
-                                  style: TextStyle(
-                                      color: AppColors.myTextColor,
-                                      fontFamily: 'Comfortaa',
-                                      fontSize: 14,
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.normal,
-                                      height: 1),
+                        Expanded(
+                          child: Align(
+                            alignment: const Alignment(1, 0.7),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  //Abbrechen Button
+                                  child: TextButton(
+                                    style: ButtonStyle(
+                                        overlayColor: MaterialStateProperty.all(
+                                            AppColors.myCheckITDarkGrey)),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Abbrechen',
+                                        style: TextStyle(
+                                            color: AppColors.myTextColor,
+                                            fontFamily: 'Comfortaa',
+                                            fontSize: 14,
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.normal,
+                                            height: 1)),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    _database.addList(title, icon, iconColor);
-                                    Navigator.pop(context);
-                                  }
-                                },
-                              ),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                SizedBox(
+                                  //Erstellen Button
+                                  child: ElevatedButton(
+                                    style: buttonStyleDecorationcolorchange,
+                                    child: const Text(
+                                      'Erstellen',
+                                      style: TextStyle(
+                                          color: AppColors.myTextColor,
+                                          fontFamily: 'Comfortaa',
+                                          fontSize: 14,
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.normal,
+                                          height: 1),
+                                    ),
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _database.addList(
+                                            title, icon, iconColor);
+                                        Navigator.pop(context);
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 const Text(
                   'Vorschau:',
@@ -267,7 +278,7 @@ class _CreateListPageState extends State<CreateListPage> {
                       height: 1),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 SizedBox(
                   width: 250,

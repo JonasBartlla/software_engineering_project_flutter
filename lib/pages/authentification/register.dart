@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
@@ -306,7 +307,20 @@ class _RegisterState extends State<Register> {
                         Text(error,
                         style: const TextStyle(color: AppColors.myDeleteColor),
                         ),
-                        const SizedBox(height: 5.0),
+
+                        const SizedBox(height: 5,),
+                        //google log in Button
+                        SignInButton(
+                          Buttons.google,
+                          onPressed: () async {
+                            _auth.signInWithGoogleWeb();
+                          },
+                          text: "Registrieren mit Google",
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
                         //hier einloggen
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,

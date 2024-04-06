@@ -17,7 +17,7 @@ var buttonStyleDecorationDelete = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    fixedSize: MaterialStateProperty.all(Size(120, 40)),
+    fixedSize: MaterialStateProperty.all(Size(122, 50)),
     surfaceTintColor: MaterialStateProperty.all(AppColors.myDeleteColor),
     overlayColor: MaterialStateProperty.all(AppColors.myDeleteColor),
     backgroundColor:
@@ -44,7 +44,7 @@ var buttonStyleDecorationcolorchange = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    fixedSize: MaterialStateProperty.all(Size(120, 40)),
+    fixedSize: MaterialStateProperty.all(Size(122, 50)),
     surfaceTintColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
     overlayColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
     backgroundColor:
@@ -95,6 +95,14 @@ var standardHeadlineDecoration = const TextStyle(
     color: AppColors.myTextColor,
     fontFamily: 'Comfortaa',
     fontSize: 20,
+    letterSpacing: 1,
+    fontWeight: FontWeight.bold,
+    height: 1);
+
+var standardTileDecoration = const TextStyle(
+    color: AppColors.myTextColor,
+    fontFamily: 'Comfortaa',
+    fontSize: 16,
     letterSpacing: 1,
     fontWeight: FontWeight.bold,
     height: 1);

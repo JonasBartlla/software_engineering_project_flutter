@@ -31,11 +31,10 @@ class _CreateToDoState extends State<CreateToDo> {
   int priority = 0;
   DateTime dateAndTime =
       DateTime.fromMillisecondsSinceEpoch(0); //soll nicht null sein
-  bool notification = false;
 
   //Listen für die Dropdowns
   late List<String> categories;
-  List<String> priorities = ['keine Priorität','Hoch', 'Mittel', 'Niedrig'];
+  List<String> priorities = ['keine Priorität', 'Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
   late String listCreatedFrom;
 
@@ -43,10 +42,11 @@ class _CreateToDoState extends State<CreateToDo> {
   void initState() {
     categories = widget.availableLists;
     list = widget.listCreatedFrom;
-    if (list == 'Mein Tag'){
-      dateAndTime = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59);
+    if (list == 'Mein Tag') {
+      dateAndTime = DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day, 23, 59);
     }
-    if(['Mein Tag',"Alle ToDos","Erledigte ToDos"].contains(list)){
+    if (['Mein Tag', "Alle ToDos", "Erledigte ToDos"].contains(list)) {
       list = 'keine Liste';
     }
   }
@@ -85,8 +85,8 @@ class _CreateToDoState extends State<CreateToDo> {
                   const SizedBox(height: 10),
                   Center(
                     child: Container(
-                      width: 360,
-                      height: 650,
+                      width: 370,
+                      height: 620,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
@@ -97,34 +97,41 @@ class _CreateToDoState extends State<CreateToDo> {
                         color: AppColors.myCheckITDarkGrey,
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        //mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
+                          const SizedBox(height: 10),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              const SizedBox(width: 3),
+                              //const SizedBox(width: 3),
                               const SizedBox(
                                 child: Icon(
-                                  Icons.add,
+                                  Icons.add_rounded,
                                   color: Colors.white,
                                   size: 35.0,
                                 ),
                               ),
-                              const SizedBox(width: 3),
+                              const SizedBox(width: 5),
                               PhysicalModel(
                                 color: AppColors.myCheckITDarkGrey,
                                 //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
-                                  width: 310,
+                                  width: 308,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                     inputFormatters: [
-                                    LengthLimitingTextInputFormatter(25)
-                                  ],
+                                      LengthLimitingTextInputFormatter(25)
+                                    ],
                                     cursorColor: AppColors.myCheckItGreen,
                                     style: const TextStyle(
-                                        color: AppColors.myTextColor),
+                                        color: AppColors.myTextColor,
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 16,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1),
                                     initialValue: "",
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -145,107 +152,113 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 40),
                           //dropdown Kategorie
-                          Row(children: <Widget>[
-                            const SizedBox(width: 6),
-                            const SizedBox(
-                              child: Icon(
-                                Icons.list,
-                                color: Colors.white,
-                                size: 30.0,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: 311,
-                              height: 55,
-                              child: PhysicalModel(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular((8)),
-                                color: AppColors.myCheckITDarkGrey,
-                                elevation: 8,
-                                shadowColor: AppColors.myShadowColor,
-                                child: DropdownButtonFormField<String>(
-                                  value: list,
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Liste'),
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 30,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                //const SizedBox(width: 6),
+                                const SizedBox(
+                                  child: Icon(
+                                    Icons.list,
                                     color: Colors.white,
+                                    size: 30.0,
                                   ),
-                                  dropdownColor: AppColors.myBoxColor,
-                                  items: categories.map((category) {
-                                    return DropdownMenuItem(
-                                      value: category,
-                                      child: Text(category,
-                                          style: standardTextDecoration),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) => setState(() {
-                                    list = value!;
-                                  }),
                                 ),
-                              ),
-                            ),
-                          ]),
+                                const SizedBox(width: 5),
+                                SizedBox(
+                                  width: 311,
+                                  height: 55,
+                                  child: PhysicalModel(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular((8)),
+                                    color: AppColors.myCheckITDarkGrey,
+                                    elevation: 8,
+                                    shadowColor: AppColors.myShadowColor,
+                                    child: DropdownButtonFormField<String>(
+                                      value: list,
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'Liste'),
+                                      icon: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 30,
+                                        color: Colors.white,
+                                      ),
+                                      dropdownColor: AppColors.myBoxColor,
+                                      items: categories.map((category) {
+                                        return DropdownMenuItem(
+                                          value: category,
+                                          child: Text(category,
+                                              style: standardTextDecoration),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) => setState(() {
+                                        list = value!;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ]),
                           const SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
                           //dropdown Priorität
-                          Row(children: <Widget>[
-                            const SizedBox(width: 6),
-                            const SizedBox(
-                              child: Icon(
-                                Icons.arrow_upward,
-                                color: Colors.white,
-                                size: 30.0,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: 311,
-                              height: 55,
-                              child: PhysicalModel(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular((8)),
-                                color: AppColors.myCheckITDarkGrey,
-                                elevation: 8,
-                                shadowColor: AppColors.myShadowColor,
-                                child: DropdownButtonFormField<String>(
-                                  value: 'keine Priorität',
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Priorität'),
-                                  dropdownColor: AppColors.myCheckITDarkGrey,
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 30,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                //const SizedBox(width: 6),
+                                const SizedBox(
+                                  child: Icon(
+                                    Icons.arrow_upward_rounded,
                                     color: Colors.white,
+                                    size: 30.0,
                                   ),
-                                  elevation: 8,
-                                  items: priorities.map((priority) {
-                                    return DropdownMenuItem(
-                                      value: priority,
-                                      child: Text(priority,
-                                          style: standardTextDecoration),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) => setState(() {
-                                    priority = _database.priorityDict[value]!;
-                                  }),
                                 ),
-                              ),
-                            ),
-                          ]),
+                                const SizedBox(width: 5),
+                                SizedBox(
+                                  width: 311,
+                                  height: 55,
+                                  child: PhysicalModel(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular((8)),
+                                    color: AppColors.myCheckITDarkGrey,
+                                    elevation: 8,
+                                    shadowColor: AppColors.myShadowColor,
+                                    child: DropdownButtonFormField<String>(
+                                      value: 'keine Priorität',
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'Priorität'),
+                                      dropdownColor:
+                                          AppColors.myCheckITDarkGrey,
+                                      icon: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 30,
+                                        color: Colors.white,
+                                      ),
+                                      elevation: 8,
+                                      items: priorities.map((priority) {
+                                        return DropdownMenuItem(
+                                          value: priority,
+                                          child: Text(priority,
+                                              style: standardTextDecoration),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) => setState(() {
+                                        priority =
+                                            _database.priorityDict[value]!;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ]),
                           const SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
                           //Datum-Picker
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(width: 6),
+                                //const SizedBox(width: 6),
                                 const SizedBox(
                                   child: Icon(
                                     Icons.calendar_month_rounded,
@@ -279,9 +292,14 @@ class _CreateToDoState extends State<CreateToDo> {
                                                 'Fälligkeit',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                    fontSize: 17,
                                                     color: AppColors
-                                                        .myTextInputColor),
+                                                        .myTextInputColor,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontSize: 16,
+                                                    letterSpacing: 1,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    height: 1),
                                               ),
                                             )
                                           : Text(
@@ -290,74 +308,115 @@ class _CreateToDoState extends State<CreateToDo> {
                                     )),
                               ]),
                           const SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
-                          //Fälligkeits-Notif
-                          Row(
-                            children: [
-                              const SizedBox(width: 6),
-                              Transform.scale(
-                                scale: 1.5,
-                                child: Checkbox(
-                                    hoverColor: AppColors.myAbbrechenColor,
-                                    splashRadius: 14,
-                                    side: const BorderSide(
-                                        width: 1.8,
-                                        color: AppColors.myTextColor),
-                                    activeColor: AppColors.myCheckItGreen,
-                                    value: notification,
-                                    onChanged: (bool? isChecked) {
-                                      setState(() {
-                                        notification = !notification;
-                                      });
-                                    }),
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                'Ich möchte über die Fälligkeit des\nToDos informiert werden.',
-                                style: standardTextDecoration,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
                           //Notiz
-                          Row(children: <Widget>[
-                            const SizedBox(width: 7),
-                            PhysicalModel(
-                              color: AppColors.myCheckITDarkGrey,
-                              elevation: 8,
-                              shadowColor: AppColors.myShadowColor,
-                              child: SizedBox(
-                                width: 345,
-                                height: 150,
-                                child: TextFormField(
-                                  cursorColor: AppColors.myCheckItGreen,
-                                  style: const TextStyle(
-                                      color: AppColors.myTextColor),
-                                  maxLines: null,
-                                  expands: true,
-                                  textAlignVertical: TextAlignVertical.top,
-                                  validator: (value) => value!.length > 300
-                                      ? 'Notiz darf nicht länger als 300 Zeichen sein'
-                                      : null,
-                                  initialValue: "",
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Notiz'),
-                                  onChanged: (value) => setState(() {
-                                    note = value;
-                                  }),
-                                ),
-                              ),
-                            ),
-                          ]),
-                          const SizedBox(height: 60),
                           Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const SizedBox(width: 7),
+                                PhysicalModel(
+                                  color: AppColors.myCheckITDarkGrey,
+                                  elevation: 8,
+                                  shadowColor: AppColors.myShadowColor,
+                                  child: SizedBox(
+                                    width: 345,
+                                    height: 200,
+                                    child: TextFormField(
+                                      cursorColor: AppColors.myCheckItGreen,
+                                      style: const TextStyle(
+                                          color: AppColors.myTextColor,
+                                          fontFamily: 'Comfortaa',
+                                          fontSize: 16,
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.normal,
+                                          height: 1),
+                                      maxLines: null,
+                                      expands: true,
+                                      textAlignVertical: TextAlignVertical.top,
+                                      validator: (value) => value!.length > 300
+                                          ? 'Notiz darf nicht länger als 300 Zeichen sein'
+                                          : null,
+                                      initialValue: "",
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'Notiz'),
+                                      onChanged: (value) => setState(() {
+                                        note = value;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: <Widget>[
+                          //     SizedBox(
+                          //       //Abbrechen Button
+                          //       child: TextButton(
+                          //         style: ButtonStyle(
+                          //             overlayColor: MaterialStateProperty.all(
+                          //                 AppColors.myCheckITDarkGrey)),
+                          //         onPressed: () {
+                          //           Navigator.pop(context);
+                          //         },
+                          //         child: const Text('Abbrechen',
+                          //             style: TextStyle(
+                          //                 color: AppColors.myTextColor,
+                          //                 fontFamily: 'Comfortaa',
+                          //                 fontSize: 14,
+                          //                 letterSpacing: 1,
+                          //                 fontWeight: FontWeight.normal,
+                          //                 height: 1)),
+                          //       ),
+                          //     ),
+                          //     const SizedBox(
+                          //       width: 30,
+                          //     ),
+                          //     SizedBox(
+                          //       //Erstellen Button
+                          //       child: ElevatedButton(
+                          //         style: buttonStyleDecorationcolorchange,
+                          //         child: const Text(
+                          //           'Erstellen',
+                          //           style: TextStyle(
+                          //               color: AppColors.myTextColor,
+                          //               fontFamily: 'Comfortaa',
+                          //               fontSize: 14,
+                          //               letterSpacing: 1,
+                          //               fontWeight: FontWeight.normal,
+                          //               height: 1),
+                          //         ),
+                          //         onPressed: () {
+                          //           if (_formKey.currentState!.validate()) {
+                          //             _database.addTask(
+                          //                 title,
+                          //                 note,
+                          //                 dateAndTime,
+                          //                 priority,
+                          //                 lists,
+                          //                 false,
+                          //                 list);
+                          //             Navigator.pop(context);
+                          //           }
+                          //         },
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 80,),
+                  Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(
                                 //Abbrechen Button
                                 child: TextButton(
-                                  style: ButtonStyle(overlayColor: MaterialStateProperty.all(AppColors.myCheckITDarkGrey)) ,
+                                  style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          AppColors.myCheckITDarkGrey)),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
@@ -394,7 +453,6 @@ class _CreateToDoState extends State<CreateToDo> {
                                           title,
                                           note,
                                           dateAndTime,
-                                          notification,
                                           priority,
                                           lists,
                                           false,
@@ -406,10 +464,6 @@ class _CreateToDoState extends State<CreateToDo> {
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

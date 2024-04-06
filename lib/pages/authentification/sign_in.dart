@@ -195,7 +195,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           child: const Text(
-                            'Log In',
+                            'Einloggen',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -204,14 +204,51 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
 
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 40),
+
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .center, // Zentriert die Elemente horizontal
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                color: AppColors.myTextInputColor,
+                                thickness: 3.0,
+                                indent: 50, // Abstand vom linken Bildschirmrand
+                                endIndent:
+                                    10, // Abstand vom rechten Bildschirmrand
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      10.0), // Abstand zwischen Strich und Text
+                              child: Text(
+                                'ODER',
+                                style: TextStyle(
+                                  color: AppColors.myTextInputColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                color: AppColors.myTextInputColor,
+                                thickness: 3.0,
+                                indent: 10, // Abstand vom linken Bildschirmrand
+                                endIndent:
+                                    50, // Abstand vom rechten Bildschirmrand
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15,),
 
                         //google log in Button
                         SignInButton(
                           Buttons.google,
                           onPressed: () async {
                             _auth.signInWithGoogleWeb();
-                            
                           },
                           text: "Einloggen mit Google",
                           shape: RoundedRectangleBorder(
@@ -219,7 +256,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
 
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 50),
                         //Registrierung
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -240,11 +277,11 @@ class _SignInState extends State<SignIn> {
                                   child: const Text(
                                     'Hier registrieren',
                                     style: TextStyle(
-                                      color: AppColors.myCheckItGreen,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: AppColors.myCheckItGreen
-                                    ),
+                                        color: AppColors.myCheckItGreen,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            AppColors.myCheckItGreen),
                                   ))
                             ]),
                         const SizedBox(height: 7),
