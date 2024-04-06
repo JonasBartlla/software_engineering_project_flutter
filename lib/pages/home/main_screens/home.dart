@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
                 _scaffoldKey.currentState?.openDrawer();
               },
             ),
-            backgroundColor: AppColors.myCheckItGreen,
+            backgroundColor: AppColors.myDeleteColor,
             centerTitle: true,
             title: Text(
               'CheckIT',
