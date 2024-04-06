@@ -307,6 +307,7 @@ class _RegisterState extends State<Register> {
                         Text(error,
                         style: const TextStyle(color: AppColors.myDeleteColor),
                         ),
+
                         const SizedBox(height: 5,),
                         //google log in Button
                         SignInButton(

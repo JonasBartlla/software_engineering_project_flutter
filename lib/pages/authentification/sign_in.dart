@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/pages/authentification/reset_password.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
@@ -285,12 +286,25 @@ class _SignInState extends State<SignIn> {
                             ]),
                         const SizedBox(height: 7),
                         //Passwort vergessen
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(
-                              'Passwort vergessen?',
-                              style: TextStyle(color: AppColors.myTextColor),
+                            TextButton(
+                              style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          AppColors.myCheckITDarkGrey)),
+                              onPressed: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
+                              },
+                              child: const Text(
+                                'Passwort vergessen?',
+                                style: TextStyle(
+                                      color: AppColors.myCheckItGreen,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: AppColors.myCheckItGreen
+                                    ),
+                              ),
                             ),
                           ],
                         ),
