@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/confirm_delete_pop_up.dart';
@@ -33,7 +34,6 @@ class _EditTodoState extends State<EditTodo> {
   late String originalList = task.list;
   late int originalPriority = task.priority;
   late DateTime originalMaturityDate = task.maturityDate;
-  late bool originalNotification = task.notificationOn;
 
   //Felder eines ToDos
   late String title = task.description;
@@ -42,12 +42,11 @@ class _EditTodoState extends State<EditTodo> {
   late String list = task.list;
   late int priority = task.priority;
   late DateTime maturityDate = task.maturityDate;
-  late bool notification = task.notificationOn;
   late String ownerId = task.ownerId;
 
   //Listen für die Dropdowns
   late List<String> categories;
-  List<String> priorities = ['keine Priorität','Hoch', 'Mittel', 'Niedrig'];
+  List<String> priorities = ['keine Priorität', 'Hoch', 'Mittel', 'Niedrig'];
   List<DocumentReference> lists = [];
 
   bool informationChanged() {
@@ -55,8 +54,7 @@ class _EditTodoState extends State<EditTodo> {
         originalNote != note ||
         originalList != list ||
         originalPriority != priority ||
-        originalMaturityDate != maturityDate ||
-        originalNotification != notification;
+        originalMaturityDate != maturityDate;
   }
 
   void initState() {
@@ -94,11 +92,11 @@ class _EditTodoState extends State<EditTodo> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 40),
                   Center(
                     child: Container(
-                      width: 360,
-                      height: 650,
+                      width: 370,
+                      height: 620,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
@@ -109,12 +107,12 @@ class _EditTodoState extends State<EditTodo> {
                         color: AppColors.myCheckITDarkGrey,
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
+                          const SizedBox(height: 10),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              const SizedBox(width: 6),
+                              //const SizedBox(width: 6),
                               const SizedBox(
                                 child: Icon(
                                   Icons.circle_outlined,
@@ -128,14 +126,20 @@ class _EditTodoState extends State<EditTodo> {
                                 //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
-                                  width: 310,
+                                  width: 309,
                                   //Bezeichnung eingeben
                                   child: TextFormField(
                                     inputFormatters: [
-                                    LengthLimitingTextInputFormatter(25)
-                                  ],
+                                      LengthLimitingTextInputFormatter(25)
+                                    ],
                                     cursorColor: AppColors.myCheckItGreen,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(
+                                        color: AppColors.myTextColor,
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 16,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1),
                                     initialValue: title,
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -156,107 +160,114 @@ class _EditTodoState extends State<EditTodo> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 40),
                           //dropdown Kategorie
-                          Row(children: <Widget>[
-                            const SizedBox(width: 6),
-                            const SizedBox(
-                              child: Icon(
-                                Icons.list,
-                                color: Colors.white,
-                                size: 30.0,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: 311,
-                              height: 55,
-                              child: PhysicalModel(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular((8)),
-                                color: AppColors.myCheckITDarkGrey,
-                                elevation: 8,
-                                shadowColor: AppColors.myShadowColor,
-                                child: DropdownButtonFormField<String>(
-                                  value: task.list,
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Liste'),
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 30,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                //const SizedBox(width: 6),
+                                const SizedBox(
+                                  child: Icon(
+                                    Icons.list,
                                     color: Colors.white,
+                                    size: 30.0,
                                   ),
-                                  dropdownColor: AppColors.myBoxColor,
-                                  items: categories.map((category) {
-                                    return DropdownMenuItem(
-                                      value: category,
-                                      child: Text(category,
-                                          style: standardTextDecoration),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) => setState(() {
-                                    list = value!;
-                                  }),
                                 ),
-                              ),
-                            ),
-                          ]),
+                                const SizedBox(width: 5),
+                                SizedBox(
+                                  width: 311,
+                                  height: 55,
+                                  child: PhysicalModel(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular((8)),
+                                    color: AppColors.myCheckITDarkGrey,
+                                    elevation: 8,
+                                    shadowColor: AppColors.myShadowColor,
+                                    child: DropdownButtonFormField<String>(
+                                      value: task.list,
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'Liste'),
+                                      icon: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 30,
+                                        color: Colors.white,
+                                      ),
+                                      dropdownColor: AppColors.myBoxColor,
+                                      items: categories.map((category) {
+                                        return DropdownMenuItem(
+                                          value: category,
+                                          child: Text(category,
+                                              style: standardTextDecoration),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) => setState(() {
+                                        list = value!;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ]),
                           const SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
                           //dropdown Priorität
-                          Row(children: <Widget>[
-                            const SizedBox(width: 6),
-                            const SizedBox(
-                              child: Icon(
-                                Icons.arrow_upward,
-                                color: Colors.white,
-                                size: 30.0,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: 311,
-                              height: 55,
-                              child: PhysicalModel(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular((8)),
-                                color: AppColors.myCheckITDarkGrey,
-                                elevation: 8,
-                                shadowColor: AppColors.myShadowColor,
-                                child: DropdownButtonFormField<String>(
-                                  value: _database.getPriority(task.priority),
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Priorität'),
-                                  dropdownColor: AppColors.myCheckITDarkGrey,
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 30,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                //const SizedBox(width: 6),
+                                const SizedBox(
+                                  child: Icon(
+                                    Icons.arrow_upward_rounded,
                                     color: Colors.white,
+                                    size: 30.0,
                                   ),
-                                  elevation: 8,
-                                  items: priorities.map((priority) {
-                                    return DropdownMenuItem(
-                                      value: priority,
-                                      child: Text(priority,
-                                          style: standardTextDecoration),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) => setState(() {
-                                    priority = _database.priorityDict[value]!;
-                                  }),
                                 ),
-                              ),
-                            ),
-                          ]),
+                                const SizedBox(width: 5),
+                                SizedBox(
+                                  width: 311,
+                                  height: 55,
+                                  child: PhysicalModel(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular((8)),
+                                    color: AppColors.myCheckITDarkGrey,
+                                    elevation: 8,
+                                    shadowColor: AppColors.myShadowColor,
+                                    child: DropdownButtonFormField<String>(
+                                      value:
+                                          _database.getPriority(task.priority),
+                                      decoration: textInputDecoration.copyWith(
+                                          hintText: 'Priorität'),
+                                      dropdownColor:
+                                          AppColors.myCheckITDarkGrey,
+                                      icon: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 30,
+                                        color: Colors.white,
+                                      ),
+                                      elevation: 8,
+                                      items: priorities.map((priority) {
+                                        return DropdownMenuItem(
+                                          value: priority,
+                                          child: Text(priority,
+                                              style: standardTextDecoration),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) => setState(() {
+                                        priority =
+                                            _database.priorityDict[value]!;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ]),
                           const SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
                           //Datum-Picker
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(width: 6),
+                                //const SizedBox(width: 6),
                                 const SizedBox(
                                   child: Icon(
                                     Icons.calendar_month_rounded,
@@ -269,7 +280,7 @@ class _EditTodoState extends State<EditTodo> {
                                     width: 311,
                                     height: 55,
                                     child: TextButton(
-                                      style: buttonBoxDecoration,
+                                      style: buttonStyleDecoration,
                                       onPressed: () async {
                                         DateTime pickedDate =
                                             await showDateTimePicker(
@@ -290,10 +301,19 @@ class _EditTodoState extends State<EditTodo> {
                                                 'Fälligkeit',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                  fontSize: 17,
-                                                  color: AppColors
-                                                      .myTextInputColor,
-                                                ),
+                                                    color: AppColors
+                                                        .myTextInputColor,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontSize: 16,
+                                                    letterSpacing: 1,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    height: 1),
+                                                // style: TextStyle(
+                                                //   fontSize: 17,
+                                                //   color: AppColors
+                                                //       .myTextInputColor,
+                                                // ),
                                               ))
                                           : Text(
                                               '${DateFormat('dd.MM.yyyy').format(maturityDate)} ${maturityDate.hour.toString().padLeft(2, '0')}:${maturityDate.minute.toString().padLeft(2, '0')}',
@@ -302,167 +322,239 @@ class _EditTodoState extends State<EditTodo> {
                                     )),
                               ]),
                           const SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
-                          //Fälligkeits-Notif
-                          Row(
-                            children: [
-                              const SizedBox(width: 6),
-                              Transform.scale(
-                                scale: 1.5,
-                                child: Checkbox(
-                                    hoverColor: AppColors.myAbbrechenColor,
-                                    splashRadius: 14,
-                                    side: const BorderSide(
-                                        width: 1.8,
-                                        color: AppColors.myTextColor),
-                                    activeColor: AppColors.myCheckItGreen,
-                                    value: task.notificationOn,
-                                    onChanged: (bool? isChecked) {
-                                      setState(() {
-                                        task.notificationOn =
-                                            !task.notificationOn;
-                                        notification = !notification;
-                                      });
-                                    }),
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                'Ich möchte über die Fälligkeit des\nToDos informiert werden.',
-                                style: standardTextDecoration,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
                           //Notiz
-                          Row(children: <Widget>[
-                            const SizedBox(width: 7),
-                            PhysicalModel(
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular((8)),
-                              color: AppColors.myCheckITDarkGrey,
-                              elevation: 8,
-                              shadowColor: AppColors.myShadowColor,
-                              child: SizedBox(
-                                width: 345,
-                                height: 150,
-                                child: Align(
-                                  child: TextFormField(
-                                    cursorColor: AppColors.myCheckItGreen,
-                                    style: const TextStyle(
-                                        color: AppColors.myTextColor),
-                                    maxLines: null,
-                                    expands: true,
-                                    textAlignVertical: TextAlignVertical.top,
-                                    textAlign: TextAlign.start,
-                                    validator: (value) => value!.length > 300
-                                        ? 'Notiz darf nicht länger als 300 Zeichen sein'
-                                        : null,
-                                    initialValue: note,
-                                    decoration: textInputDecoration.copyWith(
-                                      hintText: 'Notiz',
-                                      alignLabelWithHint: true,
-                                    ),
-                                    onChanged: (value) => setState(() {
-                                      note = value;
-                                    }),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]),
-                          const SizedBox(height: 60),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(
-                                //Löschen Button
-                                child: TextButton(
-                                  style: buttonStyleDecorationDelete,
-                                  onPressed: () async {
-                                    await showDeleteTaskConfirmationDialog(task, _database, context);
-                                    // Navigator.pop(context);
-                                  },
-                                  child: const Text(
-                                    'Löschen',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                //const SizedBox(width: 7),
+                                PhysicalModel(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular((8)),
+                                  color: AppColors.myCheckITDarkGrey,
+                                  elevation: 8,
+                                  shadowColor: AppColors.myShadowColor,
+                                  child: SizedBox(
+                                    width: 345,
+                                    height: 200,
+                                    child: Align(
+                                      child: TextFormField(
+                                        cursorColor: AppColors.myCheckItGreen,
+                                        style: const TextStyle(
+                                            color: AppColors.myTextColor,
+                                            fontFamily: 'Comfortaa',
+                                            fontSize: 16,
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.normal,
+                                            height: 1),
+                                        maxLines: null,
+                                        expands: true,
+                                        textAlignVertical:
+                                            TextAlignVertical.top,
+                                        textAlign: TextAlign.start,
+                                        validator: (value) => value!.length >
+                                                300
+                                            ? 'Notiz darf nicht länger als 300 Zeichen sein'
+                                            : null,
+                                        initialValue: note,
+                                        decoration:
+                                            textInputDecoration.copyWith(
+                                          hintText: 'Notiz',
+                                          alignLabelWithHint: true,
+                                        ),
+                                        onChanged: (value) => setState(() {
+                                          note = value;
+                                        }),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              SizedBox(
-                                //Abbrechen Button
-                                child: TextButton(
-                                  style: ButtonStyle(
-                                      overlayColor: MaterialStateProperty.all(
-                                          AppColors.myCheckITDarkGrey)),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text(
-                                    'Abbrechen',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              SizedBox(
-                                //Speichern Button
-                                child: ElevatedButton(
-                                  style: buttonStyleDecorationcolorchange
-                                      .copyWith(backgroundColor:
-                                          MaterialStateProperty.resolveWith<
-                                                  Color>(
-                                              (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.disabled)) {
-                                      return AppColors.myTextInputColor;
-                                    }
-                                    return AppColors.myCheckItGreen;
-                                  })),
-                                  onPressed: informationChanged()
-                                      ? () {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            _database.editTask(
-                                                title,
-                                                note,
-                                                creationDate,
-                                                notification,
-                                                maturityDate,
-                                                priority,
-                                                list,
-                                                false,
-                                                ownerId,
-                                                task.taskReference);
-                                            print("edit done");
-                                            Navigator.pop(context);
-                                          }
-                                        }
-                                      : null,
-                                  child: const Text('Speichern',
-                                      style: TextStyle(
-                                          color: AppColors.myTextColor,
-                                          fontFamily: 'Comfortaa',
-                                          fontSize: 14,
-                                          letterSpacing: 1,
-                                          fontWeight: FontWeight.normal,
-                                          height: 1)),
-                                ),
-                              ),
-                            ],
-                          ),
+                              ]),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: <Widget>[
+                          //     SizedBox(
+                          //       //Löschen Button
+                          //       child: TextButton(
+                          //         style: buttonStyleDecorationDelete,
+                          //         onPressed: () async {
+                          //           await showDeleteTaskConfirmationDialog(
+                          //               task, _database, context);
+                          //           // Navigator.pop(context);
+                          //         },
+                          //         child: const Text(
+                          //           'Löschen',
+                          //           style: TextStyle(
+                          //               color: AppColors.myTextColor,
+                          //               fontFamily: 'Comfortaa',
+                          //               fontSize: 13,
+                          //               letterSpacing: 1,
+                          //               fontWeight: FontWeight.normal,
+                          //               height: 1),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     const SizedBox(
+                          //       width: 7,
+                          //     ),
+                          //     SizedBox(
+                          //       //Abbrechen Button
+                          //       child: TextButton(
+                          //         style: ButtonStyle(
+                          //             overlayColor: MaterialStateProperty.all(
+                          //                 AppColors.myCheckITDarkGrey)),
+                          //         onPressed: () {
+                          //           Navigator.pop(context);
+                          //         },
+                          //         child: const Text(
+                          //           'Abbrechen',
+                          //           style: TextStyle(
+                          //               color: AppColors.myTextColor,
+                          //               fontFamily: 'Comfortaa',
+                          //               fontSize: 13,
+                          //               letterSpacing: 1,
+                          //               fontWeight: FontWeight.normal,
+                          //               height: 1),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     const SizedBox(
+                          //       width: 7,
+                          //     ),
+                          //     SizedBox(
+                          //       //Speichern Button
+                          //       child: ElevatedButton(
+                          //         style: buttonStyleDecorationcolorchange
+                          //             .copyWith(backgroundColor:
+                          //                 MaterialStateProperty.resolveWith<
+                          //                         Color>(
+                          //                     (Set<MaterialState> states) {
+                          //           if (states
+                          //               .contains(MaterialState.disabled)) {
+                          //             return AppColors.myTextInputColor;
+                          //           }
+                          //           return AppColors.myCheckItGreen;
+                          //         })),
+                          //         onPressed: informationChanged()
+                          //             ? () {
+                          //                 if (_formKey.currentState!
+                          //                     .validate()) {
+                          //                   _database.editTask(
+                          //                       title,
+                          //                       note,
+                          //                       creationDate,
+                          //                       maturityDate,
+                          //                       priority,
+                          //                       list,
+                          //                       false,
+                          //                       ownerId,
+                          //                       task.taskReference);
+                          //                   print("edit done");
+                          //                   Navigator.pop(context);
+                          //                 }
+                          //               }
+                          //             : null,
+                          //         child: const Text('Speichern',
+                          //             style: TextStyle(
+                          //                 color: AppColors.myTextColor,
+                          //                 fontFamily: 'Comfortaa',
+                          //                 fontSize: 13,
+                          //                 letterSpacing: 1,
+                          //                 fontWeight: FontWeight.normal,
+                          //                 height: 1)),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(height: 80),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //Löschen Button
+                      TextButton(
+                        style: buttonStyleDecorationDelete,
+                        onPressed: () async {
+                          await showDeleteTaskConfirmationDialog(
+                              task, _database, context);
+                          // Navigator.pop(context);
+                        },
+                        child: const Icon (Icons.delete_rounded, color: Colors.white, size: 30,)
+                        // child: const Text(
+                        //   'Löschen',
+                        //   style: TextStyle(
+                        //       color: AppColors.myTextColor,
+                        //       fontFamily: 'Comfortaa',
+                        //       fontSize: 14,
+                        //       letterSpacing: 1,
+                        //       fontWeight: FontWeight.normal,
+                        //       height: 1),
+                        // ),
+                      ),
+                      const SizedBox(width: 20,),
+                      //Abbrechen Button
+                      TextButton(
+                        style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(
+                                AppColors.myCheckITDarkGrey)),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Abbrechen',
+                          style: TextStyle(
+                              color: AppColors.myTextColor,
+                              fontFamily: 'Comfortaa',
+                              fontSize: 14,
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.normal,
+                              height: 1),
+                        ),
+                      ),
+                      const SizedBox(width: 20,),
+                      //Speichern Button
+                      ElevatedButton(
+                        style: buttonStyleDecorationcolorchange.copyWith(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return AppColors.myTextInputColor;
+                          }
+                          return AppColors.myCheckItGreen;
+                        })),
+                        onPressed: informationChanged()
+                            ? () {
+                                if (_formKey.currentState!.validate()) {
+                                  _database.editTask(
+                                      title,
+                                      note,
+                                      creationDate,
+                                      maturityDate,
+                                      priority,
+                                      list,
+                                      false,
+                                      ownerId,
+                                      task.taskReference);
+                                  print("edit done");
+                                  Navigator.pop(context);
+                                }
+                              }
+                            : null,
+                        child: const Text('Speichern',
+                            style: TextStyle(
+                                color: AppColors.myTextColor,
+                                fontFamily: 'Comfortaa',
+                                fontSize: 14,
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.normal,
+                                height: 1)),
+                      ),
+                    ],
                   ),
                 ],
               ),

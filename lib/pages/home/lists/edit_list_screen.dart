@@ -59,7 +59,7 @@ class _EditListPageState extends State<EditListPage> {
                 ),
                 Center(
                   child: Container(
-                    width: 460,
+                    width: 360,
                     height: 280,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(

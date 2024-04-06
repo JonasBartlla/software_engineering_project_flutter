@@ -95,7 +95,6 @@ class _TaskTileState extends State<TaskTile> {
                           widget.task.description,
                           widget.task.note,
                           widget.task.creationDate,
-                          widget.task.notificationOn,
                           widget.task.maturityDate,
                           widget.task.priority,
                           widget.task.list,
@@ -228,17 +227,7 @@ class _TaskTileState extends State<TaskTile> {
                               width: 5,
                             ),
                           ],
-                        ),
-
-                  //Benachrichtigung
-                  widget.task.notificationOn == true
-                      ? Icon(
-                          Icons.notifications_on,
-                          color: widget.task.done
-                              ? Colors.grey
-                              : AppColors.myTextColor,
-                        )
-                      : const Text(''),
+                        ),                  
                 ]),
               ),
               trailing: const Icon(
