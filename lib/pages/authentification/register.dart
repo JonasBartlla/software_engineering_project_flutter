@@ -112,6 +112,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(20)
@@ -155,6 +156,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -191,6 +193,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -232,6 +235,7 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 2),
 
                         Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             cursorColor: AppColors.myCheckItGreen,
                             style:
@@ -298,11 +302,11 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         Text(error,
-                        style: TextStyle(color: AppColors.myDeleteColor),
+                        style: const TextStyle(color: AppColors.myDeleteColor),
                         ),
-                        SizedBox(height: 5.0),
+                        const SizedBox(height: 5.0),
                         //hier einloggen
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
