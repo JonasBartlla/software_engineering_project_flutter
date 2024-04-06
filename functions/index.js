@@ -25,7 +25,7 @@ exports.testFunc = functions.region('europe-west3').https.onRequest((request, re
     response.send("Hello from Dennis" + abc);
 })
 
-exports.notifiCationOnDocCreate = functions.region('europe-west3').firestore
+exports.logNotifiCationOnDocCreate = functions.region('europe-west3').firestore
     .document('tasks/{taskId}')
     .onCreate(async (snapshot, context) => {
         const taskId = context.params.taskId;
@@ -37,3 +37,38 @@ exports.notifiCationOnDocCreate = functions.region('europe-west3').firestore
         logger.info('Das ToDo ' + name + ' Dokument wurde von ' + sender + ' erstellt.')
     }
 );
+
+exports.pushNotifiCationOnDocCreate2 = functions.region('europe-west3').firestore
+    .document('notification/{notificationId}')
+    .onCreate(async (snapshot, context) => {
+        const notificationData = snapshot.data();
+        const abc = "1.1.2002";
+        logger.info('für den Benutzer ' + notificationData.ownerId + ' wurde für den ' + abc + 'eine Benachrichtigung gescheduled');
+        const payload = {
+        notification: {
+            title: 'A scheduled Task has been created',
+            body: 'The Task ' + notificationData.taskId + 'has been scheduled for ' + notificationData.maturityDate
+            // title: `${snapshot.data().name} posted ${text ? 'a message' : 'an image'}`,
+            // body: text ? (text.length <= 100 ? text : text.substring(0, 97) + '...') : '',
+            // icon: snapshot.data().profilePicUrl || '/images/profile_placeholder.png',
+            // click_action: `https://${process.env.GCLOUD_PROJECT}.firebaseapp.com`,
+        },
+        data: {
+            type: 'app'
+        }
+        };
+            // Get the list of device tokens.
+        // const allTokens = await admin.firestore().collection('fcmTokens').get();
+        const tokens = ['do1DZRTXlmb1w_D3R6Enr7:APA91bHoLcijPp_ZB7ahrRcLaWvb2F5n4wISQuLU2hg8chk0kps0_GH5uPl3ijlUxXRyGmNmeIFRWIo8T_4wo6w-IoFkvHeP3ItCfwR4qq2UNKApieZEj5T2dufsCRO7FAgAeJ8fo8T_'];
+        // allTokens.forEach((tokenDoc) => {
+        // tokens.push(tokenDoc.id);
+        // });
+
+        if (tokens.length > 0) {
+            // Send notifications to all tokens.
+            const response = await admin.messaging().sendToDevice(tokens, payload);
+            // await cleanupTokens(response, tokens);
+            // functions.logger.log('Notifications have been sent and tokens cleaned up.');
+          }
+    });
+
