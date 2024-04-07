@@ -10,6 +10,10 @@
 const {onRequest} = require("firebase-functions/v2/https");
 const functions = require("firebase-functions");
 const logger = require("firebase-functions/logger");
+const {getFirestore} = require("firebase-admin/firestore");
+const admin = require('firebase-admin');
+
+admin.initializeApp();
 
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
@@ -20,9 +24,9 @@ const logger = require("firebase-functions/logger");
 // });
 
 exports.testFunc = functions.region('europe-west3').https.onRequest((request, response) => {
-    logger.info("Hello its me");
+    logger.info("Hello its me ");
     var abc = request.params[0];
-    response.send("Hello from Dennis" + abc);
+    response.send("Hello from Dennis aaa " + abc);
 })
 
 exports.logNotifiCationOnDocCreate = functions.region('europe-west3').firestore
@@ -42,33 +46,43 @@ exports.pushNotifiCationOnDocCreate2 = functions.region('europe-west3').firestor
     .document('notification/{notificationId}')
     .onCreate(async (snapshot, context) => {
         const notificationData = snapshot.data();
+        const ownerId = notificationData.ownerId;
         const abc = "1.1.2002";
         logger.info('für den Benutzer ' + notificationData.ownerId + ' wurde für den ' + abc + 'eine Benachrichtigung gescheduled');
-        const payload = {
-        notification: {
-            title: 'A scheduled Task has been created',
-            body: 'The Task ' + notificationData.taskId + 'has been scheduled for ' + notificationData.maturityDate
-            // title: `${snapshot.data().name} posted ${text ? 'a message' : 'an image'}`,
-            // body: text ? (text.length <= 100 ? text : text.substring(0, 97) + '...') : '',
-            // icon: snapshot.data().profilePicUrl || '/images/profile_placeholder.png',
-            // click_action: `https://${process.env.GCLOUD_PROJECT}.firebaseapp.com`,
-        },
-        data: {
-            type: 'app'
+        const ownerToken = (await getFirestore().collection('users').where('uid', '=', ownerId).get()).docs;
+        logger.info(ownerToken.length);
+        const ownerToken2 = ownerToken[0].get('token');
+        logger.info(ownerToken2);
+        const message = {
+            
+            notification: {
+                title: "Neue Nachricht von BigD",
+                body: "Neue Nachricht!",
+            },
+            token: ownerToken2
         }
-        };
-            // Get the list of device tokens.
-        // const allTokens = await admin.firestore().collection('fcmTokens').get();
-        const tokens = ['do1DZRTXlmb1w_D3R6Enr7:APA91bHoLcijPp_ZB7ahrRcLaWvb2F5n4wISQuLU2hg8chk0kps0_GH5uPl3ijlUxXRyGmNmeIFRWIo8T_4wo6w-IoFkvHeP3ItCfwR4qq2UNKApieZEj5T2dufsCRO7FAgAeJ8fo8T_'];
-        // allTokens.forEach((tokenDoc) => {
-        // tokens.push(tokenDoc.id);
-        // });
 
-        if (tokens.length > 0) {
+        if (ownerToken2.length > 0) {
             // Send notifications to all tokens.
-            const response = await admin.messaging().sendToDevice(tokens, payload);
+            const response = await admin.messaging().send(message);
             // await cleanupTokens(response, tokens);
             // functions.logger.log('Notifications have been sent and tokens cleaned up.');
           }
+    });
+
+
+
+
+exports.testDB = functions.region('europe-west3').firestore
+    .document('notification/{notificationId}')
+    .onCreate(async (snapshot, context) => {
+        const testData = snapshot.data();
+        const ownerId = testData.ownerId;
+        logger.info(ownerId);
+        const ownerToken = (await getFirestore().collection('users').where('uid', '=', ownerId).get()).docs;
+        logger.info(ownerToken.length);
+        const ownerToken2 = ownerToken[0].get('token');
+        logger.info(ownerToken2);
+
     });
 
