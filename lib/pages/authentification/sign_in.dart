@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:software_engineering_project_flutter/pages/authentification/reset_password.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
@@ -193,23 +194,19 @@ class _SignInState extends State<SignIn> {
                               ),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Einloggen',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
+                            style: standardTextDecoration.copyWith(fontWeight: FontWeight.bold)
                           ),
                         ),
 
                         const SizedBox(height: 40),
 
-                        const Row(
+                         Row(
                           mainAxisAlignment: MainAxisAlignment
                               .center, // Zentriert die Elemente horizontal
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: Divider(
                                 color: AppColors.myTextInputColor,
                                 thickness: 3.0,
@@ -219,18 +216,15 @@ class _SignInState extends State<SignIn> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal:
                                       10.0), // Abstand zwischen Strich und Text
                               child: Text(
                                 'ODER',
-                                style: TextStyle(
-                                  color: AppColors.myTextInputColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: standardTextDecoration.copyWith(color: AppColors.myTextInputColor, fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               child: Divider(
                                 color: AppColors.myTextInputColor,
                                 thickness: 3.0,
@@ -260,11 +254,9 @@ class _SignInState extends State<SignIn> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 'Du hast noch keinen Account?',
-                                style: TextStyle(
-                                  color: AppColors.myTextColor,
-                                ),
+                                 style: standardTextDecoration.copyWith(fontSize: 14),
                               ),
                               TextButton(
                                   style: ButtonStyle(
@@ -273,24 +265,27 @@ class _SignInState extends State<SignIn> {
                                   onPressed: () {
                                     widget.toggleView!();
                                   },
-                                  child: const Text(
+                                  child:  Text(
                                     'Hier registrieren',
-                                    style: TextStyle(
-                                        color: AppColors.myCheckItGreen,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            AppColors.myCheckItGreen),
+                                    style: standardTextDecoration.copyWith(fontSize: 14, color: AppColors.myCheckItGreen, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationColor: AppColors.myCheckItGreen),
                                   ))
                             ]),
                         const SizedBox(height: 7),
                         //Passwort vergessen
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(
-                              'Passwort vergessen?',
-                              style: TextStyle(color: AppColors.myTextColor),
+                            TextButton(
+                              style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          AppColors.myCheckITDarkGrey)),
+                              onPressed: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
+                              },
+                              child: Text(
+                                'Passwort vergessen?',
+                                style: standardTextDecoration.copyWith(fontSize: 14, color: AppColors.myCheckItGreen, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationColor: AppColors.myCheckItGreen),
+                              ),
                             ),
                           ],
                         ),

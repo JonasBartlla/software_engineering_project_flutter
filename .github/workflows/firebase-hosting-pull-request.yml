@@ -17,7 +17,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: >-
-            ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOFTWARE_ENGINEERING_PRO_E850E
-            }}
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOFTWARE_ENGINEERING_PRO_E850E}}'
           projectId: software-engineering-pro-e850e

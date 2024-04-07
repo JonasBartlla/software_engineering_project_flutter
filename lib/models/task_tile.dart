@@ -146,7 +146,7 @@ class _TaskTileState extends State<TaskTile> {
                       : Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.arrow_upward,
+                            Icon(Icons.arrow_upward_rounded,
                                 color: widget.task.done
                                     ? Colors.grey
                                     : AppColors.myTextColor),
@@ -208,7 +208,7 @@ class _TaskTileState extends State<TaskTile> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              Icons.list_alt_rounded,
+                              Icons.sticky_note_2_rounded,
                               color: widget.task.done
                                   ? Colors.grey
                                   : AppColors.myTextColor,

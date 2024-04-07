@@ -79,7 +79,7 @@ class AuthService{
   AggregateQuerySnapshot aggregatedQuery = await _database.userCollection.where('uid', isEqualTo: user.uid).count().get();
   if( aggregatedQuery.count == 0){
     _database.initializeCollection();
-    _database.updateUserDate(user.uid, user.displayName, user.email, 'https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc=');
+    _database.updateUserDate(user.uid, user.displayName, user.email, user.photoURL);
   }else{
     print('user already exists');
   }
