@@ -1,13 +1,3 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
-const {onRequest} = require("firebase-functions/v2/https");
 const functions = require("firebase-functions");
 const logger = require("firebase-functions/logger");
 const {getFirestore} = require("firebase-admin/firestore");
@@ -15,19 +5,6 @@ const admin = require('firebase-admin');
 
 admin.initializeApp();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-
-exports.testFunc = functions.region('europe-west3').https.onRequest((request, response) => {
-    logger.info("Hello its me ");
-    var abc = request.params[0];
-    response.send("Hello from Dennis aaa " + abc);
-})
 
 exports.logNotifiCationOnDocCreate = functions.region('europe-west3').firestore
     .document('tasks/{taskId}')
@@ -42,52 +19,50 @@ exports.logNotifiCationOnDocCreate = functions.region('europe-west3').firestore
     }
 );
 
-exports.pushNotifiCationOnDocCreate2 = functions.region('europe-west3').firestore
-    .document('notification/{notificationId}')
-    .onCreate(async (snapshot, context) => {
-        const notificationData = snapshot.data();
-        const ownerId = notificationData.ownerId;
-        const abc = "1.1.2002";
-        logger.info('für den Benutzer ' + notificationData.ownerId + ' wurde für den ' + abc + 'eine Benachrichtigung gescheduled');
-        const ownerToken = (await getFirestore().collection('users').where('uid', '=', ownerId).get()).docs;
-        logger.info(ownerToken.length);
-        const ownerToken2 = ownerToken[0].get('token');
-        logger.info(ownerToken2);
-        const message = {
+// exports.pushNotifiCationOnDocCreate2 = functions.region('europe-west3').firestore
+//     .document('notification/{notificationId}')
+//     .onCreate(async (snapshot, context) => {
+//         const notificationData = snapshot.data();
+//         const ownerId = notificationData.ownerId;
+//         const abc = "1.1.2002";
+//         logger.info('für den Benutzer ' + notificationData.ownerId + ' wurde für den ' + abc + 'eine Benachrichtigung gescheduled');
+//         const ownerToken = (await getFirestore().collection('users').where('uid', '=', ownerId).get()).docs;
+//         logger.info(ownerToken.length);
+//         const ownerToken2 = ownerToken[0].get('token');
+//         logger.info(ownerToken2);
+//         const message = {
             
-            notification: {
-                title: "Neue Nachricht von BigD",
-                body: "Neue Nachricht!",
-            },
-            token: ownerToken2
-        }
+//             notification: {
+//                 title: "Neue Nachricht von BigD",
+//                 body: "Neue Nachricht!",
+//             },
+//             token: ownerToken2
+//         }
 
-        if (ownerToken2.length > 0) {
-            // Send notifications to all tokens.
-            const response = await admin.messaging().send(message);
-            // await cleanupTokens(response, tokens);
-            // functions.logger.log('Notifications have been sent and tokens cleaned up.');
-          }
-    });
-
-
+//         if (ownerToken2.length > 0) {
+//             // Send notifications to all tokens.
+//             const response = await admin.messaging().send(message);
+//             // await cleanupTokens(response, tokens);
+//             // functions.logger.log('Notifications have been sent and tokens cleaned up.');
+//           }
+//     });
 
 
-exports.testDB = functions.region('europe-west3').firestore
-    .document('notification/{notificationId}')
-    .onCreate(async (snapshot, context) => {
-        const testData = snapshot.data();
-        const ownerId = testData.ownerId;
-        logger.info(ownerId);
-        const ownerToken = (await getFirestore().collection('users').where('uid', '=', ownerId).get()).docs;
-        logger.info(ownerToken.length);
-        const ownerToken2 = ownerToken[0].get('token');
-        logger.info(ownerToken2);
 
-    });
+
+// exports.testDB = functions.region('europe-west3').firestore
+//     .document('notification/{notificationId}')
+//     .onCreate(async (snapshot, context) => {
+//         const querySnapshot = await getFirestore().collection('notification').where('taskId', '=','cGlOXhifpn5DdMIF4WcM').get();
+//         const taskId = querySnapshot.docs[0].id;
+//         logger.info(taskId)
+//         getFirestore().collection('notification').doc(taskId).update({'messageSent': true});
+
+
+//     });
 
 exports.testNot = functions.region('europe-west3').firestore
-.document('tasks/{taskId}')
+.document('notification/{notificationId}')
 .onCreate(async (snapshot, context) => { 
     const testData = snapshot.data();
     const ownerId = testData.ownerId;
@@ -119,5 +94,57 @@ exports.testNot = functions.region('europe-west3').firestore
     .catch((err) => {
         console.log('Error:', err);
     });
+
+});
+
+// exports.dateTimeCheck = functions.region('europe-west3').firestore
+// .document('notification/{notificationId}')
+// .onCreate(async (snapshot, context) => { 
+//     const notificationData = snapshot.data();
+//     var currentDate = new Date();
+//     var maturityDate = new Date(notificationData.maturityDate - (15 * 60 * 1000));
+//     logger.info(currentDate);
+//     logger.info(maturityDate);
+//     if (maturityDate < currentDate ){
+//         logger.info('A Notification should be scheduled');
+//     } else {
+//         logger.info('Enough Time existing');
+//     }
+// });
+
+exports.sendNotificationForDueTasks = functions.region('europe-west3').firestore
+.document('notification/{notificationId}')
+.onCreate(async (snapshot, context) => { 
+    var currentDate = new Date();
+    logger.info(currentDate.getTime());
+    const querySnapshot = (await getFirestore().collection('notification').where('maturityDate', '<',currentDate.getTime() + (16 * 60 * 1000)).where('messageSent','=',false).get()).docs;
+    logger.info(querySnapshot.length);
+    if(querySnapshot.length >0){
+        querySnapshot.forEach(async (doc) =>{
+            notificationData = doc.data()
+            logger.info(doc.id);
+
+            const taskOwner = notificationData.ownerId; //get uid of owner
+            logger.info('Owned by ' + taskOwner);
+            const ownerToken = (await getFirestore().collection('users').where('uid', '=', taskOwner).get()).docs[0].data().token;
+            logger.info('owner token' + ownerToken);
+            if (ownerToken != ''){
+                const affectedTaskId = notificationData.taskId; //get uid of task
+                logger.info('Task referenced by ' + taskOwner);
+                const taskData = (await getFirestore().collection('tasks').doc(affectedTaskId).get()).data(); //get the data of affected task
+                getFirestore().collection('notification').doc(doc.id).update({'messageSent': true});
+                logger.info('NotificationSend set to true');
+                
+            }else{
+                logger.info("The user disabled notifications no message will be sent");
+            }
+
+
+
+        });
+    }else{
+        logger.info('No notification needs to be sent');
+    }
+
 
 });
