@@ -86,3 +86,38 @@ exports.testDB = functions.region('europe-west3').firestore
 
     });
 
+exports.testNot = functions.region('europe-west3').firestore
+.document('tasks/{taskId}')
+.onCreate(async (snapshot, context) => { 
+    const testData = snapshot.data();
+    const ownerId = testData.ownerId;
+    const ownerToken = (await getFirestore().collection('users').where('uid', '=', ownerId).get()).docs;
+    logger.info(ownerToken.length);
+    const token = ownerToken[0].get('token');
+    logger.info(token);
+    admin
+    .messaging()
+    .send(
+        {
+        token: token,
+        data: {
+            foo: 'bar',
+        },
+        notification: {
+            title: 'A great title',
+            body: 'Great content',
+        },
+        },
+    )
+    .then((res) => {
+        if (res.failureCount) {
+        console.log('Failed', res.results[0].error);
+        } else {
+        console.log('Success');
+        }
+    })
+    .catch((err) => {
+        console.log('Error:', err);
+    });
+
+});
