@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -169,7 +167,7 @@ class _RegisterState extends State<Register> {
                             },
                             onChanged: (val) {
                               setState(() {
-                                // when the value inside the eMail field changes the value of the variable wil be changed
+
                                 email = val;
                               });
                             },
@@ -294,13 +292,9 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Registrieren',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
+                            style: standardTextDecoration.copyWith(fontWeight: FontWeight.bold)
                           ),
                         ),
                         const SizedBox(height: 10.0),
@@ -320,16 +314,14 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 20.0),
                         //hier einloggen
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                              Text(
                                 'Du hast bereits einen Account?',
-                                style: TextStyle(
-                                  color: AppColors.myTextColor,
-                                ),
+                                style: standardTextDecoration.copyWith(fontSize: 14),
                               ),
                               TextButton(
                                   style: ButtonStyle(
@@ -338,14 +330,9 @@ class _RegisterState extends State<Register> {
                                   onPressed: () {
                                     widget.toggleView!();
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     'Hier einloggen',
-                                    style: TextStyle(
-                                        color: AppColors.myCheckItGreen,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            AppColors.myCheckItGreen),
+                                    style: standardTextDecoration.copyWith(fontSize: 14, color: AppColors.myCheckItGreen, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationColor: AppColors.myCheckItGreen),
                                   ))
                             ]),
                       ],

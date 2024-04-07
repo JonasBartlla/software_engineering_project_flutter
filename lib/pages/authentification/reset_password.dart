@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
-import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/validations.dart';
 
@@ -26,19 +24,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.myBackgroundColor,
-              size: 35),
-          onPressed: () => Navigator.pop(context),
-        ),
-        backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
-        title: Text(
-          'Passwort zurücksetzen',
-          style: standardAppBarTextDecoration.copyWith(fontSize: 25 ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.myBackgroundColor,
+      //         size: 35),
+      //     onPressed: () => Navigator.pop(context),
+      //   ),
+      //   backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
+      //   title: Text(
+      //     'Passwort zurücksetzen',
+      //     style: standardAppBarTextDecoration.copyWith(fontSize: 25 ),
+      //   ),
+      // ),
             backgroundColor: AppColors.myBackgroundColor,
             body: SafeArea(
               child: Center(
@@ -174,9 +172,35 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               }
                             }, 
                             icon: const Icon(Icons.mail, color: AppColors.myTextColor,), 
-                            label:  Text('Passwort zurücksetzen', style: standardTextDecoration,)),
+                            label:  Text('Passwort zurücksetzen', style: standardTextDecoration.copyWith(fontWeight: FontWeight.bold),)),
                         ),
-                        SizedBox(height: 50,)
+                        SizedBox(height: 15),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                               Text(
+                                'Doch nicht vergessen?',
+                                style: standardTextDecoration.copyWith(fontSize: 14),
+                              ),
+                              TextButton(
+                                  style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          AppColors.myCheckITDarkGrey)),
+                                  onPressed: () {
+                                    Navigator.of(context).popUntil((route) => route.isFirst);
+                                  },
+                                  child: Text(
+                                    'Hier einloggen',
+                                    style: standardTextDecoration.copyWith(fontSize: 14, color: AppColors.myCheckItGreen, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationColor: AppColors.myCheckItGreen),
+                                  // TextStyle(
+                                  //       color: AppColors.myCheckItGreen,
+                                  //       fontWeight: FontWeight.bold,
+                                  //       decoration: TextDecoration.underline,
+                                  //       decorationColor:
+                                  //           AppColors.myCheckItGreen),
+                                  // 
+                                  ))
+                            ]),
                       ]
                     )
                   )
