@@ -139,6 +139,10 @@ exports.sendNotificationForDueTasks = functions.region('europe-west3').firestore
                     token: ownerToken,
                     data: {
                         foo: 'bar',
+                        description: taskData.description,
+                        list: taskData.list,
+                        note: taskData.note,
+                        priority: taskData.priority.toString()
                     },
                     notification: {
                         title: 'Ein ToDo wird fällig',
