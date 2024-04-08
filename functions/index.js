@@ -132,6 +132,20 @@ exports.sendNotificationForDueTasks = functions.region('europe-west3').firestore
                 const affectedTaskId = notificationData.taskId; //get uid of task
                 logger.info('Task referenced by ' + taskOwner);
                 const taskData = (await getFirestore().collection('tasks').doc(affectedTaskId).get()).data(); //get the data of affected task
+                admin
+                .messaging()
+                .send(
+                    {
+                    token: ownerToken,
+                    data: {
+                        foo: 'bar',
+                    },
+                    notification: {
+                        title: 'Ein ToDo wird fällig',
+                        body: 'Ihr ToDo ' + taskData.description + ' wird fällig',
+                    },
+                    },
+                );
                 getFirestore().collection('notification').doc(doc.id).update({'messageSent': true});
                 logger.info('NotificationSend set to true');
                 
