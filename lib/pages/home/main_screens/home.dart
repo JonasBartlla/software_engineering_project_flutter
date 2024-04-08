@@ -63,55 +63,22 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late User user;
 
-  Future<void> setupMessage() async {
-    RemoteMessage? message = await FirebaseMessaging.instance
-        .getInitialMessage(); //wenn die App von einem TerminiertenZustand über eine Notification geöffnet wird, wird dies übergeben
-    if (message != null) {
-      handleNavigation(message);
-    }
-    FirebaseMessaging.onMessageOpenedApp.listen(handleNavigation);
-  }
-
-  void handleNavigation(RemoteMessage message) {
-    if (message.data['type'] == 'chat') {
-      Navigator.pushNamed(context, '/createList');
-    }
-  }
 
   @override
   void initState() {
     user = widget.user;
     _database = widget.database;
     _getToken(_database, user.uid);
-    setupMessage();
     FirebaseMessaging.onMessage.listen((event) {
-      if (event.notification == null) return;
-      print(event.data['type']);
-      Navigator.pushNamed(context, '/createList');
-      // showDialog(context: context,
-      //   builder: (context){
-      //     return Material(
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         crossAxisAlignment: CrossAxisAlignment.center,
-      //         children: [
-      //           Container(width: 200,height: 200,
-      //           color: Colors.white,
-      //           child: Column(
-      //             children: [
-      //               Text(event.notification?.title??''),
-      //               SizedBox(height: 8),
-      //               Text(event.notification?.body??'')
-      //             ],
-      //           ),
-      //           )
-      //         ],
-      //       ),
-      //     );
-      //   }
-      // );
-    });
-    print('dun');
+        print('Got a message whilst in the foreground!');
+        print('Message data: ${event.data}');
+
+        if (event.notification != null) {
+          print('Message also contained a notification: ${event.notification!.title ?? ''}');
+  }
+    }
+    );
+
   }
 
   @override
