@@ -30,12 +30,16 @@ class _MySettingsState extends State<MySettings> {
   late String changedDisplayName;
   final StoreData imageStorage = StoreData();
   final _formKey = GlobalKey<FormState>();
+  bool saveButtonActivated = false;
 
   void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if(img != null){
     setState(() {
       _image = img;
+      saveButtonActivated = true;
     });
+    }
   }
 
   // Future _getImage() async {
@@ -127,6 +131,7 @@ class _MySettingsState extends State<MySettings> {
                         hintText: 'Anzeigename'),
                     onChanged: (value) => setState(() {
                       changedDisplayName = value;
+                      saveButtonActivated = true;
                     }),
                     validator: (value) {
                       if (value!.length > 0) {
@@ -154,10 +159,35 @@ class _MySettingsState extends State<MySettings> {
                     await _databaseService.updateUserDate(currentUser.uid,
                         changedDisplayName, currentUser.email, imageUrl);
                     print('updated');
+                                      const snackBar = SnackBar(
+                                    backgroundColor: AppColors.myCheckItGreen,
+                                    content: Row(
+                                      children: [
+                                        Icon(Icons.check, color: AppColors.myTextColor,),
+                                        SizedBox(width: 10,),
+                                        Text('Profil erfolgreich gespeichert!'),
+                                      ],
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
                     print('unable to update');
+                                      const snackBar = SnackBar(
+                                    backgroundColor: AppColors.myDeleteColor,
+                                    content: Row(
+                                      children: [
+                                        Icon(Icons.cancel, color: AppColors.myTextColor,),
+                                        SizedBox(width: 10,),
+                                        Text('Fehler beim Speichern des Profils!'),
+                                      ],
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-                },
+
+                } : null,
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(Size(250, 70)),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -168,7 +198,13 @@ class _MySettingsState extends State<MySettings> {
                   overlayColor:
                       MaterialStateProperty.all(AppColors.myCheckItGreen),
                   backgroundColor:
-                      MaterialStateProperty.all(AppColors.myCheckItGreen),
+                                MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return AppColors.myTextInputColor;
+                          }
+                          return AppColors.myCheckItGreen;
+                        }),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
