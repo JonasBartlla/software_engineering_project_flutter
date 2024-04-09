@@ -70,7 +70,7 @@ class _MySettingsState extends State<MySettings> {
         ),
         centerTitle: true,
         title: Text(
-          'Einstellungen',
+          'Profil bearbeiten',
           style: standardAppBarTextDecoration,
         ),
         backgroundColor: AppColors.myCheckItGreen,
@@ -132,7 +132,7 @@ class _MySettingsState extends State<MySettings> {
                       if (value!.length > 0) {
                         return null;
                       } else {
-                        return "Der Benutzername darf nicht leer sein";
+                        return "Der Anzeigename darf nicht leer sein";
                       }
                     },
                   ),
@@ -141,7 +141,7 @@ class _MySettingsState extends State<MySettings> {
               const SizedBox(
                 height: 40,
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     print(
@@ -159,37 +159,63 @@ class _MySettingsState extends State<MySettings> {
                   }
                 },
                 style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all(Size(250, 70)),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     const EdgeInsets.all(25),
                   ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    AppColors.myCheckItGreen,
-                  ),
+                  surfaceTintColor:
+                      MaterialStateProperty.all(AppColors.myCheckItGreen),
+                  overlayColor:
+                      MaterialStateProperty.all(AppColors.myCheckItGreen),
+                  backgroundColor:
+                      MaterialStateProperty.all(AppColors.myCheckItGreen),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
                   ),
                 ),
-                child: Text('Profil Speichern',
-                    style: standardTextDecoration.copyWith(
-                        fontWeight: FontWeight.bold)),
+                child: Row(children: [
+                  Icon(
+                    Icons.save_as_rounded,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text('Profil speichern',
+                      style: standardTextDecoration.copyWith(
+                          fontWeight: FontWeight.bold)),
+                ]),
               ),
-              const SizedBox(height: 14),
-              TextButton(
+              const SizedBox(height: 30),
+              ElevatedButton(
                   style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(
-                          AppColors.myCheckITDarkGrey)),
+                    surfaceTintColor:
+                        MaterialStateProperty.all(AppColors.myDeleteColor),
+                    overlayColor:
+                        MaterialStateProperty.all(AppColors.myDeleteColor),
+                    backgroundColor:
+                        MaterialStateProperty.all(AppColors.myDeleteColor),
+                    fixedSize: MaterialStateProperty.all(Size(250, 70)),
+                  ),
                   onPressed: () {},
-                  child: Text(
-                    'Account Löschen',
-                    style: standardTextDecoration.copyWith(
-                        fontSize: 16,
-                        color: AppColors.myDeleteColor,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColors.myDeleteColor),
-                  )),
+                  child: Row(children: [
+                    Icon(Icons.delete, color: Colors.white, size: 35),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Account Löschen',
+                      style: standardTextDecoration.copyWith(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white),
+                    ),
+                  ])),
 
               //ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
               Center(
