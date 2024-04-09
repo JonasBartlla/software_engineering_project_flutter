@@ -113,67 +113,83 @@ class _MySettingsState extends State<MySettings> {
               //   width: 100,
               //   child: Image.network(currentUser.imageUrl)),
               // // Benutzername
-                  PhysicalModel(
-                    color: AppColors.myBackgroundColor,
-                    child: SizedBox(
-                      width: 300,
-                      child: TextFormField(
-                        cursorColor: AppColors.myCheckItGreen,
-                        inputFormatters: [LengthLimitingTextInputFormatter(20)],
-                        style: const TextStyle(color: Colors.white),
-                        initialValue: currentUser
-                            .displayName, // Hier dann Benutzername aus DB
-                        decoration: textInputDecorationbez.copyWith(
-                            hintText: 'Anzeigename'),
-                        onChanged: (value) => setState(() {
-                          changedDisplayName = value;
-                        }),
-                        validator: (value) {
-                          if (value!.length > 0) {
-                            return null;
-                          } else {
-                            return "Der Benutzername darf nicht leer sein";
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 40,),
-                  TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        print(
-                            "${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
-                        String imageUrl = currentUser.imageUrl;
-                        if (_image != null) {
-                          imageUrl = await imageStorage.uploadImageToStorage(
-                              currentUser.email, _image!);
-                        }
-                        await _databaseService.updateUserDate(currentUser.uid,
-                            changedDisplayName, currentUser.email, imageUrl);
-                        print('updated');
+              PhysicalModel(
+                color: AppColors.myBackgroundColor,
+                child: SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    cursorColor: AppColors.myCheckItGreen,
+                    inputFormatters: [LengthLimitingTextInputFormatter(20)],
+                    style: const TextStyle(color: Colors.white),
+                    initialValue: currentUser
+                        .displayName, // Hier dann Benutzername aus DB
+                    decoration: textInputDecorationbez.copyWith(
+                        hintText: 'Anzeigename'),
+                    onChanged: (value) => setState(() {
+                      changedDisplayName = value;
+                    }),
+                    validator: (value) {
+                      if (value!.length > 0) {
+                        return null;
                       } else {
-                        print('unable to update');
+                        return "Der Benutzername darf nicht leer sein";
                       }
                     },
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.all(25),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        AppColors.myCheckItGreen,
-                      ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                    ),
-                    child: Text('Profil Speichern',
-                        style: standardTextDecoration.copyWith(
-                            fontWeight: FontWeight.bold)),
                   ),
+                ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              TextButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    print(
+                        "${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
+                    String imageUrl = currentUser.imageUrl;
+                    if (_image != null) {
+                      imageUrl = await imageStorage.uploadImageToStorage(
+                          currentUser.email, _image!);
+                    }
+                    await _databaseService.updateUserDate(currentUser.uid,
+                        changedDisplayName, currentUser.email, imageUrl);
+                    print('updated');
+                  } else {
+                    print('unable to update');
+                  }
+                },
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.all(25),
+                  ),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    AppColors.myCheckItGreen,
+                  ),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                ),
+                child: Text('Profil Speichern',
+                    style: standardTextDecoration.copyWith(
+                        fontWeight: FontWeight.bold)),
+              ),
               const SizedBox(height: 14),
+              TextButton(
+                  style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all(
+                          AppColors.myCheckITDarkGrey)),
+                  onPressed: () {},
+                  child: Text(
+                    'Account Löschen',
+                    style: standardTextDecoration.copyWith(
+                        fontSize: 16,
+                        color: AppColors.myDeleteColor,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        decorationColor: AppColors.myDeleteColor),
+                  )),
 
               //ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
               Center(
