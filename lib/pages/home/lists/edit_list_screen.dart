@@ -111,7 +111,7 @@ class _EditListPageState extends State<EditListPage> {
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
                                     } else if(widget.existingLists.contains(value) && value != taskList.description){                                      
-                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie eine andere Bezeichnung';
+                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wähle eine andere Bezeichnung';
                                     } else {
                                       return null;
                                     }
@@ -239,8 +239,6 @@ class _EditListPageState extends State<EditListPage> {
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
                             const SizedBox(
                               width: 30,
                             ),
@@ -282,9 +280,10 @@ class _EditListPageState extends State<EditListPage> {
                                 ),
                               ),
                             ),
-                          ),
+                      ]
+                      ),
                         )
-                      ],
+                    )],
                     ),
                   ),
                 ),

@@ -148,7 +148,7 @@ class _SignInState extends State<SignIn> {
                                 hintText: 'Passwort'),
                             validator: (val) {
                               if (val!.length < 6 || val.isEmpty) {
-                                return "Bitte ein Passwort mit mindestens 8 Zeichen angeben";
+                                return "Bitte ein Passwort mit mindestens 8 Zeichen eingeben";
                               } else {
                                 return null;
                               }
