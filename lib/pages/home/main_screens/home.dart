@@ -222,7 +222,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   onTap: () async {
-                    await _auth.signOut();
+                    await _auth.signOut(user!.uid);
                   },
                 ),
               ],
