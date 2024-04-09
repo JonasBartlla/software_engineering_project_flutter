@@ -23,10 +23,19 @@ class _EditListPageState extends State<EditListPage> {
   late TaskList taskList = widget.taskList;
   final _formKey = GlobalKey<FormState>();
 
+  //Felder einer Liste zum aktivieren des Speichern-Buttons
+  late String originalTitle = taskList.description;
+  late IconData originalIcon = taskList.icon;
+  late Color originalIconColor = taskList.iconColor;
+
   //Felder einer Liste
   late String title = taskList.description;
   late IconData icon = taskList.icon;
   late Color iconColor = taskList.iconColor;
+
+  bool informationChanged(){
+    return originalTitle != title || originalIcon != icon || originalIconColor != iconColor;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +112,7 @@ class _EditListPageState extends State<EditListPage> {
                                       return 'Bitte eine Bezeichnung eingeben';
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
-                                    } else if(widget.existingLists.contains(value)){
+                                    } else if(widget.existingLists.contains(value) && value != taskList.description){
                                       return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wählen Sie eine andere Bezeichnung';
                                     }else {
                                       return null;
@@ -230,18 +239,17 @@ class _EditListPageState extends State<EditListPage> {
                             SizedBox(
                               //Speichern Button
                               child: ElevatedButton(
-                                style: buttonStyleDecorationcolorchange,
-                                child: const Text(
-                                  'Speichern',
-                                  style: TextStyle(
-                                      color: AppColors.myTextColor,
-                                      fontFamily: 'Comfortaa',
-                                      fontSize: 14,
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.normal,
-                                      height: 1),
+                                style: buttonStyleDecorationcolorchange.copyWith(
+                                  backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return AppColors.myTextInputColor;
+                          }
+                          return AppColors.myCheckItGreen;
+                        }),
                                 ),
-                                onPressed: () {
+                                onPressed: informationChanged() ? () {
                                   if (_formKey.currentState!.validate()) {
                                     _database.editList(
                                         title,
@@ -253,7 +261,17 @@ class _EditListPageState extends State<EditListPage> {
                                         widget.taskList.ownerId);
                                     Navigator.pop(context);
                                   }
-                                },
+                                } : null,
+                                child: const Text(
+                                  'Speichern',
+                                  style: TextStyle(
+                                      color: AppColors.myTextColor,
+                                      fontFamily: 'Comfortaa',
+                                      fontSize: 14,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1),
+                                ),
                               ),
                             ),
                           ],
