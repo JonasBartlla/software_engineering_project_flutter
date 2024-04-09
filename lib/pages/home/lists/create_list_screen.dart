@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/color_picker.dart';
@@ -59,12 +58,12 @@ class _CreateListPageState extends State<CreateListPage> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 20,
+                  height: 60,
                 ),
                 Center(
                   child: Container(
                     width: 360,
-                    height: 290,
+                    height: 300,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -81,7 +80,7 @@ class _CreateListPageState extends State<CreateListPage> {
                         Row(
                           children: <Widget>[
                             const Icon(
-                              Icons.add,
+                              Icons.add_rounded,
                               color: Colors.white,
                               size: 40.0,
                             ),
@@ -97,8 +96,7 @@ class _CreateListPageState extends State<CreateListPage> {
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(16)
                                   ],
-                                  style: const TextStyle(
-                                      color: AppColors.myTextColor),
+                                  style: standardTextDecoration,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Bitte eine Bezeichnung eingeben';
@@ -207,7 +205,7 @@ class _CreateListPageState extends State<CreateListPage> {
                         ]),
                         Expanded(
                           child: Align(
-                            alignment: const Alignment(1, 0.7),
+                            alignment: const Alignment(1, 0.6),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
