@@ -16,8 +16,8 @@ import 'package:software_engineering_project_flutter/services/upload_image.dart'
 class MySettings extends StatefulWidget {
   final appUser currentUser;
   final DatabaseService databaseService;
-  const MySettings({required this.currentUser, required this.databaseService, super.key});
-
+  const MySettings(
+      {required this.currentUser, required this.databaseService, super.key});
 
   @override
   State<MySettings> createState() => _MySettingsState();
@@ -31,10 +31,10 @@ class _MySettingsState extends State<MySettings> {
   final StoreData imageStorage = StoreData();
   final _formKey = GlobalKey<FormState>();
 
-    void selectImage() async {
+  void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
-          _image = img;
+      _image = img;
     });
   }
 
@@ -55,14 +55,8 @@ class _MySettingsState extends State<MySettings> {
     changedDisplayName = widget.currentUser.displayName;
   }
 
-
-
-  
-  
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
@@ -91,23 +85,26 @@ class _MySettingsState extends State<MySettings> {
               //Bild
               Stack(
                 children: [
-                  _image != null ? 
-                  CircleAvatar(
-                    radius: 64,
-                    backgroundImage: MemoryImage(_image!),
-                  )
-                  : CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(currentUser.imageUrl),
-                  ),
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(currentUser.imageUrl),
+                        ),
                   Positioned(
                     child: IconButton(
                       onPressed: selectImage,
-                      icon: Icon(Icons.add_a_photo, color: AppColors.myCheckItGreen,),
+                      icon: Icon(
+                        Icons.add_a_photo,
+                        color: AppColors.myCheckItGreen,
+                      ),
                     ),
                     bottom: -10,
                     left: 90,
-                    )
+                  )
                 ],
               ),
               const SizedBox(height: 20),
@@ -116,91 +113,99 @@ class _MySettingsState extends State<MySettings> {
               //   width: 100,
               //   child: Image.network(currentUser.imageUrl)),
               // // Benutzername
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
                   PhysicalModel(
                     color: AppColors.myBackgroundColor,
                     child: SizedBox(
                       width: 300,
                       child: TextFormField(
                         cursorColor: AppColors.myCheckItGreen,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(20)
-                        ],
+                        inputFormatters: [LengthLimitingTextInputFormatter(20)],
                         style: const TextStyle(color: Colors.white),
-                        initialValue: currentUser.displayName, // Hier dann Benutzername aus DB
+                        initialValue: currentUser
+                            .displayName, // Hier dann Benutzername aus DB
                         decoration: textInputDecorationbez.copyWith(
                             hintText: 'Anzeigename'),
                         onChanged: (value) => setState(() {
                           changedDisplayName = value;
-                          }
-                        ),
+                        }),
                         validator: (value) {
-                          if (value!.length >0){
+                          if (value!.length > 0) {
                             return null;
-                          }else{
+                          } else {
                             return "Der Benutzername darf nicht leer sein";
                           }
                         },
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: ()async{
+                  const SizedBox(height: 40,),
+                  TextButton(
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        print("${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
+                        print(
+                            "${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
                         String imageUrl = currentUser.imageUrl;
-                        if(_image != null){
-                          imageUrl = await imageStorage.uploadImageToStorage(currentUser.email, _image!);
+                        if (_image != null) {
+                          imageUrl = await imageStorage.uploadImageToStorage(
+                              currentUser.email, _image!);
                         }
-                        await _databaseService.updateUserDate(currentUser.uid, changedDisplayName, currentUser.email, imageUrl);
+                        await _databaseService.updateUserDate(currentUser.uid,
+                            changedDisplayName, currentUser.email, imageUrl);
                         print('updated');
-                      }else{
+                      } else {
                         print('unable to update');
                       }
-                    }, 
-                    child: Icon(
-                      Icons.save,
-                      size: 35,
-                      color: AppColors.myCheckItGreen,
-                    )
-                  )
-                ],
-              ),
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.all(25),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        AppColors.myCheckItGreen,
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                    ),
+                    child: Text('Profil Speichern',
+                        style: standardTextDecoration.copyWith(
+                            fontWeight: FontWeight.bold)),
+                  ),
               const SizedBox(height: 14),
-        
+
               //ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
               Center(
-                // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
-              ),
-        
+                  // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
+                  ),
+
               // Unten am Bildschirm
               Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'CheckIT',
-                          style: WaterMarkDecoration,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'ver.1.1.0',
-                          style: creditTextDecoration,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'CheckIT GmbH @ 2024',
-                          style: creditTextDecoration,
-                        ),
-                        const SizedBox(height: 20)
-                      ],
-                    ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'CheckIT',
+                        style: WaterMarkDecoration,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'ver.1.1.0',
+                        style: creditTextDecoration,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'CheckIT GmbH @ 2024',
+                        style: creditTextDecoration,
+                      ),
+                      const SizedBox(height: 20)
+                    ],
                   ),
                 ),
+              ),
             ],
           ),
         ),
