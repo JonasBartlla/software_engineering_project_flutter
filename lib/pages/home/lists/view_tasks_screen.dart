@@ -112,15 +112,21 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                     });
                     setState(() {});
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.myCheckItGreen,
-                    surfaceTintColor: AppColors.myCheckItGreen,
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    fixedSize: const Size(250.0, 70.0),
-                  ),
+                  style: ButtonStyle(
+                          padding: MaterialStateProperty.all(EdgeInsets.all(1)),
+                          surfaceTintColor: MaterialStateProperty.all(
+                              AppColors.myCheckItGreen),
+                          overlayColor: MaterialStateProperty.all(
+                              AppColors.myCheckItGreen),
+                          backgroundColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
+                          elevation: MaterialStateProperty.all(10),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          )),
+                          fixedSize: MaterialStateProperty.all(Size(180, 70)),
+                        ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
