@@ -147,7 +147,7 @@ class _MySettingsState extends State<MySettings> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () async {
+                onPressed: saveButtonActivated ? () async {
                   if (_formKey.currentState!.validate()) {
                     print(
                         "${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
