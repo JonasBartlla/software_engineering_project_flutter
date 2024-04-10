@@ -40,7 +40,7 @@ exports.tt = onSchedule("* * * * *", async (event) => {
                     },
                     notification: {
                         title: 'Los CheckIT!',
-                        body: 'Ihr ToDo ' + taskData.description + ' ist in ' + difference + ' Minuten fällig',
+                        body: 'Ihr ToDo ' + taskData.description + ' wird in ' + difference + ' Minuten fällig',
                     },
                     },
                 );
