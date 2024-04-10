@@ -7,7 +7,7 @@ const {onSchedule} = require("firebase-functions/v2/scheduler");
 admin.initializeApp();
 
 
-exports.tt = onSchedule("* * * * *", async (event) => {
+exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
     var currentDate = new Date();
     logger.info(currentDate.getTime());
     const querySnapshot = (await getFirestore().collection('notification').where('maturityDate', '<',currentDate.getTime() + (16 * 60 * 1000)).where('messageSent','=',false).get()).docs;
@@ -40,7 +40,7 @@ exports.tt = onSchedule("* * * * *", async (event) => {
                     },
                     notification: {
                         title: 'Los CheckIT!',
-                        body: 'Ihr ToDo ' + taskData.description + ' wird in ' + difference + ' Minuten fällig',
+                        body: 'Ihr ToDo ' + taskData.description + ' wird fällig',
                     },
                     },
                 );
