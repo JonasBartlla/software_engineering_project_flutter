@@ -92,22 +92,11 @@ class ListTileTest extends StatelessWidget {
                 alignment: Alignment.center,
                 child: ListTile(
                   onTap: () {
-                    if (taskList.description != 'default') {
-                      final List<Task> filteredTasks = tasks!
-                          .where((task) => task.list == taskList.description)
-                          .toList();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: ((context) => ListOfTasksPage(
-                                  tasks: filteredTasks, taskList: taskList, lists: lists))));
-                    } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => ListOfTasksPage(
-                                  tasks: tasks!, taskList: taskList, lists: lists,))));
-                    }
+                                  taskList: taskList, lists: lists,))));
                   },
                   contentPadding: const EdgeInsets.all(0.0),
                   title: Column(

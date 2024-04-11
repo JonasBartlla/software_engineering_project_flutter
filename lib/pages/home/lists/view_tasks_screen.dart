@@ -12,13 +12,10 @@ import 'package:software_engineering_project_flutter/shared/styles_and_decoratio
 import 'package:software_engineering_project_flutter/models/sort_fields.dart';
 
 class ListOfTasksPage extends StatefulWidget {
-  final List<Task> tasks;
-  // final String list;
-  // final IconData icon;
   final TaskList taskList;
   final List<TaskList> lists;
   const ListOfTasksPage(
-      {required this.tasks, required this.taskList, required this.lists, super.key});
+      {required this.taskList, required this.lists, super.key});
 
   @override
   State<ListOfTasksPage> createState() => _ListOfTaskPageState();
