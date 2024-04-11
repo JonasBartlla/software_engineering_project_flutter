@@ -61,6 +61,7 @@ class _MySettingsState extends State<MySettings> {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = Provider.of<User?>(context);
     return Scaffold(
       backgroundColor: AppColors.myBackgroundColor,
       appBar: AppBar(
@@ -236,7 +237,11 @@ class _MySettingsState extends State<MySettings> {
                         MaterialStateProperty.all(AppColors.myDeleteColor),
                     fixedSize: MaterialStateProperty.all(Size(250, 70)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _databaseService.cleanUpUser(user!.uid);
+                    user.delete();
+                    Navigator.pop(context);
+                  },
                   child: Row(children: [
                     Icon(Icons.delete, color: Colors.white, size: 35),
                     const SizedBox(
