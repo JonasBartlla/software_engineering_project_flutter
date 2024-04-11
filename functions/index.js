@@ -40,7 +40,7 @@ exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
                     },
                     notification: {
                         title: 'Los CheckIT!',
-                        body: 'Ihr ToDo ' + taskData.description + ' wird fällig',
+                        body: 'Ihr ToDo ' + taskData.description + ' ist fällig',
                     },
                     },
                 );
