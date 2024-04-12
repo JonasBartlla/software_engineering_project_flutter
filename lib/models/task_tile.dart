@@ -27,7 +27,9 @@ class TaskTile extends StatefulWidget {
 }
 
 class _TaskTileState extends State<TaskTile> {
+
   final player = AudioPlayer();
+
   bool isToday(DateTime date) {
     DateTime now = DateTime.now();
     return date.isBefore(now) ||
@@ -249,7 +251,7 @@ class _TaskTileState extends State<TaskTile> {
     );
   }
   Future<void> playSound() async{
-  String audioPath = "correct-buzzer.mp3";
+  String audioPath = "ping.mp3";
   await player.play(AssetSource(audioPath));
 }
 }
