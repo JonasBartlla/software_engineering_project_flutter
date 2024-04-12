@@ -204,21 +204,21 @@ class _SignInState extends State<SignIn> {
 
                          Row(
                           mainAxisAlignment: MainAxisAlignment
-                              .center, // Zentriert die Elemente horizontal
+                              .center,
                           children: [
                             const Expanded(
                               child: Divider(
                                 color: AppColors.myTextInputColor,
                                 thickness: 3.0,
-                                indent: 50, // Abstand vom linken Bildschirmrand
+                                indent: 50,
                                 endIndent:
-                                    10, // Abstand vom rechten Bildschirmrand
+                                    10,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal:
-                                      10.0), // Abstand zwischen Strich und Text
+                                      10.0), 
                               child: Text(
                                 'ODER',
                                 style: standardTextDecoration.copyWith(color: AppColors.myTextInputColor, fontWeight: FontWeight.bold, fontSize: 14),
@@ -228,9 +228,9 @@ class _SignInState extends State<SignIn> {
                               child: Divider(
                                 color: AppColors.myTextInputColor,
                                 thickness: 3.0,
-                                indent: 10, // Abstand vom linken Bildschirmrand
+                                indent: 10, 
                                 endIndent:
-                                    50, // Abstand vom rechten Bildschirmrand
+                                    50,
                               ),
                             ),
                           ],
