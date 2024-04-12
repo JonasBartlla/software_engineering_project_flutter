@@ -69,12 +69,60 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
             ),
             centerTitle: true,
           ),
-          body: Column(
+          body: CustomContainer(databaseService: _database, taskList: taskList),
+        ),
+
+    );
+  }
+}
+
+class CustomContainer extends StatefulWidget {
+  const CustomContainer({
+    super.key,
+    required this.taskList,
+    required this.databaseService
+  });
+
+  final DatabaseService databaseService;
+  final TaskList taskList;
+
+  @override
+  State<CustomContainer> createState() => _CustomContainerState();
+}
+
+class _CustomContainerState extends State<CustomContainer> {
+
+  late DatabaseService _database;
+  @override
+  void initState() {
+    _database = widget.databaseService;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final taskList = Provider.of<List<TaskList>>(context).where((element) => element.listReference == widget.taskList.listReference);
+    final allList = Provider.of<List<TaskList>>(context);
+    if(taskList.isEmpty){
+      print("hi");
+    }else{
+      print(taskList.first.description);
+    }
+    return taskList.isEmpty || allList.isEmpty ? Loading() : Column(
             children: [
               const SizedBox(
                 height: 20,
               ),
-              CustomContainer(taskList: taskList),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
+                  child: Text(
+                    taskList.first.description,
+                    style: const TextStyle(
+                        color: AppColors.myTextColor, fontSize: 25),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 2,
               ),
@@ -83,8 +131,8 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               ),
               Expanded(
                   child: ListOfTasks(
-                listDescription: widget.taskList.description,
-                lists: widget.lists,
+                listDescription: taskList.first.description,
+                lists: allList,
               )),
               const SizedBox(
                 height: 5,
@@ -92,7 +140,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  getEditButton(taskList, _database, context),
+                  getEditButton(taskList.first, _database, context),
                   const SizedBox(
                     width: 25,
                   ),
@@ -103,7 +151,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => CreateToDo(
-                                    listCreatedFrom: taskList.description,
+                                    listCreatedFrom: taskList.first.description,
                                     availableLists: lists))));
                       });
                       setState(() {});
@@ -142,46 +190,13 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                   const SizedBox(
                     width: 25,
                   ),
-                  getDeleteButton(_database, taskList, context)
+                  getDeleteButton(_database, taskList.first, context)
                 ],
               ),
               const SizedBox(
                 height: 20,
               )
             ],
-          ),
-        ),
-
-    );
-  }
-}
-
-class CustomContainer extends StatelessWidget {
-  const CustomContainer({
-    super.key,
-    required this.taskList,
-  });
-
-  final TaskList taskList;
-
-  @override
-  Widget build(BuildContext context) {
-    final tt = Provider.of<List<TaskList>>(context).where((element) => element.listReference == taskList.listReference);
-    if(tt.isEmpty){
-      print("hi");
-    }else{
-      print(tt.first.description);
-    }
-    return tt.isEmpty ? Loading() : Container(
-      alignment: Alignment.topLeft,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
-        child: Text(
-          tt.first.description,
-          style: const TextStyle(
-              color: AppColors.myTextColor, fontSize: 25),
-        ),
-      ),
-    );
+          );
   }
 }
