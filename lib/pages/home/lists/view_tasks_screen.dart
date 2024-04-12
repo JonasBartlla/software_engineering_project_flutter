@@ -131,7 +131,7 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
-                        Icons.add,
+                        Icons.add_rounded,
                         color: Colors.white,
                         size: 35,
                       ),

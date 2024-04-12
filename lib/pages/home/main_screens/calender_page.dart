@@ -114,6 +114,7 @@ class _customValueListBuilderState extends State<customValueListBuilder> {
     List<Task> getEventsForDay(DateTime day) {
       return taskEvents[day] ?? [];
     }
+    //
 
     return Column(
       children: [
@@ -122,6 +123,7 @@ class _customValueListBuilderState extends State<customValueListBuilder> {
           firstDay: DateTime.utc(2010, 10, 16),
           lastDay: DateTime.utc(2030, 3, 14),
           focusedDay: _focusedDay,
+          availableCalendarFormats: const {CalendarFormat.month : 'Monat', CalendarFormat.twoWeeks : '2 Wochen', CalendarFormat.week : 'Woche'},
           startingDayOfWeek: StartingDayOfWeek.monday,
           locale: 'de',
           selectedDayPredicate: (day) {
@@ -154,7 +156,7 @@ class _customValueListBuilderState extends State<customValueListBuilder> {
                   border:
                       Border.all(width: 2, color: AppColors.myCheckItGreen))),
           headerStyle: HeaderStyle(
-            formatButtonVisible: false,
+            formatButtonVisible: true,
             //titleCentered: true,
             formatButtonDecoration: const BoxDecoration(
                 border: Border.fromBorderSide(

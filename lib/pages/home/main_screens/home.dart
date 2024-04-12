@@ -312,7 +312,7 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(
-                              Icons.add,
+                              Icons.add_rounded,
                               color: Colors.white,
                               size: 35,
                             ),
