@@ -20,7 +20,7 @@ class DatabaseService{
     userCollection = FirebaseFirestore.instance.collection('users');
     listCollection = FirebaseFirestore.instance.collection('lists');
     taskCollection = FirebaseFirestore.instance.collection('tasks');
-    notificationCollection = FirebaseFirestore.instance.collection('notification');
+    notificationCollection = FirebaseFirestore.instance.collection('notifications');
   }
 
   final priorityDict = {"keine Priorität" :0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
@@ -132,9 +132,27 @@ class DatabaseService{
     return lists;
   }
 
+  Future<void> cleanUpUser(String uid)async{
+    //cleanup notifications
+    QuerySnapshot snapshot = await notificationCollection.where('ownerId', isEqualTo: uid).get();
+    snapshot.docs.forEach((notification) { 
+      notification.reference.delete();
+    });
+    //cleanup tasks
+    snapshot = await taskCollection.where('ownerId', isEqualTo: uid).get();
+    snapshot.docs.forEach((task) { 
+      task.reference.delete();
+    }); 
+    //cleanup lists
+    snapshot = await listCollection.where('ownerId', isEqualTo: uid).get();
+    snapshot.docs.forEach((list) { 
+      list.reference.delete();
+    }); 
+    return await userCollection.doc(uid).delete(); //delete entry in user
+  }
+
   //add Task
   Future addTask(String description, String note, DateTime maturityDate, int priority, List<DocumentReference>? lists, bool done, String list) async {
-
     //adding the Task
     DocumentReference  task =await taskCollection.add({
       'description': description,
@@ -163,7 +181,7 @@ class DatabaseService{
   }
 
   Future editTask(String description, String note, DateTime creationDate, DateTime maturityDate, int priority, String list, bool done, String ownerId, DocumentReference taskId) async {
-    if(maturityDate.isBefore(DateTime.now())){
+    if(maturityDate.isBefore(DateTime.now()) || done){
       deleteNotification(taskId.id);
     }else{
       updateNotification(taskId.id, maturityDate);

@@ -90,8 +90,10 @@ class AuthService{
 
 
   // Methode zum ausloggen
-  Future signOut() async {
+  Future signOut(String uid) async {
     try{
+      DatabaseService _databaseService = DatabaseService();
+      await _databaseService.updateToken(uid, "");
       return await _auth.signOut();
     } catch(e){
       print(e.toString());
