@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
         content: Row(
           children:[
             const Icon(Icons.notifications_active_rounded,
-            color: AppColors.myDeleteColor,
+            color: AppColors.myCheckItGreen,
             size: 40,),
             const SizedBox(width: 5,),
             Column(

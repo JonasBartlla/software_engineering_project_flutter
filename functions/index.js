@@ -10,7 +10,7 @@ admin.initializeApp();
 exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
     var currentDate = new Date();
     logger.info(currentDate.getTime());
-    const querySnapshot = (await getFirestore().collection('notification').where('maturityDate', '<',currentDate.getTime() + (16 * 60 * 1000)).where('messageSent','=',false).get()).docs;
+    const querySnapshot = (await getFirestore().collection('notifications').where('maturityDate', '<',currentDate.getTime() + (16 * 60 * 1000)).where('messageSent','=',false).get()).docs;
     logger.info(querySnapshot.length);
     if(querySnapshot.length >0){
         querySnapshot.forEach(async (doc) =>{
@@ -40,7 +40,7 @@ exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
                     },
                     notification: {
                         title: 'Los CheckIT!',
-                        body: 'Ihr ToDo ' + taskData.description + ' wird fällig',
+                        body: 'Ihr ToDo ' + taskData.description + ' ist fällig',
                     },
                     },
                 );
