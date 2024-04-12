@@ -213,7 +213,7 @@ class DatabaseService{
     }else{
       notificationDocument.docs.forEach((element) 
       {
-        element.reference.update({'maturityDate': maturityDate.millisecondsSinceEpoch});
+        element.reference.update({'maturityDate': maturityDate.millisecondsSinceEpoch, 'messageSent': false});
       }
       );
     }
