@@ -9,6 +9,7 @@ import 'package:software_engineering_project_flutter/models/task_tile.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
+import 'package:software_engineering_project_flutter/pages/home/main_screens/calender_page.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
@@ -336,7 +337,7 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(
-                              Icons.add,
+                              Icons.add_rounded,
                               color: Colors.white,
                               size: 35,
                             ),
@@ -352,9 +353,11 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         width: 25,
                       ),
+                      //Calendar
                       ElevatedButton(
                         onPressed: () {
                           //hier gehts zum Kalender
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  const CalenderScreen()));
                         },
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(1)),
