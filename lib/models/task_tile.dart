@@ -7,6 +7,7 @@ import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/edit_task_screen.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class TaskTile extends StatefulWidget {
   final Task task;
@@ -26,6 +27,7 @@ class TaskTile extends StatefulWidget {
 }
 
 class _TaskTileState extends State<TaskTile> {
+  final player = AudioPlayer();
   bool isToday(DateTime date) {
     DateTime now = DateTime.now();
     return date.isBefore(now) ||
@@ -90,7 +92,7 @@ class _TaskTileState extends State<TaskTile> {
                   checkColor: AppColors.myCheckItGreen,
                   activeColor: AppColors.myCheckItGreen,
                   onChanged: (bool? isChecked) {
-                    setState(() {
+                    setState(() {                      
                       _database.editTask(
                           widget.task.description,
                           widget.task.note,
@@ -103,6 +105,9 @@ class _TaskTileState extends State<TaskTile> {
                           widget.task.taskReference);
                       widget.task.done = !widget.task.done;
                     });
+                    if (isChecked == true){
+                      playSound();
+                    }
                   },
                 ),
               ),
@@ -243,4 +248,10 @@ class _TaskTileState extends State<TaskTile> {
       ),
     );
   }
+  Future<void> playSound() async{
+  String audioPath = "correct-buzzer.mp3";
+  await player.play(AssetSource(audioPath));
 }
+}
+
+
