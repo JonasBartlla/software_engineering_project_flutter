@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
@@ -97,14 +95,11 @@ class _CreateToDoState extends State<CreateToDo> {
                         color: AppColors.myCheckITDarkGrey,
                       ),
                       child: Column(
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        //mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              //const SizedBox(width: 3),
                               const SizedBox(
                                 child: Icon(
                                   Icons.add_rounded,
@@ -115,7 +110,6 @@ class _CreateToDoState extends State<CreateToDo> {
                               const SizedBox(width: 5),
                               PhysicalModel(
                                 color: AppColors.myCheckITDarkGrey,
-                                //elevation: 8,
                                 shadowColor: AppColors.myShadowColor,
                                 child: SizedBox(
                                   width: 308,
@@ -347,62 +341,6 @@ class _CreateToDoState extends State<CreateToDo> {
                                   ),
                                 ),
                               ]),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: <Widget>[
-                          //     SizedBox(
-                          //       //Abbrechen Button
-                          //       child: TextButton(
-                          //         style: ButtonStyle(
-                          //             overlayColor: MaterialStateProperty.all(
-                          //                 AppColors.myCheckITDarkGrey)),
-                          //         onPressed: () {
-                          //           Navigator.pop(context);
-                          //         },
-                          //         child: const Text('Abbrechen',
-                          //             style: TextStyle(
-                          //                 color: AppColors.myTextColor,
-                          //                 fontFamily: 'Comfortaa',
-                          //                 fontSize: 14,
-                          //                 letterSpacing: 1,
-                          //                 fontWeight: FontWeight.normal,
-                          //                 height: 1)),
-                          //       ),
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 30,
-                          //     ),
-                          //     SizedBox(
-                          //       //Erstellen Button
-                          //       child: ElevatedButton(
-                          //         style: buttonStyleDecorationcolorchange,
-                          //         child: const Text(
-                          //           'Erstellen',
-                          //           style: TextStyle(
-                          //               color: AppColors.myTextColor,
-                          //               fontFamily: 'Comfortaa',
-                          //               fontSize: 14,
-                          //               letterSpacing: 1,
-                          //               fontWeight: FontWeight.normal,
-                          //               height: 1),
-                          //         ),
-                          //         onPressed: () {
-                          //           if (_formKey.currentState!.validate()) {
-                          //             _database.addTask(
-                          //                 title,
-                          //                 note,
-                          //                 dateAndTime,
-                          //                 priority,
-                          //                 lists,
-                          //                 false,
-                          //                 list);
-                          //             Navigator.pop(context);
-                          //           }
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ),

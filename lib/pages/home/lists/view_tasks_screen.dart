@@ -102,11 +102,7 @@ class _CustomContainerState extends State<CustomContainer> {
   Widget build(BuildContext context) {
     final taskList = Provider.of<List<TaskList>>(context).where((element) => element.listReference == widget.taskList.listReference);
     final allList = Provider.of<List<TaskList>>(context);
-    if(taskList.isEmpty){
-      print("hi");
-    }else{
-      print(taskList.first.description);
-    }
+
     return taskList.isEmpty || allList.isEmpty ? Loading() : Column(
             children: [
               const SizedBox(

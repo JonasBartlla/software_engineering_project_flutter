@@ -1,4 +1,4 @@
-const functions = require("firebase-functions");
+
 const logger = require("firebase-functions/logger");
 const {getFirestore} = require("firebase-admin/firestore");
 const admin = require('firebase-admin');
@@ -10,13 +10,12 @@ admin.initializeApp();
 exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
     var currentDate = new Date();
     logger.info(currentDate.getTime());
-    const querySnapshot = (await getFirestore().collection('notification').where('maturityDate', '<',currentDate.getTime() + (16 * 60 * 1000)).where('messageSent','=',false).get()).docs;
+    const querySnapshot = (await getFirestore().collection('notifications').where('maturityDate', '<',currentDate.getTime() + (16 * 60 * 1000)).where('messageSent','=',false).get()).docs;
     logger.info(querySnapshot.length);
     if(querySnapshot.length >0){
         querySnapshot.forEach(async (doc) =>{
             notificationData = doc.data()
             logger.info(doc.id);
-
             const taskOwner = notificationData.ownerId; //get uid of owner
             logger.info('Owned by ' + taskOwner);
             const ownerToken = (await getFirestore().collection('users').where('uid', '=', taskOwner).get()).docs[0].data().token;
@@ -32,7 +31,6 @@ exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
                     {
                     token: ownerToken,
                     data: {
-                        foo: 'bar',
                         description: taskData.description,
                         list: taskData.list,
                         note: taskData.note,
@@ -44,19 +42,13 @@ exports.sendNotificationForDueTasks = onSchedule("* * * * *", async (event) => {
                     },
                     },
                 );
-                getFirestore().collection('notification').doc(doc.id).update({'messageSent': true});
-                logger.info('NotificationSend set to true');
-                
+                getFirestore().collection('notifications').doc(doc.id).update({'messageSent': true});
+                logger.info('NotificationSend set to true');         
             }else{
                 logger.info("The user disabled notifications no message will be sent");
             }
-
-
-
         });
     }else{
         logger.info('No notification needs to be sent');
     }
-
-   
 });

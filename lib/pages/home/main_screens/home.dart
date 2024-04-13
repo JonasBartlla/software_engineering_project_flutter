@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
-import 'package:software_engineering_project_flutter/models/task_tile.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
@@ -18,7 +15,6 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
-import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/agbs.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/datenschutz.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/impressum.dart';
@@ -167,19 +163,6 @@ class _HomeState extends State<Home> {
                           backgroundImage:
                               NetworkImage(currenUser.first.imageUrl),
                         ),
-                        // Container(
-                        //   height: 75,
-                        //   width: 75,
-                        //   decoration: const BoxDecoration(
-                        //     shape: BoxShape.circle,
-                        //     color: AppColors.myTextColor,
-                        //   ),
-                        //   child: const Icon(
-                        //     Icons.person,
-                        //     size: 50,
-                        //     color: AppColors.myAbbrechenColor,
-                        //   ),
-                        // ),
                         const SizedBox(height: 10),
                         Text(currenUser.first.displayName,
                             style: standardTextDecoration),
@@ -188,7 +171,8 @@ class _HomeState extends State<Home> {
                             style:
                                 standardTextDecoration.copyWith(fontSize: 14))
                       ],
-                    )),
+                    )
+                ),
                 ListTile(
                   title: Row(
                     children: [
@@ -222,7 +206,7 @@ class _HomeState extends State<Home> {
                   title: Text('AGBs', style: standardTextDecoration),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => Agbs())));
+                        MaterialPageRoute(builder: ((context) => AGBS())));
                   },
                 ),
                 ListTile(

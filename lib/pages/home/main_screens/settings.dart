@@ -1,10 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
@@ -41,16 +38,6 @@ class _MySettingsState extends State<MySettings> {
     });
     }
   }
-
-  // Future _getImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       _image = File(pickedFile.path);
-  //     });
-  //   }
-  // }
 
   @override
   void initState() {
@@ -113,11 +100,6 @@ class _MySettingsState extends State<MySettings> {
                 ],
               ),
               const SizedBox(height: 20),
-              // Container(
-              //   height: 100,
-              //   width: 100,
-              //   child: Image.network(currentUser.imageUrl)),
-              // // Benutzername
               PhysicalModel(
                 color: AppColors.myBackgroundColor,
                 child: SizedBox(
@@ -187,7 +169,6 @@ class _MySettingsState extends State<MySettings> {
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-
                 } : null,
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(Size(250, 70)),
@@ -257,12 +238,6 @@ class _MySettingsState extends State<MySettings> {
                           decorationColor: Colors.white),
                     ),
                   ])),
-
-              //ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
-              Center(
-                  // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
-                  ),
-
               // Unten am Bildschirm
               Expanded(
                 child: Align(
