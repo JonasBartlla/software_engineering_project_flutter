@@ -20,7 +20,7 @@ class DatabaseService{
     userCollection = FirebaseFirestore.instance.collection('users');
     listCollection = FirebaseFirestore.instance.collection('lists');
     taskCollection = FirebaseFirestore.instance.collection('tasks');
-    notificationCollection = FirebaseFirestore.instance.collection('notifications');
+    notificationCollection = FirebaseFirestore.instance.collection('notification');
   }
 
   final priorityDict = {"keine Priorität" :0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
