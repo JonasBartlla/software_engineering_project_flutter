@@ -48,7 +48,7 @@ class _RegisterState extends State<Register> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 2),
                         //logo
                         const Text(
                           'CheckIT',
@@ -77,7 +77,7 @@ class _RegisterState extends State<Register> {
                               height: 1),
                         ),
 
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 30),
 
                         //willkommen
                         const Text(
@@ -93,7 +93,7 @@ class _RegisterState extends State<Register> {
                               height: 1),
                         ),
 
-                        const SizedBox(height: 70),
+                        const SizedBox(height: 30),
 
                         //Anzeigename
                         const Text(
@@ -123,7 +123,7 @@ class _RegisterState extends State<Register> {
                                 hintText: 'Anzeigename'),
                             validator: (val) {
                               if (val == null || val.isEmpty) {
-                                return "Bitte gib ein Anzeigename ein";
+                                return "Bitte gib einen Anzeigenamen ein";
                               } else {
                                 return null;
                               }
@@ -194,6 +194,9 @@ class _RegisterState extends State<Register> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
+                            inputFormatters: [
+                                    LengthLimitingTextInputFormatter(20)
+                                  ],
                             cursorColor: AppColors.myCheckItGreen,
                             style:
                                 const TextStyle(color: AppColors.myTextColor),
@@ -203,7 +206,7 @@ class _RegisterState extends State<Register> {
                               if (val == null || val.isEmpty) {
                                 return "Bitte gib ein Passwort ein";
                               } else if (validatePasswordPolicy(val) == false) {
-                                return "Das Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindestens ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
+                                return "Passwort entspricht nicht den Passwortrichtlinien:\n- zwischen 8 und 20 Zeichen\n- mindestens ein Groß- und Kleinbuchstabe\n- mindestens eine Zahl\n- mindestens ein Sonderzeichen (!@#\$&*~.)";
                               } else {
                                 return null;
                               }
@@ -297,12 +300,11 @@ class _RegisterState extends State<Register> {
                             style: standardTextDecoration.copyWith(fontWeight: FontWeight.bold)
                           ),
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 5.0),
                         Text(error,
                         style: const TextStyle(color: AppColors.myDeleteColor),
                         ),
 
-                        const SizedBox(height: 5,),
                         //google log in Button
                         SignInButton(
                           Buttons.google,
@@ -314,7 +316,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        const SizedBox(height: 20.0),
+                        const SizedBox(height: 15.0),
                         //hier einloggen
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,

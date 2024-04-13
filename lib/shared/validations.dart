@@ -3,7 +3,7 @@ import 'package:list_ext/list_ext.dart';
 
 String? validateEmail(String? value){
   if(value == null || value.isEmpty){
-    return 'Bitte gebe eine E-Mail-Addresse ein';
+    return 'Bitte gib eine E-Mail Adresse ein';
   } else if (1 != value.split('').countWhere((element) => element == "@")){
     return "Nur E-Mails mit genau einem @-Zeichen sind gültig";
   } else {
@@ -11,7 +11,7 @@ String? validateEmail(String? value){
     if (validateDomains.contains(value)){
       return null;
     }else{
-      return "Deine E-Mail-Addresse enthält keine gültige Domain";
+      return "E-Mail Adresse enthält keine gültige Domain";
     }
   }
 }
