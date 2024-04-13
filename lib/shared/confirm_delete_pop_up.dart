@@ -85,7 +85,6 @@ Future<void> showDeleteTaskConfirmationDialog(Task task, DatabaseService _databa
             style: buttonStyleDecorationDelete,
             onPressed: (){
               _database.deleteTask(task.taskReference);
-              // Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.pop(context);
               Navigator.pop(context);
             }, 

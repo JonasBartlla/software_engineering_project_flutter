@@ -133,6 +133,7 @@ class _CustomContainerState extends State<CustomContainer> {
               const SizedBox(
                 height: 5,
               ),
+              //Liste bearbeiten Button
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -140,6 +141,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   const SizedBox(
                     width: 25,
                   ),
+                  //ToDo erstellen Button
                   ElevatedButton(
                     onPressed: () {
                       _database.getAvailableListForUser().then((lists) {
@@ -186,6 +188,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   const SizedBox(
                     width: 25,
                   ),
+                  //löschen Button
                   getDeleteButton(_database, taskList.first, context)
                 ],
               ),

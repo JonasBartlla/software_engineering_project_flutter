@@ -17,6 +17,7 @@ class ListTileTest extends StatelessWidget {
   Widget build(BuildContext context) {
     final tasks = Provider.of<List<Task>?>(context);
 
+    //zählt die ToDos
     int getCounter(TaskList taskList) {
       if (taskList.description == "Mein Tag") {
         DateTime now = DateTime.now();
@@ -39,6 +40,7 @@ class ListTileTest extends StatelessWidget {
             .length;
       }
     }
+    //Zählung ToDos für Progressbar
     double getProgressPercent(TaskList tasklist){
       double progress;
       if (tasklist.description == "Mein Tag"){

@@ -162,7 +162,6 @@ class _EditTodoState extends State<EditTodo> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                //const SizedBox(width: 6),
                                 const SizedBox(
                                   child: Icon(
                                     Icons.list,
@@ -264,7 +263,6 @@ class _EditTodoState extends State<EditTodo> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                //const SizedBox(width: 6),
                                 const SizedBox(
                                   child: Icon(
                                     Icons.calendar_month_rounded,
@@ -306,11 +304,6 @@ class _EditTodoState extends State<EditTodo> {
                                                     fontWeight:
                                                         FontWeight.normal,
                                                     height: 1),
-                                                // style: TextStyle(
-                                                //   fontSize: 17,
-                                                //   color: AppColors
-                                                //       .myTextInputColor,
-                                                // ),
                                               ))
                                           : Text(
                                               '${DateFormat('dd.MM.yyyy').format(maturityDate)} ${maturityDate.hour.toString().padLeft(2, '0')}:${maturityDate.minute.toString().padLeft(2, '0')}',
@@ -325,7 +318,6 @@ class _EditTodoState extends State<EditTodo> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                //const SizedBox(width: 7),
                                 PhysicalModel(
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular((8)),

@@ -94,6 +94,7 @@ class _TaskTileState extends State<TaskTile> {
                   checkColor: AppColors.myCheckItGreen,
                   activeColor: AppColors.myCheckItGreen,
                   onChanged: (bool? isChecked) {
+                    //ändern des Status zum Abhaken
                     setState(() {                      
                       _database.editTask(
                           widget.task.description,
@@ -107,6 +108,7 @@ class _TaskTileState extends State<TaskTile> {
                           widget.task.taskReference);
                       widget.task.done = !widget.task.done;
                     });
+                    //Checken ob Task abhakt wird und spielt dann Sound
                     if (isChecked == true){
                       playSound();
                     }
@@ -250,6 +252,7 @@ class _TaskTileState extends State<TaskTile> {
       ),
     );
   }
+  //Sound holen der abgespielt wird
   Future<void> playSound() async{
   String audioPath = "ping.mp3";
   await player.play(AssetSource(audioPath));
