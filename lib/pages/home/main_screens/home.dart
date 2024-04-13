@@ -8,8 +8,8 @@ import 'package:software_engineering_project_flutter/pages/home/lists/list_of_ta
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/calender_page.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/auth_service.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';

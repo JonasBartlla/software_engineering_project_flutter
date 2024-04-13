@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/color_picker.dart';
 import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';

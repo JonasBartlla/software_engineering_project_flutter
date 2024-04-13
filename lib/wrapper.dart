@@ -4,7 +4,7 @@ import 'package:software_engineering_project_flutter/pages/authentification/auth
 import 'package:software_engineering_project_flutter/pages/home/main_screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 
 
 
