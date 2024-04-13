@@ -10,7 +10,7 @@ import 'package:software_engineering_project_flutter/services/authService.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final abc =await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   initializeDateFormatting().then((_) => runApp(CheckIT()));

@@ -8,7 +8,7 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/image_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
-import 'package:software_engineering_project_flutter/services/upload_image.dart';
+import 'package:software_engineering_project_flutter/services/upload_image_service.dart';
 
 class MySettings extends StatefulWidget {
   final appUser currentUser;
@@ -25,7 +25,7 @@ class _MySettingsState extends State<MySettings> {
   late appUser currentUser;
   late DatabaseService _databaseService;
   late String changedDisplayName;
-  final StoreData imageStorage = StoreData();
+  final UploadImageService imageStorage = UploadImageService();
   final _formKey = GlobalKey<FormState>();
   bool saveButtonActivated = false;
 
