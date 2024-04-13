@@ -257,6 +257,10 @@ class _EditListPageState extends State<EditListPage> {
                                 ),
                                 onPressed: informationChanged() ? () {
                                   if (_formKey.currentState!.validate()) {
+                                    if(originalTitle != title){
+                                      _database.updateTaskOfLists(originalTitle, title);
+                                      print('skr');
+                                    }
                                     _database.editList(
                                         title,
                                         icon,

@@ -198,6 +198,13 @@ class DatabaseService{
     }); 
   }
 
+  Future updateTaskOfLists(String oldListname, String newListname) async {
+    QuerySnapshot snapshot = await taskCollection.where('ownerId', isEqualTo: uid).where('list', isEqualTo: oldListname ).get();
+    snapshot.docs.forEach((doc) {
+      doc.reference.update({'list': newListname});
+     });
+  }
+
   Future<void> updateNotification(String taskId, DateTime maturityDate)async{
     QuerySnapshot notificationDocument = await notificationCollection.where('taskId', isEqualTo: taskId).get();
     print(notificationDocument.size);
@@ -206,7 +213,7 @@ class DatabaseService{
     }else{
       notificationDocument.docs.forEach((element) 
       {
-        element.reference.update({'maturityDate': maturityDate.millisecondsSinceEpoch});
+        element.reference.update({'maturityDate': maturityDate.millisecondsSinceEpoch, 'messageSent': false});
       }
       );
     }
