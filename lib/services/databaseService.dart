@@ -185,7 +185,6 @@ class DatabaseService{
 
   Future<void> updateNotification(String taskId, DateTime maturityDate)async{
     QuerySnapshot notificationDocument = await notificationCollection.where('taskId', isEqualTo: taskId).get();
-    print(notificationDocument.size);
     if(notificationDocument.size == 0){
       addNotification(uid!, taskId, maturityDate);
     }else{

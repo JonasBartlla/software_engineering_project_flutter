@@ -431,7 +431,6 @@ class _EditTodoState extends State<EditTodo> {
                                       false,
                                       ownerId,
                                       task.taskReference);
-                                  print("edit done");
                                   Navigator.pop(context);
                                 }
                               }

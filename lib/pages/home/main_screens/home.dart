@@ -31,7 +31,6 @@ Future<void> _getToken(DatabaseService _database, String uid) async {
   // Request permission
   NotificationSettings settings =
       await FirebaseMessaging.instance.requestPermission();
-  print(settings.authorizationStatus);
   // Get token
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
     int counter = 0;
@@ -40,12 +39,9 @@ Future<void> _getToken(DatabaseService _database, String uid) async {
         String? token = await FirebaseMessaging.instance.getToken(
             vapidKey:
                 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
-        print(token);
         await _database.updateToken(uid, token);
-        print('update done');
         break;
       } catch (e) {
-        print(e.toString());
         counter = counter + 1;
       }
     }

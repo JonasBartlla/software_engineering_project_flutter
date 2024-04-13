@@ -35,12 +35,9 @@ class AuthService{
       DatabaseService _database = DatabaseService(uid: user!.uid);
       await _database.updateUserDate(user.uid, displayName, user.email, 'https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc=');
       await _database.initializeCollection();
-
-      print('created record');
       
       return user;
     } catch (e) {
-      print(e.toString());
       return e.toString();
     }
   }
@@ -52,7 +49,6 @@ class AuthService{
       User? user = result.user;
       return user;
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -75,8 +71,6 @@ class AuthService{
   if( aggregatedQuery.count == 0){
     _database.initializeCollection();
     _database.updateUserDate(user.uid, user.displayName, user.email, user.photoURL);
-  }else{
-    print('user already exists');
   }
   return user;
   
@@ -91,7 +85,8 @@ class AuthService{
       await _databaseService.updateToken(uid, "");
       return await _auth.signOut();
     } catch(e){
-      print(e.toString());
+      //wenn der User auf einen Fehler läuft, kann er es selber sehen und auf uns zu kommen
+      print(e.toString()); 
       return null;
     }
   }
