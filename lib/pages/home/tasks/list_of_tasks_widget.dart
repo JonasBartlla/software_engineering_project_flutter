@@ -61,9 +61,9 @@ class _ListOfTasksState extends State<ListOfTasks> {
 
     //Sortieralgorithmus
     if (selectedValue == fields[0]) {
-      tasks.sort((a, b) => b.creationDate.compareTo(a.creationDate));
-    } else if (selectedValue == fields[1]) {
       tasks.sort((a, b) => a.creationDate.compareTo(b.creationDate));
+    } else if (selectedValue == fields[1]) {
+      tasks.sort((a, b) => b.creationDate.compareTo(a.creationDate));
     } else if (selectedValue == fields[2]) {
       tasks.sort((a, b) => b.priority.compareTo(a.priority));
     } else if (selectedValue == fields[3]) {
