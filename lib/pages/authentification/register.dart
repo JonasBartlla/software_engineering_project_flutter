@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
+import 'package:software_engineering_project_flutter/services/auth_service.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';

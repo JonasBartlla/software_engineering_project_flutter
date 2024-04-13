@@ -17,10 +17,12 @@ class DatabaseService{
     userCollection = FirebaseFirestore.instance.collection('users');
     listCollection = FirebaseFirestore.instance.collection('lists');
     taskCollection = FirebaseFirestore.instance.collection('tasks');
-    notificationCollection = FirebaseFirestore.instance.collection('notification');
+    notificationCollection = FirebaseFirestore.instance.collection('notifications');
   }
 
   final priorityDict = {"keine Priorität" :0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
+
+  //User related functions
 
   Future updateUserDate(String uid, String? displayName, String? email, String? imageUrl) async {
     return await userCollection.doc(uid).set(
@@ -37,15 +39,41 @@ class DatabaseService{
     return await userCollection.doc(uid).update({'token': token});
   }
 
+  //delete user from collection
+  Future<void> cleanUpUser(String uid)async{
+    //cleanup notifications
+    QuerySnapshot snapshot = await notificationCollection.where('ownerId', isEqualTo: uid).get();
+    snapshot.docs.forEach((notification) { 
+      notification.reference.delete();
+    });
+    //cleanup tasks
+    snapshot = await taskCollection.where('ownerId', isEqualTo: uid).get();
+    snapshot.docs.forEach((task) { 
+      task.reference.delete();
+    }); 
+    //cleanup lists
+    snapshot = await listCollection.where('ownerId', isEqualTo: uid).get();
+    snapshot.docs.forEach((list) { 
+      list.reference.delete();
+    }); 
+    return await userCollection.doc(uid).delete(); //delete entry in user
+  }
+
+  // get a stream from user collection
   Stream<List<appUser>>? get appUsers {
     return userCollection.where('uid',isEqualTo: uid).snapshots().map(_appUserFromSnapshot); 
   }
 
+  // transform stream into list of appUser objects
   List<appUser> _appUserFromSnapshot (QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
       return appUser(uid: doc.get('uid'), displayName: doc.get('displayName'), email: doc.get('email'), imageUrl: doc.get('profileUrl'));
     } ).toList();
   }
+
+  // list related functions
+
+  //initialize basic lists
   Future initializeCollection() async {
     await addList("Mein Tag", Icons.calendar_month_rounded, Colors.white, isEditable: false);
     await addList("Alle ToDos", Icons.house_rounded, Colors.white, isEditable: false);
@@ -63,8 +91,6 @@ class DatabaseService{
       'ownerId': uid,
     });
   }
-
-
 
   //editing List
   Future editList(String bezeichnung, IconData icon, Color iconColor, DocumentReference list, DateTime creationDate, bool isEditable, String ownerId) async {
@@ -93,6 +119,28 @@ class DatabaseService{
     return await list.delete();
   }
 
+  //get Stream of Lists
+  Stream<List<TaskList>>? get lists {
+    return listCollection.where('ownerId',isEqualTo: uid).orderBy('creationDate').snapshots().map(_taskListFromSnapshot);
+  }
+
+  //TaskList from Snapshot
+  List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return TaskList(     
+        description: doc.get('description'),
+        icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
+        iconColor: Color(doc.get('iconColor')),
+        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
+        ownerId: doc.get('ownerId'),
+        isEditable: doc.get('isEditable'),
+        listReference: doc.reference
+      );
+    }
+    ).toList();
+  }
+
+  // search for all list names that belong to the user
   Future<List<String>> getAvailableListForUser({bool addInitialLists = false}) async {
     QuerySnapshot snapshot = await listCollection.where('ownerId',isEqualTo: uid).get(); //Filter all list of user
     List<String> lists = snapshot.docs.where((list){ //filter all editableList of user
@@ -110,24 +158,7 @@ class DatabaseService{
     return lists;
   }
 
-  Future<void> cleanUpUser(String uid)async{
-    //cleanup notifications
-    QuerySnapshot snapshot = await notificationCollection.where('ownerId', isEqualTo: uid).get();
-    snapshot.docs.forEach((notification) { 
-      notification.reference.delete();
-    });
-    //cleanup tasks
-    snapshot = await taskCollection.where('ownerId', isEqualTo: uid).get();
-    snapshot.docs.forEach((task) { 
-      task.reference.delete();
-    }); 
-    //cleanup lists
-    snapshot = await listCollection.where('ownerId', isEqualTo: uid).get();
-    snapshot.docs.forEach((list) { 
-      list.reference.delete();
-    }); 
-    return await userCollection.doc(uid).delete(); //delete entry in user
-  }
+  //task related functions
 
   //add Task
   Future addTask(String description, String note, DateTime maturityDate, int priority, List<DocumentReference>? lists, bool done, String list) async {
@@ -149,15 +180,6 @@ class DatabaseService{
     return task;
   }
 
-  Future addNotification(String ownerId, String taskId, DateTime maturityDate, {bool messageSent = false}) async {
-    return await notificationCollection.add({
-      'ownerId' : ownerId,
-      'taskId': taskId,
-      'maturityDate': maturityDate.millisecondsSinceEpoch,
-      'messageSent':  messageSent
-    });
-  }
-
   Future editTask(String description, String note, DateTime creationDate, DateTime maturityDate, int priority, String list, bool done, String ownerId, DocumentReference taskId) async {
     if(maturityDate.isBefore(DateTime.now()) || done){
       deleteNotification(taskId.id);
@@ -176,6 +198,38 @@ class DatabaseService{
     }); 
   }
 
+  // deletion of task
+  Future deleteTask(DocumentReference task) async{
+    deleteNotification(task.id);
+    return await task.delete();
+  }
+
+  String getPriority(int priority){
+    return priorityDict.keys.firstWhere(
+          (element) => priorityDict[element] == priority);
+  }
+
+    //get Stream of Tasks
+  Stream<List<Task>> get tasks{
+    return taskCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
+  }
+
+  List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return Task(
+        description: doc.get('description'),
+        note: doc.get('note'),
+        priority: doc.get('priority'),
+        maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
+        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
+        ownerId: doc.get('ownerId'),
+        done: doc.get('done'),
+        list: doc.get('list'),
+        taskReference: doc.reference
+      );
+    }).toList();
+  }
+
   Future updateTaskOfLists(String oldListname, String newListname) async {
     QuerySnapshot snapshot = await taskCollection.where('ownerId', isEqualTo: uid).where('list', isEqualTo: oldListname ).get();
     snapshot.docs.forEach((doc) {
@@ -183,7 +237,18 @@ class DatabaseService{
      });
   }
 
-  Future<void> updateNotification(String taskId, DateTime maturityDate)async{
+  // Notification related tasks
+
+  Future addNotification(String ownerId, String taskId, DateTime maturityDate, {bool messageSent = false}) async {
+    return await notificationCollection.add({
+      'ownerId' : ownerId,
+      'taskId': taskId,
+      'maturityDate': maturityDate.millisecondsSinceEpoch,
+      'messageSent':  messageSent
+    });
+  }
+
+  Future<void> updateNotification(String taskId, DateTime maturityDate) async {
     QuerySnapshot notificationDocument = await notificationCollection.where('taskId', isEqualTo: taskId).get();
     if(notificationDocument.size == 0){
       addNotification(uid!, taskId, maturityDate);
@@ -205,59 +270,4 @@ class DatabaseService{
     return;
   }
 
-  // deletion of task
-  Future deleteTask(DocumentReference task) async{
-    deleteNotification(task.id);
-    return await task.delete();
-  }
-
-
-  //get Stream of Lists
-  Stream<List<TaskList>>? get lists {
-    return listCollection.where('ownerId',isEqualTo: uid).orderBy('creationDate').snapshots().map(_taskListFromSnapshot);
-  }
-
- 
-
-  //TaskList from Snapshot
-  List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-      return TaskList(     
-        description: doc.get('description'),
-        icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
-        iconColor: Color(doc.get('iconColor')),
-        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
-        ownerId: doc.get('ownerId'),
-        isEditable: doc.get('isEditable'),
-        listReference: doc.reference
-      );
-    }
-    ).toList();
-  }
-
-  //get Stream of Tasks
-  Stream<List<Task>> get tasks{
-    return taskCollection.where('ownerId',isEqualTo: uid).snapshots().map(_taskFromSnapshot);
-  }
-
-  List<Task> _taskFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-      return Task(
-        description: doc.get('description'),
-        note: doc.get('note'),
-        priority: doc.get('priority'),
-        maturityDate: DateTime.fromMillisecondsSinceEpoch(doc.get('maturityDate')),
-        creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
-        ownerId: doc.get('ownerId'),
-        done: doc.get('done'),
-        list: doc.get('list'),
-        taskReference: doc.reference
-      );
-    }).toList();
-  }
-
-  String getPriority(int priority){
-    return priorityDict.keys.firstWhere(
-          (element) => priorityDict[element] == priority);
-  }
 }
