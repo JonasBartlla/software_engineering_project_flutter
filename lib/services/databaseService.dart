@@ -22,10 +22,6 @@ class DatabaseService{
 
   final priorityDict = {"keine Priorität" :0,"Niedrig": 1, "Mittel": 2, "Hoch": 3}; 
 
-  //final CollectionReference userCollection = FirebaseFirestore.instance.collection('users').doc(uid).collection('taskCollection');
-
-
-
   Future updateUserDate(String uid, String? displayName, String? email, String? imageUrl) async {
     return await userCollection.doc(uid).set(
       {
@@ -50,21 +46,6 @@ class DatabaseService{
       return appUser(uid: doc.get('uid'), displayName: doc.get('displayName'), email: doc.get('email'), imageUrl: doc.get('profileUrl'));
     } ).toList();
   }
-
-  //   List<TaskList> _taskListFromSnapshot(QuerySnapshot snapshot){
-  //   return snapshot.docs.map((doc){
-  //     return TaskList(     
-  //       description: doc.get('description'),
-  //       icon: IconData(doc.get('icon'), fontFamily: 'MaterialIcons'),
-  //       creationDate: DateTime.fromMillisecondsSinceEpoch(doc.get('creationDate')),
-  //       ownerId: doc.get('ownerId'),
-  //       isEditable: doc.get('isEditable'),
-  //       listReference: doc.reference
-  //     );
-  //   }
-  //   ).toList();
-  // }
-
   Future initializeCollection() async {
     await addList("Mein Tag", Icons.calendar_month_rounded, Colors.white, isEditable: false);
     await addList("Alle ToDos", Icons.house_rounded, Colors.white, isEditable: false);
@@ -280,13 +261,4 @@ class DatabaseService{
     return priorityDict.keys.firstWhere(
           (element) => priorityDict[element] == priority);
   }
-    // task appUser from Snapshot
-  // List<appUser> _taskListFromSnapshot(QuerySnapshot snapshot){
-  //   return snapshot.docs.map((doc) {
-  //     return appUser(
-  //       displayName: doc.get('displayName') ?? '' , // if value is null return empty string
-  //       email: doc.get('email') ?? '', 
-  //     );
-  //   }).toList();
-  // }
 }
