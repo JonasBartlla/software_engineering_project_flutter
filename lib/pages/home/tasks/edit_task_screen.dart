@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/confirm_delete_pop_up.dart';
@@ -12,7 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/date_time_picker_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:software_engineering_project_flutter/shared/colors.dart';
 
 class EditTodo extends StatefulWidget {
   final Task task;
@@ -371,102 +368,6 @@ class _EditTodoState extends State<EditTodo> {
                                   ),
                                 ),
                               ]),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: <Widget>[
-                          //     SizedBox(
-                          //       //Löschen Button
-                          //       child: TextButton(
-                          //         style: buttonStyleDecorationDelete,
-                          //         onPressed: () async {
-                          //           await showDeleteTaskConfirmationDialog(
-                          //               task, _database, context);
-                          //           // Navigator.pop(context);
-                          //         },
-                          //         child: const Text(
-                          //           'Löschen',
-                          //           style: TextStyle(
-                          //               color: AppColors.myTextColor,
-                          //               fontFamily: 'Comfortaa',
-                          //               fontSize: 13,
-                          //               letterSpacing: 1,
-                          //               fontWeight: FontWeight.normal,
-                          //               height: 1),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 7,
-                          //     ),
-                          //     SizedBox(
-                          //       //Abbrechen Button
-                          //       child: TextButton(
-                          //         style: ButtonStyle(
-                          //             overlayColor: MaterialStateProperty.all(
-                          //                 AppColors.myCheckITDarkGrey)),
-                          //         onPressed: () {
-                          //           Navigator.pop(context);
-                          //         },
-                          //         child: const Text(
-                          //           'Abbrechen',
-                          //           style: TextStyle(
-                          //               color: AppColors.myTextColor,
-                          //               fontFamily: 'Comfortaa',
-                          //               fontSize: 13,
-                          //               letterSpacing: 1,
-                          //               fontWeight: FontWeight.normal,
-                          //               height: 1),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 7,
-                          //     ),
-                          //     SizedBox(
-                          //       //Speichern Button
-                          //       child: ElevatedButton(
-                          //         style: buttonStyleDecorationcolorchange
-                          //             .copyWith(backgroundColor:
-                          //                 MaterialStateProperty.resolveWith<
-                          //                         Color>(
-                          //                     (Set<MaterialState> states) {
-                          //           if (states
-                          //               .contains(MaterialState.disabled)) {
-                          //             return AppColors.myTextInputColor;
-                          //           }
-                          //           return AppColors.myCheckItGreen;
-                          //         })),
-                          //         onPressed: informationChanged()
-                          //             ? () {
-                          //                 if (_formKey.currentState!
-                          //                     .validate()) {
-                          //                   _database.editTask(
-                          //                       title,
-                          //                       note,
-                          //                       creationDate,
-                          //                       maturityDate,
-                          //                       priority,
-                          //                       list,
-                          //                       false,
-                          //                       ownerId,
-                          //                       task.taskReference);
-                          //                   print("edit done");
-                          //                   Navigator.pop(context);
-                          //                 }
-                          //               }
-                          //             : null,
-                          //         child: const Text('Speichern',
-                          //             style: TextStyle(
-                          //                 color: AppColors.myTextColor,
-                          //                 fontFamily: 'Comfortaa',
-                          //                 fontSize: 13,
-                          //                 letterSpacing: 1,
-                          //                 fontWeight: FontWeight.normal,
-                          //                 height: 1)),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ),
@@ -484,16 +385,6 @@ class _EditTodoState extends State<EditTodo> {
                           // Navigator.pop(context);
                         },
                         child: const Icon (Icons.delete_rounded, color: Colors.white, size: 30,)
-                        // child: const Text(
-                        //   'Löschen',
-                        //   style: TextStyle(
-                        //       color: AppColors.myTextColor,
-                        //       fontFamily: 'Comfortaa',
-                        //       fontSize: 14,
-                        //       letterSpacing: 1,
-                        //       fontWeight: FontWeight.normal,
-                        //       height: 1),
-                        // ),
                       ),
                       const SizedBox(width: 20,),
                       //Abbrechen Button
