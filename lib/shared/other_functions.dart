@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/edit_list_screen.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/confirm_delete_pop_up.dart';
-import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:flutter/material.dart';
 
 Widget getDeleteButton(DatabaseService _database, TaskList taskList, context) {
@@ -13,8 +11,6 @@ Widget getDeleteButton(DatabaseService _database, TaskList taskList, context) {
     return ElevatedButton(
       onPressed: () async {
         showDeleteListConfirmationDialog(taskList, _database, context);
-        // _database.deleteList(taskList.listReference, taskList.description);
-        // Navigator.pop(context);
       },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(EdgeInsets.all(1)),
