@@ -4,8 +4,6 @@ class appUser{
   final String email;
   final String imageUrl;
   
-
-  appUser({required this.uid, required this.displayName, required this.email, required this.imageUrl});
-
+  appUser({required this.uid, required this.displayName, required this.email, required this.imageUrl}); 
   
 }

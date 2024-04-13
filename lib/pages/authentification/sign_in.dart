@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/pages/authentification/reset_password.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
+import 'package:software_engineering_project_flutter/services/auth_service.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
-import 'package:software_engineering_project_flutter/shared/textfields.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 

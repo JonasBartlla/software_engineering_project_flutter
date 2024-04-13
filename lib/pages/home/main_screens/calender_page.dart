@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/models/task_tile.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -102,15 +102,12 @@ class _customValueListBuilderState extends State<customValueListBuilder> {
       taskEvents[taskDateTime]!.add(task);
     });
 
-    taskEvents.forEach((dateTime, taskList) {
-      print('Tasks für Datum $dateTime');
+    taskEvents.forEach((dateTime, taskList) {      
       taskList.forEach((task) {
-        print('- ${task.description}');
       });
     });
 
-    print(taskEvents[DateTime(2024, 4, 13)]);
-
+    
     List<Task> getEventsForDay(DateTime day) {
       return taskEvents[day] ?? [];
     }

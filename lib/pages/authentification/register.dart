@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
+import 'package:software_engineering_project_flutter/services/auth_service.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
@@ -58,7 +58,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 70,
                               letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                                  0,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),
@@ -72,7 +72,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 16,
                               letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                                  0,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),
@@ -88,7 +88,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 40,
                               letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                                  0,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),
@@ -104,7 +104,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 16,
                               letterSpacing:
-                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                                  1,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),
@@ -148,7 +148,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 16,
                               letterSpacing:
-                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                                  1,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),
@@ -185,7 +185,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 16,
                               letterSpacing:
-                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                                  1,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),
@@ -226,7 +226,7 @@ class _RegisterState extends State<Register> {
                               fontFamily: 'Comfortaa',
                               fontSize: 16,
                               letterSpacing:
-                                  1 /*percentages not used in flutter. defaulting to zero*/,
+                                  1,
                               fontWeight: FontWeight.normal,
                               height: 1),
                         ),

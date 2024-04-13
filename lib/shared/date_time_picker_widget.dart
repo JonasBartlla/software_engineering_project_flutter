@@ -57,15 +57,11 @@ Future<DateTime?> showDateTimePicker({
         data: ThemeData.dark().copyWith(
           colorScheme: const ColorScheme.light(
             primary: Color.fromRGBO(101, 167, 101, 1),
-            //primaryContainer: Colors.pink,
-            //secondary: Colors.pink,
-            //tertiary: Colors.pink,
             surfaceVariant: AppColors.myAbbrechenColor,
             onSurface: Colors.white,
             surface: AppColors.myCheckITDarkGrey,
             surfaceTint: AppColors.myCheckITDarkGrey,
             background: Colors.red,
-            //shadow: AppColors.myShadowColor
           ),
           buttonTheme: const ButtonThemeData(
             colorScheme: ColorScheme.dark(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
-class Agbs extends StatelessWidget {
+class AGBS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

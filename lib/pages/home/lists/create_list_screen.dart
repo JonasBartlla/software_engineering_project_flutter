@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/color_picker.dart';
 import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -104,7 +104,7 @@ class _CreateListPageState extends State<CreateListPage> {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
                                     } else if (widget.existingLists
                                         .contains(value)) {
-                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wähle eine andere Bezeichnung';
+                                      return 'Es existiert bereits eine Liste mit diesem Namen.\nBitte wähle eine andere Bezeichnung.';
                                     } else {
                                       return null;
                                     }
@@ -265,6 +265,7 @@ class _CreateListPageState extends State<CreateListPage> {
                 const SizedBox(
                   height: 40,
                 ),
+                //Vorachu der List Tiles
                 const Text(
                   'Vorschau:',
                   style: TextStyle(

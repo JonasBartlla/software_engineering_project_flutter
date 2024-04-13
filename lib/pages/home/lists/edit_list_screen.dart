@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/color_picker.dart';
 import 'package:software_engineering_project_flutter/shared/icon_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
@@ -111,7 +110,7 @@ class _EditListPageState extends State<EditListPage> {
                                     } else if (value.length > 20) {
                                       return 'Bezeichnung darf nicht länger als 20 Zeichen sein';
                                     } else if(widget.existingLists.contains(value) && value != taskList.description){                                      
-                                      return 'Es existiert bereits eine Liste mit diesem Name.\nBitte wähle eine andere Bezeichnung';
+                                      return 'Es existiert bereits eine Liste mit diesem Namen.\nBitte wähle eine andere Bezeichnung.';
                                     } else {
                                       return null;
                                     }
@@ -259,7 +258,6 @@ class _EditListPageState extends State<EditListPage> {
                                   if (_formKey.currentState!.validate()) {
                                     if(originalTitle != title){
                                       _database.updateTaskOfLists(originalTitle, title);
-                                      print('skr');
                                     }
                                     _database.editList(
                                         title,
@@ -294,6 +292,7 @@ class _EditListPageState extends State<EditListPage> {
                 const SizedBox(
                   height: 40,
                 ),
+                //Vorschau der List Tiles
                 const Text(
                   'Vorschau:',
                   style: TextStyle(

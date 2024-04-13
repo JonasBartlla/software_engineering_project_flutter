@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/list_of_tasks_widget.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
@@ -102,11 +102,7 @@ class _CustomContainerState extends State<CustomContainer> {
   Widget build(BuildContext context) {
     final taskList = Provider.of<List<TaskList>>(context).where((element) => element.listReference == widget.taskList.listReference);
     final allList = Provider.of<List<TaskList>>(context);
-    if(taskList.isEmpty){
-      print("hi");
-    }else{
-      print(taskList.first.description);
-    }
+
     return taskList.isEmpty || allList.isEmpty ? Loading() : Column(
             children: [
               const SizedBox(
@@ -137,6 +133,7 @@ class _CustomContainerState extends State<CustomContainer> {
               const SizedBox(
                 height: 5,
               ),
+              //Liste bearbeiten Button
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -144,6 +141,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   const SizedBox(
                     width: 25,
                   ),
+                  //ToDo erstellen Button
                   ElevatedButton(
                     onPressed: () {
                       _database.getAvailableListForUser().then((lists) {
@@ -190,6 +188,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   const SizedBox(
                     width: 25,
                   ),
+                  //löschen Button
                   getDeleteButton(_database, taskList.first, context)
                 ],
               ),

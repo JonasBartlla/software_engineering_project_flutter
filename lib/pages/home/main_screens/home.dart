@@ -1,24 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
-import 'package:software_engineering_project_flutter/models/task_tile.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/calender_page.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
-import 'package:software_engineering_project_flutter/services/authService.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/auth_service.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/pages/home/main_screens/settings.dart';
-import 'package:software_engineering_project_flutter/shared/percent_indicator.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/agbs.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/datenschutz.dart';
 import 'package:software_engineering_project_flutter/pages/home/additional_pages/impressum.dart';
@@ -35,7 +31,6 @@ Future<void> _getToken(DatabaseService _database, String uid) async {
   // Request permission
   NotificationSettings settings =
       await FirebaseMessaging.instance.requestPermission();
-  print(settings.authorizationStatus);
   // Get token
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
     int counter = 0;
@@ -44,12 +39,9 @@ Future<void> _getToken(DatabaseService _database, String uid) async {
         String? token = await FirebaseMessaging.instance.getToken(
             vapidKey:
                 'BGDIXeyOmhM29_CgNE0FpJSpxL8pC7G97NKbORyuRhiMdygSAaUFpq-AkMu330j3H-HXTsLHDDOePtdV6UVc9l4');
-        print(token);
         await _database.updateToken(uid, token);
-        print('update done');
         break;
       } catch (e) {
-        print(e.toString());
         counter = counter + 1;
       }
     }
@@ -142,6 +134,7 @@ class _HomeState extends State<Home> {
             ),
             elevation: 0.0,
           ),
+          //Sidebar Menü
           drawer: Drawer(
             elevation: 5,
             shadowColor: AppColors.myShadowColor,
@@ -167,19 +160,6 @@ class _HomeState extends State<Home> {
                           backgroundImage:
                               NetworkImage(currenUser.first.imageUrl),
                         ),
-                        // Container(
-                        //   height: 75,
-                        //   width: 75,
-                        //   decoration: const BoxDecoration(
-                        //     shape: BoxShape.circle,
-                        //     color: AppColors.myTextColor,
-                        //   ),
-                        //   child: const Icon(
-                        //     Icons.person,
-                        //     size: 50,
-                        //     color: AppColors.myAbbrechenColor,
-                        //   ),
-                        // ),
                         const SizedBox(height: 10),
                         Text(currenUser.first.displayName,
                             style: standardTextDecoration),
@@ -188,7 +168,8 @@ class _HomeState extends State<Home> {
                             style:
                                 standardTextDecoration.copyWith(fontSize: 14))
                       ],
-                    )),
+                    )
+                ),
                 ListTile(
                   title: Row(
                     children: [
@@ -222,7 +203,7 @@ class _HomeState extends State<Home> {
                   title: Text('AGBs', style: standardTextDecoration),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => Agbs())));
+                        MaterialPageRoute(builder: ((context) => AGBS())));
                   },
                 ),
                 ListTile(
