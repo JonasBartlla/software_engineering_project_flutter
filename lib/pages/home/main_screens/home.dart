@@ -222,7 +222,7 @@ class _HomeState extends State<Home> {
                   title: Text('AGBs', style: standardTextDecoration),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => Agbs())));
+                        MaterialPageRoute(builder: ((context) => AGBS())));
                   },
                 ),
                 ListTile(
