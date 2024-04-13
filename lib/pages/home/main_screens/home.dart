@@ -9,6 +9,7 @@ import 'package:software_engineering_project_flutter/models/task_tile.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/create_list_screen.dart';
 import 'package:software_engineering_project_flutter/pages/home/lists/list_of_task_lists_widget.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
+import 'package:software_engineering_project_flutter/pages/home/main_screens/calender_page.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/create_task_screen.dart';
 import 'package:software_engineering_project_flutter/services/authService.dart';
 import 'package:software_engineering_project_flutter/services/databaseService.dart';
@@ -63,22 +64,45 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late User user;
 
-
   @override
   void initState() {
     user = widget.user;
     _database = widget.database;
     _getToken(_database, user.uid);
     FirebaseMessaging.onMessage.listen((event) {
-        print('Got a message whilst in the foreground!');
-        print('Message data: ${event.data}');
-
-        if (event.notification != null) {
-          print('Message also contained a notification: ${event.notification!.title ?? ''}');
-  }
-    }
-    );
-
+      if (event.notification != null){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Row(
+          children:[
+            const Icon(Icons.notifications_active_rounded,
+            color: AppColors.myCheckItGreen,
+            size: 40,),
+            const SizedBox(width: 5,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(event.notification!.title ??'', 
+                style: standardTextDecoration,),
+                const SizedBox(height: 4,),
+                Text(event.notification!.body ??'',
+                style: standardTextDecoration.copyWith(
+                  fontSize: 14
+                ),),
+              ],
+            ),
+          ]
+            ),
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 100,
+            right: 20,
+            left: 20),
+      ));}
+    });
   }
 
   @override
@@ -263,7 +287,8 @@ class _HomeState extends State<Home> {
                               AppColors.myAbbrechenColor),
                           overlayColor: MaterialStateProperty.all(
                               AppColors.myAbbrechenColor),
-                          backgroundColor: MaterialStateProperty.all(AppColors.myAbbrechenColor),
+                          backgroundColor: MaterialStateProperty.all(
+                              AppColors.myAbbrechenColor),
                           elevation: MaterialStateProperty.all(10),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -298,7 +323,8 @@ class _HomeState extends State<Home> {
                               AppColors.myCheckItGreen),
                           overlayColor: MaterialStateProperty.all(
                               AppColors.myCheckItGreen),
-                          backgroundColor: MaterialStateProperty.all(AppColors.myCheckItGreen),
+                          backgroundColor: MaterialStateProperty.all(
+                              AppColors.myCheckItGreen),
                           elevation: MaterialStateProperty.all(10),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -311,7 +337,7 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(
-                              Icons.add,
+                              Icons.add_rounded,
                               color: Colors.white,
                               size: 35,
                             ),
@@ -327,9 +353,11 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         width: 25,
                       ),
+                      //Calendar
                       ElevatedButton(
                         onPressed: () {
                           //hier gehts zum Kalender
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  const CalenderScreen()));
                         },
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(1)),
@@ -337,7 +365,8 @@ class _HomeState extends State<Home> {
                               AppColors.myAbbrechenColor),
                           overlayColor: MaterialStateProperty.all(
                               AppColors.myAbbrechenColor),
-                          backgroundColor: MaterialStateProperty.all(AppColors.myAbbrechenColor),
+                          backgroundColor: MaterialStateProperty.all(
+                              AppColors.myAbbrechenColor),
                           elevation: MaterialStateProperty.all(10),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
