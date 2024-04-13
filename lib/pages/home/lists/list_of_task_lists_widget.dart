@@ -27,8 +27,6 @@ class _ListOfTaskListsState extends State<ListOfTaskLists> {
           lists.length, 
           (index) => ListTileTest(taskList: lists[index], lists: lists,)
           ),
-        
-
     );
   }
 }

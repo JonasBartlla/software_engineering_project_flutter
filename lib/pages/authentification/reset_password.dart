@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/shared/validations.dart';
@@ -27,19 +27,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.myBackgroundColor,
-      //         size: 35),
-      //     onPressed: () => Navigator.pop(context),
-      //   ),
-      //   backgroundColor: const Color.fromRGBO(101, 167, 101, 1),
-      //   title: Text(
-      //     'Passwort zurücksetzen',
-      //     style: standardAppBarTextDecoration.copyWith(fontSize: 25 ),
-      //   ),
-      // ),
             backgroundColor: AppColors.myBackgroundColor,
             body: SafeArea(
               child: Center(
@@ -176,11 +163,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                   Navigator.pop(context);
                                   }
-                                  // final snackBar = SnackBar(
-                                  //   backgroundColor: AppColors.myDeleteColor,
-                                  //   content: Text(e.message),
-                                  //   duration: const Duration(seconds: 2),
-                                  // );
                                 }
                               }, 
                             icon: const Icon(Icons.mail, color: AppColors.myTextColor,), 
@@ -204,13 +186,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   child: Text(
                                     'Hier einloggen',
                                     style: standardTextDecoration.copyWith(fontSize: 14, color: AppColors.myCheckItGreen, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationColor: AppColors.myCheckItGreen),
-                                  // TextStyle(
-                                  //       color: AppColors.myCheckItGreen,
-                                  //       fontWeight: FontWeight.bold,
-                                  //       decoration: TextDecoration.underline,
-                                  //       decorationColor:
-                                  //           AppColors.myCheckItGreen),
-                                  // 
                                   ))
                             ]),
                       ]

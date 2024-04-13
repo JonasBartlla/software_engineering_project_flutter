@@ -17,7 +17,6 @@ class CheckITPercentIndicator extends StatelessWidget {
                   lineHeight: 20,
                   animationDuration: 500,
                   percent: progressPercent,
-                 // center: Text("${(progressPercent * 100).toInt().toString()}%"),
                   trailing: Text("${(progressPercent * 100).toInt().toString()}%", style: standardTextDecoration,),
                   barRadius: const Radius.circular(15),
                   progressColor: progressColor,

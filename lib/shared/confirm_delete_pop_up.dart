@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 
@@ -85,7 +85,6 @@ Future<void> showDeleteTaskConfirmationDialog(Task task, DatabaseService _databa
             style: buttonStyleDecorationDelete,
             onPressed: (){
               _database.deleteTask(task.taskReference);
-              // Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.pop(context);
               Navigator.pop(context);
             }, 

@@ -13,7 +13,6 @@ class Task{
   bool done;
   DocumentReference taskReference;
 
-
   Task({required this.description, required this.note, required this.priority, required this.list, required this.maturityDate, required this.ownerId, required this.creationDate, required this.done, required this.taskReference});
 
 }

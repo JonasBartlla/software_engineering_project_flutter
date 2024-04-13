@@ -1,17 +1,14 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:software_engineering_project_flutter/models/app_user.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/shared/image_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
-import 'package:software_engineering_project_flutter/services/upload_image.dart';
+import 'package:software_engineering_project_flutter/services/upload_image_service.dart';
 
 class MySettings extends StatefulWidget {
   final appUser currentUser;
@@ -28,7 +25,7 @@ class _MySettingsState extends State<MySettings> {
   late appUser currentUser;
   late DatabaseService _databaseService;
   late String changedDisplayName;
-  final StoreData imageStorage = StoreData();
+  final UploadImageService imageStorage = UploadImageService();
   final _formKey = GlobalKey<FormState>();
   bool saveButtonActivated = false;
 
@@ -41,16 +38,6 @@ class _MySettingsState extends State<MySettings> {
     });
     }
   }
-
-  // Future _getImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       _image = File(pickedFile.path);
-  //     });
-  //   }
-  // }
 
   @override
   void initState() {
@@ -113,11 +100,6 @@ class _MySettingsState extends State<MySettings> {
                 ],
               ),
               const SizedBox(height: 20),
-              // Container(
-              //   height: 100,
-              //   width: 100,
-              //   child: Image.network(currentUser.imageUrl)),
-              // // Benutzername
               PhysicalModel(
                 color: AppColors.myBackgroundColor,
                 child: SizedBox(
@@ -150,8 +132,6 @@ class _MySettingsState extends State<MySettings> {
               ElevatedButton(
                 onPressed: saveButtonActivated ? () async {
                   if (_formKey.currentState!.validate()) {
-                    print(
-                        "${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
                     String imageUrl = currentUser.imageUrl;
                     if (_image != null) {
                       imageUrl = await imageStorage.uploadImageToStorage(
@@ -159,7 +139,6 @@ class _MySettingsState extends State<MySettings> {
                     }
                     await _databaseService.updateUserDate(currentUser.uid,
                         changedDisplayName, currentUser.email, imageUrl);
-                    print('updated');
                                       const snackBar = SnackBar(
                                     backgroundColor: AppColors.myCheckItGreen,
                                     content: Row(
@@ -173,7 +152,6 @@ class _MySettingsState extends State<MySettings> {
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
-                    print('unable to update');
                                       const snackBar = SnackBar(
                                     backgroundColor: AppColors.myDeleteColor,
                                     content: Row(
@@ -187,7 +165,6 @@ class _MySettingsState extends State<MySettings> {
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-
                 } : null,
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(Size(250, 70)),
@@ -257,12 +234,6 @@ class _MySettingsState extends State<MySettings> {
                           decorationColor: Colors.white),
                     ),
                   ])),
-
-              //ElevatedButton(onPressed: _getImage, child: Text('Bild hinzufügen')),
-              Center(
-                  // child: _image == null ? Text('kein Bild ausgewählt'): Image.asset(_image),
-                  ),
-
               // Unten am Bildschirm
               Expanded(
                 child: Align(
