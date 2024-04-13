@@ -255,7 +255,7 @@ class _TaskTileState extends State<TaskTile> {
   //Sound holen der abgespielt wird
   Future<void> playSound() async{
   String audioPath = "ping.mp3";
-  await player.play(AssetSource(audioPath));
+  await player.play(UrlSource('https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/pause.wav'));
 }
 }
 
