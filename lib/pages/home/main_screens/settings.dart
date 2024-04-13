@@ -6,6 +6,7 @@ import 'package:software_engineering_project_flutter/models/app_user.dart';
 import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:software_engineering_project_flutter/shared/confirm_delete_pop_up.dart';
 import 'package:software_engineering_project_flutter/shared/image_picker.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
 import 'package:software_engineering_project_flutter/services/upload_image_service.dart';
@@ -87,15 +88,15 @@ class _MySettingsState extends State<MySettings> {
                           backgroundImage: NetworkImage(currentUser.imageUrl),
                         ),
                   Positioned(
+                    bottom: -10,
+                    left: 90,
                     child: IconButton(
                       onPressed: selectImage,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_a_photo,
                         color: AppColors.myCheckItGreen,
                       ),
                     ),
-                    bottom: -10,
-                    left: 90,
                   )
                 ],
               ),
@@ -167,7 +168,7 @@ class _MySettingsState extends State<MySettings> {
                   }
                 } : null,
                 style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(Size(250, 70)),
+                  fixedSize: MaterialStateProperty.all(const Size(250, 70)),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     const EdgeInsets.all(25),
                   ),
@@ -190,7 +191,7 @@ class _MySettingsState extends State<MySettings> {
                   ),
                 ),
                 child: Row(children: [
-                  Icon(
+                  const Icon(
                     Icons.save_as_rounded,
                     color: Colors.white,
                     size: 35,
@@ -204,34 +205,35 @@ class _MySettingsState extends State<MySettings> {
                 ]),
               ),
               const SizedBox(height: 30),
-              ElevatedButton(
+              TextButton(
                   style: ButtonStyle(
                     surfaceTintColor:
-                        MaterialStateProperty.all(AppColors.myDeleteColor),
+                        MaterialStateProperty.all(AppColors.myBackgroundColor),
                     overlayColor:
-                        MaterialStateProperty.all(AppColors.myDeleteColor),
+                        MaterialStateProperty.all(AppColors.myBackgroundColor),
                     backgroundColor:
-                        MaterialStateProperty.all(AppColors.myDeleteColor),
-                    fixedSize: MaterialStateProperty.all(Size(250, 70)),
+                        MaterialStateProperty.all(AppColors.myBackgroundColor),
+                    fixedSize: MaterialStateProperty.all(const Size(250, 70)),
                   ),
                   onPressed: () {
-                    _databaseService.cleanUpUser(user!.uid);
-                    user.delete();
-                    Navigator.pop(context);
+                    showDeleteUserConfirmationDialog(_databaseService, user, context);           
+                    // _databaseService.cleanUpUser(user!.uid);
+                    // ´´user.delete();
+                    // Navigator.pop(context);
                   },
                   child: Row(children: [
-                    Icon(Icons.delete, color: Colors.white, size: 35),
+                    const Icon(Icons.delete_rounded, color: AppColors.myDeleteColor, size: 35),
                     const SizedBox(
                       width: 10,
                     ),
                     Text(
-                      'Account Löschen',
+                      'Account löschen',
                       style: standardTextDecoration.copyWith(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: AppColors.myDeleteColor,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
-                          decorationColor: Colors.white),
+                          decorationColor: AppColors.myDeleteColor),
                     ),
                   ])),
               // Unten am Bildschirm
