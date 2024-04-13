@@ -102,15 +102,12 @@ class _customValueListBuilderState extends State<customValueListBuilder> {
       taskEvents[taskDateTime]!.add(task);
     });
 
-    taskEvents.forEach((dateTime, taskList) {
-      print('Tasks für Datum $dateTime');
+    taskEvents.forEach((dateTime, taskList) {      
       taskList.forEach((task) {
-        print('- ${task.description}');
       });
     });
 
-    print(taskEvents[DateTime(2024, 4, 13)]);
-
+    
     List<Task> getEventsForDay(DateTime day) {
       return taskEvents[day] ?? [];
     }

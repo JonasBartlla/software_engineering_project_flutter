@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 Widget getDeleteButton(DatabaseService _database, TaskList taskList, context) {
   if (taskList.isEditable) {
-    print('true');
     return ElevatedButton(
       onPressed: () async {
         showDeleteListConfirmationDialog(taskList, _database, context);
@@ -36,7 +35,6 @@ Widget getDeleteButton(DatabaseService _database, TaskList taskList, context) {
       ),
     );
   } else {
-    print('false');
     return SizedBox(width: 0);
   }
 }

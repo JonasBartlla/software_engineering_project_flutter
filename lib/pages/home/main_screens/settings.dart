@@ -132,8 +132,6 @@ class _MySettingsState extends State<MySettings> {
               ElevatedButton(
                 onPressed: saveButtonActivated ? () async {
                   if (_formKey.currentState!.validate()) {
-                    print(
-                        "${currentUser.uid} ${changedDisplayName} ${currentUser.email}");
                     String imageUrl = currentUser.imageUrl;
                     if (_image != null) {
                       imageUrl = await imageStorage.uploadImageToStorage(
@@ -141,7 +139,6 @@ class _MySettingsState extends State<MySettings> {
                     }
                     await _databaseService.updateUserDate(currentUser.uid,
                         changedDisplayName, currentUser.email, imageUrl);
-                    print('updated');
                                       const snackBar = SnackBar(
                                     backgroundColor: AppColors.myCheckItGreen,
                                     content: Row(
@@ -155,7 +152,6 @@ class _MySettingsState extends State<MySettings> {
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
-                    print('unable to update');
                                       const snackBar = SnackBar(
                                     backgroundColor: AppColors.myDeleteColor,
                                     content: Row(
