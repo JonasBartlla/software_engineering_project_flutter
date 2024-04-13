@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:software_engineering_project_flutter/models/task.dart';
 import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/edit_task_screen.dart';
-import 'package:software_engineering_project_flutter/services/databaseService.dart';
+import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:audioplayers/audioplayers.dart';
 
