@@ -7,7 +7,6 @@ import 'package:software_engineering_project_flutter/models/task_list.dart';
 import 'package:software_engineering_project_flutter/pages/home/tasks/edit_task_screen.dart';
 import 'package:software_engineering_project_flutter/services/database_service.dart';
 import 'package:software_engineering_project_flutter/shared/colors.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class TaskTile extends StatefulWidget {
   final Task task;
@@ -27,8 +26,6 @@ class TaskTile extends StatefulWidget {
 }
 
 class _TaskTileState extends State<TaskTile> {
-
-  final player = AudioPlayer();
 
   bool isToday(DateTime date) {
     DateTime now = DateTime.now();
@@ -108,10 +105,6 @@ class _TaskTileState extends State<TaskTile> {
                           widget.task.taskReference);
                       widget.task.done = !widget.task.done;
                     });
-                    //Checken ob Task abhakt wird und spielt dann Sound
-                    if (isChecked == true){
-                      playSound();
-                    }
                   },
                 ),
               ),
@@ -252,11 +245,6 @@ class _TaskTileState extends State<TaskTile> {
       ),
     );
   }
-  //Sound holen der abgespielt wird
-  Future<void> playSound() async{
-  String audioPath = "ping.mp3";
-  await player.play(UrlSource('https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/pause.wav'));
-}
 }
 
 
