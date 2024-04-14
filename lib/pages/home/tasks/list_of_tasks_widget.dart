@@ -23,8 +23,8 @@ class _ListOfTasksState extends State<ListOfTasks> {
 
   SortFields selectedValue = SortFields("Sortieren", Icons.swap_vert);
   static List<SortFields> fields = [
-    SortFields("Erstellungsdatum (jüngstes zuerst)", Icons.arrow_upward_sharp),
-    SortFields("Erstellungsdatum (ältestes zuerst)", Icons.arrow_downward_sharp),
+    SortFields("Erstellungsdatum (ältestes zuerst)", Icons.arrow_upward_sharp),
+    SortFields("Erstellungsdatum (jüngstes zuerst)", Icons.arrow_downward_sharp),
     SortFields("Priorität (hohe zuerst)", Icons.arrow_upward_sharp),
     SortFields("Priorität (niedrige zuerst)", Icons.arrow_downward_sharp),
     SortFields("Fälligkeit (frühestes zuerst)", Icons.arrow_upward_sharp),

@@ -10,7 +10,6 @@ import 'package:software_engineering_project_flutter/shared/colors.dart';
 import 'package:software_engineering_project_flutter/shared/loading.dart';
 import 'package:software_engineering_project_flutter/shared/other_functions.dart';
 import 'package:software_engineering_project_flutter/shared/styles_and_decorations.dart';
-import 'package:software_engineering_project_flutter/models/sort_fields.dart';
 
 class ListOfTasksPage extends StatefulWidget {
   final TaskList taskList;
@@ -23,15 +22,6 @@ class ListOfTasksPage extends StatefulWidget {
 }
 
 class _ListOfTaskPageState extends State<ListOfTasksPage> {
-  SortFields selectedValue = SortFields("Sortieren", Icons.swap_vert);
-  final List<SortFields> fields = [
-    SortFields("Erstellungsdatum", Icons.arrow_upward_sharp),
-    SortFields("Erstellungsdatum", Icons.arrow_downward_sharp),
-    SortFields("Priorität", Icons.arrow_upward_sharp),
-    SortFields("Priorität", Icons.arrow_downward_sharp),
-    SortFields("Fälligkeit", Icons.arrow_upward_sharp),
-    SortFields("Fälligkeit", Icons.arrow_downward_sharp)
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +165,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       setState(() {});
                     },
                     style: ButtonStyle(
-                            padding: MaterialStateProperty.all(EdgeInsets.all(1)),
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(1)),
                             surfaceTintColor: MaterialStateProperty.all(
                                 AppColors.myCheckItGreen),
                             overlayColor: MaterialStateProperty.all(
@@ -187,7 +177,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             )),
-                            fixedSize: MaterialStateProperty.all(Size(180, 70)),
+                            fixedSize: MaterialStateProperty.all(const Size(180, 70)),
                           ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

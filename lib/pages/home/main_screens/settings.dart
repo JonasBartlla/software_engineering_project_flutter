@@ -216,16 +216,7 @@ class _MySettingsState extends State<MySettings> {
                     fixedSize: MaterialStateProperty.all(const Size(250, 70)),
                   ),
                   onPressed: () async {
-                    try{
-                      showDeleteUserConfirmationDialog(_databaseService, user, context);
-                    } catch (e){
-                      final snackBar = SnackBar(
-                        backgroundColor: AppColors.myCheckItGreen,
-                        content: Text('Während des löschens ihres Kontos ist ein Fehler aufgetreten. Bitte loggen Sie sich erneut ein und probieren es nochmal.'),
-                        duration: const Duration(seconds: 5),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
+                    showDeleteUserConfirmationDialog(_databaseService, user, context);
                   },
                   child: Row(children: [
                     const Icon(Icons.delete_rounded, color: AppColors.myDeleteColor, size: 35),

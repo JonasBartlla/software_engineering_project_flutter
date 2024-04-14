@@ -133,6 +133,7 @@ Future <void> showDeleteUserConfirmationDialog(DatabaseService databaseService, 
           TextButton(
             style: buttonStyleDecorationDelete,
             onPressed: () async{
+              try{
               showDialog(
                                 context: context,
                                 barrierDismissible: false, 
@@ -142,6 +143,29 @@ Future <void> showDeleteUserConfirmationDialog(DatabaseService databaseService, 
               await user?.delete();
               await databaseService.cleanUpUser(user!.uid);
               Navigator.of(context).popUntil((route) => route.isFirst);
+              const snackBar = SnackBar(
+                        backgroundColor: AppColors.myCheckItGreen,
+                        content: Row(
+                          children: [
+                            Icon(Icons.check, color: AppColors.myTextColor,),
+                                        SizedBox(width: 10,),
+                            Text('Dein Account wurde erfolgreich gelöscht.'),
+                          ],
+                        ),
+                        duration: Duration(seconds: 5),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              } catch(e){
+                Navigator.pop(context);
+                Navigator.pop(context);
+                              const snackBar = SnackBar(
+                        backgroundColor: AppColors.myDeleteColor,
+                        content: Text('Während des Löschens deines Kontos ist ein Fehler aufgetreten. Bitte logge dich erneut ein und probiere es nochmal.'),
+                        duration: Duration(seconds: 5),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
             }, 
             child: const Text('Löschen', style: TextStyle(
                                       color: AppColors.myTextColor,
