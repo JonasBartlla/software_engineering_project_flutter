@@ -38,7 +38,7 @@ class AGBS extends StatelessWidget {
                             color: AppColors.myCheckItGreen, fontSize: 18)),
                     const SizedBox(height: 20),
                     Text(
-                        'Mit der Nutzung von CheckIT stimmst du zu, dass du deine To-Dos organisiert und dein Leben in geordneten Bahnen hältst (oder es zumindest versuchst). Du bist für die Sicherheit deines Accounts und deiner To-Dos verantwortlich. Bitte verwende ein sicheres Passwort und teile es nicht mit anderen. Verwende CheckIT auf eigene Gefahr - wir übernehmen keine Verantwortung für verpasste Deadlines.',
+                        'Mit der Nutzung von CheckIT stimmst du zu, dass du deine ToDos organisiert und dein Leben in geordneten Bahnen hältst (oder es zumindest versuchst). Du bist für die Sicherheit deines Accounts und deiner ToDos verantwortlich. Bitte verwende ein sicheres Passwort und teile es nicht mit anderen. Verwende CheckIT auf eigene Gefahr - wir übernehmen keine Verantwortung für verpasste Deadlines.',
                         style: standardTextDecoration,
                         textAlign: TextAlign.justify),
                   ],
