@@ -38,7 +38,7 @@ class Datenschutz extends StatelessWidget {
                             color: AppColors.myCheckItGreen, fontSize: 18)),
                     const SizedBox(height: 20),
                     Text(
-                        'Deine Daten sind uns wichtig. Aber ehrlich gesagt, wir haben genug damit zu tun, unsere eigenen Termine einzuhalten, um uns um deine persönlichen Informationen zu kümmern. Wir versprechen jedoch, dass wir deine Daten nicht verkaufen werden, es sei denn, jemand bietet uns eine lebenslange Versorgung mit Kaffee an. In diesem Fall müssten wir nochmal darüber reden.',
+                        'Deine Daten sind uns wichtig. Aber ehrlich gesagt, wir haben genug damit zu tun, unsere eigenen Termine einzuhalten, um uns um deine persönlichen Informationen zu kümmern. Wir versprechen jedoch, dass wir deine Daten nicht verkaufen werden, es sei denn, jemand bietet uns eine lebenslange Versorgung mit Paulaner Spezi an. In diesem Fall müssten wir nochmal darüber reden.',
                         style: standardTextDecoration,
                         textAlign: TextAlign.justify),
                   ],
