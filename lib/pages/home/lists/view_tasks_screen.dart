@@ -62,16 +62,36 @@ class _ListOfTaskPageState extends State<ListOfTasksPage> {
               ),
               onPressed: () => Navigator.pop(context),
             ),
-            title: Icon(
-              taskList.icon,
-              color: AppColors.myBackgroundColor,
-              size: 40,
-            ),
+            title: CustomIcon(taskList: taskList),
             centerTitle: true,
           ),
           body: CustomContainer(databaseService: _database, taskList: taskList),
         ),
 
+    );
+  }
+}
+
+class CustomIcon extends StatefulWidget {
+  const CustomIcon({
+    super.key,
+    required this.taskList,
+  });
+
+  final TaskList taskList;
+
+  @override
+  State<CustomIcon> createState() => _CustomIconState();
+}
+
+class _CustomIconState extends State<CustomIcon> {
+  @override
+  Widget build(BuildContext context) {
+    final taskList = Provider.of<List<TaskList>>(context).where((element) => element.listReference == widget.taskList.listReference);
+    return taskList.isEmpty ? Loading() : Icon(
+      taskList.first.icon,
+      color: AppColors.myBackgroundColor,
+      size: 40,
     );
   }
 }
