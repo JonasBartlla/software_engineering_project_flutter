@@ -139,8 +139,8 @@ Future <void> showDeleteUserConfirmationDialog(DatabaseService databaseService, 
                                 builder: (context) => const Center(child: SpinKitChasingDots(
                                   color: AppColors.myCheckItGreen,
                                 ),));
+              await user?.delete();
               await databaseService.cleanUpUser(user!.uid);
-              await user.delete();
               Navigator.of(context).popUntil((route) => route.isFirst);
             }, 
             child: const Text('Löschen', style: TextStyle(
